@@ -76,6 +76,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="physicalOP.cpp" />
+    <ClCompile Include="StorageManager\StorageManager.cpp" />
+    <ClCompile Include="test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="physicalOP.h" />
+    <ClInclude Include="StorageManager\Block.h" />
+    <ClInclude Include="StorageManager\Config.h" />
+    <ClInclude Include="StorageManager\Disk.h" />
+    <ClInclude Include="StorageManager\Field.h" />
+    <ClInclude Include="StorageManager\MainMemory.h" />
+    <ClInclude Include="StorageManager\Relation.h" />
+    <ClInclude Include="StorageManager\Schema.h" />
+    <ClInclude Include="StorageManager\SchemaManager.h" />
+    <ClInclude Include="StorageManager\Tuple.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

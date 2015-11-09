@@ -14,4 +14,47 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="test.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="physicalOP.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StorageManager\StorageManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="physicalOP.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StorageManager\Block.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StorageManager\Config.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StorageManager\Disk.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StorageManager\Field.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StorageManager\MainMemory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StorageManager\Relation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StorageManager\Schema.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StorageManager\SchemaManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StorageManager\Tuple.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
