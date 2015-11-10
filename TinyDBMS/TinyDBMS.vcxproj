@@ -76,11 +76,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DataStructures.cpp" />
     <ClCompile Include="physicalOP.cpp" />
     <ClCompile Include="StorageManager\StorageManager.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DataStructures.h" />
     <ClInclude Include="physicalOP.h" />
     <ClInclude Include="StorageManager\Block.h" />
     <ClInclude Include="StorageManager\Config.h" />

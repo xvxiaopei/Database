@@ -16,6 +16,7 @@
 #include <string>
 #include <iterator>
 #include <vector>
+#include "DataStructures.h"
 
 using namespace std;
 
@@ -34,7 +35,7 @@ public:
 	//add some for debug
 	void displayMem();
 	void displaySchema(Schema &schema);
-	void displayRelation(Relation * relation_ptr);
+	void displayRelation(string relation_name);
 
 	static physicalOP *getInstance() {
         if (physicalop == NULL) {
@@ -48,9 +49,23 @@ public:
 	Relation * CreateTable(string relation_name,
                      vector<string> & field_names, 
                      vector <enum FIELD_TYPE> & field_types);
+
+	void DropTable(string relation_name);
+
+	void insert(string relation_name,
+				vector<string> field_names,
+				vector<string> STR,
+				vector<int> INT);
+
+	vector<Tuple> singleTableSelect(string relation_name,
+									condition con);
+	
+	void Delete(string relation_name,
+				condition con);
+
 };
 
-
+	
 
 
 

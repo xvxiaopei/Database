@@ -24,6 +24,9 @@
     <ClCompile Include="StorageManager\StorageManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="DataStructures.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="physicalOP.h">
@@ -54,6 +57,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="StorageManager\Tuple.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
