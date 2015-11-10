@@ -5,39 +5,39 @@ Qtree *head ;
 %}
 %option               stack
 
-%s                    DISTINCT_STATE
+%x                    DISTINCT_STATE
 
-%s                    WHERE_SUB_STATEMENT
+%x                    WHERE_SUB_STATEMENT
 
-%s                    DROP_TABLE_STATEMENT
+%x                    DROP_TABLE_STATEMENT
 
-%s                    SELECT_STATEMENT
-%s                    S_S_EXPECT_FROM_OR_COMMA
-%s                    S_S_EXPECT_TABLES
-%s                    S_S_DISTINCT_STATE
-%s                    S_S_EXPECT_COLUMNS
-%s                    S_S_EXPECT_WHERE_OR_COMMA
-%s                    S_S_EXPECT_MORE_TABLES
+%x                    SELECT_STATEMENT
+%x                    S_S_EXPECT_FROM_OR_COMMA
+%x                    S_S_EXPECT_TABLES
+%x                    S_S_DISTINCT_STATE
+%x                    S_S_EXPECT_COLUMNS
+%x                    S_S_EXPECT_WHERE_OR_COMMA
+%x                    S_S_EXPECT_MORE_TABLES
 
-%s                    DELETE_STATEMENT
-%s                    D_S_EXPECT_WHERE
+%x                    DELETE_STATEMENT
+%x                    D_S_EXPECT_WHERE
 
 
-%s                    CREATE_TABLE_STATEMENT
-%s                    C_T_S_EXPECT_LEFT_PARENTHESIS
-%s                    C_T_S_EXPECT_ATTR
-%s                    C_T_S_EXPECT_TYPE
-%s                    C_T_S_EXPECT_COMMA_OR_RIGHT_PARENTHESIS
-%s                    C_T_S_EXPECT_WS
+%x                    CREATE_TABLE_STATEMENT
+%x                    C_T_S_EXPECT_LEFT_PARENTHESIS
+%x                    C_T_S_EXPECT_ATTR
+%x                    C_T_S_EXPECT_TYPE
+%x                    C_T_S_EXPECT_COMMA_OR_RIGHT_PARENTHESIS
+%x                    C_T_S_EXPECT_WS
 
-%s                    INSERT_STATEMENT
-%s                    I_S_EXPECT_LEFT_PARENTHESIS
-%s                    I_S_EXPECT_ATTR
-%s                    I_S_VALUES_EXPECT_LEFT_PARENTHESIS_OR_SELECT
-%s                    I_S_EXPECT_VALUES
-%s                    I_S_EXPECT_COMMA_OR_RIGHT_PARENTHESIS
-%s                    I_S_VALUES_EXPECT_COMMA_OR_RIGHT_PARENTHESIS
-%s                    I_S_VALUES_EXPECT_value
+%x                    INSERT_STATEMENT
+%x                    I_S_EXPECT_LEFT_PARENTHESIS
+%x                    I_S_EXPECT_ATTR
+%x                    I_S_VALUES_EXPECT_LEFT_PARENTHESIS_OR_SELECT
+%x                    I_S_EXPECT_VALUES
+%x                    I_S_EXPECT_COMMA_OR_RIGHT_PARENTHESIS
+%x                    I_S_VALUES_EXPECT_COMMA_OR_RIGHT_PARENTHESIS
+%x                    I_S_VALUES_EXPECT_value
 
 
 DOT                   [.]
@@ -81,24 +81,29 @@ COMMA                 [,]
 
 %%
 
-<INITIAL,D_S_EXPECT_WHERE>{SELECT}{WS}+ {
+<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{SELECT}{WS}+ {
 	err_out_START("SELECT");
+	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	BEGIN(SELECT_STATEMENT);
 }
-<INITIAL,D_S_EXPECT_WHERE>{D_F}{WS}+ {
+<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{D_F}{WS}+ {
 	err_out_START("DELETE FROM");
+	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	BEGIN(DELETE_STATEMENT);
 }
-<INITIAL,D_S_EXPECT_WHERE>{C_T}{WS}+ {
+<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{C_T}{WS}+ {
 	err_out_START("CREATE TABLE" );
+	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	BEGIN(CREATE_TABLE_STATEMENT);
 }
-<INITIAL,D_S_EXPECT_WHERE>{D_T}{WS}+ {
+<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{D_T}{WS}+ {
 	err_out_START("DROP TABLE" );
+	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	BEGIN(DROP_TABLE_STATEMENT);
 }
-<INITIAL,D_S_EXPECT_WHERE>{I_I}{WS}+ {
+<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{I_I}{WS}+ {
 	err_out_START("INSERT INTO");
+	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	BEGIN(INSERT_STATEMENT);
 }
 
@@ -228,10 +233,7 @@ COMMA                 [,]
 }
 
 
-{name} {
-	cerr << "scanned name:\t" << yytext << endl ;
-}
-{WS}+ {/* IGNORE white spaces */}       
+<INITIAL>{WS}* {/* IGNORE white spaces */}       
 . {/* all other character */
 	fprintf(stderr, "Error: unaccepted character: %s\n", yytext) ;
 	exit(EXIT_FAILURE); 
