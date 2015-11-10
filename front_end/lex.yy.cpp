@@ -1018,12 +1018,17 @@ case 7:
 YY_RULE_SETUP
 #line 101 "scan.l"
 { 
+	if(current_qt == NULL){
+	}else{
+		current_qt = (current_qt->left = new Qtree(PI) );
+		current_qt->info.push_back(yytext);
+	}
 	cerr << "column_name:\t" << yytext << endl ;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 105 "scan.l"
+#line 110 "scan.l"
 {/* DELETE from table */
 	cerr << "delete table:\t" << yytext << endl ;
 	BEGIN(D_S_EXPECT_WHERE);
@@ -1032,14 +1037,14 @@ YY_RULE_SETUP
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 109 "scan.l"
+#line 114 "scan.l"
 {
 	yy_push_state(WHERE_SUB_STATEMENT) ;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 114 "scan.l"
+#line 119 "scan.l"
 {
 	cerr << "table to Drop:\t" << yytext << endl ;
 	scan_over(DROP_TABLE_STATEMENT);
@@ -1048,7 +1053,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 123 "scan.l"
+#line 128 "scan.l"
 {
 	cerr << "table to ins:\t" << yytext << endl;
 	BEGIN(I_S_EXPECT_LEFT_PARENTHESIS);
@@ -1057,14 +1062,14 @@ YY_RULE_SETUP
 case 12:
 /* rule 12 can match eol */
 YY_RULE_SETUP
-#line 127 "scan.l"
+#line 132 "scan.l"
 {
 	BEGIN(I_S_EXPECT_ATTR);
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 130 "scan.l"
+#line 135 "scan.l"
 {
 	BEGIN(I_S_EXPECT_COMMA_OR_RIGHT_PARENTHESIS) ;
 	cerr << "attribute :\t" << yytext <<endl ;
@@ -1073,7 +1078,7 @@ YY_RULE_SETUP
 case 14:
 /* rule 14 can match eol */
 YY_RULE_SETUP
-#line 134 "scan.l"
+#line 139 "scan.l"
 {
 	BEGIN (I_S_EXPECT_ATTR) ;
 }
@@ -1081,14 +1086,14 @@ YY_RULE_SETUP
 case 15:
 /* rule 15 can match eol */
 YY_RULE_SETUP
-#line 137 "scan.l"
+#line 142 "scan.l"
 {
 	BEGIN(I_S_EXPECT_VALUES) ;
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 140 "scan.l"
+#line 145 "scan.l"
 {
 	BEGIN(I_S_VALUES_EXPECT_LEFT_PARENTHESIS_OR_SELECT);
 }
@@ -1096,7 +1101,7 @@ YY_RULE_SETUP
 case 17:
 /* rule 17 can match eol */
 YY_RULE_SETUP
-#line 143 "scan.l"
+#line 148 "scan.l"
 {
 	BEGIN(I_S_VALUES_EXPECT_value);
 }
@@ -1104,7 +1109,7 @@ YY_RULE_SETUP
 case 18:
 /* rule 18 can match eol */
 YY_RULE_SETUP
-#line 146 "scan.l"
+#line 151 "scan.l"
 {
 	cerr << "value:      \t" << yytext << endl;
 	BEGIN(I_S_VALUES_EXPECT_COMMA_OR_RIGHT_PARENTHESIS);
@@ -1113,7 +1118,7 @@ YY_RULE_SETUP
 case 19:
 /* rule 19 can match eol */
 YY_RULE_SETUP
-#line 150 "scan.l"
+#line 155 "scan.l"
 {
 	BEGIN(I_S_VALUES_EXPECT_value) ;
 }
@@ -1121,7 +1126,7 @@ YY_RULE_SETUP
 case 20:
 /* rule 20 can match eol */
 YY_RULE_SETUP
-#line 153 "scan.l"
+#line 158 "scan.l"
 {
 	scan_over(INSERT_STATEMENT);
 	BEGIN(INITIAL);
@@ -1129,7 +1134,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 159 "scan.l"
+#line 164 "scan.l"
 {
 	/* Enter CREATE TABLE statement */
 	cerr << "create table:\t" << yytext << endl;
@@ -1139,14 +1144,14 @@ YY_RULE_SETUP
 case 22:
 /* rule 22 can match eol */
 YY_RULE_SETUP
-#line 164 "scan.l"
+#line 169 "scan.l"
 {
 	BEGIN(C_T_S_EXPECT_ATTR);
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 167 "scan.l"
+#line 172 "scan.l"
 {
 	BEGIN(C_T_S_EXPECT_WS) ;
 	cerr << "attribute :\t" << yytext <<endl ;
@@ -1155,14 +1160,14 @@ YY_RULE_SETUP
 case 24:
 /* rule 24 can match eol */
 YY_RULE_SETUP
-#line 171 "scan.l"
+#line 176 "scan.l"
 {
 	BEGIN(C_T_S_EXPECT_TYPE) ;
 }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 174 "scan.l"
+#line 179 "scan.l"
 {
 	cerr << "the type is:\t" << yytext << endl ;
 	BEGIN(C_T_S_EXPECT_COMMA_OR_RIGHT_PARENTHESIS) ;
@@ -1171,7 +1176,7 @@ YY_RULE_SETUP
 case 26:
 /* rule 26 can match eol */
 YY_RULE_SETUP
-#line 178 "scan.l"
+#line 183 "scan.l"
 {
 	BEGIN(C_T_S_EXPECT_ATTR);
 }
@@ -1179,7 +1184,7 @@ YY_RULE_SETUP
 case 27:
 /* rule 27 can match eol */
 YY_RULE_SETUP
-#line 181 "scan.l"
+#line 186 "scan.l"
 {
 	scan_over(CREATE_TABLE_STATEMENT);
 	BEGIN(INITIAL);
@@ -1187,7 +1192,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 187 "scan.l"
+#line 192 "scan.l"
 {
 	cerr << "scanned name:\t" << yytext << endl ;
 }
@@ -1195,12 +1200,12 @@ YY_RULE_SETUP
 case 29:
 /* rule 29 can match eol */
 YY_RULE_SETUP
-#line 190 "scan.l"
+#line 195 "scan.l"
 {/* IGNORE white spaces */}       
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 191 "scan.l"
+#line 196 "scan.l"
 {/* all other character */
 	fprintf(stderr, "Error: unaccepted character: %s\n", yytext) ;
 	exit(EXIT_FAILURE); 
@@ -1208,10 +1213,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 196 "scan.l"
+#line 201 "scan.l"
 ECHO;
 	YY_BREAK
-#line 1215 "lex.yy.cpp"
+#line 1220 "lex.yy.cpp"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(WHERE_SUB_STATEMENT):
 case YY_STATE_EOF(DROP_TABLE_STATEMENT):
@@ -2273,7 +2278,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 196 "scan.l"
+#line 201 "scan.l"
 
 
 

@@ -41,13 +41,13 @@ void Qtree::print(int level ){
 
 	for ( i = level ; i > 0 ; i --){ cout<< "\t" ;}
 	switch(type) {
-	case PI: cout << "π" << "\t"; break;
-	case SIGMA: cout << "σ" << "\t";break;
-	case DELTA: cout << "δ" << "\t";break;	
+	case PI: cout << "π" << "\t["; break;
+	case SIGMA: cout << "σ" << "\t[";break;
+	case DELTA: cout << "δ" << "\t[";break;	
 	}
 	for(i = 0; i < info.size(); i++){
 		cout << info[i] << " " ;
-	} cout << endl ;
+	} cout << "]" << endl ;
 	if (left != NULL){left->print(level + 1) ;}
 	if(right != NULL){ right->print(level + 1) ; }
 }

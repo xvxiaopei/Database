@@ -99,6 +99,11 @@ COMMA                 [,]
 	cerr << "Distinct" << endl ;
 }
 <SELECT_STATEMENT>{dotted_name} { 
+	if(current_qt == NULL){
+	}else{
+		current_qt = (current_qt->left = new Qtree(PI) );
+		current_qt->info.push_back(yytext);
+	}
 	cerr << "column_name:\t" << yytext << endl ;
 }
 
