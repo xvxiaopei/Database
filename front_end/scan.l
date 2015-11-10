@@ -15,6 +15,9 @@ Qtree *head ;
 %s                    S_S_EXPECT_FROM_OR_COMMA
 %s                    S_S_EXPECT_TABLES
 %s                    S_S_DISTINCT_STATE
+%s                    S_S_EXPECT_COLUMNS
+%s                    S_S_EXPECT_WHERE_OR_COMMA
+%s                    S_S_EXPECT_MORE_TABLES
 
 %s                    DELETE_STATEMENT
 %s                    D_S_EXPECT_WHERE
@@ -126,7 +129,21 @@ COMMA                 [,]
 	BEGIN(S_S_EXPECT_FROM_OR_COMMA);
 }
 <S_S_EXPECT_TABLES>{name} {
-	
+	current_qt = (current_qt->left = new Qtree(JOIN) );
+	current_qt->info.push_back(yytext) ;
+	cerr << "table name:\t" << yytext << endl;
+	BEGIN(S_S_EXPECT_WHERE_OR_COMMA);
+}
+<S_S_EXPECT_WHERE_OR_COMMA>{WS}*{W}{WS}* {
+	yy_push_state(WHERE_SUB_STATEMENT) ;
+}
+<S_S_EXPECT_WHERE_OR_COMMA>{WS}*{COMMA}{WS}* {
+	BEGIN(S_S_EXPECT_MORE_TABLES);
+}
+<S_S_EXPECT_MORE_TABLES>{name} {
+	current_qt->info.push_back(yytext); 
+	cerr << "table name: \t" << yytext << endl;
+	BEGIN(S_S_EXPECT_WHERE_OR_COMMA);
 }
 
 <DELETE_STATEMENT>{name} {/* DELETE from table */

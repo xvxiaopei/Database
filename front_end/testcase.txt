@@ -5,4 +5,4 @@ CREATE TABLE course (sid INT, homework INT, project INT, exam INT, grade STR20)
 
 DELETE  	FROM  sdfwef
 INSERT INTO course (sid, homework, project, exam, grade) VALUES (1, 99, 100, 100, "A")
-SELECT DISTINCT a.name
+SELECT DISTINCT a.name FROM a, b 
