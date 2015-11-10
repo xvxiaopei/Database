@@ -1,5 +1,7 @@
 %{
 #include "common.h"
+Qtree *current_qt ;
+Qtree *head ;
 %}
 %option               stack
 
@@ -64,7 +66,7 @@ C_T                   {C}{WS}+{T}
 D_T                   {DP}{WS}+{T}
 I_I                   {IS}{WS}+{IT}
 D_F                   {DT}{WS}+{F}
-SELECT                {S}({WS}+{DISTINCT})?
+SELECT                {S}
 LEFT_PARENTHESIS      [(]
 RIGHT_PARENTHESIS     [)]
 COMMA                 [,]
@@ -72,7 +74,7 @@ COMMA                 [,]
 %%
 
 <INITIAL,D_S_EXPECT_WHERE>{SELECT}{WS}+ {
-	err_out_START("SELECT [DISTINCT]");
+	err_out_START("SELECT");
 	BEGIN(SELECT_STATEMENT);
 }
 <INITIAL,D_S_EXPECT_WHERE>{D_F}{WS}+ {
@@ -92,6 +94,10 @@ COMMA                 [,]
 	BEGIN(INSERT_STATEMENT);
 }
 
+<SELECT_STATEMENT>{DISTINCT} {
+	head = (current_qt = new Qtree(DELTA) );
+	cerr << "Distinct" << endl ;
+}
 <SELECT_STATEMENT>{dotted_name} { 
 	cerr << "column_name:\t" << yytext << endl ;
 }
@@ -103,9 +109,6 @@ COMMA                 [,]
 <D_S_EXPECT_WHERE>{WS}*{W}{WS}* {
 	yy_push_state(WHERE_SUB_STATEMENT) ;
 }
-
-
-
 
 
 <DROP_TABLE_STATEMENT>{name} {

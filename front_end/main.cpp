@@ -45,6 +45,7 @@ void scan_over(int statement){
 	HLINE << NORMAL_TEXT <<  endl  ;
 	#endif
 }
+
 int main( int argc, char **argv ){
 	++argv, --argc;  /* skip over program name */
 	if ( argc > 0 ){
@@ -53,4 +54,5 @@ int main( int argc, char **argv ){
 		yyin = stdin;
 	}
 	yylex();
+	head->print(0);
 }

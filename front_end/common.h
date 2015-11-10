@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
+#include <vector>
+#include <string>
 
 using namespace std;
 
@@ -17,5 +19,37 @@ void scan_over(int statement);
 #define NORMAL_TEXT "\e[0m"
 #define HLINE  "---------------"
 
+#define DELTA 0
+#define PI    1
+#define SIGMA 2
+
+
+class Qtree {
+	public:
+	int type ; 
+	vector<string> info;
+	Qtree *left, *right;
+	Qtree(int type); 
+	void print( int );
+}; 
+Qtree::Qtree( int t){
+	type = t;
+	left = NULL;right = NULL;
+}
+void Qtree::print(int level ){
+	int i ;
+
+	for ( i = level ; i > 0 ; i --){ cout<< "\t" ;}
+	switch(type) {
+	case PI: cout << "π" << "\t"; break;
+	case SIGMA: cout << "σ" << "\t";break;
+	case DELTA: cout << "δ" << "\t";break;	
+	}
+	for(i = 0; i < info.size(); i++){
+		cout << info[i] << " " ;
+	} cout << endl ;
+	if (left != NULL){left->print(level + 1) ;}
+	if(right != NULL){ right->print(level + 1) ; }
+}
 
 #endif
