@@ -22,6 +22,7 @@ void scan_over(int statement);
 #define DELTA 0
 #define PI    1
 #define SIGMA 2
+#define JOIN  3
 
 
 class Qtree {
@@ -41,9 +42,10 @@ void Qtree::print(int level ){
 
 	for ( i = level ; i > 0 ; i --){ cout<< "\t" ;}
 	switch(type) {
-	case PI: cout << "π" << "\t["; break;
-	case SIGMA: cout << "σ" << "\t[";break;
-	case DELTA: cout << "δ" << "\t[";break;	
+	case PI: cout << "π " << "\t["; break;
+	case SIGMA: cout << "σ " << "\t[";break;
+	case DELTA: cout << "δ " << "\t[";break;	
+	case JOIN: cout << "⋈ " << "\t["; break;
 	}
 	for(i = 0; i < info.size(); i++){
 		cout << info[i] << " " ;

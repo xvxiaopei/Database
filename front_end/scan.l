@@ -5,11 +5,16 @@ Qtree *head ;
 %}
 %option               stack
 
+%s                    DISTINCT_STATE
+
 %s                    WHERE_SUB_STATEMENT
 
 %s                    DROP_TABLE_STATEMENT
 
 %s                    SELECT_STATEMENT
+%s                    S_S_EXPECT_FROM_OR_COMMA
+%s                    S_S_EXPECT_TABLES
+%s                    S_S_DISTINCT_STATE
 
 %s                    DELETE_STATEMENT
 %s                    D_S_EXPECT_WHERE
@@ -96,15 +101,32 @@ COMMA                 [,]
 
 <SELECT_STATEMENT>{DISTINCT} {
 	head = (current_qt = new Qtree(DELTA) );
-	cerr << "Distinct" << endl ;
+	cerr << "DISTINCT" << endl ;
+	BEGIN(S_S_DISTINCT_STATE) ;
 }
-<SELECT_STATEMENT>{dotted_name} { 
+<SELECT_STATEMENT,S_S_DISTINCT_STATE>{dotted_name} { 
 	if(current_qt == NULL){
 	}else{
 		current_qt = (current_qt->left = new Qtree(PI) );
 		current_qt->info.push_back(yytext);
 	}
 	cerr << "column_name:\t" << yytext << endl ;
+	BEGIN(S_S_EXPECT_FROM_OR_COMMA);
+}
+<S_S_EXPECT_FROM_OR_COMMA>{WS}*{F}{WS}* {
+	BEGIN(S_S_EXPECT_TABLES);
+}
+<S_S_EXPECT_FROM_OR_COMMA>{WS}*{COMMA}{WS}* {
+	BEGIN(S_S_EXPECT_COLUMNS);
+}
+<S_S_EXPECT_COLUMNS>{dotted_name} {
+	current_qt = (current_qt->left = new Qtree(PI) );
+	current_qt->info.push_back(yytext);
+	cerr << "column_name:\t" << yytext << endl ;
+	BEGIN(S_S_EXPECT_FROM_OR_COMMA);
+}
+<S_S_EXPECT_TABLES>{name} {
+	
 }
 
 <DELETE_STATEMENT>{name} {/* DELETE from table */
