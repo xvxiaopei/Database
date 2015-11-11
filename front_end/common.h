@@ -32,6 +32,8 @@ class Qtree {
 	Qtree *left, *right;
 	Qtree(int type); 
 	void print( int );
+	void free() ;
+	void exec();
 }; 
 Qtree::Qtree( int t){
 	type = t;
@@ -54,4 +56,12 @@ void Qtree::print(int level ){
 	if(right != NULL){ right->print(level + 1) ; }
 }
 
+void Qtree::free(){
+	info.clear();
+	if(left != NULL){left->free();}
+	if(right!=NULL){right->free();}
+}
+void Qtree::exec(){
+	print(0);	
+}
 #endif

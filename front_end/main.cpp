@@ -54,5 +54,4 @@ int main( int argc, char **argv ){
 		yyin = stdin;
 	}
 	yylex();
-	head->print(0);
 }

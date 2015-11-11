@@ -18,6 +18,7 @@ Qtree *head ;
 %x                    S_S_EXPECT_COLUMNS
 %x                    S_S_EXPECT_WHERE_OR_COMMA
 %x                    S_S_EXPECT_MORE_TABLES
+%x                    S_S_EXPECT_FROM
 
 %x                    DELETE_STATEMENT
 %x                    D_S_EXPECT_WHERE
@@ -46,6 +47,7 @@ letter                [a-z]
 integer               {digit}+
 comp_op               [<>=]
 pm_op                 [+-]
+STAR                  [*]
 md_op                 [*/]
 name                  {letter}({digit}|{letter})* 
 dotted_name           {name}{DOT}{name}
@@ -81,27 +83,36 @@ COMMA                 [,]
 
 %%
 
+<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT><<EOF>> {
+	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
+	yyterminate();
+}
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{SELECT}{WS}+ {
+	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
 	err_out_START("SELECT");
 	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
-	BEGIN(SELECT_STATEMENT);
+	yy_push_state(SELECT_STATEMENT);
 }
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{D_F}{WS}+ {
+	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
 	err_out_START("DELETE FROM");
 	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	BEGIN(DELETE_STATEMENT);
 }
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{C_T}{WS}+ {
+	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
 	err_out_START("CREATE TABLE" );
 	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	BEGIN(CREATE_TABLE_STATEMENT);
 }
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{D_T}{WS}+ {
+	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
 	err_out_START("DROP TABLE" );
 	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	BEGIN(DROP_TABLE_STATEMENT);
 }
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{I_I}{WS}+ {
+	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
 	err_out_START("INSERT INTO");
 	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	BEGIN(INSERT_STATEMENT);
@@ -110,16 +121,36 @@ COMMA                 [,]
 <SELECT_STATEMENT>{DISTINCT} {
 	head = (current_qt = new Qtree(DELTA) );
 	cerr << "DISTINCT" << endl ;
-	BEGIN(S_S_DISTINCT_STATE) ;
+	yy_pop_state();
+	if(YY_START == I_S_VALUES_EXPECT_LEFT_PARENTHESIS_OR_SELECT){
+		//TODO
+	}
+	yy_push_state(S_S_DISTINCT_STATE) ;
+}
+<SELECT_STATEMENT,S_S_DISTINCT_STATE>{STAR}  {
+	if(current_qt == NULL){	current_qt = new Qtree(PI) ;}
+	else{ current_qt = (current_qt->left = new Qtree(PI) );	}
+	current_qt->info.push_back(yytext);
+	cerr << "column_name:\t" << yytext << endl ;
+	yy_pop_state();
+	if(YY_START == I_S_VALUES_EXPECT_LEFT_PARENTHESIS_OR_SELECT){
+		//TODO
+	}
+	BEGIN(S_S_EXPECT_FROM);
 }
 <SELECT_STATEMENT,S_S_DISTINCT_STATE>{dotted_name} { 
-	if(current_qt == NULL){
-	}else{
-		current_qt = (current_qt->left = new Qtree(PI) );
-		current_qt->info.push_back(yytext);
-	}
+	if(current_qt == NULL){	current_qt = new Qtree(PI) ;}
+	else{ current_qt = (current_qt->left = new Qtree(PI) );	}
+	current_qt->info.push_back(yytext);
 	cerr << "column_name:\t" << yytext << endl ;
+	yy_pop_state();
+	if(YY_START == I_S_VALUES_EXPECT_LEFT_PARENTHESIS_OR_SELECT){
+		//TODO
+	}
 	BEGIN(S_S_EXPECT_FROM_OR_COMMA);
+}
+<S_S_EXPECT_FROM>{WS}*{F}{WS}* {
+	BEGIN(S_S_EXPECT_TABLES);
 }
 <S_S_EXPECT_FROM_OR_COMMA>{WS}*{F}{WS}* {
 	BEGIN(S_S_EXPECT_TABLES);
@@ -191,6 +222,9 @@ COMMA                 [,]
 }
 <I_S_VALUES_EXPECT_LEFT_PARENTHESIS_OR_SELECT>{WS}*{LEFT_PARENTHESIS}{WS}* {
 	BEGIN(I_S_VALUES_EXPECT_value);
+}
+<I_S_VALUES_EXPECT_LEFT_PARENTHESIS_OR_SELECT>{WS}*{SELECT}{WS}* {
+	yy_push_state(SELECT_STATEMENT);
 }
 <I_S_VALUES_EXPECT_value>{value} {
 	cerr << "value:      \t" << yytext << endl;
