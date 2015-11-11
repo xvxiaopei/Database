@@ -128,7 +128,7 @@ COMMA                 [,]
 	yy_push_state(S_S_DISTINCT_STATE) ;
 }
 <SELECT_STATEMENT,S_S_DISTINCT_STATE>{STAR}  {
-	if(current_qt == NULL){	current_qt = new Qtree(PI) ;}
+	if(current_qt == NULL){	head = (current_qt = new Qtree(PI) );}
 	else{ current_qt = (current_qt->left = new Qtree(PI) );	}
 	current_qt->info.push_back(yytext);
 	cerr << "column_name:\t" << yytext << endl ;
@@ -139,7 +139,7 @@ COMMA                 [,]
 	BEGIN(S_S_EXPECT_FROM);
 }
 <SELECT_STATEMENT,S_S_DISTINCT_STATE>({name}|{dotted_name}) { 
-	if(current_qt == NULL){	current_qt = new Qtree(PI) ;}
+	if(current_qt == NULL){head = ( current_qt = new Qtree(PI) );}
 	else{ current_qt = (current_qt->left = new Qtree(PI) );	}
 	current_qt->info.push_back(yytext);
 	cerr << "column_name:\t" << yytext << endl ;
