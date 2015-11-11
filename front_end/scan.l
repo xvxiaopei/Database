@@ -34,8 +34,8 @@ Qtree *head ;
 %x                    INSERT_STATEMENT
 %x                    I_S_EXPECT_LEFT_PARENTHESIS
 %x                    I_S_EXPECT_ATTR
-%x                    I_S_VALUES_EXPECT_LEFT_PARENTHESIS_OR_SELECT
-%x                    I_S_EXPECT_VALUES
+%x                    I_S_VALUES_EXPECT_LEFT_PARENTHESIS
+%x                    I_S_EXPECT_VALUES_OR_SELECT
 %x                    I_S_EXPECT_COMMA_OR_RIGHT_PARENTHESIS
 %x                    I_S_VALUES_EXPECT_COMMA_OR_RIGHT_PARENTHESIS
 %x                    I_S_VALUES_EXPECT_value
@@ -122,7 +122,7 @@ COMMA                 [,]
 	head = (current_qt = new Qtree(DELTA) );
 	cerr << "DISTINCT" << endl ;
 	yy_pop_state();
-	if(YY_START == I_S_VALUES_EXPECT_LEFT_PARENTHESIS_OR_SELECT){
+	if(YY_START == I_S_EXPECT_VALUES_OR_SELECT){
 		//TODO
 	}
 	yy_push_state(S_S_DISTINCT_STATE) ;
@@ -133,18 +133,18 @@ COMMA                 [,]
 	current_qt->info.push_back(yytext);
 	cerr << "column_name:\t" << yytext << endl ;
 	yy_pop_state();
-	if(YY_START == I_S_VALUES_EXPECT_LEFT_PARENTHESIS_OR_SELECT){
+	if(YY_START == I_S_EXPECT_VALUES_OR_SELECT){
 		//TODO
 	}
 	BEGIN(S_S_EXPECT_FROM);
 }
-<SELECT_STATEMENT,S_S_DISTINCT_STATE>{dotted_name} { 
+<SELECT_STATEMENT,S_S_DISTINCT_STATE>({name}|{dotted_name}) { 
 	if(current_qt == NULL){	current_qt = new Qtree(PI) ;}
 	else{ current_qt = (current_qt->left = new Qtree(PI) );	}
 	current_qt->info.push_back(yytext);
 	cerr << "column_name:\t" << yytext << endl ;
 	yy_pop_state();
-	if(YY_START == I_S_VALUES_EXPECT_LEFT_PARENTHESIS_OR_SELECT){
+	if(YY_START == I_S_EXPECT_VALUES_OR_SELECT){
 		//TODO
 	}
 	BEGIN(S_S_EXPECT_FROM_OR_COMMA);
@@ -158,7 +158,7 @@ COMMA                 [,]
 <S_S_EXPECT_FROM_OR_COMMA>{WS}*{COMMA}{WS}* {
 	BEGIN(S_S_EXPECT_COLUMNS);
 }
-<S_S_EXPECT_COLUMNS>{dotted_name} {
+<S_S_EXPECT_COLUMNS>({name}|{dotted_name}) {
 	current_qt = (current_qt->left = new Qtree(PI) );
 	current_qt->info.push_back(yytext);
 	cerr << "column_name:\t" << yytext << endl ;
@@ -215,15 +215,15 @@ COMMA                 [,]
 	BEGIN (I_S_EXPECT_ATTR) ;
 }
 <I_S_EXPECT_COMMA_OR_RIGHT_PARENTHESIS>{WS}*{RIGHT_PARENTHESIS}{WS}* {
-	BEGIN(I_S_EXPECT_VALUES) ;
+	BEGIN(I_S_EXPECT_VALUES_OR_SELECT) ;
 }
-<I_S_EXPECT_VALUES>{V} {
-	BEGIN(I_S_VALUES_EXPECT_LEFT_PARENTHESIS_OR_SELECT);
+<I_S_EXPECT_VALUES_OR_SELECT>{V} {
+	BEGIN(I_S_VALUES_EXPECT_LEFT_PARENTHESIS);
 }
-<I_S_VALUES_EXPECT_LEFT_PARENTHESIS_OR_SELECT>{WS}*{LEFT_PARENTHESIS}{WS}* {
+<I_S_VALUES_EXPECT_LEFT_PARENTHESIS>{WS}*{LEFT_PARENTHESIS}{WS}* {
 	BEGIN(I_S_VALUES_EXPECT_value);
 }
-<I_S_VALUES_EXPECT_LEFT_PARENTHESIS_OR_SELECT>{WS}*{SELECT}{WS}* {
+<I_S_EXPECT_VALUES_OR_SELECT>{WS}*{SELECT}{WS}* {
 	yy_push_state(SELECT_STATEMENT);
 }
 <I_S_VALUES_EXPECT_value>{value} {
