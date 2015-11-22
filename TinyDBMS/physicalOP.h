@@ -36,6 +36,7 @@ public:
 	void displayMem();
 	void displaySchema(Schema &schema);
 	void displayRelation(string relation_name);
+	int IO(){return disk.getDiskIOs();}
 
 	static physicalOP *getInstance() {
         if (physicalop == NULL) {
@@ -63,10 +64,19 @@ public:
 	void Delete(string relation_name,
 				condition con);
 
+	void sortOnMemory(string relation_name,string field_name,vector<string>field_names,
+						int start_block,int num_blocks);  //sort the tuples in Mem
+
+
 	vector<Tuple> Product(string relation_name1,
 				       string relation_name2);   //cross join, one pass
 
+	vector<Tuple> JoinOnePass(string relation_name1,
+				       string relation_name2);   //natural join, one pass
+	Tuple JoinOneTuple(Tuple t1,Tuple t2);         //return a joined tuple if can join, or an invalid tuple
 
+	vector<Tuple> JoinTwoPass(string relation_name1, 
+							string relation_name2);  //natural join, one pass
 };
 
 	

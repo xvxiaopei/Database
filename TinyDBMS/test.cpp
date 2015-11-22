@@ -38,6 +38,15 @@ int main()
   s.pop_back();
   s.push_back("VVV");
   p->insert(relation_name,iFileName,s,a);
+  s.pop_back();
+  s.pop_back();
+  a.pop_back();
+  a.pop_back();
+  a.push_back(7);
+  a.push_back(10);
+  s.push_back("v111");
+  s.push_back("mm");
+   p->insert(relation_name,iFileName,s,a);
   p->displayRelation(relation_name);
 
   condition con;
@@ -47,7 +56,8 @@ int main()
                  cout<<*(it)<<endl;  
                  it = x.erase(it);  
    }   
-	
+	s.pop_back();
+    s.push_back("XML");
   //p->Delete("ExampleTable1",con);
  // p->displayRelation("ExampleTable1");
   p->insert(relation_name,iFileName,s,a);
@@ -63,8 +73,8 @@ int main()
   field_names2.push_back("f4");
   field_names2.push_back("f5");
   field_names2.push_back("f6");
-  field_types2.push_back(STR20);
   field_types2.push_back(INT);
+  field_types2.push_back(STR20);
   field_types2.push_back(INT);
   field_types2.push_back(STR20);
   string relation_name2="ExampleTable2";
@@ -78,9 +88,9 @@ int main()
   iFileName2.push_back("f4");
   iFileName2.push_back("f5");
   iFileName2.push_back("f6");
-  a2.push_back(20);
   a2.push_back(10);
-  s2.push_back("v3");
+  a2.push_back(20);
+  s2.push_back("v14");
   s2.push_back("v2");
   p->insert(relation_name2,iFileName2,s2,a2);
 
@@ -88,16 +98,32 @@ int main()
   s2.push_back("VVV");
   p->insert(relation_name2,iFileName2,s2,a2);
   p->displayRelation(relation_name2);
-
+  cout << "Calculated Disk I/Os = " << p->IO() << endl;
 
   
-
-vector<Tuple> y = p->Product("ExampleTable2","ExampleTable1");
+  
+   vector<Tuple> y = p->Product("ExampleTable2","ExampleTable1");
+  cout<<"cross join: "<<endl;
   for(vector<Tuple>::iterator it  = y.begin(); it != y.end(); )  
    {  
-                 cout<<*(it)<<endl;  
+	  (*(it)).printTuple();
                  it = y.erase(it);  
    }   
+
+  cout<<endl;
+  cout << "Calculated Disk I/Os = " << p->IO() << endl;
+
+
+  vector<Tuple> z =  p->JoinOnePass("ExampleTable2","ExampleTable1");
+  cout<<"natural join: "<<endl;
+  for(vector<Tuple>::iterator it  = z.begin(); it != z.end(); )  
+   {  
+                 cout<<*(it)<<endl;  
+                 it = z.erase(it);  
+   }   
+
+
+  cout << "Calculated Disk I/Os = " << p->IO() << endl;
 
 
   cout<<"?";

@@ -78,14 +78,14 @@ Relation * physicalOP::CreateTable(string relation_name,
 							 vector<string> & field_names, 
 							 vector <enum FIELD_TYPE> & field_types)
 {
-	cout << "****************Creating table " << relation_name<<" ***********" << endl;
-	cout << "Creating a schema" << endl;
+	//cout << "****************Creating table " << relation_name<<" ***********" << endl;
+	//cout << "Creating a schema" << endl;
 	Schema schema(field_names,field_types);
 	//displaySchema(schema);
 	
 	Relation* relation_ptr=schema_manager.createRelation(relation_name,schema);
-	displayRelation(relation_name);
-	cout << "***********************Creatind Done*****************************"<<endl;
+	//displayRelation(relation_name);
+	//cout << "***********************Creation Done*****************************"<<endl;
 	return relation_ptr;
 
 }
@@ -206,6 +206,16 @@ void physicalOP::Delete(string relation_name,              //using mem 0 to get 
 	return;
 }
 
+void physicalOP::sortOnMemory(string relation_name,string field_name,vector<string>field_names,
+						int start_block,int num_blocks)
+{
+
+}
+
+
+
+
+
 vector<Tuple> physicalOP::Product(string relation_name1,
 							   string relation_name2)
 {
@@ -220,9 +230,9 @@ vector<Tuple> physicalOP::Product(string relation_name1,
 	Schema schema2 =  relation_ptr2->getSchema();
 	vector<string> field_names;        // for new schema
 	vector<enum FIELD_TYPE> field_types;
-	Block* block_ptr0,*block_back,*block_ptr;
+	Block* block_ptr0,*block_ptr;
 	block_ptr0=mem.getBlock(0); block_ptr0->clear();
-	block_back=mem.getBlock(1); block_back->clear();
+
 
 	for(int i=0;i<schema1.getFieldNames().size();i++)
 	{
@@ -250,9 +260,10 @@ vector<Tuple> physicalOP::Product(string relation_name1,
 		}
 		field_types.push_back(schema2.getFieldType(i));
 	}
-	string relation_name=relation_name1+"*"+relation_name2;
+	string relation_name=relation_name1+"¡Á"+relation_name2;
 	if(schema_manager.relationExists(relation_name))DropTable(relation_name);
 	Relation* product_ptr=CreateTable(relation_name,field_names,field_types);
+	//displayRelation(relation_name);
 	if(product_ptr==NULL){
 		cout<<"Create Relaton Failed,Return.";
 		return result;
@@ -320,8 +331,160 @@ vector<Tuple> physicalOP::Product(string relation_name1,
 			}
 		}
 	}
-
 	return result;
 
 }
 
+
+Tuple physicalOP::JoinOneTuple(Tuple t1,Tuple t2)
+{
+	Schema schema1 =  t1.getSchema();
+	Schema schema2 =  t2.getSchema();
+	vector<string> field_names,common_fields;        
+	vector<enum FIELD_TYPE> field_types;
+	for(int i=0;i<schema1.getFieldNames().size();i++)
+	{
+		if(schema2.fieldNameExists(schema1.getFieldName(i)))
+		{
+			common_fields.push_back(schema1.getFieldName(i));
+			continue;
+		}
+		
+		else
+		{
+			field_names.push_back(schema1.getFieldName(i));
+			field_types.push_back(schema1.getFieldType(i));
+		}
+	}
+	for(int i=0;i<schema2.getFieldNames().size();i++)
+	{
+		field_names.push_back(schema2.getFieldName(i));
+		field_types.push_back(schema2.getFieldType(i));
+	}
+	string relation_name="JoinedRelation:";
+	for(int i=0;i<common_fields.size();i++) relation_name+=common_fields[i];
+	Relation* Join_ptr;
+	if(schema_manager.relationExists(relation_name))Join_ptr=schema_manager.getRelation(relation_name);
+	else Join_ptr=CreateTable(relation_name,field_names,field_types);
+	//displayRelation(relation_name);
+	Tuple tuple = Join_ptr->createTuple();
+
+
+	for(int i=0;i<schema1.getFieldNames().size();i++)
+	{
+		string Filed_Name=schema1.getFieldName(i);
+		if(schema2.fieldNameExists(Filed_Name))
+		{
+			if(schema1.getFieldType(Filed_Name)==INT&&schema2.getFieldType(Filed_Name)==INT)
+			{
+				if(t1.getField(Filed_Name).integer==t2.getField(Filed_Name).integer)
+				{
+					tuple.setField(Filed_Name,t1.getField(Filed_Name).integer);
+					continue;
+				}
+				else{tuple.null();return tuple;}
+			}
+			else if(schema1.getFieldType(Filed_Name)==STR20&&schema2.getFieldType(Filed_Name)==STR20)
+			{
+				if(*t1.getField(Filed_Name).str==*t2.getField(Filed_Name).str)
+				{
+					tuple.setField(Filed_Name,*t1.getField(Filed_Name).str);
+					continue;
+				}
+				else{tuple.null();return tuple;}
+			}
+			else 
+			{
+				tuple.null();
+				return tuple;
+			}
+		}
+
+		if(schema1.getFieldType(Filed_Name)==INT) tuple.setField(Filed_Name,t1.getField(Filed_Name).integer);
+		else  tuple.setField(Filed_Name,*t1.getField(Filed_Name).str);
+	}
+
+	for(int i=0;i<schema2.getFieldNames().size();i++)
+	{
+		string Filed_Name=schema2.getFieldName(i);
+		if(schema1.fieldNameExists(Filed_Name))
+		{
+			continue;
+		}
+		if(schema2.getFieldType(Filed_Name)==INT) tuple.setField(Filed_Name,t2.getField(Filed_Name).integer);
+		else  tuple.setField(Filed_Name,*t2.getField(Filed_Name).str);
+	}
+
+	return tuple;
+
+
+}
+
+
+
+vector<Tuple>  physicalOP::JoinOnePass(string relation_name1,
+									   string relation_name2)
+{
+	Relation* relation_ptr1 = schema_manager.getRelation(relation_name1);
+	Relation* relation_ptr2 = schema_manager.getRelation(relation_name2);
+	vector<Tuple> result;
+	if (relation_ptr1==NULL||relation_ptr2==NULL){
+                cout << "No Such Relation"<<endl;
+				return result;
+	}
+	Block* block_ptr0,*block_ptr;
+	block_ptr0=mem.getBlock(0); block_ptr0->clear();
+
+	Relation* Rsmall=(relation_ptr1->getNumOfBlocks()>relation_ptr2->getNumOfBlocks())?relation_ptr2:relation_ptr1;
+	Relation* Rlarge=(relation_ptr1->getNumOfBlocks()>relation_ptr2->getNumOfBlocks())?relation_ptr1:relation_ptr2;
+
+	if(!Rsmall->getBlocks(0,1,Rsmall->getNumOfBlocks()))
+	{
+		cout << "Can't be done in ONE PASS! "<<endl;
+		return result;
+	}
+
+	for(int i=0;i<Rlarge->getNumOfBlocks();i++)
+	{
+		Rlarge->getBlock(i,0);
+		for(int j=0;j<block_ptr0->getNumTuples();j++)
+		{
+			Tuple Tlarge=block_ptr0->getTuple(j);
+			cout<<"Tlarge: "<<Tlarge<<endl;
+			for(int k=1;k<1+Rsmall->getNumOfBlocks();k++)
+			{
+				block_ptr=mem.getBlock(k);
+				for(int l=0;l<block_ptr->getNumTuples();l++)
+				{
+					Tuple Tsmall=block_ptr->getTuple(l);
+					cout<<"Tsmall: "<<Tsmall<<endl;
+					Tuple tuple=JoinOneTuple(Tsmall,Tlarge);
+					cout<<"tuple: "<<tuple<<endl;
+					if(!tuple.isNull())result.push_back(tuple);	
+				}
+			}
+		}
+	}
+	return result;
+
+}
+vector<Tuple>  physicalOP::JoinTwoPass(string relation_name1,
+									   string relation_name2)
+{
+	Relation* relation_ptr1 = schema_manager.getRelation(relation_name1);
+	Relation* relation_ptr2 = schema_manager.getRelation(relation_name2);
+	vector<Tuple> result;
+	if (relation_ptr1==NULL||relation_ptr2==NULL){
+                cout << "No Such Relation"<<endl;
+				return result;
+	}
+	Block* block_ptr0,*block_ptr;
+	block_ptr0=mem.getBlock(0); block_ptr0->clear();
+
+
+	return result;
+	//Relation* Rsmall=(relation_ptr1->getNumOfBlocks()>relation_ptr2->getNumOfBlocks())?relation_ptr2:relation_ptr1;
+	//Relation* Rlarge=(relation_ptr1->getNumOfBlocks()>relation_ptr2->getNumOfBlocks())?relation_ptr1:relation_ptr2;
+
+
+}
