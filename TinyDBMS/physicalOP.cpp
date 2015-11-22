@@ -206,10 +206,66 @@ void physicalOP::Delete(string relation_name,              //using mem 0 to get 
 	return;
 }
 
-void physicalOP::sortOnMemory(string relation_name,string field_name,vector<string>field_names,
-						int start_block,int num_blocks)
-{
 
+
+void physicalOP::sortOnMemory(string relation_name,
+							  string field_name,
+								int start_block,int num_blocks)
+{
+	Block *block_ptr;
+	block_ptr=mem.getBlock(start_block);
+	Schema schema =block_ptr->getTuple(0).getSchema();
+	vector<Tuple> tuples;
+	
+	for(int i=start_block;i<start_block+num_blocks;i++)
+	{
+		block_ptr=mem.getBlock(i);
+		for(int j=0;j<block_ptr->getNumTuples();j++)
+		{
+			Tuple t=block_ptr->getTuple(j);
+			if(t.getSchema()!=schema) {cout<<"Different schema!"<<endl;return;}
+			tuples.push_back(t);
+		}
+	}
+	int i,j;             //sort
+	for(j=0;j<tuples.size()-1;j++)
+	{
+		for(i = 0;i<tuples.size()-1-j;i++)
+		{
+			if(schema.getFieldType(field_name)==INT)
+			{
+				if(tuples[i].getField(field_name).integer>tuples[i+1].getField(field_name).integer)
+				{
+					Tuple tmp=tuples[i];
+					tuples[i]=tuples[i+1];
+					tuples[i+1]=tmp;
+				}
+			}
+			else if(schema.getFieldType(field_name)==STR20)
+			{
+				if(tuples[i].getField(field_name).str>tuples[i+1].getField(field_name).str)
+				{
+					Tuple tmp=tuples[i];
+					tuples[i]=tuples[i+1];
+					tuples[i+1]=tmp;
+				}
+			}
+		}
+	}
+	for(int i=start_block;i<start_block+num_blocks;i++)
+	{
+		block_ptr=mem.getBlock(i);
+		for(int j=0;j<schema.getTuplesPerBlock();j++)
+		{
+			if(tuples.empty()) break;
+			Tuple t=tuples.back();
+			tuples.pop_back();
+			cout<<t<<endl;
+			block_ptr->setTuple(j,t);
+		}
+		if(j<schema.getTuplesPerBlock()) {block_ptr->nullTuple(j-1);break;}
+	}
+	return;
 }
 
 

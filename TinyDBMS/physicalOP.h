@@ -64,7 +64,7 @@ public:
 	void Delete(string relation_name,
 				condition con);
 
-	void sortOnMemory(string relation_name,string field_name,vector<string>field_names,
+	void sortOnMemory(string relation_name,string field_names,
 						int start_block,int num_blocks);  //sort the tuples in Mem
 
 
