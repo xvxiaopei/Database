@@ -8,7 +8,7 @@ int main()
 	cout<<"test"<<endl;
 	physicalOP* p=physicalOP::getInstance();
 	
-	vector<string> field_names;
+  vector<string> field_names;
   vector<enum FIELD_TYPE> field_types;
   field_names.push_back("f1");
   field_names.push_back("f2");
@@ -52,7 +52,53 @@ int main()
  // p->displayRelation("ExampleTable1");
   p->insert(relation_name,iFileName,s,a);
   p->displayRelation("ExampleTable1");
-  p->Delete("ExampleTable1",con);
-  p->displayRelation("ExampleTable1");
+ // p->Delete("ExampleTable1",con);
+  //p->displayRelation("ExampleTable1");
+
+
+
+  vector<string> field_names2;
+  vector<enum FIELD_TYPE> field_types2;
+  field_names2.push_back("f3");
+  field_names2.push_back("f4");
+  field_names2.push_back("f5");
+  field_names2.push_back("f6");
+  field_types2.push_back(STR20);
+  field_types2.push_back(INT);
+  field_types2.push_back(INT);
+  field_types2.push_back(STR20);
+  string relation_name2="ExampleTable2";
+  //Relation* relation_ptr=p->
+  p->DropTable(relation_name2);
+  p->CreateTable(relation_name2,field_names2,field_types2);
+  vector<string> iFileName2;
+  vector<int> a2;
+  vector<string> s2;
+  iFileName2.push_back("f3");
+  iFileName2.push_back("f4");
+  iFileName2.push_back("f5");
+  iFileName2.push_back("f6");
+  a2.push_back(20);
+  a2.push_back(10);
+  s2.push_back("v3");
+  s2.push_back("v2");
+  p->insert(relation_name2,iFileName2,s2,a2);
+
+  s2.pop_back();
+  s2.push_back("VVV");
+  p->insert(relation_name2,iFileName2,s2,a2);
+  p->displayRelation(relation_name2);
+
+
+  
+
+vector<Tuple> y = p->Product("ExampleTable2","ExampleTable1");
+  for(vector<Tuple>::iterator it  = y.begin(); it != y.end(); )  
+   {  
+                 cout<<*(it)<<endl;  
+                 it = y.erase(it);  
+   }   
+
+
   cout<<"?";
 }
