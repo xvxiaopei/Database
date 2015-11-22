@@ -63,6 +63,10 @@ public:
 	void Delete(string relation_name,
 				condition con);
 
+	vector<Tuple> Product(string relation_name1,
+				       string relation_name2);   //cross join, one pass
+
+
 };
 
 	
