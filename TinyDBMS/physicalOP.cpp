@@ -78,12 +78,14 @@ Relation * physicalOP::CreateTable(string relation_name,
 							 vector<string> & field_names, 
 							 vector <enum FIELD_TYPE> & field_types)
 {
+	cout << "****************Creating table " << relation_name<<" ***********" << endl;
 	cout << "Creating a schema" << endl;
 	Schema schema(field_names,field_types);
 	//displaySchema(schema);
-	cout << "Creating table " << relation_name << endl;
+	
 	Relation* relation_ptr=schema_manager.createRelation(relation_name,schema);
 	displayRelation(relation_name);
+	cout << "***********************Creatind Done*****************************"<<endl;
 	return relation_ptr;
 
 }
@@ -165,10 +167,10 @@ void physicalOP::Delete(string relation_name,              //using mem 0 to get 
 	Block* block_ptr,*block_back;
 	int tuplesBack = 0;
 	int blockback=0;
-	int blockin;
+	//int blockin;
 	cout<<"Delete"<<endl;
-	block_ptr=mem.getBlock(0);
-	block_back=mem.getBlock(1);
+	block_ptr=mem.getBlock(0); block_ptr->clear();
+	block_back=mem.getBlock(1); block_back->clear();
 
 
 	if (relation_ptr==NULL){
@@ -204,4 +206,122 @@ void physicalOP::Delete(string relation_name,              //using mem 0 to get 
 	return;
 }
 
+vector<Tuple> physicalOP::Product(string relation_name1,
+							   string relation_name2)
+{
+	Relation* relation_ptr1 = schema_manager.getRelation(relation_name1);
+	Relation* relation_ptr2 = schema_manager.getRelation(relation_name2);
+	vector<Tuple> result;
+	if (relation_ptr1==NULL||relation_ptr2==NULL){
+                cout << "No Such Relation"<<endl;
+				return result;
+	}
+	Schema schema1 =  relation_ptr1->getSchema();
+	Schema schema2 =  relation_ptr2->getSchema();
+	vector<string> field_names;        // for new schema
+	vector<enum FIELD_TYPE> field_types;
+	Block* block_ptr0,*block_back,*block_ptr;
+	block_ptr0=mem.getBlock(0); block_ptr0->clear();
+	block_back=mem.getBlock(1); block_back->clear();
+
+	for(int i=0;i<schema1.getFieldNames().size();i++)
+	{
+		if(schema2.fieldNameExists(schema1.getFieldName(i)))
+		{
+			field_names.push_back(relation_name1+"."+schema1.getFieldName(i));
+		}
+		else
+		{
+			field_names.push_back(schema1.getFieldName(i));
+		}
+		field_types.push_back(schema1.getFieldType(i));
+
+	}
+
+	for(int i=0;i<schema2.getFieldNames().size();i++)
+	{
+		if(schema1.fieldNameExists(schema2.getFieldName(i)))
+		{
+			field_names.push_back(relation_name2+"."+schema2.getFieldName(i));
+		}
+		else
+		{
+			field_names.push_back(schema2.getFieldName(i));
+		}
+		field_types.push_back(schema2.getFieldType(i));
+	}
+	string relation_name=relation_name1+"*"+relation_name2;
+	if(schema_manager.relationExists(relation_name))DropTable(relation_name);
+	Relation* product_ptr=CreateTable(relation_name,field_names,field_types);
+	if(product_ptr==NULL){
+		cout<<"Create Relaton Failed,Return.";
+		return result;
+	}
+	Relation* Rsmall=(relation_ptr1->getNumOfBlocks()>relation_ptr2->getNumOfBlocks())?relation_ptr2:relation_ptr1;
+	Relation* Rlarge=(relation_ptr1->getNumOfBlocks()>relation_ptr2->getNumOfBlocks())?relation_ptr1:relation_ptr2;
+
+	if(!Rsmall->getBlocks(0,1,Rsmall->getNumOfBlocks()))
+	{
+		cout << "Can't be done in ONE PASS! "<<endl;
+		return result;
+	}
+
+
+	Tuple tuple = product_ptr->createTuple();
+	//int blockNumInPorduct;
+	for(int i=0;i<Rlarge->getNumOfBlocks();i++)
+	{
+		Rlarge->getBlock(i,0);
+		//while(!block_back->isFull())
+		for(int j=0;j<block_ptr0->getNumTuples();j++)
+		{
+			Tuple Tlarge=block_ptr0->getTuple(j);
+			//cout<<Tlarge<<endl;
+			for(int k=1;k<1+Rsmall->getNumOfBlocks();k++)
+			{
+				block_ptr=mem.getBlock(k);
+				for(int l=0;l<block_ptr->getNumTuples();l++)
+				{
+					Tuple Tsmall=block_ptr->getTuple(l);
+					//cout<<Tsmall<<endl;
+					int m,n;
+					if(Rsmall==relation_ptr1){
+						for(m=0;m<Tsmall.getNumOfFields();m++)
+						{
+							if(schema1.getFieldType(m)==INT)
+								tuple.setField(m,Tsmall.getField(m).integer);
+							else tuple.setField(m,*Tsmall.getField(m).str);
+						}
+						for(n=0;n<Tlarge.getNumOfFields();n++,m++)
+						{
+							if(schema2.getFieldType(n)==INT)
+								tuple.setField(m,Tlarge.getField(n).integer);
+							else tuple.setField(m,*Tlarge.getField(n).str);
+						}
+					}
+					else{
+						for(m=0;m<Tlarge.getNumOfFields();m++)
+						{
+							if(schema1.getFieldType(m)==INT)
+								tuple.setField(m,Tlarge.getField(m).integer);
+							else tuple.setField(m,*Tlarge.getField(m).str);
+						}
+						for(n=0;n<Tsmall.getNumOfFields();n++,m++)
+						{
+							if(schema2.getFieldType(n)==INT)
+								tuple.setField(m,Tsmall.getField(n).integer);
+							else tuple.setField(m,*Tsmall.getField(n).str);
+						}
+					}   //complete tuple
+					//now insert
+					//cout<<tuple;
+					result.push_back(tuple);	
+				}
+			}
+		}
+	}
+
+	return result;
+
+}
 
