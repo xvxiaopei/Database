@@ -1095,7 +1095,7 @@ case 7:
 YY_RULE_SETUP
 #line 130 "scan.l"
 {
-	if(current_qt == NULL){	current_qt = new Qtree(PI) ;}
+	if(current_qt == NULL){	head = (current_qt = new Qtree(PI) );}
 	else{ current_qt = (current_qt->left = new Qtree(PI) );	}
 	current_qt->info.push_back(yytext);
 	cerr << "column_name:\t" << yytext << endl ;
@@ -1110,7 +1110,7 @@ case 8:
 YY_RULE_SETUP
 #line 141 "scan.l"
 { 
-	if(current_qt == NULL){	current_qt = new Qtree(PI) ;}
+	if(current_qt == NULL){head = ( current_qt = new Qtree(PI) );}
 	else{ current_qt = (current_qt->left = new Qtree(PI) );	}
 	current_qt->info.push_back(yytext);
 	cerr << "column_name:\t" << yytext << endl ;
