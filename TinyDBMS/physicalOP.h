@@ -64,9 +64,10 @@ public:
 	void Delete(string relation_name,
 				condition con);
 
-	void sortOnMemory(string relation_name,string field_names,
-						int start_block,int num_blocks);  //sort the tuples in Mem
+	vector<Tuple> sortOnMemory(string relation_name,string field_name,
+						int start_block,int num_blocks);  //sort the tuples in Mem,return a vector of Tuples sorted
 
+	vector<Tuple> SortOnePass(string relation_name,string field_name);  //sort ONE PASS algorithm(don't write back)
 
 	vector<Tuple> Product(string relation_name1,
 				       string relation_name2);   //cross join, one pass

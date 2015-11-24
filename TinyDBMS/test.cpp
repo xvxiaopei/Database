@@ -29,7 +29,7 @@ int main()
   iFileName.push_back("f4");
   iFileName.push_back("f1");
   iFileName.push_back("f3");
-  a.push_back(20);
+  a.push_back(14);
   a.push_back(10);
   s.push_back("v14");
   s.push_back("v13");
@@ -42,7 +42,7 @@ int main()
   s.pop_back();
   a.pop_back();
   a.pop_back();
-  a.push_back(7);
+  a.push_back(21);
   a.push_back(10);
   s.push_back("v111");
   s.push_back("mm");
@@ -56,6 +56,14 @@ int main()
                  cout<<*(it)<<endl;  
                  it = x.erase(it);  
    }   
+	s.pop_back();
+   a.pop_back();
+   a.pop_back();
+   a.push_back(17);
+   a.push_back(10);
+   s.push_back("v111");
+  
+  
 	s.pop_back();
     s.push_back("XML");
   //p->Delete("ExampleTable1",con);
@@ -125,6 +133,18 @@ int main()
 
   cout << "Calculated Disk I/Os = " << p->IO() << endl;
 
+ 
+   z =   p->SortOnePass("ExampleTable1","f2");
+  cout<<"Sort: "<<endl;
+  for(vector<Tuple>::iterator it  = z.begin(); it != z.end(); )  
+   {  
+                 cout<<*(it)<<endl;  
+                 it = z.erase(it);  
+   }   
+
+
+
+  p->displayMem();
 
   cout<<"?";
   

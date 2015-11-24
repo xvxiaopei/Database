@@ -208,14 +208,14 @@ void physicalOP::Delete(string relation_name,              //using mem 0 to get 
 
 
 
-void physicalOP::sortOnMemory(string relation_name,
+vector<Tuple> physicalOP::sortOnMemory(string relation_name,
 							  string field_name,
 								int start_block,int num_blocks)
 {
 	Block *block_ptr;
 	block_ptr=mem.getBlock(start_block);
 	Schema schema =block_ptr->getTuple(0).getSchema();
-	vector<Tuple> tuples;
+	vector<Tuple> tuples,results;
 	
 	for(int i=start_block;i<start_block+num_blocks;i++)
 	{
@@ -223,7 +223,7 @@ void physicalOP::sortOnMemory(string relation_name,
 		for(int j=0;j<block_ptr->getNumTuples();j++)
 		{
 			Tuple t=block_ptr->getTuple(j);
-			if(t.getSchema()!=schema) {cout<<"Different schema!"<<endl;return;}
+			if(t.getSchema()!=schema) {cout<<"Different schema!"<<endl;return results;}
 			tuples.push_back(t);
 		}
 	}
@@ -255,18 +255,30 @@ void physicalOP::sortOnMemory(string relation_name,
 	for(int i=start_block;i<start_block+num_blocks;i++)
 	{
 		block_ptr=mem.getBlock(i);
-		for(int j=0;j<schema.getTuplesPerBlock();j++)
+		int j=0;
+		for(;j<schema.getTuplesPerBlock();j++)
 		{
 			if(tuples.empty()) break;
 			Tuple t=tuples.back();
+			results.push_back(t);
 			tuples.pop_back();
 			cout<<t<<endl;
 			block_ptr->setTuple(j,t);
 		}
 		if(j<schema.getTuplesPerBlock()) {block_ptr->nullTuple(j-1);break;}
 	}
-	return;
+	return results;
 }
+
+vector<Tuple> physicalOP::SortOnePass(string relation_name,string field_name)
+{
+	Relation* relation_ptr = schema_manager.getRelation(relation_name);
+	vector<Tuple> result;
+	if(relation_ptr->getNumOfBlocks()>10) {cout<<"this sort can't be in one pass! "<<endl;return result;}
+	relation_ptr->getBlocks(0,0,relation_ptr->getNumOfBlocks());
+	return sortOnMemory(relation_name,field_name,0,relation_ptr->getNumOfBlocks());
+}
+
 
 
 
