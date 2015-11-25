@@ -34,6 +34,11 @@ public:
 		block_index=0;
 		offset=0;
 	}
+	tupAddr(int _block_index,int _offset)
+	{
+		block_index=_block_index;
+		offset=_offset;
+	}
 
 
 };

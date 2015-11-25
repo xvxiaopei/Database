@@ -266,7 +266,7 @@ tupAddr  physicalOP::getMin(string field_name,int start_block,int num_blocks)
 }
 
 
-vector<Tuple> physicalOP::sortOnMemory(string relation_name,
+vector<Tuple> physicalOP::sortOnMemory(
 							  string field_name,
 								int start_block,int num_blocks)
 {
@@ -334,7 +334,7 @@ vector<Tuple> physicalOP::SortOnePass(string relation_name,string field_name)
 	vector<Tuple> result;
 	if(relation_ptr->getNumOfBlocks()>10) {cout<<"This sort can't be in one pass! "<<endl;return result;}
 	relation_ptr->getBlocks(0,0,relation_ptr->getNumOfBlocks());
-	return sortOnMemory(relation_name,field_name,0,relation_ptr->getNumOfBlocks());
+	return sortOnMemory(field_name,0,relation_ptr->getNumOfBlocks());
 }
 
 vector<string> physicalOP::sortedSub(string relation_name,string field_name)
@@ -351,7 +351,7 @@ vector<string> physicalOP::sortedSub(string relation_name,string field_name)
 		relation_ptr->getBlocks(count,0,getNumOfBlocks);
 		leftBlocks-=getNumOfBlocks;
 		char nameplus='0'+ numOfSub;
-		sortOnMemory(relation_name,field_name,0,getNumOfBlocks);
+		sortOnMemory(field_name,0,getNumOfBlocks);
 		//cout<<relation_name+'-'+nameplus<<"  "<<leftBlocks<<endl;
 		string name=relation_name+'-'+nameplus;
 		if(schema_manager.relationExists(name)) DropTable(name);
@@ -389,7 +389,7 @@ vector<Tuple> physicalOP::SortTwoPass(string relation_name,string field_name)
 
 	while(sum>0)
 	{
-		displayMem();
+		//displayMem();
 		tmp=getMin(field_name,0,sublist.size());
 		cout<<"Min  Index is "<<tmp.block_index<<" , off set is "<<tmp.block_index<<endl;
 		block_ptr=mem.getBlock(tmp.block_index);
@@ -411,6 +411,83 @@ vector<Tuple> physicalOP::SortTwoPass(string relation_name,string field_name)
 	return result;
 }
 
+
+bool physicalOP::tupleEqual(Tuple a,Tuple b)
+{
+	if(a.isNull()||b.isNull())return false;
+	if(a.getSchema()!=b.getSchema()) return false;
+	Schema schema=a.getSchema();
+	for(int i=0;i<schema.getNumOfFields();i++)
+	{
+		if(schema.getFieldType(i)==INT)
+		{
+			if(a.getField(i).integer!=b.getField(i).integer) return false;	
+		}
+		if(schema.getFieldType(i)==STR20)
+		{
+			if(*a.getField(i).str!=*b.getField(i).str) return false;	
+		}
+	}
+	return true;
+}
+
+vector<tupAddr*> physicalOP::findDupOnMemory(Tuple t,int start_block,int num_blocks)
+{
+	vector<tupAddr*> results;
+	Block *block_ptr;
+	for(int i=start_block;i<start_block+num_blocks;i++)
+	{
+		if(!mem.getBlock(i)->isEmpty()) {block_ptr=mem.getBlock(i);break;}
+	}
+	vector<Tuple> a=block_ptr->getTuples();
+	int tupPerBlock =a[0].getSchema().getTuplesPerBlock();
+	for(int i=start_block;i<start_block+num_blocks;i++)
+	{
+		if(!mem.getBlock(i)->isEmpty()) {block_ptr=mem.getBlock(i);}
+		else continue;
+		//vector<Tuple> m=block_ptr->getTuples();
+		for(int j=0;j<tupPerBlock;j++)
+		{
+			if(tupleEqual(block_ptr->getTuple(j),t)) results.push_back(new tupAddr(i,j));
+		}
+	}
+	return results;
+
+}
+
+vector<Tuple> physicalOP::dupOnePass(string relation_name)
+{
+	Relation* relation_ptr = schema_manager.getRelation(relation_name);
+	vector<Tuple> result;
+	Block *block_ptr;
+	int numOfBlocks=relation_ptr->getNumOfBlocks();
+	if(numOfBlocks>10) {cout<<"This duplicate elimination can't be in one pass! "<<endl;return result;}
+	relation_ptr->getBlocks(0,0,numOfBlocks);
+	Schema schema=relation_ptr->getSchema();
+	int tupPerBlock=schema.getTuplesPerBlock();
+	displayMem();
+
+	for(int i=0;i<numOfBlocks;i++)
+	{
+		block_ptr=mem.getBlock(i);
+		for(int j=0;j<tupPerBlock;j++)
+		{
+			if(block_ptr->getTuple(j).isNull())continue;
+			vector<tupAddr*> dupAddr=findDupOnMemory(block_ptr->getTuple(j),i,numOfBlocks-i);
+			cout<<"There are "<<dupAddr.size()<<" duplicates"<<endl;
+			while(!dupAddr.empty())
+			{
+				tupAddr * a=dupAddr.back();
+				cout<<"duplicate is on "<<a->block_index<<"  "<<a->offset<<endl;
+				if(a->block_index!=i||a->offset!=j) mem.getBlock(a->block_index)->nullTuple(a->offset); //not itself,eliminate
+				dupAddr.pop_back();
+			}
+		}
+	}
+	return mem.getTuples(0,relation_ptr->getNumOfBlocks());
+
+
+}
 
 
 
