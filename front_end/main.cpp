@@ -1,6 +1,34 @@
 #include "common.h"
 #include "lex.yy.cpp"
+Qtree::Qtree( int t){
+	type = t;
+	left = NULL;right = NULL;
+}
+void Qtree::print(int level ){
+	int i ;
 
+	for ( i = level ; i > 0 ; i --){ cout<< "\t" ;}
+	switch(type) {
+		case PI: cout << "π " << "\t["; break;
+		case SIGMA: cout << "σ " << "\t[";break;
+		case DELTA: cout << "δ " << "\t[";break;
+		case JOIN: cout << "X " << "\t["; break;
+	}
+	for(i = 0; i < info.size(); i++){
+		cout << info[i] << " " ;
+	} cout << "]" << endl ;
+	if (left != NULL){left->print(level + 1) ;}
+	if(right != NULL){ right->print(level + 1) ; }
+}
+
+void Qtree::free(){
+	info.clear();
+	if(left != NULL){left->free();}
+	if(right!=NULL){right->free();}
+}
+void Qtree::exec(){
+	print(0);
+}
 void err_out_START(const char str[]) {
 	if(YY_START == D_S_EXPECT_WHERE) {
 		scan_over(DELETE_STATEMENT) ;
