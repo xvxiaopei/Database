@@ -25,6 +25,17 @@ public:
 	bool judge(Tuple t);        //judge if this tuple fit the condition
 };
 
+class tupAddr{                   //location if a tuple in mem
+public:
+	int block_index;
+	int offset;
+	tupAddr()
+	{
+		block_index=0;
+		offset=0;
+	}
 
+
+};
 
 #endif

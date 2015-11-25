@@ -145,6 +145,47 @@ int main()
 
 
   p->displayMem();
+  for(int i=0;i<30;i++)
+  {
+	   a.pop_back();
+	 a.pop_back();
+	a.push_back(i);
+	a.push_back(i*2);
+	s.pop_back();
+    s.pop_back();
+	char n='a'+(i%26);
+	string in="v";
+	s.push_back(in+n);
+	s.push_back(n+in);
+	
+
+	p->insert(relation_name,iFileName,s,a);
+  }
+
+
+  vector<string> xx =   p->sortedSub("ExampleTable1","f4");
+  for(vector<string>::iterator it  = xx.begin(); it != xx.end(); )  
+   {  
+                 cout<<*(it)<<endl;  
+                 it = xx.erase(it);  
+   }   
+
+  p->displayMem();
+  tupAddr ax = p->getMin("f4",0,10);
+  cout<<ax.block_index<<" "<<ax.offset<<endl;
+
+  z =   p->SortTwoPass("ExampleTable1","f1");
+  cout<<"Two pass Sort: "<<endl;
+  int i=0;
+  for(vector<Tuple>::iterator it  = z.begin(); it != z.end(); )  
+   {  
+                 cout<<i<<": "<<*(it)<<endl;  
+                 it = z.erase(it);  
+				 i++;
+   }   
+
+
+
 
   cout<<"?";
   

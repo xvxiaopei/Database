@@ -69,6 +69,12 @@ public:
 
 	vector<Tuple> SortOnePass(string relation_name,string field_name);  //sort ONE PASS algorithm(don't write back)
 
+	vector<string> sortedSub(string relation_name,string field_name);  //return a list of sublists name in disk(each is a relation)
+
+
+	tupAddr getMin(string field_name,int start_block,int num_blocks);  //return the location of the minimum tuple
+
+	vector<Tuple> SortTwoPass(string relation_name,string field_name);  //sort TWO PASS algorithm(write back once)
 	vector<Tuple> Product(string relation_name1,
 				       string relation_name2);   //cross join, one pass
 

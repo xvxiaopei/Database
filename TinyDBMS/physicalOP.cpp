@@ -206,6 +206,64 @@ void physicalOP::Delete(string relation_name,              //using mem 0 to get 
 	return;
 }
 
+tupAddr  physicalOP::getMin(string field_name,int start_block,int num_blocks)
+{
+	tupAddr result;
+	Block *block_ptr;
+	for(int i=start_block;i<start_block+num_blocks;i++)
+	{
+		if(!mem.getBlock(i)->isEmpty()) {block_ptr=mem.getBlock(i);break;}
+	}
+	vector<Tuple> a=block_ptr->getTuples();
+	//cout<<"block 0 has "<<mem.getBlock(0)->getNumTuples()<<endl;
+	int tupPerBlock =a[0].getSchema().getTuplesPerBlock() ;
+
+	if(a[0].getSchema().getFieldType(field_name)==INT)
+	{
+		int minInt=INT_MAX;
+		result.block_index=start_block;
+		result.offset=0;
+		for(int i=start_block;i<start_block+num_blocks;i++)
+		{
+			block_ptr=mem.getBlock(i);
+			for(int j=0;j<tupPerBlock;j++)
+			{
+				if(block_ptr->getTuple(j).isNull())continue;
+				if(minInt>block_ptr->getTuple(j).getField(field_name).integer)
+				{
+					minInt=block_ptr->getTuple(j).getField(field_name).integer;
+					result.block_index=i;
+					result.offset=j;
+				}
+			}
+		}
+		return result;
+	}
+	else
+	{
+		char x=(char)INT_MAX;
+		char c[1];
+		c[0]=x;
+		string minString = string(c,1);
+		result.block_index=start_block;
+		result.offset=0;
+		for(int i=start_block;i<start_block+num_blocks;i++)
+		{
+			block_ptr=mem.getBlock(i);
+			for(int j=0;j<tupPerBlock;j++)
+			{
+				if(block_ptr->getTuple(j).isNull())continue;
+				if(minString>*block_ptr->getTuple(j).getField(field_name).str)
+				{
+					minString=*block_ptr->getTuple(j).getField(field_name).str;
+					result.block_index=i;
+					result.offset=j;
+				}
+			}
+		}
+		return result;
+	}
+}
 
 
 vector<Tuple> physicalOP::sortOnMemory(string relation_name,
@@ -234,7 +292,7 @@ vector<Tuple> physicalOP::sortOnMemory(string relation_name,
 		{
 			if(schema.getFieldType(field_name)==INT)
 			{
-				if(tuples[i].getField(field_name).integer>tuples[i+1].getField(field_name).integer)
+				if(tuples[i].getField(field_name).integer<tuples[i+1].getField(field_name).integer)
 				{
 					Tuple tmp=tuples[i];
 					tuples[i]=tuples[i+1];
@@ -243,7 +301,7 @@ vector<Tuple> physicalOP::sortOnMemory(string relation_name,
 			}
 			else if(schema.getFieldType(field_name)==STR20)
 			{
-				if(tuples[i].getField(field_name).str>tuples[i+1].getField(field_name).str)
+				if(*tuples[i].getField(field_name).str<*tuples[i+1].getField(field_name).str)
 				{
 					Tuple tmp=tuples[i];
 					tuples[i]=tuples[i+1];
@@ -274,11 +332,84 @@ vector<Tuple> physicalOP::SortOnePass(string relation_name,string field_name)
 {
 	Relation* relation_ptr = schema_manager.getRelation(relation_name);
 	vector<Tuple> result;
-	if(relation_ptr->getNumOfBlocks()>10) {cout<<"this sort can't be in one pass! "<<endl;return result;}
+	if(relation_ptr->getNumOfBlocks()>10) {cout<<"This sort can't be in one pass! "<<endl;return result;}
 	relation_ptr->getBlocks(0,0,relation_ptr->getNumOfBlocks());
 	return sortOnMemory(relation_name,field_name,0,relation_ptr->getNumOfBlocks());
 }
 
+vector<string> physicalOP::sortedSub(string relation_name,string field_name)
+{
+	Relation* relation_ptr = schema_manager.getRelation(relation_name);
+	vector<string> result;
+	Schema schema=relation_ptr->getSchema();
+	int leftBlocks = relation_ptr->getNumOfBlocks();
+	int count=0;
+	int numOfSub=0;
+	while(leftBlocks>0)
+	{
+		int getNumOfBlocks=(leftBlocks>10)?10:leftBlocks;
+		relation_ptr->getBlocks(count,0,getNumOfBlocks);
+		leftBlocks-=getNumOfBlocks;
+		char nameplus='0'+ numOfSub;
+		sortOnMemory(relation_name,field_name,0,getNumOfBlocks);
+		//cout<<relation_name+'-'+nameplus<<"  "<<leftBlocks<<endl;
+		string name=relation_name+'-'+nameplus;
+		if(schema_manager.relationExists(name)) DropTable(name);
+		Relation* sublist=schema_manager.createRelation(name,schema);
+		sublist->setBlocks(0,0,getNumOfBlocks);
+		result.push_back(name);
+		numOfSub++;
+		count+=getNumOfBlocks;
+		cout<<"sublist: "<<name<<" done!"<<endl;
+	}
+	return result;
+}
+
+
+
+vector<Tuple> physicalOP::SortTwoPass(string relation_name,string field_name)
+{
+	Relation* relation_ptr = schema_manager.getRelation(relation_name);
+	vector<Tuple> result;
+	tupAddr tmp;
+	Block *block_ptr;
+	Relation* sublist_ptr;
+	if(relation_ptr->getNumOfBlocks()<=10) {cout<<"This sort can be in one pass! "<<endl;return SortOnePass(relation_name,field_name);}
+	vector<string> sublist=sortedSub(relation_name,field_name);  //get sublists
+	int *numOfBlocks = new int[sublist.size()];            //count how many  blocks of each sublist has been written to mem
+	int sum=relation_ptr->getNumOfTuples();
+
+
+	for(int i=0;i<sublist.size();i++)                        //put first block of each sublist to mem
+	{
+		sublist_ptr = schema_manager.getRelation(sublist[i]);
+		sublist_ptr->getBlock(0,i);
+		numOfBlocks[i]=0;
+	}
+
+	while(sum>0)
+	{
+		displayMem();
+		tmp=getMin(field_name,0,sublist.size());
+		cout<<"Min  Index is "<<tmp.block_index<<" , off set is "<<tmp.block_index<<endl;
+		block_ptr=mem.getBlock(tmp.block_index);
+		result.push_back(block_ptr->getTuple(tmp.offset));
+		sum--;
+		block_ptr->nullTuple(tmp.offset);
+		if(block_ptr->getNumTuples()==0) 
+		{
+			sublist_ptr = schema_manager.getRelation(sublist[tmp.block_index]);
+			if(numOfBlocks[tmp.block_index]+1<sublist_ptr->getNumOfBlocks())
+			{
+				numOfBlocks[tmp.block_index]=numOfBlocks[tmp.block_index]+1;
+				sublist_ptr->getBlock(numOfBlocks[tmp.block_index],tmp.block_index);
+			}
+		}
+	}
+
+
+	return result;
+}
 
 
 
