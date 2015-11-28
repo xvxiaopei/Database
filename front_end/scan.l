@@ -53,7 +53,7 @@ name                  {letter}({digit}|{letter})*
 dotted_name           {name}{DOT}{name}
 literal               \"[^"]\"
 value                 {literal}|{integer}|{NULL}
-WS                    [ \t\n\r]
+WS                    [ \t]
 V                     VALUES
 S                     SELECT
 C                     CREATE
@@ -87,34 +87,29 @@ COMMA                 [,]
 	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
 	yyterminate();
 }
-<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{SELECT}{WS}+ {
+<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>[\n\r] {
 	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
+	BEGIN(INITIAL);
+}
+
+<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{SELECT}{WS}+ {
 	err_out_START("SELECT");
-	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	yy_push_state(SELECT_STATEMENT);
 }
-<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{D_F}{WS}+ {
-	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
+<INITIAL>{D_F}{WS}+ {
 	err_out_START("DELETE FROM");
-	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	BEGIN(DELETE_STATEMENT);
 }
-<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{C_T}{WS}+ {
-	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
+<INITIAL>{C_T}{WS}+ {
 	err_out_START("CREATE TABLE" );
-	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	BEGIN(CREATE_TABLE_STATEMENT);
 }
-<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{D_T}{WS}+ {
-	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
+<INITIAL>{D_T}{WS}+ {
 	err_out_START("DROP TABLE" );
-	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	BEGIN(DROP_TABLE_STATEMENT);
 }
-<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{I_I}{WS}+ {
-	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
+<INITIAL>{I_I}{WS}+ {
 	err_out_START("INSERT INTO");
-	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	BEGIN(INSERT_STATEMENT);
 }
 
@@ -189,6 +184,7 @@ COMMA                 [,]
 <D_S_EXPECT_WHERE>{WS}*{W}{WS}* {
 	yy_push_state(WHERE_SUB_STATEMENT) ;
 }
+
 
 
 <DROP_TABLE_STATEMENT>{name} {
@@ -266,6 +262,14 @@ COMMA                 [,]
 	BEGIN(INITIAL);
 }
 
+
+
+<WHERE_SUB_STATEMENT>{name}|{dotted_name}|{literal}|{integer} { 
+/* Use Shunting-yard algorithm to parse 
+   expressions to Reverse-Polish Form */
+	
+
+}
 
 <INITIAL>{WS}* {/* IGNORE white spaces */}       
 . {/* all other character */

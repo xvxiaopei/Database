@@ -24,6 +24,18 @@ void scan_over(int statement);
 #define SIGMA 2
 #define JOIN  3
 
+#define COLUME  0
+#define LITERAL 1
+#define INTEGER 2
+
+/* precedence  */
+
+#define TIMES_DIVIDES 5
+#define PLUS_MINUS    4
+#define COMPARE       3
+#define NOT_PCD       2
+#define AND_PCD       1
+#define OR_PCD        0
 
 class Qtree {
 	public:
@@ -35,5 +47,14 @@ class Qtree {
 	void free() ;
 	void exec();
 }; 
-
+class Qfactor {
+	public:
+	int type ; 
+	int number;
+	string str;
+};
+class Qoperator {
+	public:
+	int type ;
+};
 #endif
