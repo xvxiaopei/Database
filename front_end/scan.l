@@ -2,9 +2,10 @@
 #include "common.h"
 Qtree *current_qt ;
 Qtree *head ;
-queue<Qexpression> output_q;
+stack<Qexpression> output_s;
 queue<Qexpression> operands_q;
 stack<Qexpression> operators_s;
+int precedence(string);
 %}
 %option               stack
 
@@ -266,22 +267,34 @@ COMMA                 [,]
 
 <WHERE_SUB_STATEMENT>{WS}* {}
 <WHERE_SUB_STATEMENT>{name}|{dotted_name} { 
-	output_q.push(Qexpression(COLUME, yytext) ) ;
+	output_s.push(Qexpression(COLUME, yytext) ) ;
 }
 <WHERE_SUB_STATEMENT>{literal} { 
-	output_q.push(Qexpression(LITERAL, yytext) ) ;
-}
-<WHERE_SUB_STATEMENT>{literal} { 
-	output_q.push(Qexpression(LITERAL, yytext) ) ;
+	output_s.push(Qexpression(LITERAL, yytext) ) ;
 }
 <WHERE_SUB_STATEMENT>{integer} {
-	output_q.push(Qexpression(INTEGER, atoi(yytext) ) ) ;
+	output_s.push(Qexpression(INTEGER, atoi(yytext) ) ) ;
+}
+<WHERE_SUB_STATEMENT>{pm_op}|{md_op}|{AND}|{OR}|{NOT}|{comp_op} {
+	int current_precedence = precedence(yytext);
+	if( (! operators_s.empty() ) && 
+		operators_s.top().type != LEFT && 
+		operators_s.top().number >= current_precedence) {
+			output_s.push( operators_s.top() ) ;operators_s.pop();
+	}
+	operators_s.push( Qexpression(OPERATER, current_precedence, yytext) );
+}
+<WHERE_SUB_STATEMENT>{LEFT_PARENTHESIS}|[\[] {
+	operators_s.push(Qexpression(LEFT, yytext)) ;
+}
+<WHERE_SUB_STATEMENT>{RIGHT_PARENTHESIS}|[\]] {
+	while(operators_s.top().type != LEFT){
+		output_s.push( operators_s.top() ) ;operators_s.pop();
+	}
+	operators_s.pop() ;
 }
 
-<WHERE_SUB_STATEMENT>[\n\r]| {
-/* terminate where sub statement */
-	yy_pop_state(WHERE_SUB_STATEMENT) ;
-}
+
 
 <INITIAL>{WS}* {/* IGNORE white spaces */}       
 . {/* all other character */

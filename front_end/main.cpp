@@ -12,6 +12,11 @@ Qexpression::Qexpression( int t, int n){
 	type = t;
 	number = n ;
 }
+Qexpression::Qexpression( int t, int p, string s){
+	type = t;
+	number = p;
+	str = string(s);
+}
 void Qtree::print(int level ){
 	int i ;
 
@@ -82,7 +87,37 @@ void scan_over(int statement){
 	HLINE << NORMAL_TEXT <<  endl  ;
 	#endif
 }
+int precedence(string s){
+	switch(s[0]){
+	case '*':
+	case '/':
+	return TIMES_DIVIDES;
+	break;
+	
+	case '+': 
+	case '-':
+	return PLUS_MINUS;
+	break;
 
+	case '=':
+	case '<':
+	case '>':
+	return COMPARE;
+	break;
+	
+	case 'N':
+	return NOT_PCD;
+	break; 
+
+	case 'A':
+	return AND_PCD;
+	break;
+
+	case 'O':
+	return OR_PCD ;
+	break;
+	}
+}
 int main( int argc, char **argv ){
 	++argv, --argc;  /* skip over program name */
 	if ( argc > 0 ){

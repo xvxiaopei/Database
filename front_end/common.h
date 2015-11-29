@@ -29,6 +29,8 @@ void scan_over(int statement);
 #define COLUME  0
 #define LITERAL 1
 #define INTEGER 2
+#define OPERATER 3
+#define LEFT 4
 
 /* precedence  */
 
@@ -54,5 +56,8 @@ class Qexpression {
 	int type ; 
 	int number;
 	string str;
+	Qexpression(int , int);
+	Qexpression(int , string);
+	Qexpression(int, int, string);
 };
 #endif
