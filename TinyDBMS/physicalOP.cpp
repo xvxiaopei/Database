@@ -485,7 +485,60 @@ vector<Tuple> physicalOP::dupOnePass(string relation_name)
 		}
 	}
 	return mem.getTuples(0,relation_ptr->getNumOfBlocks());
+}
 
+vector<Tuple> physicalOP::dupTwoPass(string relation_name)
+{
+	Relation* relation_ptr = schema_manager.getRelation(relation_name);
+	vector<Tuple> result;
+	Block *block_ptr;
+	string field_name = relation_ptr->getSchema().getFieldName(0);
+	if(relation_ptr->getNumOfBlocks()<=10) {cout<<"This duplicate elimination can be in one pass! "<<endl;return dupOnePass(relation_name);}
+	vector<string> sublist=sortedSub(relation_name,field_name);
+	Relation* sublist_ptr;
+	tupAddr tmp;
+	int *numOfBlocks = new int[sublist.size()];            //count how many  blocks of each sublist has been written to mem
+	int sum=relation_ptr->getNumOfTuples();
+
+
+	for(int i=0;i<sublist.size();i++)                        //put first block of each sublist to mem
+	{
+		sublist_ptr = schema_manager.getRelation(sublist[i]);
+		sublist_ptr->getBlock(0,i);
+		numOfBlocks[i]=0;
+	}
+
+	while(sum>0)
+	{
+		tmp=getMin(field_name,0,sublist.size());
+		cout<<"Min  Index is "<<tmp.block_index<<" , off set is "<<tmp.block_index<<endl;
+		block_ptr=mem.getBlock(tmp.block_index);
+		result.push_back(block_ptr->getTuple(tmp.offset));
+
+		Tuple minTuple=block_ptr->getTuple(tmp.offset);
+		vector<tupAddr*> dupAddr=findDupOnMemory(minTuple,0,sublist.size());
+		cout<<"There are "<<dupAddr.size()<<" duplicates"<<endl;
+		while(!dupAddr.empty())
+		{
+			tupAddr * a=dupAddr.back();
+			cout<<"duplicate is on "<<a->block_index<<"  "<<a->offset<<endl;
+			block_ptr=mem.getBlock(a->block_index);
+			block_ptr->nullTuple(a->offset); //eliminate
+			sum--;
+			dupAddr.pop_back();
+			if(block_ptr->getNumTuples()==0)      //if this block of sublist is empty, put next block of this sublist
+			{
+				sublist_ptr = schema_manager.getRelation(sublist[a->block_index]);
+				if(numOfBlocks[a->block_index]+1<sublist_ptr->getNumOfBlocks())
+				{
+					numOfBlocks[a->block_index]=numOfBlocks[a->block_index]+1;
+					sublist_ptr->getBlock(numOfBlocks[a->block_index],a->block_index);
+					dupAddr=findDupOnMemory(minTuple,0,sublist.size());
+				}
+			}
+		}
+	}
+	return result;
 
 }
 

@@ -133,9 +133,9 @@ int main()
 
   cout << "Calculated Disk I/Os = " << p->IO() << endl;
 
- 
+  cout<<"One Pass Sort: "<<endl;
    z =   p->SortOnePass("ExampleTable1","f2");
-  cout<<"Sort: "<<endl;
+ 
   for(vector<Tuple>::iterator it  = z.begin(); it != z.end(); )  
    {  
                  cout<<*(it)<<endl;  
@@ -145,15 +145,15 @@ int main()
 
 
   p->displayMem();
-  for(int i=0;i<16;i++)
+  for(int i=0;i<40;i++)
   {
 	   a.pop_back();
 	 a.pop_back();
-	a.push_back(i%13);
-	a.push_back((i%13)*2);
+	a.push_back(i%15);
+	a.push_back((i%15)*2);
 	s.pop_back();
     s.pop_back();
-	char n='a'+(i%13);
+	char n='a'+(i%15);
 	string in="v";
 	s.push_back(in+n);
 	s.push_back(n+in);
@@ -162,8 +162,9 @@ int main()
 	p->insert(relation_name,iFileName,s,a);
   }
 
-
+   cout<<"Two Pass Sort: "<<endl;
   vector<string> xx =   p->sortedSub("ExampleTable1","f4");
+
   for(vector<string>::iterator it  = xx.begin(); it != xx.end(); )  
    {  
                  cout<<*(it)<<endl;  
@@ -187,9 +188,20 @@ int main()
   cout<<"Two pass Sort done!"<<endl;
 
 
-
+  /*
   z =   p->dupOnePass("ExampleTable1");
   cout<<"Duplicate elimination: "<<endl;
+	i=0;
+  for(vector<Tuple>::iterator it  = z.begin(); it != z.end(); )  
+   {  
+                 cout<<i<<": "<<*(it)<<endl;  
+                 it = z.erase(it);  
+				 i++;
+   }   
+   */
+
+  z =   p->dupTwoPass("ExampleTable1");
+  cout<<"Duplicate elimination(two pass): "<<endl;
 	i=0;
   for(vector<Tuple>::iterator it  = z.begin(); it != z.end(); )  
    {  
