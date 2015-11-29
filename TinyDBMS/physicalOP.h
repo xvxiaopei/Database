@@ -75,7 +75,7 @@ public:
 	bool tupleEqual(Tuple a,Tuple b);             //judge if these two tuples are same
 	vector<tupAddr*> findDupOnMemory(Tuple t,int start_block,int num_blocks);//Find duplicate on mem
 	vector<Tuple> dupOnePass(string relation_name);  //duplicate elimination ONE PASS algorithm(don't write back)
-	
+	vector<Tuple> dupTwoPass(string relation_name);  
 
 	vector<Tuple> Product(string relation_name1,
 				       string relation_name2);   //cross join, one pass
