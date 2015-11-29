@@ -2,6 +2,9 @@
 #include "common.h"
 Qtree *current_qt ;
 Qtree *head ;
+queue<Qexpression> output_q;
+queue<Qexpression> operands_q;
+stack<Qexpression> operators_s;
 %}
 %option               stack
 
@@ -194,8 +197,6 @@ COMMA                 [,]
 }
 
 
-
-
 <INSERT_STATEMENT>{name} {
 	cerr << "table to ins:\t" << yytext << endl;
 	BEGIN(I_S_EXPECT_LEFT_PARENTHESIS);
@@ -263,12 +264,23 @@ COMMA                 [,]
 }
 
 
+<WHERE_SUB_STATEMENT>{WS}* {}
+<WHERE_SUB_STATEMENT>{name}|{dotted_name} { 
+	output_q.push(Qexpression(COLUME, yytext) ) ;
+}
+<WHERE_SUB_STATEMENT>{literal} { 
+	output_q.push(Qexpression(LITERAL, yytext) ) ;
+}
+<WHERE_SUB_STATEMENT>{literal} { 
+	output_q.push(Qexpression(LITERAL, yytext) ) ;
+}
+<WHERE_SUB_STATEMENT>{integer} {
+	output_q.push(Qexpression(INTEGER, atoi(yytext) ) ) ;
+}
 
-<WHERE_SUB_STATEMENT>{name}|{dotted_name}|{literal}|{integer} { 
-/* Use Shunting-yard algorithm to parse 
-   expressions to Reverse-Polish Form */
-	
-
+<WHERE_SUB_STATEMENT>[\n\r]| {
+/* terminate where sub statement */
+	yy_pop_state(WHERE_SUB_STATEMENT) ;
 }
 
 <INITIAL>{WS}* {/* IGNORE white spaces */}       

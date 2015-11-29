@@ -4,6 +4,14 @@ Qtree::Qtree( int t){
 	type = t;
 	left = NULL;right = NULL;
 }
+Qexpression::Qexpression( int t, string s){
+	type = t; 
+	str = string(s) ;
+}
+Qexpression::Qexpression( int t, int n){
+	type = t;
+	number = n ;
+}
 void Qtree::print(int level ){
 	int i ;
 
@@ -29,6 +37,7 @@ void Qtree::free(){
 void Qtree::exec(){
 	print(0);
 }
+
 void err_out_START(const char str[]) {
 	if(YY_START == D_S_EXPECT_WHERE) {
 		scan_over(DELETE_STATEMENT) ;

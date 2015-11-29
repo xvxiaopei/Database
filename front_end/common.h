@@ -6,6 +6,8 @@
 #include <string.h>
 #include <iostream>
 #include <vector>
+#include <queue>
+#include <stack>
 #include <string>
 
 using namespace std;
@@ -47,14 +49,10 @@ class Qtree {
 	void free() ;
 	void exec();
 }; 
-class Qfactor {
+class Qexpression {
 	public:
 	int type ; 
 	int number;
 	string str;
-};
-class Qoperator {
-	public:
-	int type ;
 };
 #endif
