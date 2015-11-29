@@ -46,6 +46,7 @@ int precedence(string);
 
 
 DOT                   [.]
+OB                    ORDER{WS}+BY
 digit                 [0-9]
 letter                [a-z]
 integer               {digit}+
@@ -88,10 +89,26 @@ COMMA                 [,]
 %%
 
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT><<EOF>> {
+	if(YY_START == WHERE_SUB_STATEMENT){
+		while(operators_s.empty() != true){
+			output_s.push(operators_s.top()); operators_s.pop() ;
+		}
+		while(output_s.empty() != true){
+			output_s.top().print() ; output_s.pop();
+		}
+	}
 	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
 	yyterminate();
 }
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>[\n\r] {
+	if(YY_START == WHERE_SUB_STATEMENT){
+		while(operators_s.empty() != true){
+			output_s.push(operators_s.top()); operators_s.pop() ;
+		}
+		while(output_s.empty() != true){
+			output_s.top().print() ; output_s.pop();
+		}
+	}
 	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
 	BEGIN(INITIAL);
 }
@@ -266,6 +283,15 @@ COMMA                 [,]
 
 
 <WHERE_SUB_STATEMENT>{WS}* {}
+<WHERE_SUB_STATEMENT>{OB}{WS}+({name}|{dotted_name}) {
+	while(operators_s.empty() != true){
+		output_s.push(operators_s.top()); operators_s.pop() ;
+	}
+	while(output_s.empty() != true){
+		output_s.top().print() ; output_s.pop();
+	}
+	yy_pop_state() ;
+}
 <WHERE_SUB_STATEMENT>{name}|{dotted_name} { 
 	output_s.push(Qexpression(COLUME, yytext) ) ;
 }
@@ -277,7 +303,7 @@ COMMA                 [,]
 }
 <WHERE_SUB_STATEMENT>{pm_op}|{md_op}|{AND}|{OR}|{NOT}|{comp_op} {
 	int current_precedence = precedence(yytext);
-	if( (! operators_s.empty() ) && 
+	while( (! operators_s.empty() ) && 
 		operators_s.top().type != LEFT && 
 		operators_s.top().number >= current_precedence) {
 			output_s.push( operators_s.top() ) ;operators_s.pop();
@@ -293,7 +319,6 @@ COMMA                 [,]
 	}
 	operators_s.pop() ;
 }
-
 
 
 <INITIAL>{WS}* {/* IGNORE white spaces */}       

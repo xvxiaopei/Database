@@ -59,5 +59,6 @@ class Qexpression {
 	Qexpression(int , int);
 	Qexpression(int , string);
 	Qexpression(int, int, string);
+	void print() ;
 };
 #endif

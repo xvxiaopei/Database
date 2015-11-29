@@ -17,6 +17,9 @@ Qexpression::Qexpression( int t, int p, string s){
 	number = p;
 	str = string(s);
 }
+void Qexpression::print(){
+	cout << type << " " << number << " " << str << endl ;
+}
 void Qtree::print(int level ){
 	int i ;
 
