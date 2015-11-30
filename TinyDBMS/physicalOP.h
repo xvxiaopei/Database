@@ -32,12 +32,14 @@ private:
 		disk.resetDiskTimer(); }    //singleton
 
 public:
+
 	//add some for debug
 	void displayMem();
 	void displaySchema(Schema &schema);
 	void displayRelation(string relation_name);
 	int IO(){return disk.getDiskIOs();}
-
+	void IOreset(){disk.resetDiskIOs();
+		disk.resetDiskTimer();}
 	static physicalOP *getInstance() {
         if (physicalop == NULL) {
             physicalop = new physicalOP();
@@ -73,9 +75,14 @@ public:
 	vector<Tuple> SortTwoPass(string relation_name,string field_name);  //sort TWO PASS algorithm(write back once)
 
 	bool tupleEqual(Tuple a,Tuple b);             //judge if these two tuples are same
+	bool fieldLarger(Tuple a,Tuple b,string field_name);  //judge if the field of a is larger than which of b
+	bool fieldEqual(Tuple a,Tuple b, string field_name);   //judge if the field of a is equal to which of b
 	vector<tupAddr*> findDupOnMemory(Tuple t,int start_block,int num_blocks);//Find duplicate on mem
 	vector<Tuple> dupOnePass(string relation_name);  //duplicate elimination ONE PASS algorithm(don't write back)
 	vector<Tuple> dupTwoPass(string relation_name);  
+
+	
+
 
 	vector<Tuple> Product(string relation_name1,
 				       string relation_name2);   //cross join, one pass
