@@ -6,6 +6,8 @@
 #include <string.h>
 #include <iostream>
 #include <vector>
+#include <queue>
+#include <stack>
 #include <string>
 
 using namespace std;
@@ -24,6 +26,20 @@ void scan_over(int statement);
 #define SIGMA 2
 #define JOIN  3
 
+#define COLUME  0
+#define LITERAL 1
+#define INTEGER 2
+#define OPERATER 3
+#define LEFT 4
+
+/* precedence  */
+
+#define TIMES_DIVIDES 5
+#define PLUS_MINUS    4
+#define COMPARE       3
+#define NOT_PCD       2
+#define AND_PCD       1
+#define OR_PCD        0
 
 class Qtree {
 	public:
@@ -35,33 +51,14 @@ class Qtree {
 	void free() ;
 	void exec();
 }; 
-Qtree::Qtree( int t){
-	type = t;
-	left = NULL;right = NULL;
-}
-void Qtree::print(int level ){
-	int i ;
-
-	for ( i = level ; i > 0 ; i --){ cout<< "\t" ;}
-	switch(type) {
-	case PI: cout << "π " << "\t["; break;
-	case SIGMA: cout << "σ " << "\t[";break;
-	case DELTA: cout << "δ " << "\t[";break;	
-	case JOIN: cout << "X " << "\t["; break;
-	}
-	for(i = 0; i < info.size(); i++){
-		cout << info[i] << " " ;
-	} cout << "]" << endl ;
-	if (left != NULL){left->print(level + 1) ;}
-	if(right != NULL){ right->print(level + 1) ; }
-}
-
-void Qtree::free(){
-	info.clear();
-	if(left != NULL){left->free();}
-	if(right!=NULL){right->free();}
-}
-void Qtree::exec(){
-	print(0);	
-}
+class Qexpression {
+	public:
+	int type ; 
+	int number;
+	string str;
+	Qexpression(int , int);
+	Qexpression(int , string);
+	Qexpression(int, int, string);
+	void print() ;
+};
 #endif

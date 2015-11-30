@@ -2,6 +2,10 @@
 #include "common.h"
 Qtree *current_qt ;
 Qtree *head ;
+stack<Qexpression> output_s;
+queue<Qexpression> operands_q;
+stack<Qexpression> operators_s;
+int precedence(string);
 %}
 %option               stack
 
@@ -42,6 +46,7 @@ Qtree *head ;
 
 
 DOT                   [.]
+OB                    ORDER{WS}+BY
 digit                 [0-9]
 letter                [a-z]
 integer               {digit}+
@@ -53,7 +58,7 @@ name                  {letter}({digit}|{letter})*
 dotted_name           {name}{DOT}{name}
 literal               \"[^"]\"
 value                 {literal}|{integer}|{NULL}
-WS                    [ \t\n\r]
+WS                    [ \t]
 V                     VALUES
 S                     SELECT
 C                     CREATE
@@ -84,37 +89,48 @@ COMMA                 [,]
 %%
 
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT><<EOF>> {
+	if(YY_START == WHERE_SUB_STATEMENT){
+		while(operators_s.empty() != true){
+			output_s.push(operators_s.top()); operators_s.pop() ;
+		}
+		while(output_s.empty() != true){
+			output_s.top().print() ; output_s.pop();
+		}
+	}
 	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
 	yyterminate();
 }
-<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{SELECT}{WS}+ {
+<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>[\n\r] {
+	if(YY_START == WHERE_SUB_STATEMENT){
+		while(operators_s.empty() != true){
+			output_s.push(operators_s.top()); operators_s.pop() ;
+		}
+		while(output_s.empty() != true){
+			output_s.top().print() ; output_s.pop();
+		}
+	}
 	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
+	BEGIN(INITIAL);
+}
+
+<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{SELECT}{WS}+ {
 	err_out_START("SELECT");
-	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	yy_push_state(SELECT_STATEMENT);
 }
-<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{D_F}{WS}+ {
-	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
+<INITIAL>{D_F}{WS}+ {
 	err_out_START("DELETE FROM");
-	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	BEGIN(DELETE_STATEMENT);
 }
-<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{C_T}{WS}+ {
-	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
+<INITIAL>{C_T}{WS}+ {
 	err_out_START("CREATE TABLE" );
-	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	BEGIN(CREATE_TABLE_STATEMENT);
 }
-<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{D_T}{WS}+ {
-	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
+<INITIAL>{D_T}{WS}+ {
 	err_out_START("DROP TABLE" );
-	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	BEGIN(DROP_TABLE_STATEMENT);
 }
-<INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{I_I}{WS}+ {
-	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
+<INITIAL>{I_I}{WS}+ {
 	err_out_START("INSERT INTO");
-	if(YY_START == WHERE_SUB_STATEMENT) { yy_pop_state() ;}
 	BEGIN(INSERT_STATEMENT);
 }
 
@@ -128,7 +144,7 @@ COMMA                 [,]
 	yy_push_state(S_S_DISTINCT_STATE) ;
 }
 <SELECT_STATEMENT,S_S_DISTINCT_STATE>{STAR}  {
-	if(current_qt == NULL){	current_qt = new Qtree(PI) ;}
+	if(current_qt == NULL){	head = (current_qt = new Qtree(PI) );}
 	else{ current_qt = (current_qt->left = new Qtree(PI) );	}
 	current_qt->info.push_back(yytext);
 	cerr << "column_name:\t" << yytext << endl ;
@@ -139,7 +155,7 @@ COMMA                 [,]
 	BEGIN(S_S_EXPECT_FROM);
 }
 <SELECT_STATEMENT,S_S_DISTINCT_STATE>({name}|{dotted_name}) { 
-	if(current_qt == NULL){	current_qt = new Qtree(PI) ;}
+	if(current_qt == NULL){head = ( current_qt = new Qtree(PI) );}
 	else{ current_qt = (current_qt->left = new Qtree(PI) );	}
 	current_qt->info.push_back(yytext);
 	cerr << "column_name:\t" << yytext << endl ;
@@ -191,13 +207,12 @@ COMMA                 [,]
 }
 
 
+
 <DROP_TABLE_STATEMENT>{name} {
 	cerr << "table to Drop:\t" << yytext << endl ;
 	scan_over(DROP_TABLE_STATEMENT);
 	BEGIN(INITIAL);
 }
-
-
 
 
 <INSERT_STATEMENT>{name} {
@@ -264,6 +279,45 @@ COMMA                 [,]
 <C_T_S_EXPECT_COMMA_OR_RIGHT_PARENTHESIS>{WS}*{RIGHT_PARENTHESIS}{WS}* {
 	scan_over(CREATE_TABLE_STATEMENT);
 	BEGIN(INITIAL);
+}
+
+
+<WHERE_SUB_STATEMENT>{WS}* {}
+<WHERE_SUB_STATEMENT>{OB}{WS}+({name}|{dotted_name}) {
+	while(operators_s.empty() != true){
+		output_s.push(operators_s.top()); operators_s.pop() ;
+	}
+	while(output_s.empty() != true){
+		output_s.top().print() ; output_s.pop();
+	}
+	yy_pop_state() ;
+}
+<WHERE_SUB_STATEMENT>{name}|{dotted_name} { 
+	output_s.push(Qexpression(COLUME, yytext) ) ;
+}
+<WHERE_SUB_STATEMENT>{literal} { 
+	output_s.push(Qexpression(LITERAL, yytext) ) ;
+}
+<WHERE_SUB_STATEMENT>{integer} {
+	output_s.push(Qexpression(INTEGER, atoi(yytext) ) ) ;
+}
+<WHERE_SUB_STATEMENT>{pm_op}|{md_op}|{AND}|{OR}|{NOT}|{comp_op} {
+	int current_precedence = precedence(yytext);
+	while( (! operators_s.empty() ) && 
+		operators_s.top().type != LEFT && 
+		operators_s.top().number >= current_precedence) {
+			output_s.push( operators_s.top() ) ;operators_s.pop();
+	}
+	operators_s.push( Qexpression(OPERATER, current_precedence, yytext) );
+}
+<WHERE_SUB_STATEMENT>{LEFT_PARENTHESIS}|[\[] {
+	operators_s.push(Qexpression(LEFT, yytext)) ;
+}
+<WHERE_SUB_STATEMENT>{RIGHT_PARENTHESIS}|[\]] {
+	while(operators_s.top().type != LEFT){
+		output_s.push( operators_s.top() ) ;operators_s.pop();
+	}
+	operators_s.pop() ;
 }
 
 

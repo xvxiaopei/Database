@@ -1,5 +1,50 @@
 #include "common.h"
 #include "lex.yy.cpp"
+Qtree::Qtree( int t){
+	type = t;
+	left = NULL;right = NULL;
+}
+Qexpression::Qexpression( int t, string s){
+	type = t; 
+	str = string(s) ;
+}
+Qexpression::Qexpression( int t, int n){
+	type = t;
+	number = n ;
+}
+Qexpression::Qexpression( int t, int p, string s){
+	type = t;
+	number = p;
+	str = string(s);
+}
+void Qexpression::print(){
+	cout << type << " " << number << " " << str << endl ;
+}
+void Qtree::print(int level ){
+	int i ;
+
+	for ( i = level ; i > 0 ; i --){ cout<< "\t" ;}
+	switch(type) {
+		case PI: cout << "π " << "\t["; break;
+		case SIGMA: cout << "σ " << "\t[";break;
+		case DELTA: cout << "δ " << "\t[";break;
+		case JOIN: cout << "X " << "\t["; break;
+	}
+	for(i = 0; i < info.size(); i++){
+		cout << info[i] << " " ;
+	} cout << "]" << endl ;
+	if (left != NULL){left->print(level + 1) ;}
+	if(right != NULL){ right->print(level + 1) ; }
+}
+
+void Qtree::free(){
+	info.clear();
+	if(left != NULL){left->free();}
+	if(right!=NULL){right->free();}
+}
+void Qtree::exec(){
+	print(0);
+}
 
 void err_out_START(const char str[]) {
 	if(YY_START == D_S_EXPECT_WHERE) {
@@ -45,7 +90,37 @@ void scan_over(int statement){
 	HLINE << NORMAL_TEXT <<  endl  ;
 	#endif
 }
+int precedence(string s){
+	switch(s[0]){
+	case '*':
+	case '/':
+	return TIMES_DIVIDES;
+	break;
+	
+	case '+': 
+	case '-':
+	return PLUS_MINUS;
+	break;
 
+	case '=':
+	case '<':
+	case '>':
+	return COMPARE;
+	break;
+	
+	case 'N':
+	return NOT_PCD;
+	break; 
+
+	case 'A':
+	return AND_PCD;
+	break;
+
+	case 'O':
+	return OR_PCD ;
+	break;
+	}
+}
 int main( int argc, char **argv ){
 	++argv, --argc;  /* skip over program name */
 	if ( argc > 0 ){
