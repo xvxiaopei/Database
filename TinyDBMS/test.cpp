@@ -105,13 +105,15 @@ void testForJoin()
 	 p->IOreset();
 	vector<Tuple> z =  p->JoinTwoPass(relation_name,relation_name2);
   cout<<"natural join(two pass): "<<endl;
-  for(vector<Tuple>::iterator it  = z.begin(); it != z.end(); )  
+	Relation * test=p->CreateTable("test",z);
+ /* for(vector<Tuple>::iterator it  = z.begin(); it != z.end(); )  
    {  
                  cout<<*(it)<<endl;  
                  it = z.erase(it);  
-   }   
+   }   */
+  p->displayRelation("test");
 
-
+	
   cout << "Calculated Disk I/Os = " << p->IO() << endl;
 }
 

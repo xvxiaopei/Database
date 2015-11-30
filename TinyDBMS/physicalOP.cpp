@@ -90,6 +90,10 @@ Relation * physicalOP::CreateTable(string relation_name,
 
 }
 
+
+
+
+
 void physicalOP::DropTable(string relation_name)
 {
 	cout << "Drop table " << relation_name << endl;
@@ -127,6 +131,60 @@ void physicalOP::insert(string relation_name,
 	//cout<<"Insert Done."<<endl;
 	//cout<<*relation_ptr << endl << endl;
 }
+
+
+Relation * physicalOP::CreateTable(string relation_name,vector<Tuple> tuples)
+{
+	Schema schema=tuples.back().getSchema();
+	int tuplePerBlock=schema.getTuplesPerBlock();
+	Relation* relation_ptr=schema_manager.createRelation(relation_name,schema);
+	Block * block_ptr=mem.getBlock(0);
+	block_ptr->clear();
+	int offset=0;
+	int numOfBlocks=0;
+	while(!tuples.empty())
+	{
+		vector<string> field_names=schema.getFieldNames();
+		vector<string> STRv;
+		vector<int> INTv;
+
+		Tuple t=tuples.back();
+		for(int i=0;i<schema.getNumOfFields();i++)
+		{
+			if(schema.getFieldType(i)==INT) INTv.push_back(t.getField(i).integer);
+			else STRv.push_back(*t.getField(i).str);
+		}
+
+		Tuple tuple = relation_ptr->createTuple();
+		int counti=0;
+		int counts=0;
+		for(int i =0;i<tuple.getNumOfFields();i++)
+		{
+			if(tuple.getSchema().getFieldType(field_names[i])==INT)
+			{
+				tuple.setField(field_names[i],INTv[counti]);
+				counti++;
+			}
+			else
+			{
+				tuple.setField(field_names[i],STRv[counts]);
+				counts++;
+			}
+		}
+		cout<<tuple<<endl;
+		block_ptr->setTuple(offset++,tuple);
+		if(offset==tuplePerBlock)
+		{
+			relation_ptr->setBlock(numOfBlocks++,0);
+			block_ptr->clear();
+			offset=0;
+		}
+		tuples.pop_back();
+	}
+	return relation_ptr;
+}
+
+
 
 vector<Tuple> physicalOP::singleTableSelect(string relation_name,
 						   condition con)
@@ -450,12 +508,12 @@ bool physicalOP::fieldLarger(Tuple a,Tuple b,string field_name)
 	{
 		if(a.getField(field_name).integer>b.getField(field_name).integer) 
 		{
-			cout<<a.getField(field_name).integer<<" > "<<b.getField(field_name).integer<<endl;
+			//cout<<a.getField(field_name).integer<<" > "<<b.getField(field_name).integer<<endl;
 			return true; 
 		}	
 		else 
 		{
-			cout<<a.getField(field_name).integer<<" <= "<<b.getField(field_name).integer<<endl;
+			//cout<<a.getField(field_name).integer<<" <= "<<b.getField(field_name).integer<<endl;
 			return false; 
 		}
 
@@ -465,12 +523,12 @@ bool physicalOP::fieldLarger(Tuple a,Tuple b,string field_name)
 	{
 		if(*a.getField(field_name).str>*b.getField(field_name).str) 
 		{
-			cout<<*a.getField(field_name).str<<" > "<<*b.getField(field_name).str<<endl;
+			//cout<<*a.getField(field_name).str<<" > "<<*b.getField(field_name).str<<endl;
 			return true; 
 		}
 		else 
 		{
-			cout<<*a.getField(field_name).str<<" <= "<<*b.getField(field_name).str<<endl;
+			//cout<<*a.getField(field_name).str<<" <= "<<*b.getField(field_name).str<<endl;
 			return false; 
 		}
 		
@@ -1047,16 +1105,18 @@ vector<Tuple>  physicalOP::JoinTwoPass(string relation_name1,
 			{
 				for(int l=0;l<MinTuples2.size();l++)
 				{
-					cout<<l;
+					//cout<<l;
 					result.push_back(JoinOneTuple(MinTuples1.back(),MinTuples2[l]));
-					cout<<"!!"<<endl;
+					//cout<<"!!"<<endl;
 				}
 				MinTuples1.pop_back();
 			}
 		}
 	}
-
 	return result;
-
-
 }
+
+
+
+
+

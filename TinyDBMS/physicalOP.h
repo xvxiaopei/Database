@@ -53,6 +53,10 @@ public:
                      vector<string> & field_names, 
                      vector <enum FIELD_TYPE> & field_types);
 
+	Relation * CreateTable(string relation_name,vector<Tuple> tuples); //create a relation with relation_name and tuples
+
+
+
 	void DropTable(string relation_name);
 
 	void insert(string relation_name,
