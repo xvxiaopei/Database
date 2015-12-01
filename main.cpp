@@ -7,15 +7,18 @@ Qtree::Qtree( int t){
 Qexpression::Qexpression( int t, string s){
 	type = t; 
 	str = string(s) ;
+	left = right = NULL;
 }
 Qexpression::Qexpression( int t, int n){
 	type = t;
 	number = n ;
+	left = right = NULL;
 }
 Qexpression::Qexpression( int t, int p, string s){
 	type = t;
 	number = p;
 	str = string(s);
+	left = right = NULL;
 }
 void Qexpression::free(){
 	if(left != NULL){left->free();}
@@ -48,6 +51,7 @@ void Qtree::print(int level ){
 		case SIGMA: cout << "σ " << "\t[";break;
 		case DELTA: cout << "δ " << "\t[";break;
 		case JOIN: cout << "X " << "\t["; break;
+		case TAU: cout << "τ" << "\t["; break; 
 	}
 	for(i = 0; i < info.size(); i++){
 		cout << info[i] << " " ;

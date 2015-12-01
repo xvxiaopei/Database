@@ -1403,6 +1403,16 @@ YY_RULE_SETUP
 	/* TODO
 	ORDER BY 
 	*/
+	if(head != NULL){
+		Qtree *templeft = head->left ;
+		Qtree *tempright = head->right ;
+		head->left = new Qtree(TAU); 
+		head->left->left = templeft;
+		head->left->right = tempright;
+	}else{
+		perror("No query tree");
+		exit(EXIT_FAILURE);
+	}
 	while(operators_s.empty() != true){
 		if (noperands(operators_s.top()->str) == 2) {
 			operators_s.top()->right =  (output_s.top() )  ; output_s.pop() ;
@@ -1418,7 +1428,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 317 "scan.l"
+#line 327 "scan.l"
 { 
 	output_s.push(new Qexpression(COLUME, yytext) ) ;
 }
@@ -1426,21 +1436,21 @@ YY_RULE_SETUP
 case 42:
 /* rule 42 can match eol */
 YY_RULE_SETUP
-#line 320 "scan.l"
+#line 330 "scan.l"
 { 
 	output_s.push(new Qexpression(LITERAL, yytext) ) ;
 }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 323 "scan.l"
+#line 333 "scan.l"
 {
 	output_s.push(new Qexpression(INTEGER, atoi(yytext) ) ) ;
 }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 326 "scan.l"
+#line 336 "scan.l"
 {
 	int current_precedence = precedence(yytext);
 	while( (! operators_s.empty() ) && 
@@ -1459,14 +1469,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 341 "scan.l"
+#line 351 "scan.l"
 {
 	operators_s.push(new Qexpression(LEFT, yytext)) ;
 }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 344 "scan.l"
+#line 354 "scan.l"
 {
 	while(operators_s.top()->type != LEFT){
 		if (noperands(operators_s.top()->str) == 2) {
@@ -1482,12 +1492,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 358 "scan.l"
+#line 368 "scan.l"
 {/* IGNORE white spaces */}       
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 359 "scan.l"
+#line 369 "scan.l"
 {/* all other character */
 	fprintf(stderr, "Error: unaccepted character: %s\n", yytext) ;
 	exit(EXIT_FAILURE); 
@@ -1495,10 +1505,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 364 "scan.l"
+#line 374 "scan.l"
 ECHO;
 	YY_BREAK
-#line 1502 "lex.yy.cpp"
+#line 1512 "lex.yy.cpp"
 case YY_STATE_EOF(DISTINCT_STATE):
 case YY_STATE_EOF(DROP_TABLE_STATEMENT):
 case YY_STATE_EOF(SELECT_STATEMENT):
@@ -2561,7 +2571,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 363 "scan.l"
+#line 373 "scan.l"
 
 
 

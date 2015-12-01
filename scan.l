@@ -302,6 +302,16 @@ COMMA                 [,]
 	/* TODO
 	ORDER BY 
 	*/
+	if(head != NULL){
+		Qtree *templeft = head->left ;
+		Qtree *tempright = head->right ;
+		head->left = new Qtree(TAU); 
+		head->left->left = templeft;
+		head->left->right = tempright;
+	}else{
+		perror("No query tree");
+		exit(EXIT_FAILURE);
+	}
 	while(operators_s.empty() != true){
 		if (noperands(operators_s.top()->str) == 2) {
 			operators_s.top()->right =  (output_s.top() )  ; output_s.pop() ;

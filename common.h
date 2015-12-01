@@ -25,6 +25,7 @@ void scan_over(int statement);
 #define PI    1
 #define SIGMA 2
 #define JOIN  3
+#define TAU   4
 
 #define COLUME  0
 #define LITERAL 1
