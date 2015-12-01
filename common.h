@@ -61,5 +61,6 @@ class Qexpression {
 	Qexpression(int , string);
 	Qexpression(int, int, string);
 	void print(int level) ;
+	void free() ;
 };
 #endif

@@ -1,5 +1,5 @@
 CC=g++
-cflag=-lfl
+cflag=-lfl -g
 all:isql test
 isql:  main.cpp lex.yy.cpp common.h
 	$(CC)  -o $@ $< $(cflag)

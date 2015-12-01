@@ -99,9 +99,13 @@ COMMA                 [,]
 			}
 			output_s.push(operators_s.top()); operators_s.pop() ;
 		}
-		output_s.top()->print(0) ; output_s.pop();
+		output_s.top()->print(0) ; output_s.top()->free() ;output_s.pop();
 	}
-	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
+	if(head != NULL){
+		head->exec();
+		head->free();
+		head = (current_qt = NULL);
+	}
 	yyterminate();
 }
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>[\n\r] {
@@ -115,9 +119,13 @@ COMMA                 [,]
 			}
 			output_s.push(operators_s.top()); operators_s.pop() ;
 		}
-		output_s.top()->print(0) ; output_s.pop();
+		output_s.top()->print(0) ; output_s.top()->free() ;output_s.pop();
 	}
-	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
+	if(head != NULL){
+		head->exec();
+		head->free();
+		head = (current_qt = NULL);
+	}
 	BEGIN(INITIAL);
 }
 
@@ -142,7 +150,7 @@ COMMA                 [,]
 	BEGIN(INSERT_STATEMENT);
 }
 
-<SELECT_STATEMENT>{DISTINCT} {
+<SELECT_STATEMENT>{WS}*{DISTINCT}{WS}* {
 	head = (current_qt = new Qtree(DELTA) );
 	cerr << "DISTINCT" << endl ;
 	yy_pop_state();
@@ -164,7 +172,7 @@ COMMA                 [,]
 }
 <SELECT_STATEMENT,S_S_DISTINCT_STATE>({name}|{dotted_name}) { 
 	if(current_qt == NULL){head = ( current_qt = new Qtree(PI) );}
-	current_qt = (current_qt->left = new Qtree(PI) );	
+	else{ current_qt = (current_qt->left = new Qtree(PI) );	 }
 	current_qt->info.push_back(yytext);
 	cerr << "column_name:\t" << yytext << endl ;
 	yy_pop_state();
@@ -303,7 +311,7 @@ COMMA                 [,]
 		}
 		output_s.push(operators_s.top()); operators_s.pop() ;
 	}
-	output_s.top()->print(0) ; output_s.pop();
+	output_s.top()->print(0) ; output_s.top()->free() ; output_s.pop();
 	yy_pop_state() ;
 }
 <WHERE_SUB_STATEMENT>{name}|{dotted_name} { 

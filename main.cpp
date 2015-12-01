@@ -17,6 +17,11 @@ Qexpression::Qexpression( int t, int p, string s){
 	number = p;
 	str = string(s);
 }
+void Qexpression::free(){
+	if(left != NULL){left->free();}
+	if(right!=NULL){right->free();}
+	delete this;
+}
 void Qexpression::print(int level ){
 	int i ;
 	for ( i = level ; i > 0 ; i --){ cout<< "\t" ;}
@@ -55,6 +60,7 @@ void Qtree::free(){
 	info.clear();
 	if(left != NULL){left->free();}
 	if(right!=NULL){right->free();}
+	delete this;
 }
 void Qtree::exec(){
 	print(0);
