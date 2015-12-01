@@ -99,9 +99,7 @@ COMMA                 [,]
 			}
 			output_s.push(operators_s.top()); operators_s.pop() ;
 		}
-//		while(output_s.empty() != true){
-			output_s.top()->print(0) ; output_s.pop();
-//		}
+		output_s.top()->print(0) ; output_s.pop();
 	}
 	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
 	yyterminate();
@@ -117,9 +115,7 @@ COMMA                 [,]
 			}
 			output_s.push(operators_s.top()); operators_s.pop() ;
 		}
-//		while(output_s.empty() != true){
-			output_s.top()->print(0) ; output_s.pop();
-//		}
+		output_s.top()->print(0) ; output_s.pop();
 	}
 	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
 	BEGIN(INITIAL);
@@ -308,9 +304,7 @@ COMMA                 [,]
 		}
 		output_s.push(operators_s.top()); operators_s.pop() ;
 	}
-	//while(output_s.empty() != true){
-		output_s.top()->print(0) ; output_s.pop();
-//	}
+	output_s.top()->print(0) ; output_s.pop();
 	yy_pop_state() ;
 }
 <WHERE_SUB_STATEMENT>{name}|{dotted_name} { 
