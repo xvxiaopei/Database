@@ -56,9 +56,10 @@ class Qexpression {
 	int type ; 
 	int number;
 	string str;
+	Qexpression *left, *right;
 	Qexpression(int , int);
 	Qexpression(int , string);
 	Qexpression(int, int, string);
-	void print() ;
+	void print(int level) ;
 };
 #endif

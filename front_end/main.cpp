@@ -17,8 +17,22 @@ Qexpression::Qexpression( int t, int p, string s){
 	number = p;
 	str = string(s);
 }
-void Qexpression::print(){
-	cout << type << " " << number << " " << str << endl ;
+void Qexpression::print(int level ){
+	int i ;
+	for ( i = level ; i > 0 ; i --){ cout<< "\t" ;}
+	if (type == OPERATER){
+		cout << str << endl ;
+		if(str[0] == 'N'){
+			this->left->print(level + 1); 
+		}else{
+			this->left->print(level + 1);
+			this->right->print(level + 1) ;
+		}
+	}else if (type == LITERAL || type == COLUME){
+		cout << str << endl;
+	}else if ( type == INTEGER ){
+		cout << number << endl;
+	}
 }
 void Qtree::print(int level ){
 	int i ;
@@ -89,6 +103,25 @@ void scan_over(int statement){
 	buf <<  endl << 
 	HLINE << NORMAL_TEXT <<  endl  ;
 	#endif
+}
+int noperands(string s){
+	switch(s[0]){
+	case '*':
+	case '/':
+	case '+': 
+	case '-':
+	case '=':
+	case '<':
+	case '>':
+	case 'A':
+	case 'O':
+	return 2;
+	break;
+
+	case 'N':
+	return 1;
+	break; 
+	}
 }
 int precedence(string s){
 	switch(s[0]){
