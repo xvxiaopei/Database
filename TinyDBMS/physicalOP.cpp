@@ -7,28 +7,28 @@ physicalOP * physicalOP::physicalop=NULL;
 void appendTupleToRelation(Relation* relation_ptr, MainMemory& mem, int memory_block_index, Tuple& tuple) {
   Block* block_ptr;
   if (relation_ptr->getNumOfBlocks()==0) {
-    cout << "The relation is empty" << endl;
-    cout << "Get the handle to the memory block " << memory_block_index << " and clear it" << endl;
+    //cout << "The relation is empty" << endl;
+   // cout << "Get the handle to the memory block " << memory_block_index << " and clear it" << endl;
     block_ptr=mem.getBlock(memory_block_index);
     block_ptr->clear(); //clear the block
     block_ptr->appendTuple(tuple); // append the tuple
-    cout << "Write to the first block of the relation" << endl;
+    //cout << "Write to the first block of the relation" << endl;
     relation_ptr->setBlock(relation_ptr->getNumOfBlocks(),memory_block_index);
   } else {
-    cout << "Read the last block of the relation into memory block :" << endl;
+   // cout << "Read the last block of the relation into memory block :" << endl;
     relation_ptr->getBlock(relation_ptr->getNumOfBlocks()-1,memory_block_index);
     block_ptr=mem.getBlock(memory_block_index);
 
     if (block_ptr->isFull()) {
-      cout << "(The block is full: Clear the memory block and append the tuple)" << endl;
+      //cout << "(The block is full: Clear the memory block and append the tuple)" << endl;
       block_ptr->clear(); //clear the block
       block_ptr->appendTuple(tuple); // append the tuple
-      cout << "Write to a new block at the end of the relation" << endl;
+     // cout << "Write to a new block at the end of the relation" << endl;
       relation_ptr->setBlock(relation_ptr->getNumOfBlocks(),memory_block_index); //write back to the relation
     } else {
-      cout << "(The block is not full: Append it directly)" << endl;
+     // cout << "(The block is not full: Append it directly)" << endl;
       block_ptr->appendTuple(tuple); // append the tuple
-      cout << "Write to the last block of the relation" << endl;
+     // cout << "Write to the last block of the relation" << endl;
       relation_ptr->setBlock(relation_ptr->getNumOfBlocks()-1,memory_block_index); //write back to the relation
     }
   }  
@@ -101,7 +101,7 @@ void physicalOP::insert(string relation_name,
 				vector<string> STRv,
 				vector<int> INTv)
 {
-	cout<<"Insert a tuple to the relation "<<relation_name<<endl;
+	//cout<<"Insert a tuple to the relation "<<relation_name<<endl;
 	Relation* relation_ptr = schema_manager.getRelation(relation_name);
 	if (relation_ptr==NULL){
                 cout << "No Such Relation"<<endl;
@@ -124,7 +124,7 @@ void physicalOP::insert(string relation_name,
 		}
 	}
 	appendTupleToRelation(relation_ptr,mem,0,tuple);
-	cout<<"Insert Done."<<endl;
+	//cout<<"Insert Done."<<endl;
 	//cout<<*relation_ptr << endl << endl;
 }
 
@@ -323,7 +323,7 @@ vector<Tuple> physicalOP::sortOnMemory(
 			cout<<t<<endl;
 			block_ptr->setTuple(j,t);
 		}
-		if(j<schema.getTuplesPerBlock()) {block_ptr->nullTuple(j-1);break;}
+		//if(j<schema.getTuplesPerBlock()) {block_ptr->nullTuple(j-1);break;}
 	}
 	return results;
 }
@@ -350,9 +350,11 @@ vector<string> physicalOP::sortedSub(string relation_name,string field_name)
 		int getNumOfBlocks=(leftBlocks>10)?10:leftBlocks;
 		relation_ptr->getBlocks(count,0,getNumOfBlocks);
 		leftBlocks-=getNumOfBlocks;
+		//displayMem();
 		char nameplus='0'+ numOfSub;
 		sortOnMemory(field_name,0,getNumOfBlocks);
 		//cout<<relation_name+'-'+nameplus<<"  "<<leftBlocks<<endl;
+		//displayMem();
 		string name=relation_name+'-'+nameplus;
 		if(schema_manager.relationExists(name)) DropTable(name);
 		Relation* sublist=schema_manager.createRelation(name,schema);
@@ -361,6 +363,7 @@ vector<string> physicalOP::sortedSub(string relation_name,string field_name)
 		numOfSub++;
 		count+=getNumOfBlocks;
 		cout<<"sublist: "<<name<<" done!"<<endl;
+		displayRelation(name);
 	}
 	return result;
 }
@@ -431,6 +434,76 @@ bool physicalOP::tupleEqual(Tuple a,Tuple b)
 	return true;
 }
 
+bool physicalOP::fieldLarger(Tuple a,Tuple b,string field_name)
+{
+	if(a.isNull()||b.isNull())return false;
+
+	Schema schema1 =  a.getSchema();
+	Schema schema2 =  b.getSchema();
+	if(!schema1.fieldNameExists(field_name)||!schema2.fieldNameExists(field_name))
+	{
+		cout<<"field name not exists. "<<endl;
+		return false;
+	}
+
+	if(schema1.getFieldType(field_name)==INT && schema2.getFieldType(field_name)==INT)
+	{
+		if(a.getField(field_name).integer>b.getField(field_name).integer) 
+		{
+			cout<<a.getField(field_name).integer<<" > "<<b.getField(field_name).integer<<endl;
+			return true; 
+		}	
+		else 
+		{
+			cout<<a.getField(field_name).integer<<" <= "<<b.getField(field_name).integer<<endl;
+			return false; 
+		}
+
+	}
+
+	else if(schema1.getFieldType(field_name)==STR20&& schema2.getFieldType(field_name)==STR20)
+	{
+		if(*a.getField(field_name).str>*b.getField(field_name).str) 
+		{
+			cout<<*a.getField(field_name).str<<" > "<<*b.getField(field_name).str<<endl;
+			return true; 
+		}
+		else 
+		{
+			cout<<*a.getField(field_name).str<<" <= "<<*b.getField(field_name).str<<endl;
+			return false; 
+		}
+		
+	}
+
+	else return false;	
+}
+bool physicalOP::fieldEqual(Tuple a,Tuple b,string field_name)
+{
+	if(a.isNull()||b.isNull())return false;
+
+	Schema schema1 =  a.getSchema();
+	Schema schema2 =  b.getSchema();
+	if(!schema1.fieldNameExists(field_name)||!schema2.fieldNameExists(field_name))
+	{
+		cout<<"field name not exists. "<<endl;
+		return false;
+	}
+
+	if(schema1.getFieldType(field_name)==INT && schema2.getFieldType(field_name)==INT)
+	{
+		if(a.getField(field_name).integer==b.getField(field_name).integer) return true; 
+	}
+
+	else if(schema1.getFieldType(field_name)==STR20&& schema2.getFieldType(field_name)==STR20)
+	{
+		if(*a.getField(field_name).str==*b.getField(field_name).str) return true; 
+	}
+
+	else return false;	
+}
+
+
 vector<tupAddr*> physicalOP::findDupOnMemory(Tuple t,int start_block,int num_blocks)
 {
 	vector<tupAddr*> results;
@@ -485,7 +558,60 @@ vector<Tuple> physicalOP::dupOnePass(string relation_name)
 		}
 	}
 	return mem.getTuples(0,relation_ptr->getNumOfBlocks());
+}
 
+vector<Tuple> physicalOP::dupTwoPass(string relation_name)
+{
+	Relation* relation_ptr = schema_manager.getRelation(relation_name);
+	vector<Tuple> result;
+	Block *block_ptr;
+	string field_name = relation_ptr->getSchema().getFieldName(0);
+	if(relation_ptr->getNumOfBlocks()<=10) {cout<<"This duplicate elimination can be in one pass! "<<endl;return dupOnePass(relation_name);}
+	vector<string> sublist=sortedSub(relation_name,field_name);
+	Relation* sublist_ptr;
+	tupAddr tmp;
+	int *numOfBlocks = new int[sublist.size()];            //count how many  blocks of each sublist has been written to mem
+	int sum=relation_ptr->getNumOfTuples();
+
+
+	for(int i=0;i<sublist.size();i++)                        //put first block of each sublist to mem
+	{
+		sublist_ptr = schema_manager.getRelation(sublist[i]);
+		sublist_ptr->getBlock(0,i);
+		numOfBlocks[i]=0;
+	}
+
+	while(sum>0)
+	{
+		tmp=getMin(field_name,0,sublist.size());
+		cout<<"Min  Index is "<<tmp.block_index<<" , off set is "<<tmp.block_index<<endl;
+		block_ptr=mem.getBlock(tmp.block_index);
+		result.push_back(block_ptr->getTuple(tmp.offset));
+
+		Tuple minTuple=block_ptr->getTuple(tmp.offset);
+		vector<tupAddr*> dupAddr=findDupOnMemory(minTuple,0,sublist.size());
+		cout<<"There are "<<dupAddr.size()<<" duplicates"<<endl;
+		while(!dupAddr.empty())
+		{
+			tupAddr * a=dupAddr.back();
+			cout<<"duplicate is on "<<a->block_index<<"  "<<a->offset<<endl;
+			block_ptr=mem.getBlock(a->block_index);
+			block_ptr->nullTuple(a->offset); //eliminate
+			sum--;
+			dupAddr.pop_back();
+			if(block_ptr->getNumTuples()==0)      //if this block of sublist is empty, put next block of this sublist
+			{
+				sublist_ptr = schema_manager.getRelation(sublist[a->block_index]);
+				if(numOfBlocks[a->block_index]+1<sublist_ptr->getNumOfBlocks())
+				{
+					numOfBlocks[a->block_index]=numOfBlocks[a->block_index]+1;
+					sublist_ptr->getBlock(numOfBlocks[a->block_index],a->block_index);
+					dupAddr=findDupOnMemory(minTuple,0,sublist.size());
+				}
+			}
+		}
+	}
+	return result;
 
 }
 
@@ -614,6 +740,8 @@ vector<Tuple> physicalOP::Product(string relation_name1,
 
 Tuple physicalOP::JoinOneTuple(Tuple t1,Tuple t2)
 {
+	
+
 	Schema schema1 =  t1.getSchema();
 	Schema schema2 =  t2.getSchema();
 	vector<string> field_names,common_fields;        
@@ -632,6 +760,7 @@ Tuple physicalOP::JoinOneTuple(Tuple t1,Tuple t2)
 			field_types.push_back(schema1.getFieldType(i));
 		}
 	}
+	
 	for(int i=0;i<schema2.getFieldNames().size();i++)
 	{
 		field_names.push_back(schema2.getFieldName(i));
@@ -644,8 +773,11 @@ Tuple physicalOP::JoinOneTuple(Tuple t1,Tuple t2)
 	else Join_ptr=CreateTable(relation_name,field_names,field_types);
 	//displayRelation(relation_name);
 	Tuple tuple = Join_ptr->createTuple();
-
-
+	if(t1.isNull()||t2.isNull())
+	{
+		tuple.null();
+		return tuple;
+	}
 	for(int i=0;i<schema1.getFieldNames().size();i++)
 	{
 		string Filed_Name=schema1.getFieldName(i);
@@ -749,18 +881,182 @@ vector<Tuple>  physicalOP::JoinTwoPass(string relation_name1,
 {
 	Relation* relation_ptr1 = schema_manager.getRelation(relation_name1);
 	Relation* relation_ptr2 = schema_manager.getRelation(relation_name2);
-	vector<Tuple> result;
+   	vector<Tuple> result;
 	if (relation_ptr1==NULL||relation_ptr2==NULL){
                 cout << "No Such Relation"<<endl;
 				return result;
 	}
-	Block* block_ptr0,*block_ptr;
-	block_ptr0=mem.getBlock(0); block_ptr0->clear();
+	
+	Schema schema1 =  relation_ptr1->getSchema();
+	Schema schema2 =  relation_ptr2->getSchema();
+	vector<string> common_fields;   
 
+	int tupPerBlock1 =schema1.getTuplesPerBlock();
+	int tupPerBlock2 =schema2.getTuplesPerBlock();
+
+	for(int i=0;i<schema1.getFieldNames().size();i++)
+	{
+		if(schema2.fieldNameExists(schema1.getFieldName(i)))
+		{
+			common_fields.push_back(schema1.getFieldName(i));
+			continue;
+		}
+	}
+	if(common_fields.empty()) {cout<<"NO common fields, cross join.";return Product(relation_name1,relation_name2);}
+	string field_name = common_fields.back();   //sorted bt this field
+
+	if(relation_ptr1->getNumOfBlocks()<=10||relation_ptr2->getNumOfBlocks()<=10) 
+	{cout<<"This Join can be in one pass! "<<endl;return JoinOnePass(relation_name1,relation_name2);}
+
+	vector<string> sublist1=sortedSub(relation_name1,field_name);
+	vector<string> sublist2=sortedSub(relation_name2,field_name);
+	Relation* sublist_ptr1,* sublist_ptr2;
+	//tupAddr tmp;
+	
+	Block* block_ptr1, *block_ptr2;
+
+	int *numOfBlocks1 = new int[sublist1.size()];            //count how many  blocks of each sublist has been written to mem
+	int sum1=relation_ptr1->getNumOfTuples();
+	int *numOfBlocks2 = new int[sublist2.size()];            //count how many  blocks of each sublist has been written to mem
+	int sum2=relation_ptr2->getNumOfTuples();
+	int  i=0;
+
+	for(i=0;i<sublist1.size();i++)                               //put first block of each sublist of relation 1 to mem
+	{
+		sublist_ptr1 = schema_manager.getRelation(sublist1[i]);
+		sublist_ptr1->getBlock(0,i);
+		numOfBlocks1[i]=0;
+	}
+
+	for(int j=0;i<sublist1.size()+sublist2.size();i++,j++)               //put first block of each sublist of relation 2 to mem
+	{
+		sublist_ptr2 = schema_manager.getRelation(sublist2[j]);
+		//displayRelation(sublist2[j]);
+		sublist_ptr2->getBlock(0,i);
+		numOfBlocks2[j]=0;
+	}
+	displayMem();
+	
+	while(sum1>0&&sum2>0)
+	{
+		tupAddr min1=getMin(field_name,0,sublist1.size());
+		tupAddr min2=getMin(field_name,sublist1.size(),sublist2.size());
+		//cout<<"Min1  Index is "<<min1.block_index<<" , off set is "<<min1.offset<<endl;
+		//cout<<"Min2  Index is "<<min2.block_index<<" , off set is "<<min2.offset<<endl;
+		block_ptr1=mem.getBlock(min1.block_index);
+		block_ptr2=mem.getBlock(min2.block_index);
+
+		Tuple min1Tuple=block_ptr1->getTuple(min1.offset);
+		Tuple min2Tuple=block_ptr2->getTuple(min2.offset);
+		//cout<<min1Tuple<<endl<<min2Tuple<<":  ";
+		if(JoinOneTuple(min1Tuple,min2Tuple).isNull())   //can't join
+		{   //delete smaller
+			//cout<<"can't join: ";
+			if(fieldLarger(min1Tuple,min2Tuple,field_name)) 
+			{
+				//cout<<"delete 2"<<endl;
+				block_ptr2->nullTuple(min2.offset);
+				sum2--;
+				//displayMem();
+				if(block_ptr2->getNumTuples()==0)      //if this block of sublist is empty, put next block of this sublist
+				{
+					int sublist2index=min2.block_index-sublist1.size();
+					sublist_ptr2 = schema_manager.getRelation(sublist2[sublist2index]);
+					//cout<<sublist2[sublist2index]<<endl;
+					if(numOfBlocks2[sublist2index]+1<sublist_ptr2->getNumOfBlocks())
+					{
+						numOfBlocks2[sublist2index]=numOfBlocks2[sublist2index]+1;
+						sublist_ptr2->getBlock(numOfBlocks2[sublist2index],min2.block_index);
+						//cout<<"Read "<<numOfBlocks2[sublist2index]<<"th block of sublist "<<sublist2index<<" into mem block "<<min2.block_index<<endl;
+						//displayMem();
+					}
+				}
+			}
+		
+			else 
+			{
+				//cout<<"delete 1"<<endl;
+				block_ptr1->nullTuple(min1.offset);
+				sum1--;
+				if(block_ptr1->getNumTuples()==0)      //if this block of sublist is empty, put next block of this sublist
+				{
+					sublist_ptr1 = schema_manager.getRelation(sublist1[min1.block_index]);
+					if(numOfBlocks1[min1.block_index]+1<sublist_ptr1->getNumOfBlocks())
+					{
+						numOfBlocks1[min1.block_index]=numOfBlocks1[min1.block_index]+1;
+						sublist_ptr1->getBlock(numOfBlocks1[min1.block_index],min1.block_index);
+						
+					}
+				}
+			}
+		}
+		else    //can join
+		{
+			//cout<<"can join"<<endl;
+			vector<Tuple> MinTuples1,MinTuples2;
+			for(i=0;i<sublist1.size();i++)
+			{
+				block_ptr1=mem.getBlock(i);
+				for(int j=0;j<tupPerBlock1;j++)
+				{
+					if(block_ptr1->getTuple(j).isNull())continue;
+					if(!JoinOneTuple(min2Tuple,block_ptr1->getTuple(j)).isNull())
+					{
+						MinTuples1.push_back(block_ptr1->getTuple(j));
+						block_ptr1->nullTuple(j);
+						sum1--;
+						if(block_ptr1->getNumTuples()==0)      //if this block of sublist is empty, put next block of this sublist
+						{
+							sublist_ptr1 = schema_manager.getRelation(sublist1[i]);
+							if(numOfBlocks1[i]+1<sublist_ptr1->getNumOfBlocks())
+							{
+								numOfBlocks1[i]=numOfBlocks1[i]+1;
+								sublist_ptr1->getBlock(numOfBlocks1[i],i);
+							}
+							j=-1;  
+						}
+					}
+				}
+			}
+
+			for(int k=0;i<sublist1.size()+sublist2.size();i++,k++)
+			{
+				block_ptr2=mem.getBlock(i);
+				for(int j=0;j<tupPerBlock2;j++)
+				{
+					if(block_ptr2->getTuple(j).isNull())continue;
+					if(!JoinOneTuple(min1Tuple,block_ptr2->getTuple(j)).isNull())
+					{
+						MinTuples2.push_back(block_ptr2->getTuple(j));
+						block_ptr2->nullTuple(j);
+						sum2--;
+						if(block_ptr2->getNumTuples()==0)      //if this block of sublist is empty, put next block of this sublist
+						{
+							sublist_ptr2 = schema_manager.getRelation(sublist2[k]);
+							if(numOfBlocks2[k]+1<sublist_ptr2->getNumOfBlocks())
+							{
+								numOfBlocks2[k]=numOfBlocks2[k]+1;
+								sublist_ptr2->getBlock(numOfBlocks2[k],i);
+							}
+							j=-1;
+						}
+					}
+				}
+			}
+			while(!MinTuples1.empty())
+			{
+				for(int l=0;l<MinTuples2.size();l++)
+				{
+					cout<<l;
+					result.push_back(JoinOneTuple(MinTuples1.back(),MinTuples2[l]));
+					cout<<"!!"<<endl;
+				}
+				MinTuples1.pop_back();
+			}
+		}
+	}
 
 	return result;
-	//Relation* Rsmall=(relation_ptr1->getNumOfBlocks()>relation_ptr2->getNumOfBlocks())?relation_ptr2:relation_ptr1;
-	//Relation* Rlarge=(relation_ptr1->getNumOfBlocks()>relation_ptr2->getNumOfBlocks())?relation_ptr1:relation_ptr2;
 
 
 }
