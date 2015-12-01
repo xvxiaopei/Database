@@ -17,6 +17,10 @@
 #include <iterator>
 #include <vector>
 #include "DataStructures.h"
+#include <algorithm>
+#include <cmath>
+#include <map>
+#include <list>
 
 using namespace std;
 
@@ -97,6 +101,17 @@ public:
 
 	vector<Tuple> JoinTwoPass(string relation_name1, 
 							string relation_name2);  //natural join, one pass
+
+	relation_data RelationCount(string relation_name);
+
+	 void combine(int n,int m,vector<int>a,vector<int>&b,vector<vector<int>> &combines);   //pick m elements in a;
+	 
+	 relation_data computeJoin(relation_data relationData1,relation_data relationData2);                    //compute the data after join
+	 vector<vector<int>>getCombine(int n,int m,vector<int>a);
+	 vector<Tuple> JoinTree(JoinNode & root);
+	 vector<Tuple> JoinTables(vector<string> relation_names);
+	 
+
 };
 
 	

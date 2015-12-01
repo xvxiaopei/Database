@@ -43,4 +43,68 @@ public:
 
 };
 
+
+
+
+
+class relation_data{
+public:
+	vector<int> V;                            //in the order of field names' order
+	Schema schema;
+	int T;
+	string relation_name;
+	Relation* relation_ptr;
+	relation_data(vector<int> v,int t,string name,Schema _schema,Relation * ptr=NULL)
+	{
+		V=v;T=t;relation_name=name; relation_ptr=ptr;schema=_schema;
+	}
+	relation_data(){
+		T=0;relation_name=""; relation_ptr=NULL;
+	}
+	void print()
+	{
+		cout<<"Relation : "<<relation_name<<" has "<<T<<" tuples, and V is :"<<endl;
+		//cout<<schema;
+		for(int i = 0; i<schema.getNumOfFields();i++)
+		{
+			cout<<schema.getFieldName(i)+"  ";
+		}
+		cout<<endl;
+		for(int i = 0; i<schema.getNumOfFields();i++)
+		{
+			cout<<V[i]<<"  ";
+		}
+		cout<<endl;
+
+	}
+
+
+};
+class JoinNode
+{
+public:
+	JoinNode *left;
+	JoinNode *right;
+	relation_data m;
+
+	JoinNode(relation_data _m,JoinNode *_l=NULL,JoinNode *_r=NULL)
+	{
+		m=_m;left=_l;right=_r;
+	}
+	JoinNode()
+	{
+		left=NULL;right=NULL;
+	}
+	void print()
+	{
+		cout<<m.relation_name<<" : "<<m.T<<endl;
+		if(left!=NULL)left->print();
+		if(right!=NULL)right->print();
+	}
+
+
+
+
+};
+
 #endif

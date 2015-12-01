@@ -502,11 +502,11 @@ int Block::getNumTuples() const {
 
 Tuple Block::getTuple(int tuple_offset) const { // gets the tuple value at tuple_index; returns empty Tuple if tuple_index out of bound
   if (!tuples.empty() && tuple_offset>=tuples.front().getTuplesPerBlock()) {
-    cerr << "getTuple ERROR: tuple offet " << tuple_offset << " out of bound of the block" << endl;
+    //cerr << "getTuple ERROR: tuple offet " << tuple_offset << " out of bound of the block" << endl;
     return Tuple::getDummyTuple();
   }
   if (tuple_offset<0 || tuple_offset>=tuples.size()) {
-    cerr << "getTuple ERROR: tuple offet " << tuple_offset << " out of bound" << endl;
+   // cerr << "getTuple ERROR: tuple offet " << tuple_offset << " out of bound" << endl;
     return Tuple::getDummyTuple();
   }
   return tuples[tuple_offset];
