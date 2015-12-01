@@ -1235,7 +1235,7 @@ relation_data physicalOP::RelationCount(string relation_name)
 	return relation_data(V,tuples,relation_name,schema,relation_ptr);
 }
 
-void physicalOP::combine(int n,int m,vector<int>a,vector<int> &b,vector<vector<int>> &combines)
+void physicalOP::combine(int n,int m,vector<int>a,vector<int> &b,vector<vector<int> > &combines)
 {
 	
 	for(int i=a.size()-n;i<=a.size()-m;i++)
@@ -1252,9 +1252,9 @@ void physicalOP::combine(int n,int m,vector<int>a,vector<int> &b,vector<vector<i
 		b.pop_back();
 	}
 }
-vector<vector<int>> physicalOP::getCombine(int n,int m,vector<int>a)
+vector<vector<int> > physicalOP::getCombine(int n,int m,vector<int>a)
 {
-	vector<vector<int>> combines;
+	vector<vector<int> > combines;
 	vector<int> b;
 	combine(n, m,a,b,combines);
 	return combines;
@@ -1384,7 +1384,7 @@ vector<Tuple> physicalOP::JoinTables(vector<string> relation_names)
 		size[relation_names[i]]=0;cost[relation_names[i]]=0;
 		costRelation[relation_names[i]]=JoinNode(RelationCount(relation_names[i]));
 	}
-	vector<vector<int>> combines=getCombine(numOfRelation, 2,a);
+	vector<vector<int> > combines=getCombine(numOfRelation, 2,a);
 	for(int i=0;i<combines.size();i++)
 	{
 		string relation_name;
@@ -1407,7 +1407,7 @@ vector<Tuple> physicalOP::JoinTables(vector<string> relation_names)
 	for(int k=3;k<=relation_names.size();k++)
 	{
 		cout<<"k="<<k<<endl;
-		vector<vector<int>> combines=getCombine(relation_names.size(),k,a);
+		vector<vector<int> > combines=getCombine(relation_names.size(),k,a);
 
 		for(int i=0;i<combines.size();i++)
 		{
@@ -1423,7 +1423,7 @@ vector<Tuple> physicalOP::JoinTables(vector<string> relation_names)
 			
 			for(int j=1;j<=combines[i].size()/2;j++)   //partition
 			{
-				vector<vector<int>> partitions1=getCombine(k,j,combines[i]);
+				vector<vector<int> > partitions1=getCombine(k,j,combines[i]);
 				for(int l=0;l<partitions1.size();l++)  //for each partition
 				{
 					string relation_name1,relation_name2;

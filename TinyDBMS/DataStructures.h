@@ -1,5 +1,11 @@
 #ifndef _DATA_STRUCTURES_H_                   // include file only once
 #define _DATA_STRUCTURES_H_
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <string>
+#include <iterator>
+#include <vector>
 
 #include "StorageManager/Block.h"
 #include "StorageManager/Config.h"
@@ -10,12 +16,6 @@
 #include "StorageManager/Schema.h"
 #include "StorageManager/SchemaManager.h"
 #include "StorageManager/Tuple.h"
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include <string>
-#include <iterator>
-#include <vector>
 using namespace std;
 
 class condition{         //give a tuple and return true or false

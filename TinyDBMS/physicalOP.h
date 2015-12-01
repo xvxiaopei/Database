@@ -1,5 +1,17 @@
 #ifndef _PHYSICAL_OP_H_                   // include file only once
 #define _PHYSICAL_OP_H_
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <string>
+#include <iterator>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+#include <map>
+#include <list>
+#include <climits>
+
 
 #include "StorageManager/Block.h"
 #include "StorageManager/Config.h"
@@ -10,18 +22,7 @@
 #include "StorageManager/Schema.h"
 #include "StorageManager/SchemaManager.h"
 #include "StorageManager/Tuple.h"
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include <string>
-#include <iterator>
-#include <vector>
 #include "DataStructures.h"
-#include <algorithm>
-#include <cmath>
-#include <map>
-#include <list>
-
 using namespace std;
 
 class physicalOP{
@@ -104,10 +105,10 @@ public:
 
 	relation_data RelationCount(string relation_name);
 
-	 void combine(int n,int m,vector<int>a,vector<int>&b,vector<vector<int>> &combines);   //pick m elements in a;
+	 void combine(int n,int m,vector<int>a,vector<int>&b,vector<vector<int> > &combines);   //pick m elements in a;
 	 
 	 relation_data computeJoin(relation_data relationData1,relation_data relationData2);                    //compute the data after join
-	 vector<vector<int>>getCombine(int n,int m,vector<int>a);
+	 vector<vector<int> >getCombine(int n,int m,vector<int>a);
 	 vector<Tuple> JoinTree(JoinNode & root);
 	 vector<Tuple> JoinTables(vector<string> relation_names);
 	 
