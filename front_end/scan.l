@@ -2,10 +2,10 @@
 #include "common.h"
 Qtree *current_qt ;
 Qtree *head ;
-stack<Qexpression> output_s;
-queue<Qexpression> operands_q;
-stack<Qexpression> operators_s;
+stack<Qexpression*> output_s;
+stack<Qexpression*> operators_s;
 int precedence(string);
+int noperands(string) ;
 %}
 %option               stack
 
@@ -91,11 +91,15 @@ COMMA                 [,]
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT><<EOF>> {
 	if(YY_START == WHERE_SUB_STATEMENT){
 		while(operators_s.empty() != true){
+			if (noperands(operators_s.top()->str) == 2) {
+				operators_s.top()->right =  (output_s.top() )  ; output_s.pop() ;
+				operators_s.top()->left =  (output_s.top() )  ; output_s.pop() ;
+			}else if (noperands(operators_s.top()->str) == 1) {
+				operators_s.top()->left =  (output_s.top() )  ; output_s.pop() ;
+			}
 			output_s.push(operators_s.top()); operators_s.pop() ;
 		}
-		while(output_s.empty() != true){
-			output_s.top().print() ; output_s.pop();
-		}
+		output_s.top()->print(0) ; output_s.pop();
 	}
 	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
 	yyterminate();
@@ -103,11 +107,15 @@ COMMA                 [,]
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>[\n\r] {
 	if(YY_START == WHERE_SUB_STATEMENT){
 		while(operators_s.empty() != true){
+			if (noperands(operators_s.top()->str) == 2) {
+				operators_s.top()->right =  (output_s.top() )  ; output_s.pop() ;
+				operators_s.top()->left =  (output_s.top() )  ; output_s.pop() ;
+			}else if (noperands(operators_s.top()->str) == 1) {
+				operators_s.top()->left =  (output_s.top() )  ; output_s.pop() ;
+			}
 			output_s.push(operators_s.top()); operators_s.pop() ;
 		}
-		while(output_s.empty() != true){
-			output_s.top().print() ; output_s.pop();
-		}
+		output_s.top()->print(0) ; output_s.pop();
 	}
 	if(head != NULL){head->exec();head->free();head = (current_qt = NULL);}
 	BEGIN(INITIAL);
@@ -284,37 +292,56 @@ COMMA                 [,]
 
 <WHERE_SUB_STATEMENT>{WS}* {}
 <WHERE_SUB_STATEMENT>{OB}{WS}+({name}|{dotted_name}) {
+	/* TODO
+	ORDER BY 
+	*/
 	while(operators_s.empty() != true){
+		if (noperands(operators_s.top()->str) == 2) {
+			operators_s.top()->right =  (output_s.top() )  ; output_s.pop() ;
+			operators_s.top()->left =  (output_s.top() )  ; output_s.pop() ;
+		}else if (noperands(operators_s.top()->str) == 1) {
+			operators_s.top()->left =  (output_s.top() )  ; output_s.pop() ;
+		}
 		output_s.push(operators_s.top()); operators_s.pop() ;
 	}
-	while(output_s.empty() != true){
-		output_s.top().print() ; output_s.pop();
-	}
+	output_s.top()->print(0) ; output_s.pop();
 	yy_pop_state() ;
 }
 <WHERE_SUB_STATEMENT>{name}|{dotted_name} { 
-	output_s.push(Qexpression(COLUME, yytext) ) ;
+	output_s.push(new Qexpression(COLUME, yytext) ) ;
 }
 <WHERE_SUB_STATEMENT>{literal} { 
-	output_s.push(Qexpression(LITERAL, yytext) ) ;
+	output_s.push(new Qexpression(LITERAL, yytext) ) ;
 }
 <WHERE_SUB_STATEMENT>{integer} {
-	output_s.push(Qexpression(INTEGER, atoi(yytext) ) ) ;
+	output_s.push(new Qexpression(INTEGER, atoi(yytext) ) ) ;
 }
 <WHERE_SUB_STATEMENT>{pm_op}|{md_op}|{AND}|{OR}|{NOT}|{comp_op} {
 	int current_precedence = precedence(yytext);
 	while( (! operators_s.empty() ) && 
-		operators_s.top().type != LEFT && 
-		operators_s.top().number >= current_precedence) {
-			output_s.push( operators_s.top() ) ;operators_s.pop();
+		operators_s.top()->type != LEFT && 
+		operators_s.top()->number >= current_precedence) {
+		if (noperands(operators_s.top()->str) == 2) {
+			operators_s.top()->right = (output_s.top() )  ; output_s.pop() ;
+			operators_s.top()->left =  (output_s.top() )  ; output_s.pop() ;
+		}else if (noperands(operators_s.top()->str) == 1) {
+			operators_s.top()->left =  (output_s.top() )  ; output_s.pop() ;
+		}
+		output_s.push( operators_s.top() ) ;operators_s.pop();
 	}
-	operators_s.push( Qexpression(OPERATER, current_precedence, yytext) );
+	operators_s.push( new Qexpression(OPERATER, current_precedence, yytext) );
 }
 <WHERE_SUB_STATEMENT>{LEFT_PARENTHESIS}|[\[] {
-	operators_s.push(Qexpression(LEFT, yytext)) ;
+	operators_s.push(new Qexpression(LEFT, yytext)) ;
 }
 <WHERE_SUB_STATEMENT>{RIGHT_PARENTHESIS}|[\]] {
-	while(operators_s.top().type != LEFT){
+	while(operators_s.top()->type != LEFT){
+		if (noperands(operators_s.top()->str) == 2) {
+			operators_s.top()->right =  (output_s.top() )  ; output_s.pop() ;
+			operators_s.top()->left =   (output_s.top() )  ; output_s.pop() ;
+		}else if (noperands(operators_s.top()->str) == 1) {
+			operators_s.top()->left =   (output_s.top() )  ; output_s.pop() ;
+		}
 		output_s.push( operators_s.top() ) ;operators_s.pop();
 	}
 	operators_s.pop() ;
