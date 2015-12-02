@@ -24,7 +24,7 @@ Qexpression::Qexpression( int t, int p, string s){
 	str = string(s);
 	left = right = NULL;
 }
-bool Qexpression::judge(Tuple *t ) {
+int Qexpression::judge(Tuple *t ) {
 	Qexpression *r = this->right ;
 	Qexpression *l = this->left ;
 	int rt = r->type ;
@@ -57,15 +57,9 @@ bool Qexpression::judge(Tuple *t ) {
 		}
 	}
 	break;
-	case AND_PCD:
-		return l->judge(t) && r->judge(t) ;
-	break ;
-	case OR_PCD:
-		return l->judge(t) || r->judge(t) ;
-	break ;
-	case NOT_PCD:
-		return (! l->judge(t) ) ;
-	break ;
+	case AND_PCD:{return l->judge(t) && r->judge(t) ;}break ;
+	case OR_PCD: {return l->judge(t) || r->judge(t) ;}break ;
+	case NOT_PCD:{return (! l->judge(t) ) ;}break;
 	case COMPARE:{
 		if( rt == COLUMN && lt == COLUMN) {
 			Qexpression *col0 = l, *col1 = r;

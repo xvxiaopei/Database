@@ -65,7 +65,7 @@ class Qexpression {
 	Qexpression(int , string);
 	Qexpression(int, int, string);
 	void print(int level) ;
-	bool judge(Tuple *t) ;
+	int judge(Tuple *t) ;
 	void free() ;
 };
 #endif
