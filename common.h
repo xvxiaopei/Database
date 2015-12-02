@@ -9,6 +9,7 @@
 #include <queue>
 #include <stack>
 #include <string>
+#include "StorageManager/Tuple.h"
 
 using namespace std;
 
@@ -27,7 +28,7 @@ void scan_over(int statement);
 #define JOIN  3
 #define TAU   4
 
-#define COLUME  0
+#define COLUMN  0
 #define LITERAL 1
 #define INTEGER 2
 #define OPERATER 3
@@ -62,6 +63,7 @@ class Qexpression {
 	Qexpression(int , string);
 	Qexpression(int, int, string);
 	void print(int level) ;
+	bool judge(Tuple *t) ;
 	void free() ;
 };
 #endif

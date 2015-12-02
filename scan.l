@@ -297,9 +297,9 @@ COMMA                 [,]
 }
 
 
-<WHERE_SUB_STATEMENT>{WS}* {}
+<WHERE_SUB_STATEMENT>{WS}* { /* Eat white spaces */ }
 <WHERE_SUB_STATEMENT>{OB}{WS}+({name}|{dotted_name}) {
-	/* TODO
+	/* 
 	ORDER BY 
 	*/
 	if(head != NULL){
@@ -325,7 +325,7 @@ COMMA                 [,]
 	yy_pop_state() ;
 }
 <WHERE_SUB_STATEMENT>{name}|{dotted_name} { 
-	output_s.push(new Qexpression(COLUME, yytext) ) ;
+	output_s.push(new Qexpression(COLUMN, yytext) ) ;
 }
 <WHERE_SUB_STATEMENT>{literal} { 
 	output_s.push(new Qexpression(LITERAL, yytext) ) ;

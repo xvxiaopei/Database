@@ -1394,13 +1394,13 @@ YY_RULE_SETUP
 case 39:
 YY_RULE_SETUP
 #line 300 "scan.l"
-{}
+{ /* Eat white spaces */ }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
 #line 301 "scan.l"
 {
-	/* TODO
+	/* 
 	ORDER BY 
 	*/
 	if(head != NULL){
@@ -1430,7 +1430,7 @@ case 41:
 YY_RULE_SETUP
 #line 327 "scan.l"
 { 
-	output_s.push(new Qexpression(COLUME, yytext) ) ;
+	output_s.push(new Qexpression(COLUMN, yytext) ) ;
 }
 	YY_BREAK
 case 42:

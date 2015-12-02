@@ -1,5 +1,6 @@
 #include "common.h"
 #include "lex.yy.cpp"
+
 Qtree::Qtree( int t){
 	type = t;
 	left = NULL;right = NULL;
@@ -20,6 +21,49 @@ Qexpression::Qexpression( int t, int p, string s){
 	str = string(s);
 	left = right = NULL;
 }
+bool Qexpression::judge(Tuple *t ) {
+	Qexpression *r = this->right ;
+	Qexpression *l = this->left ;
+	int rt = r->type ;
+	int lt = l->type ;
+	string s ; 
+	switch(type){
+	case COMPARE:{
+		if( rt == COLUMN && lt == COLUMN) {
+		}else if (rt == COLUMN ){
+			int found = r->str.find('.');
+			union Field fld ;
+			if(found == std::string::npos){
+				string s(r->str) ;
+			}else{
+				string s( r->str.substr(found + 1) ) ;
+			}
+			fld = t->getField(s) ;//Same name TODO
+
+			if(lt == LITERAL){
+				if (this->str[0] == '='){
+					return (l->str.compare(*(fld.str) ) == 0) ;
+				}
+			}else if(lt == INTEGER) {
+				if (this->str[0] == '='){
+					return fld.integer == l->number ;
+				}else if(this->str[0] == '>'){
+					return fld.integer > l->number ;
+				}else if(this->str[0] == '<'){
+					return fld.integer < l->number ;
+				}
+			}else {
+				perror("Type error: should be INTEGER or LITERAL") ;
+				exit(EXIT_FAILURE);
+			}
+		}else if (lt == COLUMN) {
+			
+		}else{
+		}	
+	}
+	break;
+	}
+}
 void Qexpression::free(){
 	if(left != NULL){left->free();}
 	if(right!=NULL){right->free();}
@@ -36,7 +80,7 @@ void Qexpression::print(int level ){
 			this->left->print(level + 1);
 			this->right->print(level + 1) ;
 		}
-	}else if (type == LITERAL || type == COLUME){
+	}else if (type == LITERAL || type == COLUMN){
 		cout << str << endl;
 	}else if ( type == INTEGER ){
 		cout << number << endl;
