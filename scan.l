@@ -239,6 +239,7 @@ COMMA                 [,]
 <DROP_TABLE_STATEMENT>{name} {
 	error_output << "table to Drop:\t" << yytext << endl ;
 	scan_over(DROP_TABLE_STATEMENT);
+	p->DropTable(yytext) ;
 	BEGIN(INITIAL);
 }
 
