@@ -30,7 +30,33 @@ bool Qexpression::judge(Tuple *t ) {
 	int rt = r->type ;
 	int lt = l->type ;
 	string s ; 
-	switch(type){
+	switch(precedence(this->str)){
+	case PLUS_MINUS:
+	case TIMES_DIVIDES:
+	if(rt == COLUMN && lt == COLUMN){
+
+	}else if(rt==COLUMN || lt == COLUMN){
+
+	}else{
+		if(lt == rt ){
+			if(lt == INTEGER){
+				switch(this->str[0]){
+				case '+':{return l->number + r->number;} break;
+				case '-':{return l->number - r->number;} break;
+				case '*':{return l->number * r->number;} break;
+				case '/':{return l->number / r->number;} break;
+				}
+			}else if(lt == LITERAL){
+				/* TODO literal plus/minus literal */
+				return false; 
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+	}
+	break;
 	case AND_PCD:
 		return l->judge(t) && r->judge(t) ;
 	break ;
