@@ -1,5 +1,6 @@
 #include "common.h"
 #include "lex.yy.cpp"
+#include <climits>
 
 Qtree::Qtree( int t){
 	type = t;
@@ -28,37 +29,141 @@ bool Qexpression::judge(Tuple *t ) {
 	int lt = l->type ;
 	string s ; 
 	switch(type){
+	case AND_PCD:
+		return l->judge(t) && r->judge(t) ;
+	break ;
+	case OR_PCD:
+		return l->judge(t) || r->judge(t) ;
+	break ;
+	case NOT_PCD:
+		return (! l->judge(t) ) ;
+	break ;
 	case COMPARE:{
 		if( rt == COLUMN && lt == COLUMN) {
-		}else if (rt == COLUMN ){
-			int found = r->str.find('.');
+			Qexpression *col0 = l, *col1 = r;
+			union Field fld0 , fld1;
+			int found;
+			found = col0->str.find('.');
+			if(found == std::string::npos){
+				string s(col0->str) ;
+				fld0 = t->getField(s) ;//Same name TODO
+			}else{
+				string s( col0->str.substr(found + 1) ) ;
+				fld0 = t->getField(s) ;//Same name TODO
+				if(fld0.integer == INT_MIN) {
+					fld0 = t->getField(col0->str) ;
+				}
+				if(fld0.integer == INT_MIN) {
+					perror("No such field");
+					exit(EXIT_FAILURE);
+				}
+			}
+			found = col1->str.find('.');
+			if(found == std::string::npos){
+				string s(col1->str) ;
+				fld1 = t->getField(s) ;//Same name TODO
+			}else{
+				string s( col1->str.substr(found + 1) ) ;
+				fld1 = t->getField(s) ;//Same name TODO
+				if(fld1.integer == INT_MIN) {
+					fld1 = t->getField(col1->str) ;
+				}
+				if(fld1.integer == INT_MIN) {
+					perror("No such field");
+					exit(EXIT_FAILURE);
+				}
+			}
+			if(this->str[0] == '='){
+				if( fld0.integer == fld1.integer){
+					return true;
+				}else if(fld0.str->compare(*fld1.str) == 0){
+					return true;
+				}else{ /* STR no > < */
+					return false;
+				}
+			}else if(this->str[0] == '>'){
+				return fld0.integer > fld1.integer;
+			}else if(this->str[0] == '<'){
+				return fld0.integer < fld1.integer;
+			}
+			
+			
+		}else if (rt == COLUMN || lt == COLUMN){
+			int constantp ; Qexpression *col , *constant ;
+			if(rt == COLUMN){
+				constantp = lt;
+				constant = l;
+				col = r ;
+			}else{
+				constantp = rt; 
+				constant = r;
+				col = l ;
+			}
+			
+			int found = col->str.find('.');
 			union Field fld ;
 			if(found == std::string::npos){
-				string s(r->str) ;
+				string s(col->str) ;
+				fld = t->getField(s) ;//Same name TODO
 			}else{
-				string s( r->str.substr(found + 1) ) ;
-			}
-			fld = t->getField(s) ;//Same name TODO
-
-			if(lt == LITERAL){
-				if (this->str[0] == '='){
-					return (l->str.compare(*(fld.str) ) == 0) ;
+				string s( col->str.substr(found + 1) ) ;
+				fld = t->getField(s) ;//Same name TODO
+				if(fld.integer == INT_MIN) {
+					fld = t->getField(col->str) ;
 				}
-			}else if(lt == INTEGER) {
+				if(fld.integer == INT_MIN) {
+					perror("No such field");
+					exit(EXIT_FAILURE);
+				}
+	
+			}
+			
+
+			if(constantp == LITERAL){
 				if (this->str[0] == '='){
-					return fld.integer == l->number ;
+					return (constant->str.compare(*(fld.str) ) == 0) ;
+				}
+			}else if(constantp == INTEGER) {
+				if (this->str[0] == '='){
+					return fld.integer == constant->number ;
 				}else if(this->str[0] == '>'){
-					return fld.integer > l->number ;
+					if(lt == COLUMN){
+						return fld.integer > constant->number ;
+					}else{
+						return fld.integer < constant->number ;
+					}
 				}else if(this->str[0] == '<'){
-					return fld.integer < l->number ;
+					if(lt == COLUMN){
+						return fld.integer < constant->number ;
+					}else{
+						return fld.integer > constant->number ;
+					}
 				}
 			}else {
 				perror("Type error: should be INTEGER or LITERAL") ;
 				exit(EXIT_FAILURE);
 			}
-		}else if (lt == COLUMN) {
 			
 		}else{
+			if(rt == lt){
+				if(rt == INTEGER){
+					if (this->str[0] == '='){
+						return l->number == r->number ;
+					}else if(this->str[0] == '>'){
+						return l->number > r->number ;
+					}else if(this->str[0] == '<'){
+						return l->number < r->number ;
+					}
+				}else if(rt == LITERAL) {
+					if( this->str[0] == '='){
+						return (l->str.compare( r->str) == 0) ;
+					}else{
+						return false ;
+					}
+				}
+			}else{
+				return false;
+			}
 		}	
 	}
 	break;
