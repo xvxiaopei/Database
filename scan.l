@@ -123,6 +123,9 @@ COMMA                 [,]
 }
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>[\n\r] {
 	if(YY_START == WHERE_SUB_STATEMENT){
+
+		
+
 		while(operators_s.empty() != true){
 			if (noperands(operators_s.top()->str) == 2) {
 				operators_s.top()->right =  (output_s.top() )  ; output_s.pop() ;
@@ -354,16 +357,31 @@ COMMA                 [,]
 	/* 
 	ORDER BY 
 	*/
+
+	
+	Qtree *beforejoin = head;
 	if(head != NULL){
-		Qtree *templeft = head->left ;
-		Qtree *tempright = head->right ;
-		head->left = new Qtree(TAU); 
-		head->left->left = templeft;
-		head->left->right = tempright;
+		string match (yytext) , name_, name ;
+		int pos  ;
+		while(beforejoin->left != NULL && beforejoin->left->type != JOIN) {
+			beforejoin = beforejoin->left; 
+		}
+		Qtree *templeft = beforejoin->left ;
+		Qtree *tempright = beforejoin->right ;
+		beforejoin->left = new Qtree(TAU); 
+		beforejoin->left->left = templeft;
+		beforejoin->left->right = tempright;
+		pos = match.find(" BY") ;
+		name_ = match.substr(pos + 3) ;
+		pos = name_.rfind(' ') ;
+		name = name_.substr(pos + 1) ;
+		beforejoin->left->info.push_back( name ) ;
+		beforejoin = beforejoin->left;
 	}else{
 		perror("fatal error: no query tree");
 		exit(EXIT_FAILURE);
 	}
+/*
 	while(operators_s.empty() != true){
 		if (noperands(operators_s.top()->str) == 2) {
 			operators_s.top()->right =  (output_s.top() )  ; output_s.pop() ;
@@ -373,8 +391,17 @@ COMMA                 [,]
 		}
 		output_s.push(operators_s.top()); operators_s.pop() ;
 	}
-	output_s.top()->print(0) ; output_s.top()->free() ; output_s.pop();
+	if(output_s.empty() != true){
+		
+		
+		#ifdef DEBUG
+		output_s.top()->print(0) ; 
+		#endif
+		output_s.top()->free() ; output_s.pop();
+		
+	}
 	yy_pop_state() ;
+*/
 }
 <WHERE_SUB_STATEMENT>{name}|{dotted_name} { 
 	output_s.push(new Qexpression(COLUMN, yytext) ) ;
