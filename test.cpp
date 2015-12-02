@@ -1,5 +1,7 @@
+
 #include <iostream>
 #include "physicalOP.h"
+#include "common.h"
 using namespace std;
 
 
@@ -417,6 +419,7 @@ void test()
   p->displayRelation(relation_name);
 
   condition con;
+  
   vector<Tuple> x = p->singleTableSelect("ExampleTable1",con);
   for(vector<Tuple>::iterator it  = x.begin(); it != x.end(); )  
    {  

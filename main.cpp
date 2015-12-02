@@ -1,6 +1,8 @@
 #include "common.h"
 #include "lex.yy.cpp"
+#include "physicalOP.h"
 #include <climits>
+
 
 Qtree::Qtree( int t){
 	type = t;
@@ -224,7 +226,7 @@ void err_out_START(const char str[]) {
 		scan_over(DELETE_STATEMENT) ;
 	}
 	#ifndef  NO_ERROR_OUTPUT
-	cerr << GREEN_TEXT << HLINE << endl << "Scan start:\t" <<
+	error_output << GREEN_TEXT << HLINE << endl << "Scan start:\t" <<
 	str << NORMAL_TEXT << endl;
 	#endif
 }
@@ -258,7 +260,7 @@ void scan_over(int statement){
 	}
 	
 	#ifndef  NO_ERROR_OUTPUT
-	cerr << RED_TEXT << "Scan over:\t" <<
+	error_output << RED_TEXT << "Scan over:\t" <<
 	buf <<  endl << 
 	HLINE << NORMAL_TEXT <<  endl  ;
 	#endif
@@ -314,6 +316,13 @@ int precedence(string s){
 	}
 }
 int main( int argc, char **argv ){
+	p = physicalOP::getInstance();
+
+	/* For debug */
+	#ifdef DEBUG
+	error_output.rdbuf(std::cerr.rdbuf() );
+	#endif
+	
 	++argv, --argc;  /* skip over program name */
 	if ( argc > 0 ){
 		yyin = fopen( argv[0], "r" );
