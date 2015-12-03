@@ -1161,12 +1161,6 @@ case 8:
 YY_RULE_SETUP
 #line 177 "scan.l"
 {
-	if(current_qt == NULL){	head = (current_qt = new Qtree(PI, NULL) );}
-	else{ 
-		current_qt->left = new Qtree(PI, current_qt);
-		current_qt = current_qt->left ;
-	}
-	current_qt->info.push_back(yytext);
 	error_output << "column_name:\t" << yytext << endl ;
 	yy_pop_state();
 	if(YY_START == I_S_EXPECT_VALUES_OR_SELECT){
@@ -1177,7 +1171,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 191 "scan.l"
+#line 185 "scan.l"
 { 
 	if(current_qt == NULL){head = ( current_qt = new Qtree(PI, NULL) );}
 	else{ 
@@ -1195,28 +1189,28 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 205 "scan.l"
+#line 199 "scan.l"
 {
 	BEGIN(S_S_EXPECT_TABLES);
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 208 "scan.l"
+#line 202 "scan.l"
 {
 	BEGIN(S_S_EXPECT_TABLES);
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 211 "scan.l"
+#line 205 "scan.l"
 {
 	BEGIN(S_S_EXPECT_COLUMNS);
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 214 "scan.l"
+#line 208 "scan.l"
 {
 	current_qt->info.push_back(yytext);
 	error_output << "column_name:\t" << yytext << endl ;
@@ -1225,10 +1219,16 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 219 "scan.l"
+#line 213 "scan.l"
 {
-	current_qt->left = new Qtree(TABLE, current_qt);
-	current_qt = current_qt->left ;
+	Qtree *table_node = new Qtree(TABLE, current_qt);
+	if(current_qt != NULL){ 
+		current_qt->left = table_node; 
+		current_qt = current_qt->left ;
+	}else{ 
+		current_qt = table_node; 
+		head = table_node; 
+	}
 	current_qt->info.push_back(yytext) ;
 	error_output << "table name:\t" << yytext << endl;
 	BEGIN(S_S_EXPECT_WHERE_OR_COMMA);
@@ -1255,7 +1255,7 @@ YY_RULE_SETUP
 	Qtree *join_node = new Qtree(JOIN, current_qt->parent);
 	Qtree *table_node = new Qtree(TABLE, join_node);
 	table_node->info.push_back(string(yytext) ) ;
-	current_qt->parent->left = join_node ;
+	if(current_qt->parent != NULL){current_qt->parent->left = join_node ;}
 	join_node->left = current_qt ;
 	current_qt->parent = join_node;
 	join_node->right = table_node ;
@@ -1482,12 +1482,12 @@ YY_RULE_SETUP
 	if(head != NULL){
 		string match (yytext) , name_, name ;
 		int pos  ;
-		beforejoin = current_qt->parent; 
-		Qtree *templeft = beforejoin->left ;
-		Qtree *tempright = beforejoin->right ;
-		beforejoin->left = new Qtree(TAU, beforejoin); 
-		beforejoin->left->left = templeft;
-		beforejoin->left->right = tempright;
+		Qtree *order_node = new Qtree(TAU, current_qt->parent );
+		order_node->left = current_qt;
+		order_node->right = NULL;
+		if(current_qt->parent != NULL){current_qt->parent->left = order_node ;}
+		current_qt->parent = order_node  ;
+
 		pos = match.find(" BY") ;
 		name_ = match.substr(pos + 3) ;
 		pos = name_.rfind(' ') ;

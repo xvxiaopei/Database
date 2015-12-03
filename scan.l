@@ -175,12 +175,6 @@ COMMA                 [,]
 	yy_push_state(S_S_DISTINCT_STATE) ;
 }
 <SELECT_STATEMENT,S_S_DISTINCT_STATE>{STAR}  {
-	if(current_qt == NULL){	head = (current_qt = new Qtree(PI, NULL) );}
-	else{ 
-		current_qt->left = new Qtree(PI, current_qt);
-		current_qt = current_qt->left ;
-	}
-	current_qt->info.push_back(yytext);
 	error_output << "column_name:\t" << yytext << endl ;
 	yy_pop_state();
 	if(YY_START == I_S_EXPECT_VALUES_OR_SELECT){
@@ -217,8 +211,14 @@ COMMA                 [,]
 	BEGIN(S_S_EXPECT_FROM_OR_COMMA);
 }
 <S_S_EXPECT_TABLES>{name} {
-	current_qt->left = new Qtree(TABLE, current_qt);
-	current_qt = current_qt->left ;
+	Qtree *table_node = new Qtree(TABLE, current_qt);
+	if(current_qt != NULL){ 
+		current_qt->left = table_node; 
+		current_qt = current_qt->left ;
+	}else{ 
+		current_qt = table_node; 
+		head = table_node; 
+	}
 	current_qt->info.push_back(yytext) ;
 	error_output << "table name:\t" << yytext << endl;
 	BEGIN(S_S_EXPECT_WHERE_OR_COMMA);
@@ -233,7 +233,7 @@ COMMA                 [,]
 	Qtree *join_node = new Qtree(JOIN, current_qt->parent);
 	Qtree *table_node = new Qtree(TABLE, join_node);
 	table_node->info.push_back(string(yytext) ) ;
-	current_qt->parent->left = join_node ;
+	if(current_qt->parent != NULL){current_qt->parent->left = join_node ;}
 	join_node->left = current_qt ;
 	current_qt->parent = join_node;
 	join_node->right = table_node ;
@@ -377,12 +377,12 @@ COMMA                 [,]
 	if(head != NULL){
 		string match (yytext) , name_, name ;
 		int pos  ;
-		beforejoin = current_qt->parent; 
-		Qtree *templeft = beforejoin->left ;
-		Qtree *tempright = beforejoin->right ;
-		beforejoin->left = new Qtree(TAU, beforejoin); 
-		beforejoin->left->left = templeft;
-		beforejoin->left->right = tempright;
+		Qtree *order_node = new Qtree(TAU, current_qt->parent );
+		order_node->left = current_qt;
+		order_node->right = NULL;
+		if(current_qt->parent != NULL){current_qt->parent->left = order_node ;}
+		current_qt->parent = order_node  ;
+
 		pos = match.find(" BY") ;
 		name_ = match.substr(pos + 3) ;
 		pos = name_.rfind(' ') ;
