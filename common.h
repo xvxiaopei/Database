@@ -13,6 +13,7 @@
 #include <string>
 #include "StorageManager/Tuple.h"
 #include "StorageManager/Field.h"
+#include "StorageManager/Relation.h"
 
 using namespace std;
 
@@ -54,19 +55,22 @@ class Qtree {
 	Qtree(int type); 
 	void print( int );
 	void free() ;
-	vector<Tuple> exec();
+	Relation *exec();
 }; 
 class Qexpression {
+	private:
+	union Field judge_(Tuple t) ;
 	public:
 	int type ; 
 	int number;
 	string str;
 	Qexpression *left, *right;
+	Qexpression() ;
 	Qexpression(int , int);
 	Qexpression(int , string);
 	Qexpression(int, int, string);
+	bool judge(Tuple t);
 	void print(int level) ;
-	union Field judge(Tuple *t) ;
 	void free() ;
 };
 #endif

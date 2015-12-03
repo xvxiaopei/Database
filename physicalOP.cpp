@@ -1,4 +1,5 @@
 #include "physicalOP.h"
+#include "common.h"
 
 
 physicalOP * physicalOP::physicalop=NULL;

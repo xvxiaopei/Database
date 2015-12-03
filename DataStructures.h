@@ -16,15 +16,16 @@
 #include "StorageManager/Schema.h"
 #include "StorageManager/SchemaManager.h"
 #include "StorageManager/Tuple.h"
+#include "common.h"
 using namespace std;
-
+/*
 class condition{         //give a tuple and return true or false
 	vector<string> field_names;
 	
 public:
 	bool judge(Tuple t);        //judge if this tuple fit the condition
-};
-
+};*/
+typedef Qexpression condition ;
 class tupAddr{                   //location if a tuple in mem
 public:
 	int block_index;
