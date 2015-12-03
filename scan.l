@@ -2,7 +2,6 @@
 #include "common.h"
 #include "physicalOP.h"
 #include "StorageManager/Field.h"
-
 physicalOP *p;
 Qtree *current_qt ;
 Qtree *head ;
@@ -18,6 +17,9 @@ vector<int> int_values;
 vector<string> str_values ;
 
 std::ostream error_output(NULL);
+
+
+
 
 %}
 %option               stack
@@ -59,7 +61,7 @@ std::ostream error_output(NULL);
 
 
 DOT                   [.]
-OB                    ORDER{WS}+BY
+OB                    {WS}*ORDER{WS}+BY
 digit                 [0-9]
 letter                [a-z]
 integer               {digit}+
@@ -164,7 +166,7 @@ COMMA                 [,]
 }
 
 <SELECT_STATEMENT>{WS}*{DISTINCT}{WS}* {
-	head = (current_qt = new Qtree(DELTA) );
+	head = (current_qt = new Qtree(DELTA, NULL) );
 	error_output << "DISTINCT" << endl ;
 	yy_pop_state();
 	if(YY_START == I_S_EXPECT_VALUES_OR_SELECT){
@@ -173,8 +175,11 @@ COMMA                 [,]
 	yy_push_state(S_S_DISTINCT_STATE) ;
 }
 <SELECT_STATEMENT,S_S_DISTINCT_STATE>{STAR}  {
-	if(current_qt == NULL){	head = (current_qt = new Qtree(PI) );}
-	else{ current_qt = (current_qt->left = new Qtree(PI) );	}
+	if(current_qt == NULL){	head = (current_qt = new Qtree(PI, NULL) );}
+	else{ 
+		current_qt->left = new Qtree(PI, current_qt);
+		current_qt = current_qt->left ;
+	}
 	current_qt->info.push_back(yytext);
 	error_output << "column_name:\t" << yytext << endl ;
 	yy_pop_state();
@@ -184,8 +189,11 @@ COMMA                 [,]
 	BEGIN(S_S_EXPECT_FROM);
 }
 <SELECT_STATEMENT,S_S_DISTINCT_STATE>({name}|{dotted_name}) { 
-	if(current_qt == NULL){head = ( current_qt = new Qtree(PI) );}
-	else{ current_qt = (current_qt->left = new Qtree(PI) );	 }
+	if(current_qt == NULL){head = ( current_qt = new Qtree(PI, NULL) );}
+	else{ 
+		current_qt->left = new Qtree(PI, current_qt) ;	 
+		current_qt = current_qt->left;
+	}
 	current_qt->info.push_back(yytext);
 	error_output << "column_name:\t" << yytext << endl ;
 	yy_pop_state();
@@ -209,7 +217,8 @@ COMMA                 [,]
 	BEGIN(S_S_EXPECT_FROM_OR_COMMA);
 }
 <S_S_EXPECT_TABLES>{name} {
-	current_qt = (current_qt->left = new Qtree(JOIN) );
+	current_qt->left = new Qtree(TABLE, current_qt);
+	current_qt = current_qt->left ;
 	current_qt->info.push_back(yytext) ;
 	error_output << "table name:\t" << yytext << endl;
 	BEGIN(S_S_EXPECT_WHERE_OR_COMMA);
@@ -221,7 +230,15 @@ COMMA                 [,]
 	BEGIN(S_S_EXPECT_MORE_TABLES);
 }
 <S_S_EXPECT_MORE_TABLES>{name} {
-	current_qt->info.push_back(yytext); 
+	Qtree *join_node = new Qtree(JOIN, current_qt->parent);
+	Qtree *table_node = new Qtree(TABLE, join_node);
+	table_node->info.push_back(string(yytext) ) ;
+	current_qt->parent->left = join_node ;
+	join_node->left = current_qt ;
+	current_qt->parent = join_node;
+	join_node->right = table_node ;
+	current_qt = join_node ;
+
 	error_output << "table name: \t" << yytext << endl;
 	BEGIN(S_S_EXPECT_WHERE_OR_COMMA);
 }
@@ -350,7 +367,7 @@ COMMA                 [,]
 
 
 <WHERE_SUB_STATEMENT>{WS}* { /* Eat white spaces */ }
-<WHERE_SUB_STATEMENT>{OB}{WS}+({name}|{dotted_name}) {
+<S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{OB}{WS}+({name}|{dotted_name}) {
 	/* 
 	ORDER BY 
 	*/
@@ -360,12 +377,10 @@ COMMA                 [,]
 	if(head != NULL){
 		string match (yytext) , name_, name ;
 		int pos  ;
-		while(beforejoin->left != NULL && beforejoin->left->type != JOIN) {
-			beforejoin = beforejoin->left; 
-		}
+		beforejoin = current_qt->parent; 
 		Qtree *templeft = beforejoin->left ;
 		Qtree *tempright = beforejoin->right ;
-		beforejoin->left = new Qtree(TAU); 
+		beforejoin->left = new Qtree(TAU, beforejoin); 
 		beforejoin->left->left = templeft;
 		beforejoin->left->right = tempright;
 		pos = match.find(" BY") ;
