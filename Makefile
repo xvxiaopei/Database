@@ -1,4 +1,4 @@
-CC=clang++
+CC=g++
 cflag=-lfl -g
 SM=StorageManager-c++-2_1_beta_1_fix-linux
 

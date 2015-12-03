@@ -16,7 +16,6 @@
 #include "StorageManager/Relation.h"
 
 using namespace std;
-
 void err_out_START(const char str[]);
 void scan_over(int statement);
 	
@@ -31,6 +30,7 @@ void scan_over(int statement);
 #define SIGMA 2
 #define JOIN  3
 #define TAU   4
+#define TABLE 5
 
 #define COLUMN  0
 #define LITERAL 1
@@ -51,8 +51,8 @@ class Qtree {
 	public:
 	int type ; 
 	vector<string> info;
-	Qtree *left, *right;
-	Qtree(int type); 
+	Qtree *left, *right, *parent;
+	Qtree(int type, Qtree *parent); 
 	void print( int );
 	void free() ;
 	Relation *exec();
@@ -73,4 +73,7 @@ class Qexpression {
 	void print(int level) ;
 	void free() ;
 };
+
+
+
 #endif

@@ -7,10 +7,11 @@
 #include "StorageManager/Tuple.h"
 #include "StorageManager/Relation.h"
 
+extern physicalOP *p ;
 
-Qtree::Qtree( int t){
+Qtree::Qtree( int t, Qtree *p){
 	type = t;
-	left = NULL;right = NULL;
+	left = NULL;right = NULL;parent = p ;
 }
 Qexpression::Qexpression(){
 	type = INT_MIN ;
@@ -145,6 +146,7 @@ void Qtree::print(int level ){
 		case DELTA: cout << "δ " << "\t[";break;
 		case JOIN: cout << "X " << "\t["; break;
 		case TAU: cout << "τ" << "\t["; break; 
+		case TABLE: cout << "TB" << "\t["; break ;
 	}
 	for(i = 0; i < info.size(); i++){
 		cout << info[i] << " " ;
@@ -163,7 +165,6 @@ Relation* Qtree::exec(){
 	#ifdef DEBUG
 	this->print(0);
 	#endif
-	return NULL ;
 /*
 	if(this->type == PI){
 		if(this->info.size() == 1 && this->info[0][0] == '*') {
@@ -174,7 +175,7 @@ Relation* Qtree::exec(){
 	}else if(this->type == JOIN){
 		if(this->left == NULL && this->right == NULL){
 			if(this->info.size() == 1){
-
+				
 			}
 		}
 	}
@@ -188,6 +189,8 @@ Relation* Qtree::exec(){
 	}else if(this->left != NULL && this->right != NULL){
 	}
 	*/
+
+	return NULL ;
 }
 int noperands(string s){
 	switch(s[0]){

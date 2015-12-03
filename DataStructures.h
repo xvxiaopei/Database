@@ -25,7 +25,7 @@ class condition{         //give a tuple and return true or false
 public:
 	bool judge(Tuple t);        //judge if this tuple fit the condition
 };*/
-typedef Qexpression condition ;
+typedef Qexpression* (condition) ;
 class tupAddr{                   //location if a tuple in mem
 public:
 	int block_index;
