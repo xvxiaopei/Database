@@ -407,7 +407,9 @@ COMMA                 [,]
 	output_s.push(new Qexpression(COLUMN, yytext) ) ;
 }
 <WHERE_SUB_STATEMENT>{literal} { 
-	output_s.push(new Qexpression(LITERAL, yytext) ) ;
+	string l(yytext + 1) ;
+	l.substr(0, l.size() - 1) ;
+	output_s.push(new Qexpression(LITERAL, l) ) ;
 }
 <WHERE_SUB_STATEMENT>{integer} {
 	output_s.push(new Qexpression(INTEGER, atoi(yytext) ) ) ;

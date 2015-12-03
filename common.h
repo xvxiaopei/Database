@@ -12,6 +12,7 @@
 #include <stack>
 #include <string>
 #include "StorageManager/Tuple.h"
+#include "StorageManager/Field.h"
 
 using namespace std;
 
@@ -65,7 +66,7 @@ class Qexpression {
 	Qexpression(int , string);
 	Qexpression(int, int, string);
 	void print(int level) ;
-	int judge(Tuple *t) ;
+	union Field judge(Tuple *t) ;
 	void free() ;
 };
 #endif

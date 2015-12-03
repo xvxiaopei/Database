@@ -1,5 +1,6 @@
 #include "common.h"
 #include "lex.yy.cpp"
+#include "StorageManager/Field.h"
 #include "physicalOP.h"
 #include <climits>
 
@@ -24,171 +25,78 @@ Qexpression::Qexpression( int t, int p, string s){
 	str = string(s);
 	left = right = NULL;
 }
-int Qexpression::judge(Tuple *t ) {
-	Qexpression *r = this->right ;
-	Qexpression *l = this->left ;
-	int rt = r->type ;
-	int lt = l->type ;
-	string s ; 
-	switch(precedence(this->str)){
-	case PLUS_MINUS:
-	case TIMES_DIVIDES:
-	if(rt == COLUMN && lt == COLUMN){
-
-	}else if(rt==COLUMN || lt == COLUMN){
-
-	}else{
-		if(lt == rt ){
-			if(lt == INTEGER){
-				switch(this->str[0]){
-				case '+':{return l->number + r->number;} break;
-				case '-':{return l->number - r->number;} break;
-				case '*':{return l->number * r->number;} break;
-				case '/':{return l->number / r->number;} break;
-				}
-			}else if(lt == LITERAL){
-				/* TODO literal plus/minus literal */
-				return false; 
-			}else{
-				return false;
-			}
+union Field Qexpression::judge(Tuple *t ) {
+	union Field lf = this->left->judge(t) ;
+	union Field rf = this->right->judge(t) ;
+	union Field ret ;
+	switch(this->type){
+	case COLUMN:{
+		int found = this->str.find('.');
+		if(found == std::string::npos){
+			ret = t->getField(this->str) ;
 		}else{
-			return false;
+			string s( this->str.substr(found + 1) ) ;
+			ret = t->getField(s );
+			if( ret.integer == INT_MIN){
+				ret = t->getField(this->str) ;
+			}
+			if(ret.integer == INT_MIN){
+				perror("No such field") ;
+			}
+		}
+		return ret ;
+
+	}
+	break ;
+	case INTEGER:{
+		union Field f ;
+		f.integer = this->number;
+		return f;
+	} break;
+	case LITERAL:{
+		union Field f;
+		f.str = &(this->str );
+		return f;
+	}break;
+	case OPERATER:{
+		switch(this->str[0]){
+		case '=':{
+			union Field lf = this->left->judge(t) ;
+			union Field rf = this->right->judge(t) ;
+			union Field ret ;
+			if(lf.integer == rf.integer){
+				ret.integer = 1;
+			}else if( ! lf.str->compare( *(rf.str)  ) ){
+				ret.integer = 1;
+			}else {
+				ret.integer = 0 ;
+			}
+			return ret ;
+		}break;
+
+		case '>':
+		case '<':{
+			union Field lf = this->left->judge(t) ;
+			union Field rf = this->right->judge(t) ;
+			union Field ret ;
+			if(this->str[0] == '>'){
+				ret.integer = (lf.integer > rf.integer ? 1 : 0 );
+			}else{
+				ret.integer = (lf.integer < rf.integer ? 1 : 0 );
+			}
+			return ret;
+		}break;
+
+		case '+':{ ret.integer = (lf.integer + rf.integer ) ;return ret;	}break ;
+		case '-':{ ret.integer = (lf.integer - rf.integer ) ;return ret;	}break ;
+		case '*':{ ret.integer = (lf.integer * rf.integer ) ;return ret;	}break ;
+		case '/':{ ret.integer = (lf.integer / rf.integer ) ;return ret;	}break ;
+
+		case 'A':{ ret.integer = (lf.integer && rf.integer) ;return ret;    }break ;
+		case 'O':{ ret.integer = (lf.integer || rf.integer) ;return ret;    }break ;
+		case 'N':{ ret.integer = (! lf.integer);             return ret;    }break ;
 		}
 	}
-	break;
-	case AND_PCD:{return l->judge(t) && r->judge(t) ;}break ;
-	case OR_PCD: {return l->judge(t) || r->judge(t) ;}break ;
-	case NOT_PCD:{return (! l->judge(t) ) ;}break;
-	case COMPARE:{
-		if( rt == COLUMN && lt == COLUMN) {
-			Qexpression *col0 = l, *col1 = r;
-			union Field fld0 , fld1;
-			int found;
-			found = col0->str.find('.');
-			if(found == std::string::npos){
-				string s(col0->str) ;
-				fld0 = t->getField(s) ;//Same name TODO
-			}else{
-				string s( col0->str.substr(found + 1) ) ;
-				fld0 = t->getField(s) ;//Same name TODO
-				if(fld0.integer == INT_MIN) {
-					fld0 = t->getField(col0->str) ;
-				}
-				if(fld0.integer == INT_MIN) {
-					perror("No such field");
-					exit(EXIT_FAILURE);
-				}
-			}
-			found = col1->str.find('.');
-			if(found == std::string::npos){
-				string s(col1->str) ;
-				fld1 = t->getField(s) ;//Same name TODO
-			}else{
-				string s( col1->str.substr(found + 1) ) ;
-				fld1 = t->getField(s) ;//Same name TODO
-				if(fld1.integer == INT_MIN) {
-					fld1 = t->getField(col1->str) ;
-				}
-				if(fld1.integer == INT_MIN) {
-					perror("No such field");
-					exit(EXIT_FAILURE);
-				}
-			}
-			if(this->str[0] == '='){
-				if( fld0.integer == fld1.integer){
-					return true;
-				}else if(fld0.str->compare(*fld1.str) == 0){
-					return true;
-				}else{ /* STR no > < */
-					return false;
-				}
-			}else if(this->str[0] == '>'){
-				return fld0.integer > fld1.integer;
-			}else if(this->str[0] == '<'){
-				return fld0.integer < fld1.integer;
-			}
-			
-			
-		}else if (rt == COLUMN || lt == COLUMN){
-			int constantp ; Qexpression *col , *constant ;
-			if(rt == COLUMN){
-				constantp = lt;
-				constant = l;
-				col = r ;
-			}else{
-				constantp = rt; 
-				constant = r;
-				col = l ;
-			}
-			
-			int found = col->str.find('.');
-			union Field fld ;
-			if(found == std::string::npos){
-				string s(col->str) ;
-				fld = t->getField(s) ;//Same name TODO
-			}else{
-				string s( col->str.substr(found + 1) ) ;
-				fld = t->getField(s) ;//Same name TODO
-				if(fld.integer == INT_MIN) {
-					fld = t->getField(col->str) ;
-				}
-				if(fld.integer == INT_MIN) {
-					perror("No such field");
-					exit(EXIT_FAILURE);
-				}
-	
-			}
-			
-
-			if(constantp == LITERAL){
-				if (this->str[0] == '='){
-					return (constant->str.compare(*(fld.str) ) == 0) ;
-				}
-			}else if(constantp == INTEGER) {
-				if (this->str[0] == '='){
-					return fld.integer == constant->number ;
-				}else if(this->str[0] == '>'){
-					if(lt == COLUMN){
-						return fld.integer > constant->number ;
-					}else{
-						return fld.integer < constant->number ;
-					}
-				}else if(this->str[0] == '<'){
-					if(lt == COLUMN){
-						return fld.integer < constant->number ;
-					}else{
-						return fld.integer > constant->number ;
-					}
-				}
-			}else {
-				perror("Type error: should be INTEGER or LITERAL") ;
-				exit(EXIT_FAILURE);
-			}
-			
-		}else{
-			if(rt == lt){
-				if(rt == INTEGER){
-					if (this->str[0] == '='){
-						return l->number == r->number ;
-					}else if(this->str[0] == '>'){
-						return l->number > r->number ;
-					}else if(this->str[0] == '<'){
-						return l->number < r->number ;
-					}
-				}else if(rt == LITERAL) {
-					if( this->str[0] == '='){
-						return (l->str.compare( r->str) == 0) ;
-					}else{
-						return false ;
-					}
-				}
-			}else{
-				return false;
-			}
-		}	
-	}
-	break;
 	}
 }
 void Qexpression::free(){

@@ -1517,19 +1517,21 @@ case 42:
 YY_RULE_SETUP
 #line 409 "scan.l"
 { 
-	output_s.push(new Qexpression(LITERAL, yytext) ) ;
+	string l(yytext + 1) ;
+	l.substr(0, l.size() - 1) ;
+	output_s.push(new Qexpression(LITERAL, l) ) ;
 }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 412 "scan.l"
+#line 414 "scan.l"
 {
 	output_s.push(new Qexpression(INTEGER, atoi(yytext) ) ) ;
 }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 415 "scan.l"
+#line 417 "scan.l"
 {
 	int current_precedence = precedence(yytext);
 	while( (! operators_s.empty() ) && 
@@ -1548,14 +1550,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 430 "scan.l"
+#line 432 "scan.l"
 {
 	operators_s.push(new Qexpression(LEFT, yytext)) ;
 }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 433 "scan.l"
+#line 435 "scan.l"
 {
 	while(operators_s.top()->type != LEFT){
 		if (noperands(operators_s.top()->str) == 2) {
@@ -1571,12 +1573,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 447 "scan.l"
+#line 449 "scan.l"
 {/* IGNORE white spaces */}       
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 448 "scan.l"
+#line 450 "scan.l"
 {/* all other character */
 	fprintf(stderr, "Error: unaccepted character: %s\n", yytext) ;
 	exit(EXIT_FAILURE); 
@@ -1584,10 +1586,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 453 "scan.l"
+#line 455 "scan.l"
 ECHO;
 	YY_BREAK
-#line 1591 "lex.yy.cpp"
+#line 1593 "lex.yy.cpp"
 case YY_STATE_EOF(DISTINCT_STATE):
 case YY_STATE_EOF(DROP_TABLE_STATEMENT):
 case YY_STATE_EOF(SELECT_STATEMENT):
@@ -2650,7 +2652,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 452 "scan.l"
+#line 454 "scan.l"
 
 
 
