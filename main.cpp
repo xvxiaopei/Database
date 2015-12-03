@@ -3,6 +3,8 @@
 #include "StorageManager/Field.h"
 #include "physicalOP.h"
 #include <climits>
+#include <vector>
+#include "StorageManager/Tuple.h"
 
 
 Qtree::Qtree( int t){
@@ -97,6 +99,7 @@ union Field Qexpression::judge(Tuple *t ) {
 		case 'N':{ ret.integer = (! lf.integer);             return ret;    }break ;
 		}
 	}
+	default:{perror("Illegal type");} break;
 	}
 }
 void Qexpression::free(){
@@ -145,8 +148,13 @@ void Qtree::free(){
 	if(right!=NULL){right->free();}
 	delete this;
 }
-void Qtree::exec(){
-	print(0);
+vector<Tuple> Qtree::exec(){
+	vector<Tuple>  ret ;
+	#ifdef DEBUG
+	this->print(0);
+	#endif
+	return  ret ;
+	
 }
 
 void err_out_START(const char str[]) {

@@ -123,9 +123,6 @@ COMMA                 [,]
 }
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>[\n\r] {
 	if(YY_START == WHERE_SUB_STATEMENT){
-
-		
-
 		while(operators_s.empty() != true){
 			if (noperands(operators_s.top()->str) == 2) {
 				operators_s.top()->right =  (output_s.top() )  ; output_s.pop() ;

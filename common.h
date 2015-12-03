@@ -54,7 +54,7 @@ class Qtree {
 	Qtree(int type); 
 	void print( int );
 	void free() ;
-	void exec();
+	vector<Tuple> exec();
 }; 
 class Qexpression {
 	public:
