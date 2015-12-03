@@ -104,6 +104,7 @@ COMMA                 [,]
 %%
 
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT><<EOF>> {
+
 	if(YY_START == WHERE_SUB_STATEMENT){
 		while(operators_s.empty() != true){
 			if (noperands(operators_s.top()->str) == 2) {
@@ -114,16 +115,20 @@ COMMA                 [,]
 			}
 			output_s.push(operators_s.top()); operators_s.pop() ;
 		}
-		output_s.top()->print(0) ; output_s.top()->free() ;output_s.pop();
+		output_s.top()->print(0) ; 
 	}
 	if(head != NULL){
 		head->exec();
 		head->free();
 		head = (current_qt = NULL);
+		if(YY_START == WHERE_SUB_STATEMENT){
+			 output_s.top()->free() ;output_s.pop();
+		}
 	}
 	yyterminate();
 }
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>[\n\r] {
+	
 	if(YY_START == WHERE_SUB_STATEMENT){
 		while(operators_s.empty() != true){
 			if (noperands(operators_s.top()->str) == 2) {
@@ -134,12 +139,15 @@ COMMA                 [,]
 			}
 			output_s.push(operators_s.top()); operators_s.pop() ;
 		}
-		output_s.top()->print(0) ; output_s.top()->free() ;output_s.pop();
+		output_s.top()->print(0) ;
 	}
 	if(head != NULL){
 		head->exec();
 		head->free();
 		head = (current_qt = NULL);
+		if(YY_START == WHERE_SUB_STATEMENT){
+			 output_s.top()->free() ;output_s.pop();
+		}
 	}
 	BEGIN(INITIAL);
 }
@@ -419,7 +427,7 @@ COMMA                 [,]
 }
 <WHERE_SUB_STATEMENT>{literal} { 
 	string l(yytext + 1) ;
-	l.substr(0, l.size() - 1) ;
+	l = l.substr(0, l.size() - 1) ;
 	output_s.push(new Qexpression(LITERAL, l) ) ;
 }
 <WHERE_SUB_STATEMENT>{integer} {
