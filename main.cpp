@@ -31,6 +31,7 @@ union Field Qexpression::judge(Tuple *t ) {
 	union Field lf = this->left->judge(t) ;
 	union Field rf = this->right->judge(t) ;
 	union Field ret ;
+	ret.integer = INT_MIN ;
 	switch(this->type){
 	case COLUMN:{
 		int found = this->str.find('.');
@@ -101,6 +102,7 @@ union Field Qexpression::judge(Tuple *t ) {
 	}
 	default:{perror("Illegal type");} break;
 	}
+	return ret ;
 }
 void Qexpression::free(){
 	if(left != NULL){left->free();}
@@ -219,6 +221,7 @@ int noperands(string s){
 	return 1;
 	break; 
 	}
+	return INT_MIN ;
 }
 int precedence(string s){
 	switch(s[0]){
@@ -250,6 +253,7 @@ int precedence(string s){
 	return OR_PCD ;
 	break;
 	}
+	return INT_MIN;
 }
 int main( int argc, char **argv ){
 	p = physicalOP::getInstance();
