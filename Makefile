@@ -1,7 +1,9 @@
 CC=clang++
 cflag=-lfl -g
-all:isql test
 SM=StorageManager-c++-2_1_beta_1_fix-linux
+
+all:isql test
+
 isql:  main.cpp lex.yy.cpp common.h StorageManager.o physicalOP.o  common.o
 	$(CC)  -o $@ StorageManager.o  physicalOP.o  common.o $< $(cflag)
 lex.yy.cpp: scan.l common.h
