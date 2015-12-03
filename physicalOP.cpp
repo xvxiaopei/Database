@@ -191,6 +191,38 @@ Relation * physicalOP::CreateTable(string relation_name,vector<Tuple> tuples)
 }
 
 
+vector<Tuple> physicalOP::singleTableSelect(Relation *relation_ptr,
+						   condition con)
+{
+	cout<<"select"<<endl;
+	vector<Tuple> result;
+	//Relation* relation_ptr = schema_manager.getRelation(relation_name);
+	Block* block_ptr;
+	if (relation_ptr==NULL){
+                cout << "No Such Relation"<<endl;
+                return result;
+	}
+	Tuple tuple = relation_ptr->createTuple();
+
+	for(int i=0;i<relation_ptr->getNumOfBlocks();i++)
+	{
+		relation_ptr->getBlock(i,0);
+		block_ptr=mem.getBlock(0);
+		int NumOfTuples = block_ptr->getNumTuples();
+		vector<Tuple> Tuples = block_ptr->getTuples();
+		for(vector<Tuple>::iterator it  = Tuples.begin(); it != Tuples.end(); )  
+        {  
+			if(con == NULL || con->judge(*it))           //if this tuple fit the condition
+			{
+				result.push_back(*it);
+			}
+			it = Tuples.erase(it);
+        }  
+	}
+	return result;
+}
+
+
 
 vector<Tuple> physicalOP::singleTableSelect(string relation_name,
 						   condition con)
@@ -216,8 +248,8 @@ vector<Tuple> physicalOP::singleTableSelect(string relation_name,
 			if(con == NULL || con->judge(*it))           //if this tuple fit the condition
 			{
 				result.push_back(*it);
-				it = Tuples.erase(it);
 			}
+			it = Tuples.erase(it);
         }  
 	}
 	return result;
