@@ -3,6 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "physicalOP.h"
+#include "common.h"
+
+extern physicalOP *p ;
+extern stack<Qexpression*> output_s;
 
 void err_out_START(const char str[]) {
 	if(YY_START == D_S_EXPECT_WHERE) {
@@ -48,7 +52,48 @@ void scan_over(int statement){
 	HLINE << NORMAL_TEXT <<  endl  ;
 	#endif
 }
+Relation* Qtree::exec_(){
+	Relation *ret;
+	if(this->type == TABLE){
+		ret = p->schema_manager.getRelation(this->info[0] ) ;
+	}
+	return ret;
+}
+vector<Tuple> Qtree::exec(){
+	vector<Tuple> ret ;
+	#ifdef DEBUG
+	this->print(0);
+	#endif
+	if(this->type == PI){
 
+	}else if(this->type == JOIN){
+		Relation *ltable = this->left->exec_();
+		Relation *rtable = this->right->exec_() ;
+		//ret = p->singleTableSelect(r, output_s.top() ) ;
+		
+	}else if(this->type == TABLE){
+		ret = p->singleTableSelect(this->info[0], output_s.empty() ? NULL : output_s.top() );
+		vector<string> field_names = 
+			ret[0].getSchema( ).getFieldNames() ;
+		for(vector<string>::iterator it = field_names.begin(); it != field_names.end(); it++){
+			cout<< *it << ' ' ;
+		} cout << endl << "-----------------" << endl ;
+		for(vector<Tuple>::iterator it = ret.begin(); it != ret.end(); it ++ ){
+			cout << (*it) << endl;
+		}cout <<  "-----------------" << endl << endl ;
+	}
+	/*
+	if(this->left == NULL && this->right == NULL){
+		int i = 0;
+		
+	}else if(this->left != NULL && this->right == NULL){
+
+	}else if(this->left != NULL && this->right != NULL){
+	}
+	*/
+
+	return  ret;
+}
 int main( int argc, char **argv ){
 	p = physicalOP::getInstance();
 
