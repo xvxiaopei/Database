@@ -1,7 +1,7 @@
 #ifndef __COMMON_H__
 #define __COMMON_H__
 
-#define DEBUG
+//#define DEBUG
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -55,11 +55,11 @@ class Qtree {
 	Qtree(int type, Qtree *parent); 
 	void print( int );
 	void free() ;
-	Relation *exec();
+	vector<Tuple> exec();
+	private:
+	Relation* exec_();
 }; 
 class Qexpression {
-	private:
-	union Field judge_(Tuple t) ;
 	public:
 	int type ; 
 	int number;
@@ -72,8 +72,8 @@ class Qexpression {
 	bool judge(Tuple t);
 	void print(int level) ;
 	void free() ;
+	private:
+	union Field judge_(Tuple t) ;
 };
-
-
 
 #endif

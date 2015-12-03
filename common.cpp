@@ -1,5 +1,4 @@
 #include "common.h"
-//#include "lex.yy.cpp"
 #include "StorageManager/Field.h"
 #include "physicalOP.h"
 #include <climits>
@@ -34,6 +33,8 @@ Qexpression::Qexpression( int t, int p, string s){
 	str = string(s);
 	left = right = NULL;
 }
+
+
 bool Qexpression::judge(Tuple t){
 	return (judge_(t).integer != 0 ) ;
 }
@@ -161,25 +162,27 @@ void Qtree::free(){
 	if(right!=NULL){right->free();}
 	delete this;
 }
-Relation* Qtree::exec(){
+Relation* Qtree::exec_(){
+}
+vector<Tuple> Qtree::exec(){
+	vector<Tuple> ret ;
 	#ifdef DEBUG
 	this->print(0);
 	#endif
-/*
 	if(this->type == PI){
-		if(this->info.size() == 1 && this->info[0][0] == '*') {
-			return this->left->exec() ;
-		}else{
 
-		}
 	}else if(this->type == JOIN){
-		if(this->left == NULL && this->right == NULL){
-			if(this->info.size() == 1){
-				
-			}
-		}
+	}else if(this->type == TABLE){
+		ret = p->singleTableSelect(this->info[0], NULL);
+		vector<string> field_names = 
+			p->schema_manager.getSchema(this->info[0] ).getFieldNames() ; 
+		for(vector<string>::iterator it = field_names.begin(); it != field_names.end(); it++){
+			cout<< *it << ' ' ;
+		} cout << endl << "-----------------" << endl;
+		for(vector<Tuple>::iterator it = ret.begin(); it != ret.end(); it ++ ){
+			cout << (*it) << endl;
+		}cout <<  "-----------------" << endl << endl ;
 	}
-*/
 	/*
 	if(this->left == NULL && this->right == NULL){
 		int i = 0;
@@ -190,7 +193,7 @@ Relation* Qtree::exec(){
 	}
 	*/
 
-	return NULL ;
+	return  ret;
 }
 int noperands(string s){
 	switch(s[0]){

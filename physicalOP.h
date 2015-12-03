@@ -29,7 +29,6 @@ class physicalOP{
 private:
 	MainMemory mem;
 	Disk disk;
-	SchemaManager   schema_manager;
 	clock_t start_time;
 	static physicalOP *physicalop;
     physicalOP():schema_manager(&mem, &disk) {  
@@ -37,6 +36,7 @@ private:
 		disk.resetDiskTimer(); }    //singleton
 
 public:
+	SchemaManager   schema_manager;
 
 	//add some for debug
 	void displayMem();

@@ -5,6 +5,8 @@
 physicalOP * physicalOP::physicalop=NULL;
 
 
+
+
 void appendTupleToRelation(Relation* relation_ptr, MainMemory& mem, int memory_block_index, Tuple& tuple) {
   Block* block_ptr;
   if (relation_ptr->getNumOfBlocks()==0) {

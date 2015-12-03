@@ -696,9 +696,9 @@ char *yytext;
 #include "common.h"
 #include "physicalOP.h"
 #include "StorageManager/Field.h"
-physicalOP *p;
-Qtree *current_qt ;
-Qtree *head ;
+physicalOP *p = NULL;
+Qtree *current_qt =NULL;
+Qtree *head = NULL;
 stack<Qexpression*> output_s;
 stack<Qexpression*> operators_s;
 int precedence(string);
@@ -1259,7 +1259,12 @@ YY_RULE_SETUP
 	join_node->left = current_qt ;
 	current_qt->parent = join_node;
 	join_node->right = table_node ;
-	current_qt = join_node ;
+	if(head == current_qt){ 
+		head = join_node;
+		current_qt = join_node ; 
+	}else{
+		current_qt = join_node ; 
+	}
 
 	error_output << "table name: \t" << yytext << endl;
 	BEGIN(S_S_EXPECT_WHERE_OR_COMMA);
@@ -1267,7 +1272,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 246 "scan.l"
+#line 251 "scan.l"
 {/* DELETE from table */
 	error_output << "delete table:\t" << yytext << endl ;
 	BEGIN(D_S_EXPECT_WHERE);
@@ -1275,14 +1280,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 250 "scan.l"
+#line 255 "scan.l"
 {
 	yy_push_state(WHERE_SUB_STATEMENT) ;
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 256 "scan.l"
+#line 261 "scan.l"
 {
 	error_output << "table to Drop:\t" << yytext << endl ;
 	scan_over(DROP_TABLE_STATEMENT);
@@ -1292,7 +1297,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 264 "scan.l"
+#line 269 "scan.l"
 {
 	error_output << "table to ins:\t" << yytext << endl;
 	table_name = string(yytext) ;
@@ -1301,14 +1306,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 269 "scan.l"
+#line 274 "scan.l"
 {
 	BEGIN(I_S_EXPECT_ATTR);
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 272 "scan.l"
+#line 277 "scan.l"
 {
 	error_output << "attribute :\t" << yytext <<endl ;
 	field_names.push_back(string(yytext)) ;
@@ -1317,35 +1322,35 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 277 "scan.l"
+#line 282 "scan.l"
 {
 	BEGIN (I_S_EXPECT_ATTR) ;
 }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 280 "scan.l"
+#line 285 "scan.l"
 {
 	BEGIN(I_S_EXPECT_VALUES_OR_SELECT) ;
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 283 "scan.l"
+#line 288 "scan.l"
 {
 	BEGIN(I_S_VALUES_EXPECT_LEFT_PARENTHESIS);
 }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 286 "scan.l"
+#line 291 "scan.l"
 {
 	BEGIN(I_S_VALUES_EXPECT_value);
 }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 289 "scan.l"
+#line 294 "scan.l"
 {
 	yy_push_state(SELECT_STATEMENT);
 }
@@ -1353,7 +1358,7 @@ YY_RULE_SETUP
 case 29:
 /* rule 29 can match eol */
 YY_RULE_SETUP
-#line 292 "scan.l"
+#line 297 "scan.l"
 {
 	error_output << "value:      \t" << yytext << endl;
 	
@@ -1373,14 +1378,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 308 "scan.l"
+#line 313 "scan.l"
 {
 	BEGIN(I_S_VALUES_EXPECT_value) ;
 }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 311 "scan.l"
+#line 316 "scan.l"
 {
 	scan_over(INSERT_STATEMENT);
 	p->insert(table_name, field_names, str_values, int_values) ;
@@ -1395,7 +1400,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 324 "scan.l"
+#line 329 "scan.l"
 {
 	/* Enter CREATE TABLE statement */
 	error_output << "create table:\t" << yytext << endl;
@@ -1405,14 +1410,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 330 "scan.l"
+#line 335 "scan.l"
 {
 	BEGIN(C_T_S_EXPECT_ATTR);
 }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 333 "scan.l"
+#line 338 "scan.l"
 {
 	error_output << "attribute :\t" << yytext <<endl ;
 	field_names.push_back( string(yytext) ); 
@@ -1421,14 +1426,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 338 "scan.l"
+#line 343 "scan.l"
 {
 	BEGIN(C_T_S_EXPECT_TYPE) ;
 }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 341 "scan.l"
+#line 346 "scan.l"
 {
 	error_output << "the type is:\t" << yytext << endl ;
 	if(yytext[0] == 'I' && yytext[1] == 'N' && yytext[2] == 'T'){
@@ -1441,14 +1446,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 350 "scan.l"
+#line 355 "scan.l"
 {
 	BEGIN(C_T_S_EXPECT_ATTR);
 }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 353 "scan.l"
+#line 358 "scan.l"
 {
 	scan_over(CREATE_TABLE_STATEMENT);
 	if(field_types.size() != field_names.size() ) {
@@ -1466,20 +1471,18 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 369 "scan.l"
+#line 374 "scan.l"
 { /* Eat white spaces */ }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 370 "scan.l"
+#line 375 "scan.l"
 {
 	/* 
 	ORDER BY 
 	*/
 
 	
-	Qtree *beforejoin = head;
-	if(head != NULL){
 		string match (yytext) , name_, name ;
 		int pos  ;
 		Qtree *order_node = new Qtree(TAU, current_qt->parent );
@@ -1492,12 +1495,8 @@ YY_RULE_SETUP
 		name_ = match.substr(pos + 3) ;
 		pos = name_.rfind(' ') ;
 		name = name_.substr(pos + 1) ;
-		beforejoin->left->info.push_back( name ) ;
-		beforejoin = beforejoin->left;
-	}else{
-		perror("fatal error: no query tree");
-		exit(EXIT_FAILURE);
-	}
+		order_node->info.push_back( name ) ;
+		//beforejoin = beforejoin->left;
 /*
 	while(operators_s.empty() != true){
 		if (noperands(operators_s.top()->str) == 2) {
@@ -1523,7 +1522,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 418 "scan.l"
+#line 417 "scan.l"
 { 
 	output_s.push(new Qexpression(COLUMN, yytext) ) ;
 }
@@ -1531,7 +1530,7 @@ YY_RULE_SETUP
 case 42:
 /* rule 42 can match eol */
 YY_RULE_SETUP
-#line 421 "scan.l"
+#line 420 "scan.l"
 { 
 	string l(yytext + 1) ;
 	l.substr(0, l.size() - 1) ;
@@ -1540,14 +1539,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 426 "scan.l"
+#line 425 "scan.l"
 {
 	output_s.push(new Qexpression(INTEGER, atoi(yytext) ) ) ;
 }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 429 "scan.l"
+#line 428 "scan.l"
 {
 	int current_precedence = precedence(yytext);
 	while( (! operators_s.empty() ) && 
@@ -1566,14 +1565,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 444 "scan.l"
+#line 443 "scan.l"
 {
 	operators_s.push(new Qexpression(LEFT, yytext)) ;
 }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 447 "scan.l"
+#line 446 "scan.l"
 {
 	while(operators_s.top()->type != LEFT){
 		if (noperands(operators_s.top()->str) == 2) {
@@ -1589,12 +1588,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 461 "scan.l"
+#line 460 "scan.l"
 {/* IGNORE white spaces */}       
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 462 "scan.l"
+#line 461 "scan.l"
 {/* all other character */
 	fprintf(stderr, "Error: unaccepted character: %s\n", yytext) ;
 	exit(EXIT_FAILURE); 
@@ -1602,10 +1601,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 467 "scan.l"
+#line 466 "scan.l"
 ECHO;
 	YY_BREAK
-#line 1609 "lex.yy.cpp"
+#line 1608 "lex.yy.cpp"
 case YY_STATE_EOF(DISTINCT_STATE):
 case YY_STATE_EOF(DROP_TABLE_STATEMENT):
 case YY_STATE_EOF(SELECT_STATEMENT):
@@ -2668,7 +2667,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 466 "scan.l"
+#line 465 "scan.l"
 
 
 

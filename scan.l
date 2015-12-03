@@ -2,9 +2,9 @@
 #include "common.h"
 #include "physicalOP.h"
 #include "StorageManager/Field.h"
-physicalOP *p;
-Qtree *current_qt ;
-Qtree *head ;
+physicalOP *p = NULL;
+Qtree *current_qt =NULL;
+Qtree *head = NULL;
 stack<Qexpression*> output_s;
 stack<Qexpression*> operators_s;
 int precedence(string);
@@ -237,7 +237,12 @@ COMMA                 [,]
 	join_node->left = current_qt ;
 	current_qt->parent = join_node;
 	join_node->right = table_node ;
-	current_qt = join_node ;
+	if(head == current_qt){ 
+		head = join_node;
+		current_qt = join_node ; 
+	}else{
+		current_qt = join_node ; 
+	}
 
 	error_output << "table name: \t" << yytext << endl;
 	BEGIN(S_S_EXPECT_WHERE_OR_COMMA);
@@ -373,8 +378,6 @@ COMMA                 [,]
 	*/
 
 	
-	Qtree *beforejoin = head;
-	if(head != NULL){
 		string match (yytext) , name_, name ;
 		int pos  ;
 		Qtree *order_node = new Qtree(TAU, current_qt->parent );
@@ -387,12 +390,8 @@ COMMA                 [,]
 		name_ = match.substr(pos + 3) ;
 		pos = name_.rfind(' ') ;
 		name = name_.substr(pos + 1) ;
-		beforejoin->left->info.push_back( name ) ;
-		beforejoin = beforejoin->left;
-	}else{
-		perror("fatal error: no query tree");
-		exit(EXIT_FAILURE);
-	}
+		order_node->info.push_back( name ) ;
+		//beforejoin = beforejoin->left;
 /*
 	while(operators_s.empty() != true){
 		if (noperands(operators_s.top()->str) == 2) {

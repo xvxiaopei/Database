@@ -18,6 +18,7 @@ int main()
 }
 
 
+physicalOP* p=physicalOP::getInstance();
 
 
 
@@ -39,7 +40,6 @@ void testCombine()
 		cout<<endl;
 	}
 	*/
-	physicalOP* p=physicalOP::getInstance();
 	vector<string> field_names;
 	vector<enum FIELD_TYPE> field_types;
 	field_names.push_back("a");
