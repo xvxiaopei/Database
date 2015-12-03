@@ -69,6 +69,8 @@ public:
 				vector<string> STR,
 				vector<int> INT);
 
+	vector<Tuple> singleTableSelect(Relation *,
+									condition con);
 	vector<Tuple> singleTableSelect(string relation_name,
 									condition con);
 	
