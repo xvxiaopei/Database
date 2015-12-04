@@ -121,9 +121,9 @@ COMMA                 [,]
 		head->exec();
 		head->free();
 		head = (current_qt = NULL);
-		if(YY_START == WHERE_SUB_STATEMENT){
-			 output_s.top()->free() ;output_s.pop();
-		}
+	}
+	if(YY_START == WHERE_SUB_STATEMENT){
+		 output_s.top()->free() ; while(! output_s.empty() ){ output_s.pop();}
 	}
 	yyterminate();
 }
@@ -145,9 +145,9 @@ COMMA                 [,]
 		head->exec();
 		head->free();
 		head = (current_qt = NULL);
-		if(YY_START == WHERE_SUB_STATEMENT){
-			 output_s.top()->free() ;output_s.pop();
-		}
+	}
+	if(YY_START == WHERE_SUB_STATEMENT){
+		 output_s.top()->free() ;while(! output_s.empty() ){ output_s.pop();}
 	}
 	BEGIN(INITIAL);
 }
@@ -241,6 +241,8 @@ COMMA                 [,]
 	Qtree *join_node = new Qtree(JOIN, current_qt->parent);
 	Qtree *table_node = new Qtree(TABLE, join_node);
 	table_node->info.push_back(string(yytext) ) ;
+	join_node->info.insert(join_node->info.end(), current_qt->info.begin(), current_qt->info.end()) ;
+	join_node->info.push_back(string(yytext) ) ;
 	if(current_qt->parent != NULL){current_qt->parent->left = join_node ;}
 	join_node->left = current_qt ;
 	current_qt->parent = join_node;
