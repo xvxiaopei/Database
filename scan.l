@@ -71,7 +71,7 @@ STAR                  [*]
 md_op                 [*/]
 name                  {letter}({digit}|{letter})* 
 dotted_name           {name}{DOT}{name}
-literal               \"[^"]\"
+literal               \"[^"]+\"
 value                 {literal}|{integer}|{NULL}
 WS                    [ \t]
 V                     VALUES
