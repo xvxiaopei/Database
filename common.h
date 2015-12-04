@@ -29,7 +29,7 @@ void scan_over(int statement);
 #define DELTA 0
 #define PI    1
 #define SIGMA 2
-#define JOIN  3
+#define PRODUCT  3
 #define TAU   4
 #define TABLE 5
 
@@ -71,6 +71,7 @@ class Qexpression {
 	Qexpression(int , int);
 	Qexpression(int , string);
 	Qexpression(int, int, string);
+	Qexpression* optimize_sigma(map<string, Qexpression *>* sigma_operation) ;
 	bool judge(Tuple t);
 	void print(int level) ;
 	void free() ;

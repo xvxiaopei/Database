@@ -59,6 +59,100 @@ Relation* Qtree::exec_(){
 	}
 	return ret;
 }
+Qexpression* Qexpression::optimize_sigma(map<string, Qexpression *>* sigma_operation) {
+	if(this->type == COLUMN){
+		(*sigma_operation)[ * (this->tables.begin() ) ] = this ;
+		return NULL ;
+	}else if(this->type == OPERATER && this->str[0] == 'O'){
+		if(this->tables.size() == 1){
+			if(sigma_operation == NULL){
+				return this ;
+			}else{
+				(*sigma_operation)[ * (this->tables.begin() ) ] = this ;
+				return NULL;
+			}
+		}else if(this->tables.size() > 1){
+			Qexpression *lqexp = this->left->optimize_sigma(NULL);
+			Qexpression *rqexp = this->right->optimize_sigma(NULL);
+			this->left = lqexp ;
+			this->right = rqexp ;
+			return this;
+		}else{
+			Tuple *t = NULL;
+			if(this->judge(*t)){
+				Qexpression *ret = new Qexpression(INTEGER, 1);
+				this->free() ;
+				return ret;
+			}else{
+				Qexpression *ret = new Qexpression(INTEGER, 0);
+				this->free() ;
+				return ret;
+			}
+		}
+	}else if(this->type == OPERATER && this->str[0] == 'A'){
+		if(this->tables.size() == 1){
+			if(sigma_operation == NULL){
+				return this ;
+			}else{
+				(*sigma_operation)[* (this->tables.begin() ) ] = this ;
+				return NULL;
+			}
+		}else if(this->tables.size() > 1){
+			Qexpression *lqexp = this->left->optimize_sigma(sigma_operation);
+			Qexpression *rqexp = this->right->optimize_sigma(sigma_operation);
+			if(lqexp != NULL && rqexp != NULL){
+				this->left = lqexp ;
+				this->right = rqexp ;
+				return this;
+			}else if(lqexp == NULL && rqexp != NULL){
+				return rqexp ;
+			}else if(lqexp != NULL && rqexp == NULL){
+				return lqexp ;
+			}else{
+				return NULL;
+			}
+		}else{
+			Tuple *t = NULL;
+			if(this->judge(*t)){
+				Qexpression *ret = new Qexpression(INTEGER, 1);
+				this->free() ;
+				return ret;
+			}else{
+				Qexpression *ret = new Qexpression(INTEGER, 0);
+				this->free() ;
+				return ret;
+			}
+		}
+	}else if(this->type == OPERATER && this->str[0] == '='||
+	this->type == OPERATER && this->str[0] == '>'||
+	this->type == OPERATER && this->str[0] == '<'||
+	this->type == OPERATER && this->str[0] == 'N'){
+		
+		if(this->tables.size() == 1){
+			if(sigma_operation == NULL){
+				return this ;
+			}else{
+				(*sigma_operation)[* (this->tables.begin() ) ] = this ;
+				return NULL;
+			}
+		}else if(this->tables.size() > 1){
+			return this;
+		}else{
+			Tuple *t = NULL;
+			if(this->judge(*t)){
+				Qexpression *ret = new Qexpression(INTEGER, 1);
+				this->free() ;
+				return ret;
+			}else{
+				Qexpression *ret = new Qexpression(INTEGER, 0);
+				this->free() ;
+				return ret;
+			}
+		}
+	}else{
+		return this ;
+	}
+}
 vector<Tuple> Qtree::exec(){
 	vector<Tuple> ret ;
 	#ifdef DEBUG
@@ -66,8 +160,32 @@ vector<Tuple> Qtree::exec(){
 	#endif
 	if(this->type == PI){
 
-	}else if(this->type == JOIN){
+	}else if(this->type == PRODUCT){
+		vector<Relation *> relations ;
+		map<string, Qexpression *> sigma_operation ;
 		
+		for(vector<string>::iterator it = this->tables.begin(); it != this->tables.end(); it++){
+
+		}
+		if(output_s.empty() == true){
+		}else if(output_s.top()->type == INTEGER || output_s.top()->type == LITERAL ){
+			Tuple *t = NULL;
+			if(output_s.top()->judge(*t) == true){
+				/* WHERE clasuse always true */
+		 		output_s.top()->free() ; while(! output_s.empty() ){ output_s.pop();}
+			}else{
+				/* empty results */
+				return ret; 
+			}
+		}else{
+			Qexpression *optimized = output_s.top()->optimize_sigma(&sigma_operation) ;
+			output_s.pop(); output_s.push(optimized) ;
+			output_s.top()->print(0);
+			for(map<string, Qexpression *>::iterator it = sigma_operation.begin(); it != sigma_operation.end(); it ++){
+				cout << it->first << "->" << endl;
+				it->second->print(0);
+			}
+		}
 		//ret = p->singleTableSelect(r, output_s.top() ) ;
 		
 	}else if(this->type == TABLE){

@@ -1293,7 +1293,7 @@ YY_RULE_SETUP
 #line 272 "scan.l"
 {
 	cout << yytext << " " ;
-	Qtree *join_node = new Qtree(JOIN, current_qt->parent);
+	Qtree *join_node = new Qtree(PRODUCT, current_qt->parent);
 	Qtree *table_node = new Qtree(TABLE, join_node);
 	table_node->tables.push_back(string(yytext) ) ;
 	join_node->tables.insert(join_node->tables.end(), current_qt->tables.begin(), current_qt->tables.end()) ;

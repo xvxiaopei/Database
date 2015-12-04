@@ -180,7 +180,7 @@ void Qtree::print(int level ){
 		case PI: cout << "π " << "\t["; break;
 		case SIGMA: cout << "σ " << "\t[";break;
 		case DELTA: cout << "δ " << "\t[";break;
-		case JOIN: cout << "X " << "\t["; break;
+		case PRODUCT: cout << "X " << "\t["; break;
 		case TAU: cout << "τ" << "\t["; break; 
 		case TABLE: cout << "TB" << "\t["; break ;
 	}
