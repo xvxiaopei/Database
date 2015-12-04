@@ -111,14 +111,20 @@ COMMA                 [,]
 			if (noperands(operators_s.top()->str) == 2) {
 				operators_s.top()->right =  (output_s.top() )  ; output_s.pop() ;
 				operators_s.top()->left =  (output_s.top() )  ; output_s.pop() ;
+				operators_s.top()->tables.insert(
+					operators_s.top()->left->tables.begin() , operators_s.top()->left->tables.end() ) ;
+				operators_s.top()->tables.insert(
+					operators_s.top()->right->tables.begin() , operators_s.top()->right->tables.end() ) ;
 			}else if (noperands(operators_s.top()->str) == 1) {
 				operators_s.top()->left =  (output_s.top() )  ; output_s.pop() ;
+				operators_s.top()->tables.insert(
+					operators_s.top()->left->tables.begin() , operators_s.top()->left->tables.end() ) ;
 			}
 			output_s.push(operators_s.top()); operators_s.pop() ;
 		}
-		#ifdef DEBUG
+//		#ifdef DEBUG
 		output_s.top()->print(0) ; 
-		#endif
+//		#endif
 	}
 	if(head != NULL){
 		head->exec();
@@ -137,14 +143,20 @@ COMMA                 [,]
 			if (noperands(operators_s.top()->str) == 2) {
 				operators_s.top()->right =  (output_s.top() )  ; output_s.pop() ;
 				operators_s.top()->left =  (output_s.top() )  ; output_s.pop() ;
+				operators_s.top()->tables.insert(
+					operators_s.top()->left->tables.begin() , operators_s.top()->left->tables.end() ) ;
+				operators_s.top()->tables.insert(
+					operators_s.top()->right->tables.begin() , operators_s.top()->right->tables.end() ) ;
 			}else if (noperands(operators_s.top()->str) == 1) {
 				operators_s.top()->left =  (output_s.top() )  ; output_s.pop() ;
+				operators_s.top()->tables.insert(
+					operators_s.top()->left->tables.begin() , operators_s.top()->left->tables.end() ) ;
 			}
 			output_s.push(operators_s.top()); operators_s.pop() ;
 		}
-		#ifdef DEBUG
+//		#ifdef DEBUG
 		output_s.top()->print(0) ;
-		#endif
+//		#endif
 	}
 	if(head != NULL){
 		head->exec();
@@ -209,7 +221,7 @@ COMMA                 [,]
 		current_qt->left = new Qtree(PI, current_qt) ;	 
 		current_qt = current_qt->left;
 	}
-	current_qt->tables.push_back(yytext);
+	current_qt->tables.push_back(string( yytext) ) ;
 	error_output << "column_name:\t" << yytext << endl ;
 	yy_pop_state();
 	if(YY_START == I_S_EXPECT_VALUES_OR_SELECT){
@@ -231,7 +243,7 @@ COMMA                 [,]
 }
 <S_S_EXPECT_COLUMNS>({name}|{dotted_name}) {
 	cout << yytext << " " ;
-	current_qt->tables.push_back(yytext);
+	current_qt->tables.push_back(string( yytext) );
 	error_output << "column_name:\t" << yytext << endl ;
 	BEGIN(S_S_EXPECT_FROM_OR_COMMA);
 }
@@ -245,7 +257,7 @@ COMMA                 [,]
 		current_qt = table_node; 
 		head = table_node; 
 	}
-	current_qt->tables.push_back(yytext) ;
+	current_qt->tables.push_back(string( yytext) ) ;
 	error_output << "table name:\t" << yytext << endl;
 	BEGIN(S_S_EXPECT_WHERE_OR_COMMA);
 }
@@ -282,6 +294,7 @@ COMMA                 [,]
 <DELETE_STATEMENT>{name} {/* DELETE from table */
 	cout << yytext << " " ;
 	error_output << "delete table:\t" << yytext << endl ;
+	table_name = string(yytext) ;
 	BEGIN(D_S_EXPECT_WHERE);
 }
 <D_S_EXPECT_WHERE>{WS}*{W}{WS}* {
@@ -468,9 +481,23 @@ COMMA                 [,]
 	yy_pop_state() ;
 */
 }
-<WHERE_SUB_STATEMENT>{name}|{dotted_name} { 
+<WHERE_SUB_STATEMENT>{name} { 
 	cout << yytext << " " ;
 	output_s.push(new Qexpression(COLUMN, yytext) ) ;
+	if(current_qt != NULL && current_qt->tables.size() == 1){
+		output_s.top()->tables.insert( current_qt->tables[0]  ) ;
+	}else{
+		output_s.top()->tables.insert( table_name );
+	}
+}
+<WHERE_SUB_STATEMENT>{dotted_name} {
+	string s(yytext) ;
+	int found ;
+	cout << yytext << " " ;
+	output_s.push(new Qexpression(COLUMN, yytext) ) ;
+	found = s.find('.') ;
+	s = string( s.substr(0, found) );
+	output_s.top()->tables.insert( s ) ;
 }
 <WHERE_SUB_STATEMENT>{literal} { 
 	cout << yytext << " " ;
@@ -491,8 +518,14 @@ COMMA                 [,]
 		if (noperands(operators_s.top()->str) == 2) {
 			operators_s.top()->right = (output_s.top() )  ; output_s.pop() ;
 			operators_s.top()->left =  (output_s.top() )  ; output_s.pop() ;
+			operators_s.top()->tables.insert(
+				operators_s.top()->left->tables.begin() , operators_s.top()->left->tables.end() ) ;
+			operators_s.top()->tables.insert(
+				operators_s.top()->right->tables.begin() , operators_s.top()->right->tables.end() ) ;
 		}else if (noperands(operators_s.top()->str) == 1) {
 			operators_s.top()->left =  (output_s.top() )  ; output_s.pop() ;
+			operators_s.top()->tables.insert(
+				operators_s.top()->left->tables.begin() , operators_s.top()->left->tables.end() ) ;
 		}
 		output_s.push( operators_s.top() ) ;operators_s.pop();
 	}
@@ -508,8 +541,14 @@ COMMA                 [,]
 		if (noperands(operators_s.top()->str) == 2) {
 			operators_s.top()->right =  (output_s.top() )  ; output_s.pop() ;
 			operators_s.top()->left =   (output_s.top() )  ; output_s.pop() ;
+			operators_s.top()->tables.insert(
+				operators_s.top()->left->tables.begin() , operators_s.top()->left->tables.end() ) ;
+			operators_s.top()->tables.insert(
+				operators_s.top()->right->tables.begin() , operators_s.top()->right->tables.end() ) ;
 		}else if (noperands(operators_s.top()->str) == 1) {
 			operators_s.top()->left =   (output_s.top() )  ; output_s.pop() ;
+			operators_s.top()->tables.insert(
+				operators_s.top()->left->tables.begin() , operators_s.top()->left->tables.end() ) ;
 		}
 		output_s.push( operators_s.top() ) ;operators_s.pop();
 	}

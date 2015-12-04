@@ -10,6 +10,7 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include <set>
 #include <string>
 #include "StorageManager/Tuple.h"
 #include "StorageManager/Field.h"
@@ -64,7 +65,7 @@ class Qexpression {
 	int type ; 
 	int number;
 	string str;
-	vector<string> tables ;
+	set<string> tables ;
 	Qexpression *left, *right;
 	Qexpression() ;
 	Qexpression(int , int);

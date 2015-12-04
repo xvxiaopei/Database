@@ -156,7 +156,10 @@ void Qexpression::print(int level ){
 	int i ;
 	for ( i = level ; i > 0 ; i --){ cout<< "\t" ;}
 	if (type == OPERATER){
-		cout << str << endl ;
+		cout << str << ": "  ;
+		for(set<string>::iterator it = tables.begin(); it != tables.end(); it ++){
+			cout << *it << " " ;
+		}cout << endl ;
 		if(str[0] == 'N'){
 			this->left->print(level + 1); 
 		}else{
