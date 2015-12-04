@@ -4,7 +4,7 @@ SELECT * FROM course
 INSERT INTO course (sid, homework, project, exam, grade) VALUES (2, NULL, 100, 100, "E")
 SELECT * FROM course
 INSERT INTO course (sid, grade, exam, project, homework) VALUES (3, "E", 100, 100, 100)
-SELECT * FROM course
+SELECT * FROM course WHERE homework = 99
 INSERT INTO course (sid, homework, project, exam, grade) SELECT * FROM course
 SELECT * FROM course
 DELETE FROM course WHERE grade = "E"

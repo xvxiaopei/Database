@@ -67,8 +67,7 @@ vector<Tuple> Qtree::exec(){
 	if(this->type == PI){
 
 	}else if(this->type == JOIN){
-		Relation *ltable = this->left->exec_();
-		Relation *rtable = this->right->exec_() ;
+		
 		//ret = p->singleTableSelect(r, output_s.top() ) ;
 		
 	}else if(this->type == TABLE){

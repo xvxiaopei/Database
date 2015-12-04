@@ -37,6 +37,32 @@ Qexpression::Qexpression( int t, int p, string s){
 bool Qexpression::judge(Tuple t){
 	return (this->judge_(t).integer != 0 ) ;
 }
+enum FIELD_TYPE Qexpression::field_type(Tuple t){
+	enum FIELD_TYPE ret ;
+	Schema scm = t.getSchema() ;
+	if(this->type == COLUMN){
+		int found = this->str.find('.');
+		if(found == std::string::npos){
+			ret = scm.getFieldType(this->str) ;
+		}else{
+			string s( this->str.substr(found + 1) ) ;
+			ret = scm.getFieldType(s );
+			if( scm.getFieldOffset(s ) == -1 ){
+				ret = scm.getFieldType(this->str) ;
+			}
+			if( scm.getFieldOffset( this->str ) == -1 ){
+				perror("No such field") ;
+			}
+		}
+		return ret ;
+	}else if(this->type == INTEGER){
+		return INT ;
+	}else if(this->type == LITERAL){
+		return STR20 ;
+	}else {
+		return INT ;
+	}
+}
 union Field Qexpression::judge_(Tuple t ) {
 	union Field ret ;
 	ret.integer = INT_MIN ;
@@ -55,12 +81,18 @@ union Field Qexpression::judge_(Tuple t ) {
 				perror("No such field") ;
 			}
 		}
+		#ifdef DEBUG
+		cerr << "column: " << ret.integer << endl;
+		#endif
 		return ret ;
 	}
 	break ;
 	case INTEGER:{
 		union Field f ;
 		f.integer = this->number;
+		#ifdef DEBUG
+		cerr << "integer: " << f.integer << endl ;
+		#endif
 		return f;
 	} break;
 	case LITERAL:{
@@ -80,7 +112,9 @@ union Field Qexpression::judge_(Tuple t ) {
 			union Field ret ;
 			if(lf.integer == rf.integer){
 				ret.integer = 1;
-			}else if( 0 == lf.str->compare( *(rf.str)  ) ){
+			}else if(this->left->field_type(t) == STR20 &&
+				this->right->field_type(t) == STR20 &&
+				0 == lf.str->compare( *(rf.str)  ) ){
 				ret.integer = 1;
 			}else {
 				ret.integer = 0 ;

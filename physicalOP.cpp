@@ -194,7 +194,9 @@ Relation * physicalOP::CreateTable(string relation_name,vector<Tuple> tuples)
 vector<Tuple> physicalOP::singleTableSelect(Relation *relation_ptr,
 						   condition con)
 {
+	#ifdef DEBUG
 	cout<<"select"<<endl;
+	#endif
 	vector<Tuple> result;
 	//Relation* relation_ptr = schema_manager.getRelation(relation_name);
 	Block* block_ptr;
@@ -227,7 +229,9 @@ vector<Tuple> physicalOP::singleTableSelect(Relation *relation_ptr,
 vector<Tuple> physicalOP::singleTableSelect(string relation_name,
 						   condition con)
 {
+	#ifdef DEBUG
 	cout<<"select"<<endl;
+	#endif
 	vector<Tuple> result;
 	Relation* relation_ptr = schema_manager.getRelation(relation_name);
 	Block* block_ptr;
@@ -758,7 +762,7 @@ vector<Tuple> physicalOP::Product(string relation_name1,
 		}
 		field_types.push_back(schema2.getFieldType(i));
 	}
-	string relation_name=relation_name1+"¡Á"+relation_name2;
+	string relation_name=relation_name1+" X "+relation_name2;
 	if(schema_manager.relationExists(relation_name))DropTable(relation_name);
 	Relation* product_ptr=CreateTable(relation_name,field_names,field_types);
 	//displayRelation(relation_name);

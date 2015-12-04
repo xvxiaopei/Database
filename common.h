@@ -72,6 +72,7 @@ class Qexpression {
 	bool judge(Tuple t);
 	void print(int level) ;
 	void free() ;
+	enum FIELD_TYPE field_type(Tuple ) ;
 	private:
 	union Field judge_(Tuple t) ;
 };

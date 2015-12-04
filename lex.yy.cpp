@@ -1060,6 +1060,7 @@ case YY_STATE_EOF(WHERE_SUB_STATEMENT):
 #line 106 "scan.l"
 {
 
+	cout << endl << NORMAL_TEXT;
 	if(YY_START == WHERE_SUB_STATEMENT){
 		while(operators_s.empty() != true){
 			if (noperands(operators_s.top()->str) == 2) {
@@ -1070,15 +1071,17 @@ case YY_STATE_EOF(WHERE_SUB_STATEMENT):
 			}
 			output_s.push(operators_s.top()); operators_s.pop() ;
 		}
+		#ifdef DEBUG
 		output_s.top()->print(0) ; 
+		#endif
 	}
 	if(head != NULL){
 		head->exec();
 		head->free();
 		head = (current_qt = NULL);
-		if(YY_START == WHERE_SUB_STATEMENT){
-			 output_s.top()->free() ;output_s.pop();
-		}
+	}
+	if(YY_START == WHERE_SUB_STATEMENT){
+		 output_s.top()->free() ; while(! output_s.empty() ){ output_s.pop();}
 	}
 	yyterminate();
 }
@@ -1086,9 +1089,9 @@ case YY_STATE_EOF(WHERE_SUB_STATEMENT):
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 130 "scan.l"
+#line 133 "scan.l"
 {
-	
+	cout << endl << NORMAL_TEXT;
 	if(YY_START == WHERE_SUB_STATEMENT){
 		while(operators_s.empty() != true){
 			if (noperands(operators_s.top()->str) == 2) {
@@ -1099,63 +1102,71 @@ YY_RULE_SETUP
 			}
 			output_s.push(operators_s.top()); operators_s.pop() ;
 		}
+		#ifdef DEBUG
 		output_s.top()->print(0) ;
+		#endif
 	}
 	if(head != NULL){
 		head->exec();
 		head->free();
 		head = (current_qt = NULL);
-		if(YY_START == WHERE_SUB_STATEMENT){
-			 output_s.top()->free() ;output_s.pop();
-		}
+	}
+	if(YY_START == WHERE_SUB_STATEMENT){
+		 output_s.top()->free() ;while(! output_s.empty() ){ output_s.pop();}
 	}
 	BEGIN(INITIAL);
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 155 "scan.l"
+#line 160 "scan.l"
 {
+	cout <<RED_TEXT << "SELECT " ;
 	err_out_START("SELECT");
 	yy_push_state(SELECT_STATEMENT);
 }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 159 "scan.l"
+#line 165 "scan.l"
 {
+	cout <<RED_TEXT<< "DELETE FROM " ;
 	err_out_START("DELETE FROM");
 	BEGIN(DELETE_STATEMENT);
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 163 "scan.l"
+#line 170 "scan.l"
 {
+	cout <<RED_TEXT<< "CREATE TABLE " ;
 	err_out_START("CREATE TABLE" );
 	BEGIN(CREATE_TABLE_STATEMENT);
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 167 "scan.l"
+#line 175 "scan.l"
 {
+	cout <<RED_TEXT<< "DROP TABLE " ;
 	err_out_START("DROP TABLE" );
 	BEGIN(DROP_TABLE_STATEMENT);
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 171 "scan.l"
+#line 180 "scan.l"
 {
+	cout <<RED_TEXT<< "INSERT INTO ";
 	err_out_START("INSERT INTO");
 	BEGIN(INSERT_STATEMENT);
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 176 "scan.l"
+#line 186 "scan.l"
 {
+	cout < "DISTINCT " ;
 	head = (current_qt = new Qtree(DELTA, NULL) );
 	error_output << "DISTINCT" << endl ;
 	yy_pop_state();
@@ -1167,8 +1178,9 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 185 "scan.l"
+#line 196 "scan.l"
 {
+	cout << "* " ;
 	error_output << "column_name:\t" << yytext << endl ;
 	yy_pop_state();
 	if(YY_START == I_S_EXPECT_VALUES_OR_SELECT){
@@ -1179,8 +1191,9 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 193 "scan.l"
+#line 205 "scan.l"
 { 
+	cout << yytext << " " ;
 	if(current_qt == NULL){head = ( current_qt = new Qtree(PI, NULL) );}
 	else{ 
 		current_qt->left = new Qtree(PI, current_qt) ;	 
@@ -1197,29 +1210,33 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 207 "scan.l"
+#line 220 "scan.l"
 {
+	cout << "FROM " ;
 	BEGIN(S_S_EXPECT_TABLES);
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 210 "scan.l"
+#line 224 "scan.l"
 {
+	cout << "FROM " ;
 	BEGIN(S_S_EXPECT_TABLES);
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 213 "scan.l"
+#line 228 "scan.l"
 {
+	cout << ", " ;
 	BEGIN(S_S_EXPECT_COLUMNS);
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 216 "scan.l"
+#line 232 "scan.l"
 {
+	cout << yytext << " " ;
 	current_qt->info.push_back(yytext);
 	error_output << "column_name:\t" << yytext << endl ;
 	BEGIN(S_S_EXPECT_FROM_OR_COMMA);
@@ -1227,8 +1244,9 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 221 "scan.l"
+#line 238 "scan.l"
 {
+	cout << yytext << " " ;
 	Qtree *table_node = new Qtree(TABLE, current_qt);
 	if(current_qt != NULL){ 
 		current_qt->left = table_node; 
@@ -1244,25 +1262,30 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 234 "scan.l"
+#line 252 "scan.l"
 {
+	cout << "WHERE" << " " ;
 	yy_push_state(WHERE_SUB_STATEMENT) ;
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 237 "scan.l"
+#line 256 "scan.l"
 {
+	cout << "," << " " ;
 	BEGIN(S_S_EXPECT_MORE_TABLES);
 }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 240 "scan.l"
+#line 260 "scan.l"
 {
+	cout << yytext << " " ;
 	Qtree *join_node = new Qtree(JOIN, current_qt->parent);
 	Qtree *table_node = new Qtree(TABLE, join_node);
 	table_node->info.push_back(string(yytext) ) ;
+	join_node->info.insert(join_node->info.end(), current_qt->info.begin(), current_qt->info.end()) ;
+	join_node->info.push_back(string(yytext) ) ;
 	if(current_qt->parent != NULL){current_qt->parent->left = join_node ;}
 	join_node->left = current_qt ;
 	current_qt->parent = join_node;
@@ -1280,23 +1303,26 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 259 "scan.l"
+#line 282 "scan.l"
 {/* DELETE from table */
+	cout << yytext << " " ;
 	error_output << "delete table:\t" << yytext << endl ;
 	BEGIN(D_S_EXPECT_WHERE);
 }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 263 "scan.l"
+#line 287 "scan.l"
 {
+	cout << "WHERE" << " " ;
 	yy_push_state(WHERE_SUB_STATEMENT) ;
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 269 "scan.l"
+#line 294 "scan.l"
 {
+	cout << yytext << " " ;
 	error_output << "table to Drop:\t" << yytext << endl ;
 	scan_over(DROP_TABLE_STATEMENT);
 	p->DropTable(yytext) ;
@@ -1305,8 +1331,9 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 277 "scan.l"
+#line 303 "scan.l"
 {
+	cout << yytext << " " ;
 	error_output << "table to ins:\t" << yytext << endl;
 	table_name = string(yytext) ;
 	BEGIN(I_S_EXPECT_LEFT_PARENTHESIS);
@@ -1314,15 +1341,17 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 282 "scan.l"
+#line 309 "scan.l"
 {
+	cout << "(" << " " ;
 	BEGIN(I_S_EXPECT_ATTR);
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 285 "scan.l"
+#line 313 "scan.l"
 {
+	cout << yytext << " " ;
 	error_output << "attribute :\t" << yytext <<endl ;
 	field_names.push_back(string(yytext)) ;
 	BEGIN(I_S_EXPECT_COMMA_OR_RIGHT_PARENTHESIS) ;
@@ -1330,44 +1359,50 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 290 "scan.l"
+#line 319 "scan.l"
 {
+	cout << "," << " " ;
 	BEGIN (I_S_EXPECT_ATTR) ;
 }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 293 "scan.l"
+#line 323 "scan.l"
 {
+	cout << ")" << " " ;
 	BEGIN(I_S_EXPECT_VALUES_OR_SELECT) ;
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 296 "scan.l"
+#line 327 "scan.l"
 {
+	cout << "VALUES" << " " ;
 	BEGIN(I_S_VALUES_EXPECT_LEFT_PARENTHESIS);
 }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 299 "scan.l"
+#line 331 "scan.l"
 {
+	cout << "(" << " " ;
 	BEGIN(I_S_VALUES_EXPECT_value);
 }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 302 "scan.l"
+#line 335 "scan.l"
 {
+	cout << "SELECT" << " " ;
 	yy_push_state(SELECT_STATEMENT);
 }
 	YY_BREAK
 case 29:
 /* rule 29 can match eol */
 YY_RULE_SETUP
-#line 305 "scan.l"
+#line 339 "scan.l"
 {
+	cout << yytext << " " ;
 	error_output << "value:      \t" << yytext << endl;
 	
 	if(yytext[0] == 'N' && yytext[1] == 'U' && yytext[2] == 'L' ){
@@ -1386,15 +1421,17 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 321 "scan.l"
+#line 356 "scan.l"
 {
+	cout << "," << " " ;
 	BEGIN(I_S_VALUES_EXPECT_value) ;
 }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 324 "scan.l"
+#line 360 "scan.l"
 {
+	cout << ")" << " " ;
 	scan_over(INSERT_STATEMENT);
 	p->insert(table_name, field_names, str_values, int_values) ;
 	field_names.clear();
@@ -1408,8 +1445,9 @@ YY_RULE_SETUP
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 337 "scan.l"
+#line 374 "scan.l"
 {
+	cout << yytext << " " ;
 	/* Enter CREATE TABLE statement */
 	error_output << "create table:\t" << yytext << endl;
 	table_name = string(yytext) ;
@@ -1418,15 +1456,17 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 343 "scan.l"
+#line 381 "scan.l"
 {
+	cout << "(" << " " ;
 	BEGIN(C_T_S_EXPECT_ATTR);
 }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 346 "scan.l"
+#line 385 "scan.l"
 {
+	cout << yytext << " " ;
 	error_output << "attribute :\t" << yytext <<endl ;
 	field_names.push_back( string(yytext) ); 
 	BEGIN(C_T_S_EXPECT_WS) ;
@@ -1434,15 +1474,16 @@ YY_RULE_SETUP
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 351 "scan.l"
+#line 391 "scan.l"
 {
 	BEGIN(C_T_S_EXPECT_TYPE) ;
 }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 354 "scan.l"
+#line 394 "scan.l"
 {
+	cout << yytext << " " ;
 	error_output << "the type is:\t" << yytext << endl ;
 	if(yytext[0] == 'I' && yytext[1] == 'N' && yytext[2] == 'T'){
 		field_types.push_back( INT);
@@ -1454,15 +1495,17 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 363 "scan.l"
+#line 404 "scan.l"
 {
+	cout << "," << " " ;
 	BEGIN(C_T_S_EXPECT_ATTR);
 }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 366 "scan.l"
+#line 408 "scan.l"
 {
+	cout << ")" << " " ;
 	scan_over(CREATE_TABLE_STATEMENT);
 	if(field_types.size() != field_names.size() ) {
 		perror("Size mismatch");
@@ -1479,13 +1522,15 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 382 "scan.l"
+#line 425 "scan.l"
 { /* Eat white spaces */ }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 383 "scan.l"
+#line 426 "scan.l"
 {
+	cout << "ORDER BY" << " " ;
+	
 	/* 
 	ORDER BY 
 	*/
@@ -1504,6 +1549,7 @@ YY_RULE_SETUP
 		pos = name_.rfind(' ') ;
 		name = name_.substr(pos + 1) ;
 		order_node->info.push_back( name ) ;
+		cout << name << " " ;
 		//beforejoin = beforejoin->left;
 /*
 	while(operators_s.empty() != true){
@@ -1530,16 +1576,18 @@ YY_RULE_SETUP
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 425 "scan.l"
+#line 471 "scan.l"
 { 
+	cout << yytext << " " ;
 	output_s.push(new Qexpression(COLUMN, yytext) ) ;
 }
 	YY_BREAK
 case 42:
 /* rule 42 can match eol */
 YY_RULE_SETUP
-#line 428 "scan.l"
+#line 475 "scan.l"
 { 
+	cout << yytext << " " ;
 	string l(yytext + 1) ;
 	l = l.substr(0, l.size() - 1) ;
 	output_s.push(new Qexpression(LITERAL, l) ) ;
@@ -1547,15 +1595,17 @@ YY_RULE_SETUP
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 433 "scan.l"
+#line 481 "scan.l"
 {
+	cout << yytext << " " ;
 	output_s.push(new Qexpression(INTEGER, atoi(yytext) ) ) ;
 }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 436 "scan.l"
+#line 485 "scan.l"
 {
+	cout << yytext << " " ;
 	int current_precedence = precedence(yytext);
 	while( (! operators_s.empty() ) && 
 		operators_s.top()->type != LEFT && 
@@ -1573,15 +1623,17 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 451 "scan.l"
+#line 501 "scan.l"
 {
+	cout << yytext << " " ;
 	operators_s.push(new Qexpression(LEFT, yytext)) ;
 }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 454 "scan.l"
+#line 505 "scan.l"
 {
+	cout << yytext << " " ;
 	while(operators_s.top()->type != LEFT){
 		if (noperands(operators_s.top()->str) == 2) {
 			operators_s.top()->right =  (output_s.top() )  ; output_s.pop() ;
@@ -1596,12 +1648,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 468 "scan.l"
+#line 520 "scan.l"
 {/* IGNORE white spaces */}       
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 469 "scan.l"
+#line 521 "scan.l"
 {/* all other character */
 	fprintf(stderr, "Error: unaccepted character: %s\n", yytext) ;
 	exit(EXIT_FAILURE); 
@@ -1609,10 +1661,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 474 "scan.l"
+#line 526 "scan.l"
 ECHO;
 	YY_BREAK
-#line 1616 "lex.yy.cpp"
+#line 1668 "lex.yy.cpp"
 case YY_STATE_EOF(DISTINCT_STATE):
 case YY_STATE_EOF(DROP_TABLE_STATEMENT):
 case YY_STATE_EOF(SELECT_STATEMENT):
@@ -2675,7 +2727,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 473 "scan.l"
+#line 525 "scan.l"
 
 
 

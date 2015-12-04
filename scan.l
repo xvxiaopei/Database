@@ -105,6 +105,7 @@ COMMA                 [,]
 
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT><<EOF>> {
 
+	cout << endl << NORMAL_TEXT;
 	if(YY_START == WHERE_SUB_STATEMENT){
 		while(operators_s.empty() != true){
 			if (noperands(operators_s.top()->str) == 2) {
@@ -115,7 +116,9 @@ COMMA                 [,]
 			}
 			output_s.push(operators_s.top()); operators_s.pop() ;
 		}
+		#ifdef DEBUG
 		output_s.top()->print(0) ; 
+		#endif
 	}
 	if(head != NULL){
 		head->exec();
@@ -128,7 +131,7 @@ COMMA                 [,]
 	yyterminate();
 }
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>[\n\r] {
-	
+	cout << endl << NORMAL_TEXT;
 	if(YY_START == WHERE_SUB_STATEMENT){
 		while(operators_s.empty() != true){
 			if (noperands(operators_s.top()->str) == 2) {
@@ -139,7 +142,9 @@ COMMA                 [,]
 			}
 			output_s.push(operators_s.top()); operators_s.pop() ;
 		}
+		#ifdef DEBUG
 		output_s.top()->print(0) ;
+		#endif
 	}
 	if(head != NULL){
 		head->exec();
@@ -153,27 +158,33 @@ COMMA                 [,]
 }
 
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{SELECT}{WS}+ {
+	cout <<RED_TEXT << "SELECT " ;
 	err_out_START("SELECT");
 	yy_push_state(SELECT_STATEMENT);
 }
 <INITIAL>{D_F}{WS}+ {
+	cout <<RED_TEXT<< "DELETE FROM " ;
 	err_out_START("DELETE FROM");
 	BEGIN(DELETE_STATEMENT);
 }
 <INITIAL>{C_T}{WS}+ {
+	cout <<RED_TEXT<< "CREATE TABLE " ;
 	err_out_START("CREATE TABLE" );
 	BEGIN(CREATE_TABLE_STATEMENT);
 }
 <INITIAL>{D_T}{WS}+ {
+	cout <<RED_TEXT<< "DROP TABLE " ;
 	err_out_START("DROP TABLE" );
 	BEGIN(DROP_TABLE_STATEMENT);
 }
 <INITIAL>{I_I}{WS}+ {
+	cout <<RED_TEXT<< "INSERT INTO ";
 	err_out_START("INSERT INTO");
 	BEGIN(INSERT_STATEMENT);
 }
 
 <SELECT_STATEMENT>{WS}*{DISTINCT}{WS}* {
+	cout < "DISTINCT " ;
 	head = (current_qt = new Qtree(DELTA, NULL) );
 	error_output << "DISTINCT" << endl ;
 	yy_pop_state();
@@ -183,6 +194,7 @@ COMMA                 [,]
 	yy_push_state(S_S_DISTINCT_STATE) ;
 }
 <SELECT_STATEMENT,S_S_DISTINCT_STATE>{STAR}  {
+	cout << "* " ;
 	error_output << "column_name:\t" << yytext << endl ;
 	yy_pop_state();
 	if(YY_START == I_S_EXPECT_VALUES_OR_SELECT){
@@ -191,6 +203,7 @@ COMMA                 [,]
 	BEGIN(S_S_EXPECT_FROM);
 }
 <SELECT_STATEMENT,S_S_DISTINCT_STATE>({name}|{dotted_name}) { 
+	cout << yytext << " " ;
 	if(current_qt == NULL){head = ( current_qt = new Qtree(PI, NULL) );}
 	else{ 
 		current_qt->left = new Qtree(PI, current_qt) ;	 
@@ -205,20 +218,25 @@ COMMA                 [,]
 	BEGIN(S_S_EXPECT_FROM_OR_COMMA);
 }
 <S_S_EXPECT_FROM>{WS}*{F}{WS}* {
+	cout << "FROM " ;
 	BEGIN(S_S_EXPECT_TABLES);
 }
 <S_S_EXPECT_FROM_OR_COMMA>{WS}*{F}{WS}* {
+	cout << "FROM " ;
 	BEGIN(S_S_EXPECT_TABLES);
 }
 <S_S_EXPECT_FROM_OR_COMMA>{WS}*{COMMA}{WS}* {
+	cout << ", " ;
 	BEGIN(S_S_EXPECT_COLUMNS);
 }
 <S_S_EXPECT_COLUMNS>({name}|{dotted_name}) {
+	cout << yytext << " " ;
 	current_qt->info.push_back(yytext);
 	error_output << "column_name:\t" << yytext << endl ;
 	BEGIN(S_S_EXPECT_FROM_OR_COMMA);
 }
 <S_S_EXPECT_TABLES>{name} {
+	cout << yytext << " " ;
 	Qtree *table_node = new Qtree(TABLE, current_qt);
 	if(current_qt != NULL){ 
 		current_qt->left = table_node; 
@@ -232,12 +250,15 @@ COMMA                 [,]
 	BEGIN(S_S_EXPECT_WHERE_OR_COMMA);
 }
 <S_S_EXPECT_WHERE_OR_COMMA>{WS}*{W}{WS}* {
+	cout << "WHERE" << " " ;
 	yy_push_state(WHERE_SUB_STATEMENT) ;
 }
 <S_S_EXPECT_WHERE_OR_COMMA>{WS}*{COMMA}{WS}* {
+	cout << "," << " " ;
 	BEGIN(S_S_EXPECT_MORE_TABLES);
 }
 <S_S_EXPECT_MORE_TABLES>{name} {
+	cout << yytext << " " ;
 	Qtree *join_node = new Qtree(JOIN, current_qt->parent);
 	Qtree *table_node = new Qtree(TABLE, join_node);
 	table_node->info.push_back(string(yytext) ) ;
@@ -259,16 +280,19 @@ COMMA                 [,]
 }
 
 <DELETE_STATEMENT>{name} {/* DELETE from table */
+	cout << yytext << " " ;
 	error_output << "delete table:\t" << yytext << endl ;
 	BEGIN(D_S_EXPECT_WHERE);
 }
 <D_S_EXPECT_WHERE>{WS}*{W}{WS}* {
+	cout << "WHERE" << " " ;
 	yy_push_state(WHERE_SUB_STATEMENT) ;
 }
 
 
 
 <DROP_TABLE_STATEMENT>{name} {
+	cout << yytext << " " ;
 	error_output << "table to Drop:\t" << yytext << endl ;
 	scan_over(DROP_TABLE_STATEMENT);
 	p->DropTable(yytext) ;
@@ -277,34 +301,43 @@ COMMA                 [,]
 
 
 <INSERT_STATEMENT>{name} {
+	cout << yytext << " " ;
 	error_output << "table to ins:\t" << yytext << endl;
 	table_name = string(yytext) ;
 	BEGIN(I_S_EXPECT_LEFT_PARENTHESIS);
 }
 <I_S_EXPECT_LEFT_PARENTHESIS>{WS}*{LEFT_PARENTHESIS}{WS}* {
+	cout << "(" << " " ;
 	BEGIN(I_S_EXPECT_ATTR);
 }
 <I_S_EXPECT_ATTR>{name} {
+	cout << yytext << " " ;
 	error_output << "attribute :\t" << yytext <<endl ;
 	field_names.push_back(string(yytext)) ;
 	BEGIN(I_S_EXPECT_COMMA_OR_RIGHT_PARENTHESIS) ;
 }
 <I_S_EXPECT_COMMA_OR_RIGHT_PARENTHESIS>{WS}*{COMMA}{WS}* {
+	cout << "," << " " ;
 	BEGIN (I_S_EXPECT_ATTR) ;
 }
 <I_S_EXPECT_COMMA_OR_RIGHT_PARENTHESIS>{WS}*{RIGHT_PARENTHESIS}{WS}* {
+	cout << ")" << " " ;
 	BEGIN(I_S_EXPECT_VALUES_OR_SELECT) ;
 }
 <I_S_EXPECT_VALUES_OR_SELECT>{V} {
+	cout << "VALUES" << " " ;
 	BEGIN(I_S_VALUES_EXPECT_LEFT_PARENTHESIS);
 }
 <I_S_VALUES_EXPECT_LEFT_PARENTHESIS>{WS}*{LEFT_PARENTHESIS}{WS}* {
+	cout << "(" << " " ;
 	BEGIN(I_S_VALUES_EXPECT_value);
 }
 <I_S_EXPECT_VALUES_OR_SELECT>{WS}*{SELECT}{WS}* {
+	cout << "SELECT" << " " ;
 	yy_push_state(SELECT_STATEMENT);
 }
 <I_S_VALUES_EXPECT_value>{value} {
+	cout << yytext << " " ;
 	error_output << "value:      \t" << yytext << endl;
 	
 	if(yytext[0] == 'N' && yytext[1] == 'U' && yytext[2] == 'L' ){
@@ -321,9 +354,11 @@ COMMA                 [,]
 	BEGIN(I_S_VALUES_EXPECT_COMMA_OR_RIGHT_PARENTHESIS);
 }
 <I_S_VALUES_EXPECT_COMMA_OR_RIGHT_PARENTHESIS>{WS}*{COMMA}{WS}* {
+	cout << "," << " " ;
 	BEGIN(I_S_VALUES_EXPECT_value) ;
 }
 <I_S_VALUES_EXPECT_COMMA_OR_RIGHT_PARENTHESIS>{WS}*{RIGHT_PARENTHESIS}{WS}* {
+	cout << ")" << " " ;
 	scan_over(INSERT_STATEMENT);
 	p->insert(table_name, field_names, str_values, int_values) ;
 	field_names.clear();
@@ -337,15 +372,18 @@ COMMA                 [,]
 
 
 <CREATE_TABLE_STATEMENT>{name} {
+	cout << yytext << " " ;
 	/* Enter CREATE TABLE statement */
 	error_output << "create table:\t" << yytext << endl;
 	table_name = string(yytext) ;
 	BEGIN(C_T_S_EXPECT_LEFT_PARENTHESIS);
 }
 <C_T_S_EXPECT_LEFT_PARENTHESIS>{WS}*{LEFT_PARENTHESIS}{WS}* {
+	cout << "(" << " " ;
 	BEGIN(C_T_S_EXPECT_ATTR);
 }
 <C_T_S_EXPECT_ATTR>{name} {
+	cout << yytext << " " ;
 	error_output << "attribute :\t" << yytext <<endl ;
 	field_names.push_back( string(yytext) ); 
 	BEGIN(C_T_S_EXPECT_WS) ;
@@ -354,6 +392,7 @@ COMMA                 [,]
 	BEGIN(C_T_S_EXPECT_TYPE) ;
 }
 <C_T_S_EXPECT_TYPE>({INT}|{STR}) {
+	cout << yytext << " " ;
 	error_output << "the type is:\t" << yytext << endl ;
 	if(yytext[0] == 'I' && yytext[1] == 'N' && yytext[2] == 'T'){
 		field_types.push_back( INT);
@@ -363,9 +402,11 @@ COMMA                 [,]
 	BEGIN(C_T_S_EXPECT_COMMA_OR_RIGHT_PARENTHESIS) ;
 }
 <C_T_S_EXPECT_COMMA_OR_RIGHT_PARENTHESIS>{WS}*{COMMA}{WS}* {
+	cout << "," << " " ;
 	BEGIN(C_T_S_EXPECT_ATTR);
 }
 <C_T_S_EXPECT_COMMA_OR_RIGHT_PARENTHESIS>{WS}*{RIGHT_PARENTHESIS}{WS}* {
+	cout << ")" << " " ;
 	scan_over(CREATE_TABLE_STATEMENT);
 	if(field_types.size() != field_names.size() ) {
 		perror("Size mismatch");
@@ -383,6 +424,8 @@ COMMA                 [,]
 
 <WHERE_SUB_STATEMENT>{WS}* { /* Eat white spaces */ }
 <S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{OB}{WS}+({name}|{dotted_name}) {
+	cout << "ORDER BY" << " " ;
+	
 	/* 
 	ORDER BY 
 	*/
@@ -401,6 +444,7 @@ COMMA                 [,]
 		pos = name_.rfind(' ') ;
 		name = name_.substr(pos + 1) ;
 		order_node->info.push_back( name ) ;
+		cout << name << " " ;
 		//beforejoin = beforejoin->left;
 /*
 	while(operators_s.empty() != true){
@@ -425,17 +469,21 @@ COMMA                 [,]
 */
 }
 <WHERE_SUB_STATEMENT>{name}|{dotted_name} { 
+	cout << yytext << " " ;
 	output_s.push(new Qexpression(COLUMN, yytext) ) ;
 }
 <WHERE_SUB_STATEMENT>{literal} { 
+	cout << yytext << " " ;
 	string l(yytext + 1) ;
 	l = l.substr(0, l.size() - 1) ;
 	output_s.push(new Qexpression(LITERAL, l) ) ;
 }
 <WHERE_SUB_STATEMENT>{integer} {
+	cout << yytext << " " ;
 	output_s.push(new Qexpression(INTEGER, atoi(yytext) ) ) ;
 }
 <WHERE_SUB_STATEMENT>{pm_op}|{md_op}|{AND}|{OR}|{NOT}|{comp_op} {
+	cout << yytext << " " ;
 	int current_precedence = precedence(yytext);
 	while( (! operators_s.empty() ) && 
 		operators_s.top()->type != LEFT && 
@@ -451,9 +499,11 @@ COMMA                 [,]
 	operators_s.push( new Qexpression(OPERATER, current_precedence, yytext) );
 }
 <WHERE_SUB_STATEMENT>{LEFT_PARENTHESIS}|[\[] {
+	cout << yytext << " " ;
 	operators_s.push(new Qexpression(LEFT, yytext)) ;
 }
 <WHERE_SUB_STATEMENT>{RIGHT_PARENTHESIS}|[\]] {
+	cout << yytext << " " ;
 	while(operators_s.top()->type != LEFT){
 		if (noperands(operators_s.top()->str) == 2) {
 			operators_s.top()->right =  (output_s.top() )  ; output_s.pop() ;
