@@ -55,7 +55,7 @@ void scan_over(int statement){
 Relation* Qtree::exec_(){
 	Relation *ret;
 	if(this->type == TABLE){
-		ret = p->schema_manager.getRelation(this->info[0] ) ;
+		ret = p->schema_manager.getRelation(this->tables[0] ) ;
 	}
 	return ret;
 }
@@ -71,7 +71,7 @@ vector<Tuple> Qtree::exec(){
 		//ret = p->singleTableSelect(r, output_s.top() ) ;
 		
 	}else if(this->type == TABLE){
-		ret = p->singleTableSelect(this->info[0], output_s.empty() ? NULL : output_s.top() );
+		ret = p->singleTableSelect(this->tables[0], output_s.empty() ? NULL : output_s.top() );
 		vector<string> field_names = 
 			ret[0].getSchema( ).getFieldNames() ;
 		for(vector<string>::iterator it = field_names.begin(); it != field_names.end(); it++){

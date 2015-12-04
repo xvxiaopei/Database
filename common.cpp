@@ -181,15 +181,15 @@ void Qtree::print(int level ){
 		case TAU: cout << "τ" << "\t["; break; 
 		case TABLE: cout << "TB" << "\t["; break ;
 	}
-	for(i = 0; i < info.size(); i++){
-		cout << info[i] << " " ;
+	for(i = 0; i < tables.size(); i++){
+		cout << tables[i] << " " ;
 	} cout << "]" << endl ;
 	if (left != NULL){left->print(level + 1) ;}
 	if(right != NULL){ right->print(level + 1) ; }
 }
 
 void Qtree::free(){
-	info.clear();
+	tables.clear();
 	if(left != NULL){left->free();}
 	if(right!=NULL){right->free();}
 	delete this;

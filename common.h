@@ -50,7 +50,7 @@ void scan_over(int statement);
 class Qtree {
 	public:
 	int type ; 
-	vector<string> info;
+	vector<string> tables;
 	Qtree *left, *right, *parent;
 	Qtree(int type, Qtree *parent); 
 	void print( int );
@@ -64,6 +64,7 @@ class Qexpression {
 	int type ; 
 	int number;
 	string str;
+	vector<string> tables ;
 	Qexpression *left, *right;
 	Qexpression() ;
 	Qexpression(int , int);

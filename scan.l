@@ -71,7 +71,7 @@ STAR                  [*]
 md_op                 [*/]
 name                  {letter}({digit}|{letter})* 
 dotted_name           {name}{DOT}{name}
-literal               \"[^"]+\"
+literal               \"[^"]*\"
 value                 {literal}|{integer}|{NULL}
 WS                    [ \t]
 V                     VALUES
@@ -209,7 +209,7 @@ COMMA                 [,]
 		current_qt->left = new Qtree(PI, current_qt) ;	 
 		current_qt = current_qt->left;
 	}
-	current_qt->info.push_back(yytext);
+	current_qt->tables.push_back(yytext);
 	error_output << "column_name:\t" << yytext << endl ;
 	yy_pop_state();
 	if(YY_START == I_S_EXPECT_VALUES_OR_SELECT){
@@ -231,7 +231,7 @@ COMMA                 [,]
 }
 <S_S_EXPECT_COLUMNS>({name}|{dotted_name}) {
 	cout << yytext << " " ;
-	current_qt->info.push_back(yytext);
+	current_qt->tables.push_back(yytext);
 	error_output << "column_name:\t" << yytext << endl ;
 	BEGIN(S_S_EXPECT_FROM_OR_COMMA);
 }
@@ -245,7 +245,7 @@ COMMA                 [,]
 		current_qt = table_node; 
 		head = table_node; 
 	}
-	current_qt->info.push_back(yytext) ;
+	current_qt->tables.push_back(yytext) ;
 	error_output << "table name:\t" << yytext << endl;
 	BEGIN(S_S_EXPECT_WHERE_OR_COMMA);
 }
@@ -261,9 +261,9 @@ COMMA                 [,]
 	cout << yytext << " " ;
 	Qtree *join_node = new Qtree(JOIN, current_qt->parent);
 	Qtree *table_node = new Qtree(TABLE, join_node);
-	table_node->info.push_back(string(yytext) ) ;
-	join_node->info.insert(join_node->info.end(), current_qt->info.begin(), current_qt->info.end()) ;
-	join_node->info.push_back(string(yytext) ) ;
+	table_node->tables.push_back(string(yytext) ) ;
+	join_node->tables.insert(join_node->tables.end(), current_qt->tables.begin(), current_qt->tables.end()) ;
+	join_node->tables.push_back(string(yytext) ) ;
 	if(current_qt->parent != NULL){current_qt->parent->left = join_node ;}
 	join_node->left = current_qt ;
 	current_qt->parent = join_node;
@@ -443,7 +443,7 @@ COMMA                 [,]
 		name_ = match.substr(pos + 3) ;
 		pos = name_.rfind(' ') ;
 		name = name_.substr(pos + 1) ;
-		order_node->info.push_back( name ) ;
+		order_node->tables.push_back( name ) ;
 		cout << name << " " ;
 		//beforejoin = beforejoin->left;
 /*
