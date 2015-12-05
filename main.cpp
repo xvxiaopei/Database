@@ -88,9 +88,9 @@ Qexpression* Qexpression::optimize_join(map<string, vector<string>* >* commons){
 			set<string>::iterator it = this->tables.begin();
 			it++;
 			if(this->tables.begin()->compare(* (it  ) ) >= 0){
-				key = string( *(this->tables.begin() ) + "x"+ *(it ) ) ;
+				key = string( *(this->tables.begin() ) + "-x-"+ *(it ) ) ;
 			}else{
-				key = string( *(it) + "x"+*(this->tables.begin() ) ) ;
+				key = string( *(it) + "-x-"+*(this->tables.begin() ) ) ;
 			}
 			field0 = string(this->left->str.substr(this->left->str.rfind('.') + 1) ) ;
 			field1 = string(this->right->str.substr(this->right->str.rfind('.') + 1) ) ;
@@ -224,16 +224,21 @@ vector<Tuple> Qtree::exec(){
 	#ifdef DEBUG
 	this->print(0);
 	#endif
-	if(this->type == PI){
+	if(this->type == DELTA){
 
+		return ret;//TODO remove this
+	}else if(this->type == PI){
+
+		return ret;//TODO remove this
 	}else if(this->type == PRODUCT){
+		vector<string> ptables;
 		vector<Relation *> relations ;
 		map<string, Qexpression *> sigma_operation ;
 		map<string, vector<string>* > commons ;
-		
-		for(vector<string>::iterator it = this->tables.begin(); it != this->tables.end(); it++){
+		vector<string>::iterator it = ptables.begin();
 
-		}
+		ptables.insert(ptables.end(), this->tables.begin(), this->tables.end() );
+		
 		if(output_s.empty() == true){
 		}else if(output_s.top()->type == INTEGER || output_s.top()->type == LITERAL ){
 			Tuple *t = NULL;
@@ -264,19 +269,41 @@ vector<Tuple> Qtree::exec(){
 			}
 			
 		}
+		vector<string> to_drop ;
+		for(vector<string>::iterator it = ptables.begin(); it != ptables.end(); ){
+			if(sigma_operation[*it] == NULL){
+				it++;
+			}else{
+				vector<Tuple> tuples  =  p->singleTableSelect( *it  , sigma_operation[*it] ) ;
+				Relation *temp_relation = p->CreateTable( ( *it) + "-SIGMA",  tuples) ;
+				to_drop.push_back( temp_relation->getRelationName() ) ;
+				it = ptables.erase(it) ;ptables.push_back(  temp_relation->getRelationName() ) ;
+			}
+		}
+		if(ptables.size() == 2){
+			ret = p->JoinTwoPass(ptables[0], ptables[1] ) ;
+		}else{
+			ret = p->JoinTables(ptables) ;
+		}
+		for(vector<string>::iterator it = to_drop.begin(); it != to_drop.end(); it++){
+			p->DropTable(*it) ;
+		}
+
 		//ret = p->singleTableSelect(r, output_s.top() ) ;
 		
 	}else if(this->type == TABLE){
 		ret = p->singleTableSelect(this->tables[0], output_s.empty() ? NULL : output_s.top() );
-		vector<string> field_names = 
-			ret[0].getSchema( ).getFieldNames() ;
-		for(vector<string>::iterator it = field_names.begin(); it != field_names.end(); it++){
-			cout<< *it << ' ' ;
-		} cout << endl << "-----------------" << endl ;
-		for(vector<Tuple>::iterator it = ret.begin(); it != ret.end(); it ++ ){
-			cout << (*it) << endl;
-		}cout <<  "-----------------" << endl << endl ;
+	}else{
+		return ret;
 	}
+	vector<string> field_names = 
+		ret[0].getSchema( ).getFieldNames() ;
+	for(vector<string>::iterator it = field_names.begin(); it != field_names.end(); it++){
+		cout<< *it << ' ' ;
+	} cout << endl << "-----------------" << endl ;
+	for(vector<Tuple>::iterator it = ret.begin(); it != ret.end(); it ++ ){
+		cout << (*it) << endl;
+	}cout <<  "-----------------" << endl << endl ;
 	/*
 	if(this->left == NULL && this->right == NULL){
 		int i = 0;
