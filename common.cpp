@@ -46,12 +46,13 @@ enum FIELD_TYPE Qexpression::field_type(Tuple t){
 			ret = scm.getFieldType(this->str) ;
 		}else{
 			string s( this->str.substr(found + 1) ) ;
-			ret = scm.getFieldType(s );
-			if( scm.getFieldOffset(s ) == -1 ){
+			if( scm.fieldNameExists(s ) == true ){
+				ret = scm.getFieldType(s );
+			}else if(scm.fieldNameExists(this->str) ){
 				ret = scm.getFieldType(this->str) ;
-			}
-			if( scm.getFieldOffset( this->str ) == -1 ){
-				perror("No such field") ;
+			}else{
+				perror("field_type: No such field");
+				return INT ;
 			}
 		}
 		return ret ;
@@ -64,6 +65,7 @@ enum FIELD_TYPE Qexpression::field_type(Tuple t){
 	}
 }
 union Field Qexpression::judge_(Tuple t ) {
+	Schema scm = t.getSchema() ;
 	union Field ret ;
 	ret.integer = INT_MIN ;
 	switch(this->type){
@@ -73,12 +75,12 @@ union Field Qexpression::judge_(Tuple t ) {
 			ret = t.getField(this->str) ;
 		}else{
 			string s( this->str.substr(found + 1) ) ;
-			ret = t.getField(s );
-			if( ret.integer == INT_MIN){
+			if(scm.fieldNameExists(s ) == true ){
+				ret = t.getField(s );
+			}else if(scm.fieldNameExists( this->str)) {
 				ret = t.getField(this->str) ;
-			}
-			if(ret.integer == INT_MIN){
-				perror("No such field") ;
+			}else{
+				perror("judge_: No such field") ;
 			}
 		}
 		#ifdef DEBUG
