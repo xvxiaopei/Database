@@ -196,7 +196,7 @@ COMMA                 [,]
 }
 
 <SELECT_STATEMENT>{WS}*{DISTINCT}{WS}* {
-	cout < "DISTINCT " ;
+	cout << "DISTINCT " ;
 	head = (current_qt = new Qtree(DELTA, NULL) );
 	error_output << "DISTINCT" << endl ;
 	yy_pop_state();
