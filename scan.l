@@ -449,8 +449,12 @@ COMMA                 [,]
 		Qtree *order_node = new Qtree(TAU, current_qt->parent );
 		order_node->left = current_qt;
 		order_node->right = NULL;
-		if(current_qt->parent != NULL){current_qt->parent->left = order_node ;}
-		current_qt->parent = order_node  ;
+		if(current_qt->parent != NULL){
+			current_qt->parent->left = order_node ;
+		}else{
+			head = order_node ;
+		}
+		current_qt->parent = order_node ;
 
 		pos = match.find(" BY") ;
 		name_ = match.substr(pos + 3) ;
