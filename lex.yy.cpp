@@ -1178,7 +1178,7 @@ case 7:
 YY_RULE_SETUP
 #line 198 "scan.l"
 {
-	cout < "DISTINCT " ;
+	cout << "DISTINCT " ;
 	head = (current_qt = new Qtree(DELTA, NULL) );
 	error_output << "DISTINCT" << endl ;
 	yy_pop_state();
@@ -1554,8 +1554,12 @@ YY_RULE_SETUP
 		Qtree *order_node = new Qtree(TAU, current_qt->parent );
 		order_node->left = current_qt;
 		order_node->right = NULL;
-		if(current_qt->parent != NULL){current_qt->parent->left = order_node ;}
-		current_qt->parent = order_node  ;
+		if(current_qt->parent != NULL){
+			current_qt->parent->left = order_node ;
+		}else{
+			head = order_node ;
+		}
+		current_qt->parent = order_node ;
 
 		pos = match.find(" BY") ;
 		name_ = match.substr(pos + 3) ;
@@ -1589,7 +1593,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 484 "scan.l"
+#line 488 "scan.l"
 { 
 	cout << yytext << " " ;
 	output_s.push(new Qexpression(COLUMN, yytext) ) ;
@@ -1602,7 +1606,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 493 "scan.l"
+#line 497 "scan.l"
 {
 	string s(yytext) ;
 	int found ;
@@ -1616,7 +1620,7 @@ YY_RULE_SETUP
 case 43:
 /* rule 43 can match eol */
 YY_RULE_SETUP
-#line 502 "scan.l"
+#line 506 "scan.l"
 { 
 	cout << yytext << " " ;
 	string l(yytext + 1) ;
@@ -1626,7 +1630,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 508 "scan.l"
+#line 512 "scan.l"
 {
 	cout << yytext << " " ;
 	output_s.push(new Qexpression(INTEGER, atoi(yytext) ) ) ;
@@ -1634,7 +1638,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 512 "scan.l"
+#line 516 "scan.l"
 {
 	cout << yytext << " " ;
 	int current_precedence = precedence(yytext);
@@ -1660,7 +1664,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 534 "scan.l"
+#line 538 "scan.l"
 {
 	cout << yytext << " " ;
 	operators_s.push(new Qexpression(LEFT, yytext)) ;
@@ -1668,7 +1672,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 538 "scan.l"
+#line 542 "scan.l"
 {
 	cout << yytext << " " ;
 	while(operators_s.top()->type != LEFT){
@@ -1691,12 +1695,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 559 "scan.l"
+#line 563 "scan.l"
 {/* IGNORE white spaces */}       
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 560 "scan.l"
+#line 564 "scan.l"
 {/* all other character */
 	fprintf(stderr, "Error: unaccepted character: %s\n", yytext) ;
 	exit(EXIT_FAILURE); 
@@ -1704,10 +1708,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 565 "scan.l"
+#line 569 "scan.l"
 ECHO;
 	YY_BREAK
-#line 1711 "lex.yy.cpp"
+#line 1715 "lex.yy.cpp"
 case YY_STATE_EOF(DISTINCT_STATE):
 case YY_STATE_EOF(DROP_TABLE_STATEMENT):
 case YY_STATE_EOF(SELECT_STATEMENT):
@@ -2770,7 +2774,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 564 "scan.l"
+#line 568 "scan.l"
 
 
 
