@@ -59,6 +59,69 @@ Relation* Qtree::exec_(){
 	}
 	return ret;
 }
+Qexpression* Qexpression::optimize_join(map<string, vector<string>* >* commons){
+	if(this->type == OPERATER && this->str[0] == 'A'){
+		if(this->tables.size() >= 2){
+			Qexpression *lqexp = this->left->optimize_join(commons) ;
+			Qexpression *rqexp = this->right->optimize_join(commons) ;
+			if(lqexp != NULL && rqexp != NULL){
+				this->left = lqexp ;
+				this->right = rqexp ;
+				return this;
+			}else if(lqexp == NULL && rqexp != NULL){
+				delete this;
+				return rqexp ;
+			}else if(lqexp != NULL && rqexp == NULL){
+				delete this;
+				return lqexp ;
+			}else{
+				delete this;
+				return NULL;
+			}
+		}else{
+			return this;
+		}
+	}else if(this->type == OPERATER && this->str[0] == '=' &&
+	this->left->type == COLUMN && this->right->type == COLUMN ){
+		if(this->tables.size() == 2){
+			string key, field0, field1;
+			set<string>::iterator it = this->tables.begin();
+			it++;
+			if(this->tables.begin()->compare(* (it  ) ) >= 0){
+				key = string( *(this->tables.begin() ) + "x"+ *(it ) ) ;
+			}else{
+				key = string( *(it) + "x"+*(this->tables.begin() ) ) ;
+			}
+			field0 = string(this->left->str.substr(this->left->str.rfind('.') + 1) ) ;
+			field1 = string(this->right->str.substr(this->right->str.rfind('.') + 1) ) ;
+			
+			if(field1.compare(field0) == 0){
+				int found ;
+				if(  (*commons)[ key ] == NULL){
+					vector<string> *v = new vector<string> ;
+					(*commons)[ key ] = v;
+					v->push_back(field0) ;
+					return NULL;
+				}else{
+					for(vector<string>::iterator it = (*commons)[ key ]->begin(); 
+					it != (*commons)[ key ]->end(); it++){
+						if( it->compare(field0) == 0){
+							return NULL ;
+						}
+					}
+					(*commons)[ key ]->push_back(field0 ) ; 
+					return NULL ;
+				}
+			}else{
+				return this;
+			}
+		}else{
+			return this;
+		}
+	}else{
+		return this ;
+	}
+}
 Qexpression* Qexpression::optimize_sigma(map<string, Qexpression *>* sigma_operation) {
 	if(this->type == COLUMN){
 		(*sigma_operation)[ * (this->tables.begin() ) ] = this ;
@@ -105,10 +168,13 @@ Qexpression* Qexpression::optimize_sigma(map<string, Qexpression *>* sigma_opera
 				this->right = rqexp ;
 				return this;
 			}else if(lqexp == NULL && rqexp != NULL){
+				delete this;
 				return rqexp ;
 			}else if(lqexp != NULL && rqexp == NULL){
+				delete this;
 				return lqexp ;
 			}else{
+				delete this;
 				return NULL;
 			}
 		}else{
@@ -163,6 +229,7 @@ vector<Tuple> Qtree::exec(){
 	}else if(this->type == PRODUCT){
 		vector<Relation *> relations ;
 		map<string, Qexpression *> sigma_operation ;
+		map<string, vector<string>* > commons ;
 		
 		for(vector<string>::iterator it = this->tables.begin(); it != this->tables.end(); it++){
 
@@ -179,12 +246,23 @@ vector<Tuple> Qtree::exec(){
 			}
 		}else{
 			Qexpression *optimized = output_s.top()->optimize_sigma(&sigma_operation) ;
-			output_s.pop(); output_s.push(optimized) ;
-			output_s.top()->print(0);
+			output_s.pop(); if(optimized != NULL){ output_s.push(optimized) ;}
+			
 			for(map<string, Qexpression *>::iterator it = sigma_operation.begin(); it != sigma_operation.end(); it ++){
 				cout << it->first << "->" << endl;
 				it->second->print(0);
 			}
+
+			if(output_s.empty() != true){
+				optimized = output_s.top()->optimize_join(&commons) ;
+				output_s.pop(); if(optimized != NULL){ output_s.push(optimized) ;}
+
+				for(map<string, vector<string>* >::iterator it = commons.begin(); it != commons.end(); it ++){
+					cout << it->first << "->" <<(*(it->second))[0] << endl ;
+				}
+				if(output_s.empty()){}else{ output_s.top()->print(0); }
+			}
+			
 		}
 		//ret = p->singleTableSelect(r, output_s.top() ) ;
 		

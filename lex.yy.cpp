@@ -1087,7 +1087,7 @@ case YY_STATE_EOF(WHERE_SUB_STATEMENT):
 		head = (current_qt = NULL);
 	}
 	if(YY_START == WHERE_SUB_STATEMENT){
-		 output_s.top()->free() ; while(! output_s.empty() ){ output_s.pop();}
+		  while(! output_s.empty() ){ output_s.top()->free() ;output_s.pop();}
 	}
 	yyterminate();
 }
@@ -1124,7 +1124,7 @@ YY_RULE_SETUP
 		head = (current_qt = NULL);
 	}
 	if(YY_START == WHERE_SUB_STATEMENT){
-		 output_s.top()->free() ;while(! output_s.empty() ){ output_s.pop();}
+		 while(! output_s.empty() ){ output_s.top()->free() ;output_s.pop();}
 	}
 	BEGIN(INITIAL);
 }

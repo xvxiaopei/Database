@@ -72,6 +72,7 @@ class Qexpression {
 	Qexpression(int , string);
 	Qexpression(int, int, string);
 	Qexpression* optimize_sigma(map<string, Qexpression *>* sigma_operation) ;
+	Qexpression* optimize_join(map<string, vector<string>* >* theta_operation) ;
 	bool judge(Tuple t);
 	void print(int level) ;
 	void free() ;

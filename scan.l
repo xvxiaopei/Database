@@ -132,7 +132,7 @@ COMMA                 [,]
 		head = (current_qt = NULL);
 	}
 	if(YY_START == WHERE_SUB_STATEMENT){
-		 output_s.top()->free() ; while(! output_s.empty() ){ output_s.pop();}
+		  while(! output_s.empty() ){ output_s.top()->free() ;output_s.pop();}
 	}
 	yyterminate();
 }
@@ -164,7 +164,7 @@ COMMA                 [,]
 		head = (current_qt = NULL);
 	}
 	if(YY_START == WHERE_SUB_STATEMENT){
-		 output_s.top()->free() ;while(! output_s.empty() ){ output_s.pop();}
+		 while(! output_s.empty() ){ output_s.top()->free() ;output_s.pop();}
 	}
 	BEGIN(INITIAL);
 }
