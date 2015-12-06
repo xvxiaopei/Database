@@ -216,7 +216,7 @@ vector<Tuple> physicalOP::singleTableSelect(string relation_name,
 		vector<Tuple> Tuples = block_ptr->getTuples();
 		for(vector<Tuple>::iterator it  = Tuples.begin(); it != Tuples.end(); )  
         {  
-			if(con == NULL || con.judge(*it))           //if this tuple fit the condition
+			if(con.judge(*it))           //if this tuple fit the condition
 			{
 				result.push_back(*it);
 			}
@@ -254,7 +254,7 @@ void physicalOP::Delete(string relation_name,              //using mem 0 to get 
 		
 		for(int j=0;j<NumOfTuples;j++)
 		{
-			if(!( con == NULL || con.judge(block_ptr->getTuple(j) ) ) )
+			if(!(  con.judge(block_ptr->getTuple(j) ) ) )
 			{
 				block_back->setTuple(tuplesBack,block_ptr->getTuple(j));
 				tuplesBack++;
