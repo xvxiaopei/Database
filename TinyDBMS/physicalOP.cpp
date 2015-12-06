@@ -2003,7 +2003,7 @@ vector<Tuple> physicalOP::JoinTables(vector<string> relation_names,vector<string
 		size[relation_names[i]]=0;cost[relation_names[i]]=0;
 		costRelation[relation_names[i]]=JoinNode(RelationCount(relation_names[i]));
 	}
-	vector<vector<int>> combines=getCombine(numOfRelation, 2,a);
+	vector<vector<int> > combines=getCombine(numOfRelation, 2,a);
 	for(int i=0;i<combines.size();i++)
 	{
 		string relation_name;
@@ -2026,7 +2026,7 @@ vector<Tuple> physicalOP::JoinTables(vector<string> relation_names,vector<string
 	for(int k=3;k<=relation_names.size();k++)
 	{
 		cout<<"k="<<k<<endl;
-		vector<vector<int>> combines=getCombine(relation_names.size(),k,a);
+		vector<vector<int> > combines=getCombine(relation_names.size(),k,a);
 
 		for(int i=0;i<combines.size();i++)
 		{
@@ -2042,7 +2042,7 @@ vector<Tuple> physicalOP::JoinTables(vector<string> relation_names,vector<string
 			
 			for(int j=1;j<=combines[i].size()/2;j++)   //partition
 			{
-				vector<vector<int>> partitions1=getCombine(k,j,combines[i]);
+				vector<vector<int> > partitions1=getCombine(k,j,combines[i]);
 				for(int l=0;l<partitions1.size();l++)  //for each partition
 				{
 					string relation_name1,relation_name2;
