@@ -80,6 +80,12 @@ Relation * physicalOP::CreateTable(string relation_name,
 {
 	//cout << "****************Creating table " << relation_name<<" ***********" << endl;
 	//cout << "Creating a schema" << endl;
+	/*
+	for(int i=0;i<field_names.size();i++)
+	{
+		field_names[i]=relation_name+field_names[i];
+	}
+	*/
 	Schema schema(field_names,field_types);
 	//displaySchema(schema);
 	
@@ -539,6 +545,51 @@ bool physicalOP::fieldLarger(Tuple a,Tuple b,string field_name)
 
 	else return false;	
 }
+bool physicalOP::fieldLarger(Tuple a,Tuple b,string field_name1,string field_name2)
+{
+	if(a.isNull()||b.isNull())return false;
+
+	Schema schema1 =  a.getSchema();
+	Schema schema2 =  b.getSchema();
+	if(!schema1.fieldNameExists(field_name1)||!schema2.fieldNameExists(field_name2))
+	{
+		cout<<"field name not exists. "<<endl;
+		return false;
+	}
+
+	if(schema1.getFieldType(field_name1)==INT && schema2.getFieldType(field_name2)==INT)
+	{
+		if(a.getField(field_name1).integer>b.getField(field_name2).integer) 
+		{
+			//cout<<a.getField(field_name).integer<<" > "<<b.getField(field_name).integer<<endl;
+			return true; 
+		}	
+		else 
+		{
+			//cout<<a.getField(field_name).integer<<" <= "<<b.getField(field_name).integer<<endl;
+			return false; 
+		}
+
+	}
+
+	else if(schema1.getFieldType(field_name1)==STR20&& schema2.getFieldType(field_name2)==STR20)
+	{
+		if(*a.getField(field_name1).str>*b.getField(field_name2).str) 
+		{
+			//cout<<*a.getField(field_name).str<<" > "<<*b.getField(field_name).str<<endl;
+			return true; 
+		}
+		else 
+		{
+			//cout<<*a.getField(field_name).str<<" <= "<<*b.getField(field_name).str<<endl;
+			return false; 
+		}
+		
+	}
+
+	else return false;	
+}
+
 bool physicalOP::fieldEqual(Tuple a,Tuple b,string field_name)
 {
 	if(a.isNull()||b.isNull())return false;
@@ -701,7 +752,7 @@ vector<Tuple> physicalOP::Product(string relation_name1,
 	{
 		if(schema2.fieldNameExists(schema1.getFieldName(i)))
 		{
-			field_names.push_back(relation_name1+"."+schema1.getFieldName(i));
+			field_names.push_back(schema1.getFieldName(i));
 		}
 		else
 		{
@@ -715,7 +766,7 @@ vector<Tuple> physicalOP::Product(string relation_name1,
 	{
 		if(schema1.fieldNameExists(schema2.getFieldName(i)))
 		{
-			field_names.push_back(relation_name2+"."+schema2.getFieldName(i));
+			field_names.push_back(schema2.getFieldName(i));
 		}
 		else
 		{
@@ -901,6 +952,128 @@ Tuple physicalOP::JoinOneTuple(Tuple t1,Tuple t2)
 
 }
 
+Tuple physicalOP::JoinOneTuple(string relation_name1,string relation_name2,Tuple t1,Tuple t2,vector<string> common_fields)
+{
+	//if(common_fields.size()==0){}
+	Schema schema1 =  t1.getSchema();
+	Schema schema2 =  t2.getSchema();
+	vector<string> field_names;     
+	vector<enum FIELD_TYPE> field_types;
+	for(int i=0;i<schema1.getFieldNames().size();i++)
+	{
+
+			field_names.push_back(schema1.getFieldName(i));
+			field_types.push_back(schema1.getFieldType(i));
+	}
+	
+	for(int i=0;i<schema2.getFieldNames().size();i++)
+	{
+
+			field_names.push_back(schema2.getFieldName(i));
+			field_types.push_back(schema2.getFieldType(i));
+
+
+	}
+	string relation_name="JoinedRelation:";
+	for(int i=0;i<common_fields.size();i++) relation_name+=common_fields[i];
+	Relation* Join_ptr;
+	Schema s(field_names,field_types);
+	while(schema_manager.relationExists(relation_name))
+	{
+		if(schema_manager.getRelation(relation_name)->getSchema()==s)
+		{
+			Join_ptr=schema_manager.getRelation(relation_name);
+			break;
+		}
+		relation_name+="a";
+		
+	}
+	if(!schema_manager.relationExists(relation_name)) Join_ptr=CreateTable(relation_name,field_names,field_types);
+
+
+	//displayRelation(relation_name);
+	Tuple tuple = Join_ptr->createTuple();
+	//cout<<tuple.getSchema()<<endl;
+	if(t1.isNull()||t2.isNull())
+	{
+		tuple.null();
+		return tuple;
+	}
+	for(int i=0;i<schema2.getFieldNames().size();i++)
+	{
+		string Filed_Name2=schema2.getFieldName(i);
+
+		if(schema2.getFieldType(Filed_Name2)==INT) tuple.setField(Filed_Name2,t2.getField(Filed_Name2).integer);
+		else  tuple.setField(Filed_Name2,*t2.getField(Filed_Name2).str);
+	}
+
+
+	for(int i=0;i<schema1.getFieldNames().size();i++)
+	{
+		string Filed_Name1=schema1.getFieldName(i);
+		string Table_Name1=Filed_Name1.substr(0,Filed_Name1.find_last_of("."));
+		string subFiled_Name1=Filed_Name1.substr(Filed_Name1.find_last_of(".")+1);
+
+		if(schema1.getFieldType(Filed_Name1)==INT) tuple.setField(Filed_Name1,t1.getField(Filed_Name1).integer);
+		else  tuple.setField(Filed_Name1,*t1.getField(Filed_Name1).str);
+
+		for(int j=0;j<schema2.getFieldNames().size();j++)
+		{
+			string Filed_Name2=schema2.getFieldName(j);
+			//cout<<Filed_Name2<<endl;
+			string Table_Name2=Filed_Name2.substr(0,Filed_Name2.find_last_of("."));
+			string subFiled_Name2=Filed_Name2.substr(Filed_Name2.find_last_of(".")+1);
+			vector<string>::iterator result1=find(common_fields.begin(),common_fields.end(),Filed_Name1);
+			vector<string>::iterator result2=find(common_fields.begin(),common_fields.end(),Filed_Name2);
+			//cout<<subFiled_Name1<<" "<<subFiled_Name2<<endl;
+
+			if(subFiled_Name1==subFiled_Name2)
+			{
+				if((result1 != common_fields.end( ))&&(result2 != common_fields.end( ))){
+				if(schema1.getFieldType(Filed_Name1)==INT&&schema2.getFieldType(Filed_Name2)==INT)
+				{
+					if(t1.getField(Filed_Name1).integer==t2.getField(Filed_Name2).integer)
+					{
+						tuple.setField(Filed_Name1,t1.getField(Filed_Name1).integer);
+						tuple.setField(Filed_Name2,t1.getField(Filed_Name1).integer);
+						continue;
+					}
+					else{tuple.null();return tuple;}
+				}
+				else if(schema1.getFieldType(Filed_Name1)==STR20&&schema2.getFieldType(Filed_Name2)==STR20)
+				{
+					if(*t1.getField(Filed_Name1).str==*t2.getField(Filed_Name2).str)
+					{
+						tuple.setField(Filed_Name1,*t1.getField(Filed_Name1).str);
+						tuple.setField(Filed_Name2,*t1.getField(Filed_Name1).str);
+						continue;
+					}
+					else{tuple.null();return tuple;}
+				}
+				else 
+				{
+					tuple.null();
+					return tuple;
+				}
+				}
+			}
+			else 
+			{
+				continue;
+			}
+
+
+		}
+
+		
+	}
+
+	
+	//if(!tuple.isNull())cout<<tuple<<endl;
+	//cout<<"??";
+	return tuple;
+}
+
 
 
 vector<Tuple>  physicalOP::JoinOnePass(string relation_name1,
@@ -951,6 +1124,59 @@ vector<Tuple>  physicalOP::JoinOnePass(string relation_name1,
 	return result;
 
 }
+
+vector<Tuple> physicalOP::JoinOnePass(string relation_name1,
+				       string relation_name2,vector<string> common_fields)  //ensure common_fields is not zero
+{
+	
+	Relation* relation_ptr1 = schema_manager.getRelation(relation_name1);
+	Relation* relation_ptr2 = schema_manager.getRelation(relation_name2);
+	//displayRelation(relation_name1);
+	//displayRelation(relation_name2);
+	vector<Tuple> result;
+	if (relation_ptr1==NULL||relation_ptr2==NULL){
+                cout << "No Such Relation"<<endl;
+				return result;
+	}
+	Block* block_ptr0,*block_ptr;
+	block_ptr0=mem.getBlock(0); block_ptr0->clear();
+
+	Relation* Rsmall=(relation_ptr1->getNumOfBlocks()>relation_ptr2->getNumOfBlocks())?relation_ptr2:relation_ptr1;
+	Relation* Rlarge=(relation_ptr1->getNumOfBlocks()>relation_ptr2->getNumOfBlocks())?relation_ptr1:relation_ptr2;
+
+	if(!Rsmall->getBlocks(0,1,Rsmall->getNumOfBlocks()))
+	{
+		cout << "Can't be done in ONE PASS! "<<endl;
+		return result;
+	}
+
+	for(int i=0;i<Rlarge->getNumOfBlocks();i++)
+	{
+		Rlarge->getBlock(i,0);
+		for(int j=0;j<block_ptr0->getNumTuples();j++)
+		{
+			Tuple Tlarge=block_ptr0->getTuple(j);
+			//cout<<"Tlarge: "<<Tlarge<<endl;
+			for(int k=1;k<1+Rsmall->getNumOfBlocks();k++)
+			{
+				block_ptr=mem.getBlock(k);
+				for(int l=0;l<block_ptr->getNumTuples();l++)
+				{
+					Tuple Tsmall=block_ptr->getTuple(l);
+					//cout<<"Tsmall: "<<Tsmall<<endl;
+					Tuple tuple=JoinOneTuple(Rsmall->getRelationName(),Rlarge->getRelationName(),Tsmall,Tlarge,common_fields);
+					//cout<<"tuple: "<<tuple<<endl;
+					if(!tuple.isNull())result.push_back(tuple);	
+				}
+			}
+		}
+	}
+	return result;
+
+}
+
+
+
 vector<Tuple>  physicalOP::JoinTwoPass(string relation_name1,
 									   string relation_name2)
 {
@@ -1134,6 +1360,209 @@ vector<Tuple>  physicalOP::JoinTwoPass(string relation_name1,
 }
 
 
+vector<Tuple> physicalOP::JoinTwoPass(string relation_name1, 
+							string relation_name2,vector<string> common_fields)
+{
+	Relation* relation_ptr1 = schema_manager.getRelation(relation_name1);
+	Relation* relation_ptr2 = schema_manager.getRelation(relation_name2);
+   	vector<Tuple> result;
+	if (relation_ptr1==NULL||relation_ptr2==NULL){
+                cout << "No Such Relation"<<endl;
+				return result;
+	}
+	
+	Schema schema1 =  relation_ptr1->getSchema();
+	Schema schema2 =  relation_ptr2->getSchema();
+	//vector<string> common_fields;   
+
+	int tupPerBlock1 =schema1.getTuplesPerBlock();
+	int tupPerBlock2 =schema2.getTuplesPerBlock();
+	/*
+	for(int i=0;i<schema1.getFieldNames().size();i++)
+	{
+		if(schema2.fieldNameExists(schema1.getFieldName(i)))
+		{
+			common_fields.push_back(schema1.getFieldName(i));
+			continue;
+		}
+	}*/
+
+
+	vector<string> field_names1=schema1.getFieldNames();
+	vector<string> field_names2=schema2.getFieldNames();
+	if(common_fields.empty()) {cout<<"NO common fields, cross join.";return Product(relation_name1,relation_name2);}
+	int p=0;
+	string field_name1 = common_fields[p++];
+	string field_name2 = common_fields[p++];   //sorted by this field
+	//cout<<field_name1<<"  "<<field_name2<<endl;
+	vector<string>::iterator result1=find(field_names1.begin(),field_names1.end(),field_name1); 
+	vector<string>::iterator result2=find(field_names2.begin(),field_names2.end(),field_name2); 
+
+
+
+
+	while(result1 == field_names1.end( )||result2 == field_names2.end( ))
+	{
+		field_name1 = common_fields[p++];
+		field_name2 = common_fields[p++];   //sorted by this field
+		//cout<<field_name1<<"  "<<field_name2<<endl;
+		result1=find(field_names1.begin(),field_names1.end(),field_name1); 
+		result2=find(field_names2.begin(),field_names2.end(),field_name2); 
+	}
+
+
+	if(relation_ptr1->getNumOfBlocks()<10||relation_ptr2->getNumOfBlocks()<10) 
+	{cout<<"This Join can be in one pass! "<<endl;return JoinOnePass(relation_name1,relation_name2,common_fields);}
+
+	vector<string> sublist1=sortedSub(relation_name1,field_name1);
+	vector<string> sublist2=sortedSub(relation_name2,field_name2);
+	Relation* sublist_ptr1,* sublist_ptr2;
+	//tupAddr tmp;
+	
+	Block* block_ptr1, *block_ptr2;
+
+	int *numOfBlocks1 = new int[sublist1.size()];            //count how many  blocks of each sublist has been written to mem
+	int sum1=relation_ptr1->getNumOfTuples();
+	int *numOfBlocks2 = new int[sublist2.size()];            //count how many  blocks of each sublist has been written to mem
+	int sum2=relation_ptr2->getNumOfTuples();
+	int  i=0;
+
+	for(i=0;i<sublist1.size();i++)                               //put first block of each sublist of relation 1 to mem
+	{
+		sublist_ptr1 = schema_manager.getRelation(sublist1[i]);
+		sublist_ptr1->getBlock(0,i);
+		numOfBlocks1[i]=0;
+	}
+
+	for(int j=0;i<sublist1.size()+sublist2.size();i++,j++)               //put first block of each sublist of relation 2 to mem
+	{
+		sublist_ptr2 = schema_manager.getRelation(sublist2[j]);
+		//displayRelation(sublist2[j]);
+		sublist_ptr2->getBlock(0,i);
+		numOfBlocks2[j]=0;
+	}
+	//displayMem();
+	
+	while(sum1>0&&sum2>0)
+	{
+		tupAddr min1=getMin(field_name1,0,sublist1.size());
+		tupAddr min2=getMin(field_name2,sublist1.size(),sublist2.size());
+		//cout<<"Min1  Index is "<<min1.block_index<<" , off set is "<<min1.offset<<endl;
+		//cout<<"Min2  Index is "<<min2.block_index<<" , off set is "<<min2.offset<<endl;
+		block_ptr1=mem.getBlock(min1.block_index);
+		block_ptr2=mem.getBlock(min2.block_index);
+
+		Tuple min1Tuple=block_ptr1->getTuple(min1.offset);
+		Tuple min2Tuple=block_ptr2->getTuple(min2.offset);
+		//cout<<min1Tuple<<endl<<min2Tuple<<":  ";
+		if(JoinOneTuple(relation_name1,relation_name2,min1Tuple,min2Tuple,common_fields).isNull())   //can't join
+		{   //delete smaller
+			//cout<<"can't join: ";
+			if(fieldLarger(min1Tuple,min2Tuple,field_name1,field_name2)) 
+			{
+				//cout<<"delete 2"<<endl;
+				block_ptr2->nullTuple(min2.offset);
+				sum2--;
+				//displayMem();
+				if(block_ptr2->getNumTuples()==0)      //if this block of sublist is empty, put next block of this sublist
+				{
+					int sublist2index=min2.block_index-sublist1.size();
+					sublist_ptr2 = schema_manager.getRelation(sublist2[sublist2index]);
+					//cout<<sublist2[sublist2index]<<endl;
+					if(numOfBlocks2[sublist2index]+1<sublist_ptr2->getNumOfBlocks())
+					{
+						numOfBlocks2[sublist2index]=numOfBlocks2[sublist2index]+1;
+						sublist_ptr2->getBlock(numOfBlocks2[sublist2index],min2.block_index);
+						//cout<<"Read "<<numOfBlocks2[sublist2index]<<"th block of sublist "<<sublist2index<<" into mem block "<<min2.block_index<<endl;
+						//displayMem();
+					}
+				}
+			}
+		
+			else 
+			{
+				//cout<<"delete 1"<<endl;
+				block_ptr1->nullTuple(min1.offset);
+				sum1--;
+				if(block_ptr1->getNumTuples()==0)      //if this block of sublist is empty, put next block of this sublist
+				{
+					sublist_ptr1 = schema_manager.getRelation(sublist1[min1.block_index]);
+					if(numOfBlocks1[min1.block_index]+1<sublist_ptr1->getNumOfBlocks())
+					{
+						numOfBlocks1[min1.block_index]=numOfBlocks1[min1.block_index]+1;
+						sublist_ptr1->getBlock(numOfBlocks1[min1.block_index],min1.block_index);
+						
+					}
+				}
+			}
+		}
+		else    //can join
+		{
+			//cout<<"can join"<<endl;
+			vector<Tuple> MinTuples1,MinTuples2;
+			for(i=0;i<sublist1.size();i++)
+			{
+				block_ptr1=mem.getBlock(i);
+				for(int j=0;j<tupPerBlock1;j++)
+				{
+					if(block_ptr1->getTuple(j).isNull())continue;
+					if(!JoinOneTuple(relation_name1,relation_name2,block_ptr1->getTuple(j),min2Tuple,common_fields).isNull())
+					{
+						MinTuples1.push_back(block_ptr1->getTuple(j));
+						block_ptr1->nullTuple(j);
+						sum1--;
+						if(block_ptr1->getNumTuples()==0)      //if this block of sublist is empty, put next block of this sublist
+						{
+							sublist_ptr1 = schema_manager.getRelation(sublist1[i]);
+							if(numOfBlocks1[i]+1<sublist_ptr1->getNumOfBlocks())
+							{
+								numOfBlocks1[i]=numOfBlocks1[i]+1;
+								sublist_ptr1->getBlock(numOfBlocks1[i],i);
+							}
+							j=-1;  
+						}
+					}
+				}
+			}
+
+			for(int k=0;i<sublist1.size()+sublist2.size();i++,k++)
+			{
+				block_ptr2=mem.getBlock(i);
+				for(int j=0;j<tupPerBlock2;j++)
+				{
+					if(block_ptr2->getTuple(j).isNull())continue;
+					if(!JoinOneTuple(relation_name1,relation_name2,min1Tuple,block_ptr2->getTuple(j),common_fields).isNull())
+					{
+						MinTuples2.push_back(block_ptr2->getTuple(j));
+						block_ptr2->nullTuple(j);
+						sum2--;
+						if(block_ptr2->getNumTuples()==0)      //if this block of sublist is empty, put next block of this sublist
+						{
+							sublist_ptr2 = schema_manager.getRelation(sublist2[k]);
+							if(numOfBlocks2[k]+1<sublist_ptr2->getNumOfBlocks())
+							{
+								numOfBlocks2[k]=numOfBlocks2[k]+1;
+								sublist_ptr2->getBlock(numOfBlocks2[k],i);
+							}
+							j=-1;
+						}
+					}
+				}
+			}
+			while(!MinTuples1.empty())
+			{
+				for(int l=0;l<MinTuples2.size();l++)
+				{
+					//cout<<l;
+					result.push_back(JoinOneTuple(relation_name1,relation_name2,MinTuples1.back(),MinTuples2[l],common_fields));
+					//cout<<"!!"<<endl;
+				}
+				MinTuples1.pop_back();
+			}
+		}
+	}
+	return result;
+}
 
 
 relation_data physicalOP::RelationCount(string relation_name)
@@ -1232,7 +1661,18 @@ relation_data physicalOP::RelationCount(string relation_name)
 		V.push_back(v[i]);
 	}
 
-	return relation_data(V,tuples,relation_name,schema,relation_ptr);
+	vector<string> field_names=schema.getFieldNames();
+
+	vector<string> new_field_names;
+	for(int i=0;i<field_names.size();i++)
+	{
+		string old_field_name=field_names[i];
+		string new_field_name=old_field_name.substr(old_field_name.find_last_of(".")+1);
+		new_field_names.push_back(new_field_name);
+	}
+	Schema new_schema(new_field_names,schema.getFieldTypes());
+
+	return relation_data(V,tuples,relation_name,new_schema,relation_ptr);
 }
 
 void physicalOP::combine(int n,int m,vector<int>a,vector<int> &b,vector<vector<int>> &combines)
@@ -1324,9 +1764,10 @@ relation_data physicalOP::computeJoin(relation_data relationData1,relation_data 
 	//cout<<schema<<endl;
 	return relation_data(V,tuplesMux,relation_name,schema);
 
-
-
 }
+
+
+
 vector<Tuple> physicalOP::JoinTree(JoinNode &root)
 {
 	vector<Tuple> result;
@@ -1360,8 +1801,73 @@ vector<Tuple> physicalOP::JoinTree(JoinNode &root)
 
 	
 }
+vector<Tuple> physicalOP::JoinTree(JoinNode & root,vector<string> common_fields)
+{
+	vector<Tuple> result;
+	if(root.left!=NULL && root.right!=NULL) 
+	{
+		Relation * leftRelation;
+		Relation * rightRelation;
+		if(root.left->left==NULL)
+		{
+			leftRelation=root.left->m.relation_ptr;
+		}
+		else 
+		{
+			JoinNode *leftLeft=root.left->left;
+			JoinNode *leftRight=root.left->right;
+			string left_relation_name;
+			if(leftLeft->m.relation_name<leftRight->m.relation_name)
+			{left_relation_name = leftLeft->m.relation_name+"-x-"+leftRight->m.relation_name;}
+			else left_relation_name = leftRight->m.relation_name+"-x-"+leftLeft->m.relation_name;
+			DropTable(left_relation_name);
+			leftRelation=CreateTable(left_relation_name,JoinTree(*root.left, common_fields));
+		}
+		if(root.right->right==NULL)
+		{
+			rightRelation=root.right->m.relation_ptr;
+		}
+		else
+		{ 
+			JoinNode *rightLeft=root.right->left;
+			JoinNode *rightRight=root.right->right;
+			string right_relation_name;
+			if(rightLeft->m.relation_name<rightRight->m.relation_name)
+			{right_relation_name = rightLeft->m.relation_name+"-x-"+rightRight->m.relation_name;}
+			else right_relation_name = rightRight->m.relation_name+"-x-"+rightLeft->m.relation_name;
+			DropTable(right_relation_name);
+			rightRelation=CreateTable(right_relation_name,JoinTree(*root.right, common_fields));
+		}
+		displayRelation(rightRelation->getRelationName());
+
+		vector<string> new_common_fields;
+		string left_relation_name,right_relation_name;
+		left_relation_name=leftRelation->getRelationName();
+		right_relation_name=rightRelation->getRelationName();
+		/*
+		while(left_relation_name.find_first_of("-x-")!=string::npos)
+		{
+			left_relation_name[0];
+			left_relation_name=left_relation_name.substr(4);
+		}*/
 
 
+		if(left_relation_name<right_relation_name){
+			result=JoinTwoPass(leftRelation->getRelationName(),rightRelation->getRelationName(),common_fields);}
+		else{
+			result=JoinTwoPass(rightRelation->getRelationName(),leftRelation->getRelationName(),common_fields);}
+		
+		
+		
+		cout<<root.m.relation_name<<" has tuples "<< result.size()<<endl;
+		return result;
+	}
+	else{
+		return result;
+	}
+
+	
+}
 
 
 
@@ -1478,4 +1984,115 @@ vector<Tuple> physicalOP::JoinTables(vector<string> relation_names)
 }
 
 
+vector<Tuple> physicalOP::JoinTables(vector<string> relation_names,vector<string> common_fields)
+{
+	relation_data* relationData=new relation_data[relation_names.size()];
+	vector<Tuple> results;
+	vector<int>a;
+	int numOfRelation=relation_names.size();
+	for(int i=0;i<numOfRelation;i++)
+	{
+		relationData[i]=RelationCount(relation_names[i]);
+		a.push_back(i);
+	}
+
+	map<string,int> size,cost;
+	map<string,JoinNode> costRelation;
+	for(int i=0;i<numOfRelation;i++)
+	{
+		size[relation_names[i]]=0;cost[relation_names[i]]=0;
+		costRelation[relation_names[i]]=JoinNode(RelationCount(relation_names[i]));
+	}
+	vector<vector<int>> combines=getCombine(numOfRelation, 2,a);
+	for(int i=0;i<combines.size();i++)
+	{
+		string relation_name;
+		for(int j=0;j<combines[i].size();j++)
+		{
+			if(j>0) relation_name +="*";
+			relation_name+=relation_names[combines[i][j]];
+			
+		}
+		cost[relation_name]=0;
+
+		costRelation[relation_name]=JoinNode(computeJoin(RelationCount(relation_names[combines[i][0]]),RelationCount(relation_names[combines[i][1]])),&(costRelation[relation_names[combines[i][0]]]),&(costRelation[relation_names[combines[i][1]]]));
+		//size[relation_name]=relationData[combines[i][0]].T*relationData[combines[i][1]].T/max(relationData[combines[i][0]].V,relationData[combines[i][1]].V);
+		size[relation_name]=costRelation[relation_name].m.T;
+		cout<<relation_name<<endl;
+		cout<<" cost : "<<cost[relation_name]<<endl;
+		cout<<" size : "<<size[relation_name]<<endl;
+	}
+	
+	for(int k=3;k<=relation_names.size();k++)
+	{
+		cout<<"k="<<k<<endl;
+		vector<vector<int>> combines=getCombine(relation_names.size(),k,a);
+
+		for(int i=0;i<combines.size();i++)
+		{
+			string relation_name;
+			for(int j=0;j<combines[i].size();j++)
+			{
+				if(j>0) relation_name +="*";
+				relation_name+=relation_names[combines[i][j]];
+			}
+			cout<<relation_name<<" : "<<endl;
+			cost[relation_name]=INT_MAX;
+			string leastpart1,leastpart2;
+			
+			for(int j=1;j<=combines[i].size()/2;j++)   //partition
+			{
+				vector<vector<int>> partitions1=getCombine(k,j,combines[i]);
+				for(int l=0;l<partitions1.size();l++)  //for each partition
+				{
+					string relation_name1,relation_name2;
+					for(int m=0;m<combines[i].size();m++)
+					{
+						for(int n=0;n<partitions1[l].size();n++)
+						{
+							if(combines[i][m]==partitions1[l][n]) 
+							{
+								if(relation_name1.size()!=0)relation_name1+='*'; 
+								relation_name1+=relation_names[combines[i][m]];
+								break;
+							}
+							if(n==partitions1[l].size()-1) 
+							{
+								if(relation_name2.size()!=0)relation_name2+='*'; 
+								relation_name2+=relation_names[combines[i][m]];
+							}		
+						}
+					}
+					cout<<relation_name1<<"   "<<relation_name2<<endl;
+					int costThis=cost[relation_name1]+cost[relation_name2]+size[relation_name1]+size[relation_name2];
+					if(cost[relation_name]>costThis) 
+					{
+						cost[relation_name]=costThis;
+						leastpart1=relation_name1;leastpart2=relation_name2;
+					}
+				}
+			}
+			costRelation[leastpart1].m.print();
+			costRelation[leastpart2].m.print();
+			costRelation[relation_name]=JoinNode(computeJoin(costRelation[leastpart1].m,costRelation[leastpart2].m),&costRelation[leastpart1],&costRelation[leastpart2]);
+			size[relation_name]=costRelation[relation_name].m.T;
+			cout<<"least cost is "<<leastpart1<<" "<<leastpart2<<" with cost: "<<cost[relation_name]<<" size : "<<size[relation_name]<<endl;
+		}
+	}
+
+	string relation_name;
+	for(int i=0;i<numOfRelation;i++)
+	{
+		if(relation_name.size()!=0)relation_name+='*'; 
+		relation_name+=relation_names[i];
+	}
+	JoinNode Join=costRelation[relation_name];
+	JoinNode *tmp=&Join;
+	tmp->print();
+	results=JoinTree(Join,common_fields);
+
+
+	return results;
+
+}
 

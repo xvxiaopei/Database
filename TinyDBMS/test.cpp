@@ -7,16 +7,119 @@ void test();
 void testForCount();
 void testForJoin();
 void testCombine();
+void testNewJoinOneTuple();
 int main()
 {
 	//testForJoin();
 	//testForCount();
 	testCombine();
+	//testNewJoinOneTuple();
+	/*
+	string x="A-x-B-x-C";
+	cout<<x.substr(0,1)<<endl;
+	cout<<x[0];
+	cout<<x.find_first_of("-x-");
+	x=x.substr(x.find_first_of("-x-")+3);
+	cout<<x<<endl;
+	if(x.find_first_of("dqwq")==string::npos){
+	cout<<x.find_first_of("dqwq");
+	}*/
+
+/*
+
+	map<string,map<string,vector<string>>> x;
+	x["A"]["D"].push_back("A.d");
+	x["A"]["D"].push_back("D.d");
+	cout<<x["A"]["D"][0];
+	*/
 	cout<<"??";
 }
 
 
 
+void testNewJoinOneTuple()
+{
+	physicalOP* p=physicalOP::getInstance();
+	vector<string> field_names;
+	vector<enum FIELD_TYPE> field_types;
+	field_names.push_back("A.a");
+	field_names.push_back("A.b");
+	field_types.push_back(STR20);
+	field_types.push_back(STR20);
+	string relation_nameA="A";
+	p->DropTable(relation_nameA);
+	p->CreateTable(relation_nameA,field_names,field_types);
+
+	string relation_nameB="B";
+	field_names.pop_back();field_names.pop_back();
+	field_names.push_back("B.b");
+	field_names.push_back("B.c");
+	p->DropTable(relation_nameB);
+	p->CreateTable(relation_nameB,field_names,field_types);
+
+	vector<string> iFileNameA;
+	iFileNameA.push_back("A.a");
+	iFileNameA.push_back("A.b");
+	int numOfTuplesInA=52;
+	for(int i=0;i<numOfTuplesInA;i++)
+	{
+		vector<int> a;
+		vector<string> s;
+		char n='a'+(i%26);
+		char m='a'+(i%26);
+		string in="";
+		s.push_back(in+n);
+		s.push_back(m+in);
+		p->insert(relation_nameA,iFileNameA,s,a);
+	}
+	p->displayRelation(relation_nameA);
+
+	vector<string> iFileNameB;
+	iFileNameB.push_back("B.b");
+	iFileNameB.push_back("B.c");
+	int numOfTuplesInB=52;
+	for(int i=numOfTuplesInB;i>0;i--)
+	{
+		vector<int> a;
+		vector<string> s;
+		char n='a'+(i%26);
+		char m='a'+(i%26);
+		string in="";
+		s.push_back(in+n);
+		s.push_back(m+in);
+		p->insert(relation_nameB,iFileNameB,s,a);
+	}
+	p->displayRelation(relation_nameB);
+	
+
+	vector<Tuple> z = p->Product(relation_nameA,relation_nameB);
+	cout<<"Product: "<<endl;
+	cout<<"Tuples: "<<z.size()<<endl;
+	/*
+	for(vector<Tuple>::iterator it  = z.begin(); it != z.end(); )  
+	 {  
+                 cout<<*(it)<<endl;  
+                 it = z.erase(it);  
+	 }   
+	 */
+	vector<string>  common_field;
+	common_field.push_back("A.c");
+	common_field.push_back("A.b");
+	common_field.push_back("A.b");
+    common_field.push_back("B.b");
+	
+	z = p->JoinTwoPass(relation_nameA,relation_nameB,common_field);
+	cout<<"Join: "<<endl;
+	cout<<"Tuples: "<<z.size()<<endl;
+	
+	for(vector<Tuple>::iterator it  = z.begin(); it != z.end(); )  
+	 {  
+                 cout<<*(it)<<endl;  
+                 it = z.erase(it);  
+	 }   
+
+
+}
 
 
 void testCombine()
@@ -40,8 +143,8 @@ void testCombine()
 	physicalOP* p=physicalOP::getInstance();
 	vector<string> field_names;
 	vector<enum FIELD_TYPE> field_types;
-	field_names.push_back("a");
-	field_names.push_back("b");
+	field_names.push_back("A.a");
+	field_names.push_back("A.b");
 	field_types.push_back(STR20);
 	field_types.push_back(STR20);
 	string relation_nameA="A";
@@ -50,36 +153,36 @@ void testCombine()
 
 	string relation_nameB="B";
 	field_names.pop_back();field_names.pop_back();
-	field_names.push_back("b");
-	field_names.push_back("c");
+	field_names.push_back("B.b");
+	field_names.push_back("B.c");
 	p->DropTable(relation_nameB);
 	p->CreateTable(relation_nameB,field_names,field_types);
 
 	string relation_nameC="C";
 	field_names.pop_back();field_names.pop_back();
-	field_names.push_back("c");
-	field_names.push_back("d");
+	field_names.push_back("C.c");
+	field_names.push_back("C.d");
 	p->DropTable(relation_nameC);
 	p->CreateTable(relation_nameC,field_names,field_types);
 
 	string relation_nameD="D";
 	field_names.pop_back();field_names.pop_back();
-	field_names.push_back("d");
-	field_names.push_back("e");
+	field_names.push_back("D.d");
+	field_names.push_back("D.e");
 	p->DropTable(relation_nameD);
 	p->CreateTable(relation_nameD,field_names,field_types);
 
 	string relation_nameE="E";
 	field_names.pop_back();field_names.pop_back();
-	field_names.push_back("e");
-	field_names.push_back("f");
+	field_names.push_back("E.e");
+	field_names.push_back("E.f");
 	p->DropTable(relation_nameE);
 	p->CreateTable(relation_nameE,field_names,field_types);
 
 	string relation_nameF="F";
 	field_names.pop_back();field_names.pop_back();
-	field_names.push_back("f");
-	field_names.push_back("a");
+	field_names.push_back("F.f");
+	field_names.push_back("F.a");
 	p->DropTable(relation_nameF);
 	p->CreateTable(relation_nameF,field_names,field_types);
 
@@ -97,8 +200,8 @@ void testCombine()
 	
 
 	vector<string> iFileNameA;
-	iFileNameA.push_back("a");
-	iFileNameA.push_back("b");
+	iFileNameA.push_back("A.a");
+	iFileNameA.push_back("A.b");
 	int numOfTuplesInA=12;
 	for(int i=0;i<numOfTuplesInA;i++)
 	{
@@ -114,8 +217,8 @@ void testCombine()
 	p->displayRelation(relation_nameA);
 
 	vector<string> iFileNameB;
-	iFileNameB.push_back("b");
-	iFileNameB.push_back("c");
+	iFileNameB.push_back("B.b");
+	iFileNameB.push_back("B.c");
 	int numOfTuplesInB=15;
 	for(int i=0;i<numOfTuplesInB;i++)
 	{
@@ -134,8 +237,8 @@ void testCombine()
 
 	
 	vector<string> iFileNameC;
-	iFileNameC.push_back("c");
-	iFileNameC.push_back("d");
+	iFileNameC.push_back("C.c");
+	iFileNameC.push_back("C.d");
 	int numOfTuplesInC=10;
 	for(int i=0;i<numOfTuplesInC;i++)
 	{
@@ -151,15 +254,15 @@ void testCombine()
 
 
 	vector<string> iFileNameD;
-	iFileNameD.push_back("d");
-	iFileNameD.push_back("e");
+	iFileNameD.push_back("D.d");
+	iFileNameD.push_back("D.e");
 	int numOfTuplesInD=50;
 	for(int i=0;i<numOfTuplesInD;i++)
 	{
 		vector<int> a;
 		vector<string> s;
-		char n='a'+(i%10);
-		char m='a'+(i%10);
+		char n='j'-(i%10);
+		char m='j'-(i%10);
 		string in="";
 		s.push_back(in+n);
 		s.push_back(m+in);
@@ -167,8 +270,8 @@ void testCombine()
 	}
 
 	vector<string> iFileNameE;
-	iFileNameE.push_back("e");
-	iFileNameE.push_back("f");
+	iFileNameE.push_back("E.e");
+	iFileNameE.push_back("E.f");
 	int numOfTuplesInE=15;
 	for(int i=0;i<numOfTuplesInE;i++)
 	{
@@ -183,8 +286,8 @@ void testCombine()
 	}
 
 	vector<string> iFileNameF;
-	iFileNameF.push_back("f");
-	iFileNameF.push_back("a");
+	iFileNameF.push_back("F.f");
+	iFileNameF.push_back("F.a");
 	int numOfTuplesInF=20;
 	for(int i=0;i<numOfTuplesInF;i++)
 	{
@@ -199,9 +302,18 @@ void testCombine()
 	}
 
 
-	cout<<"A join B has tuples "<<p->JoinOnePass(relation_nameA,relation_nameB).size()<<endl;
-	cout<<"Join: "<<endl;
-	vector<Tuple> z = p->JoinTables(relation_names);
+	//cout<<"A join B has tuples "<<p->JoinOnePass(relation_nameA,relation_nameB).size()<<endl;
+	//cout<<"Join: "<<endl;
+
+	
+	vector<string> common_fields;
+	common_fields.push_back("A.b");
+	common_fields.push_back("B.b");
+	common_fields.push_back("B.c");
+	common_fields.push_back("C.c");
+	common_fields.push_back("C.d");
+	common_fields.push_back("D.d");
+	vector<Tuple> z = p->JoinTables(relation_names,common_fields);
 	cout<<"natural join: "<<endl;
 	cout<<"Tuples: "<<z.size()<<endl;
 	for(vector<Tuple>::iterator it  = z.begin(); it != z.end(); )  
