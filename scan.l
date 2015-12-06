@@ -127,16 +127,18 @@ COMMA                 [,]
 //		#endif
 	}
 	if(head != NULL){
-		head->exec();
+		head->exec(true, NULL);
 		head->free();
 		head = (current_qt = NULL);
 	}
 	if(YY_START == WHERE_SUB_STATEMENT){
 		  while(! output_s.empty() ){ output_s.top()->free() ;output_s.pop();}
 	}
+	cout<<endl << "Disk IOs: " << p->IO() << endl;
 	yyterminate();
 }
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>[\n\r] {
+	p->IOreset() ;
 	cout << endl << NORMAL_TEXT;
 	if(YY_START == WHERE_SUB_STATEMENT){
 		while(operators_s.empty() != true){
@@ -159,7 +161,7 @@ COMMA                 [,]
 //		#endif
 	}
 	if(head != NULL){
-		head->exec();
+		head->exec(true, NULL);
 		head->free();
 		head = (current_qt = NULL);
 	}
@@ -167,6 +169,7 @@ COMMA                 [,]
 		 while(! output_s.empty() ){ output_s.top()->free() ;output_s.pop();}
 	}
 	BEGIN(INITIAL);
+	cout<<endl << "Disk IOs: " << p->IO() << endl;
 }
 
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{SELECT}{WS}+ {
@@ -221,7 +224,7 @@ COMMA                 [,]
 		current_qt->left = new Qtree(PI, current_qt) ;	 
 		current_qt = current_qt->left;
 	}
-	current_qt->tables.push_back(string( yytext) ) ;
+	current_qt->info.push_back(string( yytext) ) ;
 	error_output << "column_name:\t" << yytext << endl ;
 	yy_pop_state();
 	if(YY_START == I_S_EXPECT_VALUES_OR_SELECT){
@@ -243,7 +246,7 @@ COMMA                 [,]
 }
 <S_S_EXPECT_COLUMNS>({name}|{dotted_name}) {
 	cout << yytext << " " ;
-	current_qt->tables.push_back(string( yytext) );
+	current_qt->info.push_back(string( yytext) );
 	error_output << "column_name:\t" << yytext << endl ;
 	BEGIN(S_S_EXPECT_FROM_OR_COMMA);
 }
@@ -257,7 +260,7 @@ COMMA                 [,]
 		current_qt = table_node; 
 		head = table_node; 
 	}
-	current_qt->tables.push_back(string( yytext) ) ;
+	current_qt->info.push_back(string( yytext) ) ;
 	error_output << "table name:\t" << yytext << endl;
 	BEGIN(S_S_EXPECT_WHERE_OR_COMMA);
 }
@@ -273,9 +276,9 @@ COMMA                 [,]
 	cout << yytext << " " ;
 	Qtree *join_node = new Qtree(PRODUCT, current_qt->parent);
 	Qtree *table_node = new Qtree(TABLE, join_node);
-	table_node->tables.push_back(string(yytext) ) ;
-	join_node->tables.insert(join_node->tables.end(), current_qt->tables.begin(), current_qt->tables.end()) ;
-	join_node->tables.push_back(string(yytext) ) ;
+	table_node->info.push_back(string(yytext) ) ;
+	join_node->info.insert(join_node->info.end(), current_qt->info.begin(), current_qt->info.end()) ;
+	join_node->info.push_back(string(yytext) ) ;
 	if(current_qt->parent != NULL){current_qt->parent->left = join_node ;}
 	join_node->left = current_qt ;
 	current_qt->parent = join_node;
@@ -373,6 +376,9 @@ COMMA                 [,]
 <I_S_VALUES_EXPECT_COMMA_OR_RIGHT_PARENTHESIS>{WS}*{RIGHT_PARENTHESIS}{WS}* {
 	cout << ")" << " " ;
 	scan_over(INSERT_STATEMENT);
+	for(vector<string>::iterator it = field_names.begin(); it != field_names.end(); it++ ){
+		(*it) = string( table_name + "."+ (*it) )  ;
+	}
 	p->insert(table_name, field_names, str_values, int_values) ;
 	field_names.clear();
 	str_values.clear();
@@ -424,6 +430,9 @@ COMMA                 [,]
 	if(field_types.size() != field_names.size() ) {
 		perror("Size mismatch");
 	}else{
+		for(vector<string>::iterator it = field_names.begin(); it != field_names.end(); it++ ){
+			(*it) = string( table_name + "."+ (*it) )  ;
+		}
 		p->CreateTable(table_name, field_names, field_types) ; 
 		field_names.clear();
 		field_types.clear();
@@ -460,7 +469,7 @@ COMMA                 [,]
 		name_ = match.substr(pos + 3) ;
 		pos = name_.rfind(' ') ;
 		name = name_.substr(pos + 1) ;
-		order_node->tables.push_back( name ) ;
+		order_node->info.push_back( name ) ;
 		cout << name << " " ;
 		//beforejoin = beforejoin->left;
 /*
@@ -488,8 +497,8 @@ COMMA                 [,]
 <WHERE_SUB_STATEMENT>{name} { 
 	cout << yytext << " " ;
 	output_s.push(new Qexpression(COLUMN, yytext) ) ;
-	if(current_qt != NULL && current_qt->tables.size() == 1){
-		output_s.top()->tables.insert( current_qt->tables[0]  ) ;
+	if(current_qt != NULL && current_qt->info.size() == 1){
+		output_s.top()->tables.insert( current_qt->info[0]  ) ;
 	}else{
 		output_s.top()->tables.insert( table_name );
 	}

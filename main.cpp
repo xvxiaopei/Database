@@ -55,7 +55,7 @@ void scan_over(int statement){
 Relation* Qtree::exec_(){
 	Relation *ret;
 	if(this->type == TABLE){
-		ret = p->schema_manager.getRelation(this->tables[0] ) ;
+		ret = p->schema_manager.getRelation(this->info[0] ) ;
 	}
 	return ret;
 }
@@ -87,7 +87,7 @@ Qexpression* Qexpression::optimize_join(map<string, vector<string>* >* commons){
 			string key, field0, field1;
 			set<string>::iterator it = this->tables.begin();
 			it++;
-			if(this->tables.begin()->compare(* (it  ) ) >= 0){
+			if(*(this->tables.begin()) <= (* (it  ) ) ){
 				key = string( *(this->tables.begin() ) + "-x-"+ *(it ) ) ;
 			}else{
 				key = string( *(it) + "-x-"+*(this->tables.begin() ) ) ;
@@ -99,8 +99,9 @@ Qexpression* Qexpression::optimize_join(map<string, vector<string>* >* commons){
 				int found ;
 				if(  (*commons)[ key ] == NULL){
 					vector<string> *v = new vector<string> ;
+					v->push_back(this->left->str) ;
+					v->push_back(this->right->str) ;
 					(*commons)[ key ] = v;
-					v->push_back(field0) ;
 					return NULL;
 				}else{
 					for(vector<string>::iterator it = (*commons)[ key ]->begin(); 
@@ -219,17 +220,130 @@ Qexpression* Qexpression::optimize_sigma(map<string, Qexpression *>* sigma_opera
 		return this ;
 	}
 }
-vector<Tuple> Qtree::exec(){
+vector<Tuple> Qtree::exec(bool print, string *table_name){
 	vector<Tuple> ret ;
 	#ifdef DEBUG
 	this->print(0);
 	#endif
-	if(this->type == DELTA){
-
-		return ret;//TODO remove this
-	}else if(this->type == PI){
-
-		return ret;//TODO remove this
+	if(this->type == TAU){
+		string table_n;
+		if(this->left->type == TABLE && (output_s.empty() || output_s.top() == NULL) ){
+			Schema s = p->schema_manager.getSchema( this->left->info[0] ) ;
+			string s_table ;
+			int found = this->info[0].rfind('.')  ;
+			table_n = this->left->info[0] ;
+			if(found == std::string::npos){
+				s_table = string( table_n + "." + this->info[0]  ) ;
+			}else{
+				s_table = string( this->info[0].substr( this->info[0].rfind('.') + 1 )  ) ;
+			}
+			if( s.fieldNameExists( this->info[0] ) ){
+				ret = p->SortTwoPass(table_n, this->info[0])  ;
+			}else if(s.fieldNameExists(s_table) ) {
+				ret = p->SortTwoPass(table_n, s_table)  ;
+			}else{
+				perror("No such field");
+				return ret ;
+			}
+		}else{
+			vector<Tuple> temp = this->left->exec( false, &table_n ) ;
+			if(table_name != NULL) { (*table_name ) = string( this->info[0] ) ;}
+			if(temp.size() != 0){
+				Schema s  =  temp[0].getSchema() ;
+				string temp_table_name = "temp_table" ;
+				while(p->schema_manager.relationExists(temp_table_name) ){
+					temp_table_name += "-a" ;
+				}
+				p->CreateTable(temp_table_name, temp );
+				int found = this->info[0].rfind('.')  ;
+				string s_table ;
+				if(found == std::string::npos){
+					s_table = string( table_n + "." + this->info[0]  ) ;
+				}else{
+					s_table = string( this->info[0].substr( this->info[0].rfind('.') + 1 )  ) ;
+				}
+				if( s.fieldNameExists( this->info[0] ) ){
+					ret = p->SortTwoPass(temp_table_name, this->info[0])  ;
+				}else if(s.fieldNameExists(s_table) ) {
+					ret = p->SortTwoPass(temp_table_name, s_table)  ;
+				}else{
+					perror("No such field");
+					return ret ;
+				}
+			}else{
+				return ret;
+			}
+		}
+	}else if(this->type == DELTA && (output_s.empty() || output_s.top() == NULL)){
+		string table_n;
+		if(this->left->type == TABLE){
+			table_n = this->left->info[0] ;
+			ret = p->dupTwoPass(table_n) ;
+		}else{
+			vector<Tuple> temp = this->left->exec( false , &table_n) ;
+			if(table_name != NULL) { (*table_name ) = string( this->info[0] ) ;}
+	
+			if(temp.size() != 0){
+				Schema s  =  temp[0].getSchema() ;
+				string temp_table_name = "temp_table" ;
+				while(p->schema_manager.relationExists(temp_table_name) ){
+					temp_table_name += "-a" ;
+				}
+				p->CreateTable(temp_table_name, temp );
+				ret = p->dupTwoPass(temp_table_name) ;
+			}else{
+				return ret;
+			}
+		}
+	}else if(this->type == PI && (output_s.empty() || output_s.top() == NULL)){
+		string table_n;
+		vector<Tuple> temp = this->left->exec( false, &table_n ) ;
+		if(table_name != NULL) { (*table_name ) = string( this->info[0] ) ;}
+		if(temp.size() != 0){
+			Schema s  =  temp[0].getSchema() ;
+			vector<string> field_names ;
+			vector<enum FIELD_TYPE> field_types  ;
+			for(vector<string>::iterator it= this->info.begin(); it != this->info.end(); it++){
+				int found = it->rfind('.')  ;
+				string s_table ;
+				if(found == std::string::npos){
+					s_table = string( table_n + "." + (*it) ) ;
+				}else{
+					s_table = string( it->substr( it->rfind('.') + 1 )  ) ;
+				}
+				if( s.fieldNameExists( *it ) ){
+					field_names.push_back(string(*it) ) ;
+					field_types.push_back(s.getFieldType( *it) ) ;
+				}else{
+					if(s.fieldNameExists(s_table) ) {
+						field_names.push_back(string( s_table ) ) ;
+						field_types.push_back( s.getFieldType( s_table )  );
+					} else{
+						perror( "exec: No such field");
+					}
+				}
+			}
+			string temp_table_name = "temp_table" ;
+			while(p->schema_manager.relationExists(temp_table_name) ){
+				temp_table_name += "-a" ;
+			}
+			Relation *rlt = p->CreateTable(temp_table_name, field_names, field_types) ;
+			for(vector<Tuple>::iterator tit = temp.begin(); tit != temp.end(); tit++){
+				Tuple t = rlt->createTuple() ;
+	
+				for(vector<string>::iterator it = field_names.begin(); it != field_names.end() ; it++){
+					union Field f= tit->getField(*it) ;
+					if( s.getFieldType(*it) == INT ){
+						t.setField(  *it,  f.integer ) ;
+					}else{
+						t.setField( *it, *(f.str)) ;
+					}
+				}
+				ret.push_back( t ) ;
+			}
+		}else{
+			return ret;
+		}
 	}else if(this->type == PRODUCT){
 		vector<string> ptables;
 		vector<Relation *> relations ;
@@ -237,7 +351,7 @@ vector<Tuple> Qtree::exec(){
 		map<string, vector<string>* > commons ;
 		vector<string>::iterator it = ptables.begin();
 
-		ptables.insert(ptables.end(), this->tables.begin(), this->tables.end() );
+		ptables.insert(ptables.end(), this->info.begin(), this->info.end() );
 		
 		if(output_s.empty() == true){
 		}else if(output_s.top()->type == INTEGER || output_s.top()->type == LITERAL ){
@@ -292,18 +406,21 @@ vector<Tuple> Qtree::exec(){
 		//ret = p->singleTableSelect(r, output_s.top() ) ;
 		
 	}else if(this->type == TABLE){
-		ret = p->singleTableSelect(this->tables[0], output_s.empty() ? NULL : output_s.top() );
+		if(table_name != NULL) { (*table_name ) = string( this->info[0] ) ;}
+		ret = p->singleTableSelect(this->info[0], output_s.empty() ? NULL : output_s.top() );
 	}else{
 		return ret;
 	}
-	vector<string> field_names = 
-		ret[0].getSchema( ).getFieldNames() ;
-	for(vector<string>::iterator it = field_names.begin(); it != field_names.end(); it++){
-		cout<< *it << ' ' ;
-	} cout << endl << "-----------------" << endl ;
-	for(vector<Tuple>::iterator it = ret.begin(); it != ret.end(); it ++ ){
-		cout << (*it) << endl;
-	}cout <<  "-----------------" << endl << endl ;
+	if(ret.size() != 0 && print){
+		vector<string> field_names = 
+			ret[0].getSchema( ).getFieldNames() ;
+		for(vector<string>::iterator it = field_names.begin(); it != field_names.end(); it++){
+			cout<< *it << ' ' ;
+		} cout << endl << "-----------------" << endl ;
+		for(vector<Tuple>::iterator it = ret.begin(); it != ret.end(); it ++ ){
+			cout << (*it) << endl;
+		}cout <<  "-----------------" << endl << endl ;
+	}
 	/*
 	if(this->left == NULL && this->right == NULL){
 		int i = 0;

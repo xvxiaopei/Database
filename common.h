@@ -51,12 +51,12 @@ void scan_over(int statement);
 class Qtree {
 	public:
 	int type ; 
-	vector<string> tables;
+	vector<string> info;
 	Qtree *left, *right, *parent;
 	Qtree(int type, Qtree *parent); 
 	void print( int );
 	void free() ;
-	vector<Tuple> exec();
+	vector<Tuple> exec(bool print, string *table_name);
 	private:
 	Relation* exec_();
 }; 

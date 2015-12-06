@@ -42,18 +42,19 @@ enum FIELD_TYPE Qexpression::field_type(Tuple t){
 	Schema scm = t.getSchema() ;
 	if(this->type == COLUMN){
 		int found = this->str.find('.');
+		string s ;
 		if(found == std::string::npos){
+			s = (*(this->tables.begin()))  + "." + this->str;
+		}else{
+			s = ( this->str.substr(found + 1) ) ;
+		}
+		if( scm.fieldNameExists(s ) == true ){
+			ret = scm.getFieldType(s );
+		}else if(scm.fieldNameExists(this->str) ){
 			ret = scm.getFieldType(this->str) ;
 		}else{
-			string s( this->str.substr(found + 1) ) ;
-			if( scm.fieldNameExists(s ) == true ){
-				ret = scm.getFieldType(s );
-			}else if(scm.fieldNameExists(this->str) ){
-				ret = scm.getFieldType(this->str) ;
-			}else{
-				perror("field_type: No such field");
-				return INT ;
-			}
+			perror("field_type: No such field");
+			return INT ;
 		}
 		return ret ;
 	}else if(this->type == INTEGER){
@@ -71,17 +72,18 @@ union Field Qexpression::judge_(Tuple t ) {
 	switch(this->type){
 	case COLUMN:{
 		int found = this->str.find('.');
+		string s ;
 		if(found == std::string::npos){
+			s = (*(this->tables.begin()))  + "." + this->str;
+		}else{
+			s = ( this->str.substr(found + 1) ) ;
+		}
+		if(scm.fieldNameExists( s ) == true ){
+			ret = t.getField(s );
+		}else if(scm.fieldNameExists(s )) {
 			ret = t.getField(this->str) ;
 		}else{
-			string s( this->str.substr(found + 1) ) ;
-			if(scm.fieldNameExists(s ) == true ){
-				ret = t.getField(s );
-			}else if(scm.fieldNameExists( this->str)) {
-				ret = t.getField(this->str) ;
-			}else{
-				perror("judge_: No such field") ;
-			}
+			perror("judge_: No such field") ;
 		}
 		#ifdef DEBUG
 		cerr << "column: " << ret.integer << endl;
@@ -186,15 +188,15 @@ void Qtree::print(int level ){
 		case TAU: cout << "τ" << "\t["; break; 
 		case TABLE: cout << "TB" << "\t["; break ;
 	}
-	for(i = 0; i < tables.size(); i++){
-		cout << tables[i] << " " ;
+	for(i = 0; i < info.size(); i++){
+		cout << info[i] << " " ;
 	} cout << "]" << endl ;
 	if (left != NULL){left->print(level + 1) ;}
 	if(right != NULL){ right->print(level + 1) ; }
 }
 
 void Qtree::free(){
-	tables.clear();
+	info.clear();
 	if(left != NULL){left->free();}
 	if(right!=NULL){right->free();}
 	delete this;
