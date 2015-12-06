@@ -210,39 +210,28 @@ INSERT INTO stock (bookname, press, price, quantity) VALUES ("RFIWNQNH E RD TUEP
 
 
 SELECT * FROM stock WHERE price > 40
-SELECT bookName, quantity FROM stock WHERE price < 40
+SELECT stock.bookname, stock.quantity FROM stock WHERE price < 40
 
-CREATE TABLE press (pressname STR20, location STR20)
+CREATE TABLE press (press STR20, location STR20)
 
 
-INSERT INTO press (pressname, location) VALUES ("A", "AAA")
-INSERT INTO press (pressname, location) VALUES ("B", "BBB")
-INSERT INTO press (pressname, location) VALUES ("C", "CCC")
-INSERT INTO press (pressname, location) VALUES ("D", "DDD")
-INSERT INTO press (pressname, location) VALUES ("E", "EEE")
-INSERT INTO press (pressname, location) VALUES ("F", "FFF")
-INSERT INTO press (pressname, location) VALUES ("G", "GGG")
-INSERT INTO press (pressname, location) VALUES ("H", "HHH")
-INSERT INTO press (pressname, location) VALUES ("I", "III")
-INSERT INTO press (pressname, location) VALUES ("J", "JJJ")
-INSERT INTO press (pressname, location) VALUES ("K", "KKK")
-INSERT INTO press (pressname, location) VALUES ("L", "LLL")
-INSERT INTO press (pressname, location) VALUES ("M", "MMM")
-INSERT INTO press (pressname, location) VALUES ("N", "NNN")
-INSERT INTO press (pressname, location) VALUES ("O", "OOO")
-INSERT INTO press (pressname, location) VALUES ("P", "PPP")
-INSERT INTO press (pressname, location) VALUES ("Q", "QQQ")
-INSERT INTO press (pressname, location) VALUES ("R", "RRR")
-INSERT INTO press (pressname, location) VALUES ("S", "SSS")
-INSERT INTO press (pressname, location) VALUES ("T", "TTT")
-INSERT INTO press (pressname, location) VALUES ("U", "UUU")
-INSERT INTO press (pressname, location) VALUES ("V", "VVV")
-INSERT INTO press (pressname, location) VALUES ("W", "WWW")
-INSERT INTO press (pressname, location) VALUES ("X", "XXX")
-INSERT INTO press (pressname, location) VALUES ("Y", "YYY")
-INSERT INTO press (pressname, location) VALUES ("Z", "ZZZ")
+INSERT INTO press (press, location) VALUES ("A", "AAA")
+INSERT INTO press (press, location) VALUES ("B", "BBB")
+INSERT INTO press (press, location) VALUES ("C", "CCC")
+INSERT INTO press (press, location) VALUES ("D", "DDD")
+INSERT INTO press (press, location) VALUES ("E", "EEE")
+INSERT INTO press (press, location) VALUES ("F", "FFF")
+INSERT INTO press (press, location) VALUES ("G", "GGG")
+INSERT INTO press (press, location) VALUES ("H", "HHH")
+INSERT INTO press (press, location) VALUES ("I", "III")
+INSERT INTO press (press, location) VALUES ("J", "JJJ")
+INSERT INTO press (press, location) VALUES ("K", "KKK")
+INSERT INTO press (press, location) VALUES ("L", "LLL")
+INSERT INTO press (press, location) VALUES ("M", "MMM")
+INSERT INTO press (press, location) VALUES ("N", "NNN")
+
 
 SELECT * FROM stock, press
-SELECT * FROM stock, press WHERE price < 50
+SELECT * FROM stock, press WHERE stock.press = press.press
 DROP TABLE stock
 DROP TABLE press
