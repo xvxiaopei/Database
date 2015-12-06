@@ -132,13 +132,19 @@ COMMA                 [,]
 		head = (current_qt = NULL);
 	}
 	if(YY_START == WHERE_SUB_STATEMENT){
-		  while(! output_s.empty() ){ output_s.top()->free() ;output_s.pop();}
+		yy_pop_state();
+		if(YY_START == D_S_EXPECT_WHERE){
+			p->Delete(table_name, output_s.empty()? NULL: output_s.top() ) ;
+		}
+		while(! output_s.empty() ){ output_s.top()->free() ;output_s.pop();}
+	}else if(YY_START == D_S_EXPECT_WHERE){
+		p->Delete(table_name, NULL) ;
 	}
-	cout<<endl << "Disk IOs: " << p->IO() << endl;
+
+	cout<< "Disk IOs: " << p->IO() << endl << "----------------------------------" << endl;
 	yyterminate();
 }
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>[\n\r] {
-	p->IOreset() ;
 	cout << endl << NORMAL_TEXT;
 	if(YY_START == WHERE_SUB_STATEMENT){
 		while(operators_s.empty() != true){
@@ -166,10 +172,17 @@ COMMA                 [,]
 		head = (current_qt = NULL);
 	}
 	if(YY_START == WHERE_SUB_STATEMENT){
-		 while(! output_s.empty() ){ output_s.top()->free() ;output_s.pop();}
+		yy_pop_state();
+		if(YY_START == D_S_EXPECT_WHERE){
+			p->Delete(table_name, output_s.empty()? NULL: output_s.top() ) ;
+		}
+		while(! output_s.empty() ){ output_s.top()->free() ;output_s.pop();}
+	}else if(YY_START == D_S_EXPECT_WHERE){
+		p->Delete(table_name, NULL) ;
 	}
 	BEGIN(INITIAL);
-	cout<<endl << "Disk IOs: " << p->IO() << endl;
+	cout<< "Disk IOs: " << p->IO() << endl << "----------------------------------" << endl;
+	p->IOreset() ;
 }
 
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{SELECT}{WS}+ {

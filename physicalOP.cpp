@@ -287,7 +287,7 @@ void physicalOP::Delete(string relation_name,              //using mem 0 to get 
 		
 		for(int j=0;j<NumOfTuples;j++)
 		{
-			if(!con->judge(block_ptr->getTuple(j)))
+			if ( ! ( con == NULL || con->judge(block_ptr->getTuple(j) ) )  )
 			{
 				block_back->setTuple(tuplesBack,block_ptr->getTuple(j));
 				tuplesBack++;
