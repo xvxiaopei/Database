@@ -225,7 +225,6 @@ COMMA                 [,]
 		for(vector<string>::iterator it = field_names.begin(); it != field_names.end(); it++){
 			ins_node->info.push_back(string(*it)) ;
 		}
-		//TODO
 	}
 	yy_push_state(S_S_DISTINCT_STATE) ;
 }
@@ -240,7 +239,6 @@ COMMA                 [,]
 		for(vector<string>::iterator it = field_names.begin(); it != field_names.end(); it++){
 			ins_node->info.push_back(string(*it)) ;
 		}
-		//TODO
 	}
 	BEGIN(S_S_EXPECT_FROM);
 }
@@ -263,7 +261,6 @@ COMMA                 [,]
 		for(vector<string>::iterator it = field_names.begin(); it != field_names.end(); it++){
 			ins_node->info.push_back(string(*it)) ;
 		}
-		//TODO
 	}
 	BEGIN(S_S_EXPECT_FROM_OR_COMMA);
 }
