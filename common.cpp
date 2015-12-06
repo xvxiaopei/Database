@@ -8,26 +8,26 @@
 
 
 
-Qtree::Qtree( int t, Qtree *p){
+Qtree::Qtree( enum Qtree_TYPE t, Qtree *p){
 	type = t;
 	left = NULL;right = NULL;parent = p ;
 }
 Qexpression::Qexpression(){
-	type = INT_MIN ;
+	type = Qexp_ILLEGAL ;
 	str = "";
 	left = right = NULL ;
 }
-Qexpression::Qexpression( int t, string s){
+Qexpression::Qexpression( enum Qexp_TYPE t, string s){
 	type = t; 
 	str = string(s) ;
 	left = right = NULL;
 }
-Qexpression::Qexpression( int t, int n){
+Qexpression::Qexpression( enum Qexp_TYPE t, int n){
 	type = t;
 	number = n ;
 	left = right = NULL;
 }
-Qexpression::Qexpression( int t, int p, string s){
+Qexpression::Qexpression(enum Qexp_TYPE t, int p, string s){
 	type = t;
 	number = p;
 	str = string(s);

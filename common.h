@@ -26,18 +26,24 @@ void scan_over(int statement);
 #define NORMAL_TEXT "\e[0m"
 #define HLINE  "---------------"
 
-#define DELTA 0
-#define PI    1
-#define SIGMA 2
-#define PRODUCT  3
-#define TAU   4
-#define TABLE 5
 
-#define COLUMN  0
-#define LITERAL 1
-#define INTEGER 2
-#define OPERATER 3
-#define LEFT 4
+enum Qtree_TYPE {
+DELTA ,
+PI   , 
+SIGMA, 
+PRODUCT , 
+TAU  , 
+TABLE, 
+INS  }; 
+
+enum Qexp_TYPE{
+Qexp_ILLEGAL ,
+COLUMN  ,
+LITERAL, 
+INTEGER,  
+OPERATER ,
+LEFT 
+};
 
 /* precedence  */
 
@@ -53,7 +59,7 @@ class Qtree {
 	int type ; 
 	vector<string> info;
 	Qtree *left, *right, *parent;
-	Qtree(int type, Qtree *parent); 
+	Qtree(enum Qtree_TYPE type, Qtree *parent); 
 	void print( int );
 	void free() ;
 	vector<Tuple> exec(bool print, string *table_name);
@@ -62,15 +68,15 @@ class Qtree {
 }; 
 class Qexpression {
 	public:
-	int type ; 
+	enum Qexp_TYPE type ; 
 	int number;
 	string str;
 	set<string> tables ;
 	Qexpression *left, *right;
 	Qexpression() ;
-	Qexpression(int , int);
-	Qexpression(int , string);
-	Qexpression(int, int, string);
+	Qexpression(enum Qexp_TYPE , int);
+	Qexpression(enum Qexp_TYPE , string);
+	Qexpression(enum Qexp_TYPE , int, string);
 	Qexpression* optimize_sigma(map<string, Qexpression *>* sigma_operation) ;
 	Qexpression* optimize_join(map<string, vector<string>* >* theta_operation) ;
 	bool judge(Tuple t);

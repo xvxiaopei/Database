@@ -225,7 +225,9 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 	#ifdef DEBUG
 	this->print(0);
 	#endif
-	if(this->type == TAU){
+	if(this->type == INS){
+		
+	}else if(this->type == TAU){
 		string table_n;
 		if(this->left->type == TABLE && (output_s.empty() || output_s.top() == NULL) ){
 			Schema s = p->schema_manager.getSchema( this->left->info[0] ) ;

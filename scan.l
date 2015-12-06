@@ -105,7 +105,7 @@ COMMA                 [,]
 
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT><<EOF>> {
 
-	cout << endl << NORMAL_TEXT;
+	cout << endl << "";
 	if(YY_START == WHERE_SUB_STATEMENT){
 		while(operators_s.empty() != true){
 			if (noperands(operators_s.top()->str) == 2) {
@@ -145,7 +145,7 @@ COMMA                 [,]
 	yyterminate();
 }
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>[\n\r] {
-	cout << endl << NORMAL_TEXT;
+	cout << endl << "";
 	if(YY_START == WHERE_SUB_STATEMENT){
 		while(operators_s.empty() != true){
 			if (noperands(operators_s.top()->str) == 2) {
@@ -186,27 +186,27 @@ COMMA                 [,]
 }
 
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{SELECT}{WS}+ {
-	cout <<RED_TEXT << "SELECT " ;
+	cout <<"" << "SELECT " ;
 	err_out_START("SELECT");
 	yy_push_state(SELECT_STATEMENT);
 }
 <INITIAL>{D_F}{WS}+ {
-	cout <<RED_TEXT<< "DELETE FROM " ;
+	cout <<""<< "DELETE FROM " ;
 	err_out_START("DELETE FROM");
 	BEGIN(DELETE_STATEMENT);
 }
 <INITIAL>{C_T}{WS}+ {
-	cout <<RED_TEXT<< "CREATE TABLE " ;
+	cout <<""<< "CREATE TABLE " ;
 	err_out_START("CREATE TABLE" );
 	BEGIN(CREATE_TABLE_STATEMENT);
 }
 <INITIAL>{D_T}{WS}+ {
-	cout <<RED_TEXT<< "DROP TABLE " ;
+	cout <<""<< "DROP TABLE " ;
 	err_out_START("DROP TABLE" );
 	BEGIN(DROP_TABLE_STATEMENT);
 }
 <INITIAL>{I_I}{WS}+ {
-	cout <<RED_TEXT<< "INSERT INTO ";
+	cout <<""<< "INSERT INTO ";
 	err_out_START("INSERT INTO");
 	BEGIN(INSERT_STATEMENT);
 }
@@ -217,6 +217,14 @@ COMMA                 [,]
 	error_output << "DISTINCT" << endl ;
 	yy_pop_state();
 	if(YY_START == I_S_EXPECT_VALUES_OR_SELECT){
+		Qtree *ins_node = new Qtree(INS, NULL);
+		ins_node->left = head ;
+		head->parent = ins_node ;
+		head = ins_node ;
+		ins_node->info.push_back(string(table_name) ) ;
+		for(vector<string>::iterator it = field_names.begin(); it != field_names.end(); it++){
+			ins_node->info.push_back(string(*it)) ;
+		}
 		//TODO
 	}
 	yy_push_state(S_S_DISTINCT_STATE) ;
@@ -226,6 +234,12 @@ COMMA                 [,]
 	error_output << "column_name:\t" << yytext << endl ;
 	yy_pop_state();
 	if(YY_START == I_S_EXPECT_VALUES_OR_SELECT){
+		Qtree *ins_node = new Qtree(INS, NULL);
+		head = ins_node ;
+		ins_node->info.push_back(string(table_name) ) ;
+		for(vector<string>::iterator it = field_names.begin(); it != field_names.end(); it++){
+			ins_node->info.push_back(string(*it)) ;
+		}
 		//TODO
 	}
 	BEGIN(S_S_EXPECT_FROM);
@@ -241,6 +255,14 @@ COMMA                 [,]
 	error_output << "column_name:\t" << yytext << endl ;
 	yy_pop_state();
 	if(YY_START == I_S_EXPECT_VALUES_OR_SELECT){
+		Qtree *ins_node = new Qtree(INS, NULL);
+		ins_node->left = head ;
+		head->parent = ins_node ;
+		head = ins_node ;
+		ins_node->info.push_back(string(table_name) ) ;
+		for(vector<string>::iterator it = field_names.begin(); it != field_names.end(); it++){
+			ins_node->info.push_back(string(*it)) ;
+		}
 		//TODO
 	}
 	BEGIN(S_S_EXPECT_FROM_OR_COMMA);
