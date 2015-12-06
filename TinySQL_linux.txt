@@ -4,7 +4,7 @@ SELECT * FROM course
 INSERT INTO course (sid, homework, project, exam, grade) VALUES (2, NULL, 100, 100, "E")
 SELECT * FROM course
 INSERT INTO course (sid, grade, exam, project, homework) VALUES (3, "E", 100, 100, 100)
-SELECT * FROM course
+SELECT * FROM course WHERE homework = 99
 INSERT INTO course (sid, homework, project, exam, grade) SELECT * FROM course
 SELECT * FROM course
 DELETE FROM course WHERE grade = "E"
@@ -118,6 +118,9 @@ INSERT INTO course2 (sid, exam, grade) VALUES (18, 0, "A")
 INSERT INTO course2 (sid, exam, grade) VALUES (18, 0, "A")
 INSERT INTO course2 (sid, exam, grade) VALUES (18, 0, "A")
 INSERT INTO course2 (sid, exam, grade) VALUES (18, 0, "A")
+SELECT * FROM course
+SELECT * FROM course2
+SELECT * FROM course, course2 
 SELECT course.sid, course.grade, course2.grade FROM course, course2 WHERE course.sid = course2.sid
 SELECT DISTINCT course.grade, course2.grade FROM course, course2 WHERE course.sid = course2.sid
 SELECT * FROM course, course2 WHERE course.sid = course2.sid ORDER BY course.exam

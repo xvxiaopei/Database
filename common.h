@@ -1,6 +1,8 @@
 #ifndef __COMMON_H__
 #define __COMMON_H__
 
+//#define DEBUG
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,10 +10,13 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include <set>
 #include <string>
+#include "StorageManager/Tuple.h"
+#include "StorageManager/Field.h"
+#include "StorageManager/Relation.h"
 
 using namespace std;
-
 void err_out_START(const char str[]);
 void scan_over(int statement);
 	
@@ -24,9 +29,11 @@ void scan_over(int statement);
 #define DELTA 0
 #define PI    1
 #define SIGMA 2
-#define JOIN  3
+#define PRODUCT  3
+#define TAU   4
+#define TABLE 5
 
-#define COLUME  0
+#define COLUMN  0
 #define LITERAL 1
 #define INTEGER 2
 #define OPERATER 3
@@ -45,21 +52,33 @@ class Qtree {
 	public:
 	int type ; 
 	vector<string> info;
-	Qtree *left, *right;
-	Qtree(int type); 
+	Qtree *left, *right, *parent;
+	Qtree(int type, Qtree *parent); 
 	void print( int );
 	void free() ;
-	void exec();
+	vector<Tuple> exec(bool print, string *table_name);
+	private:
+	Relation* exec_();
 }; 
 class Qexpression {
 	public:
 	int type ; 
 	int number;
 	string str;
+	set<string> tables ;
 	Qexpression *left, *right;
+	Qexpression() ;
 	Qexpression(int , int);
 	Qexpression(int , string);
 	Qexpression(int, int, string);
+	Qexpression* optimize_sigma(map<string, Qexpression *>* sigma_operation) ;
+	Qexpression* optimize_join(map<string, vector<string>* >* theta_operation) ;
+	bool judge(Tuple t);
 	void print(int level) ;
+	void free() ;
+	enum FIELD_TYPE field_type(Tuple ) ;
+	private:
+	union Field judge_(Tuple t) ;
 };
+
 #endif

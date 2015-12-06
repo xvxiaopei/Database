@@ -29,7 +29,6 @@ class physicalOP{
 private:
 	MainMemory mem;
 	Disk disk;
-	SchemaManager   schema_manager;
 	clock_t start_time;
 	static physicalOP *physicalop;
     physicalOP():schema_manager(&mem, &disk) {  
@@ -37,6 +36,7 @@ private:
 		disk.resetDiskTimer(); }    //singleton
 
 public:
+	SchemaManager   schema_manager;
 
 	//add some for debug
 	void displayMem();
@@ -69,6 +69,8 @@ public:
 				vector<string> STR,
 				vector<int> INT);
 
+	vector<Tuple> singleTableSelect(Relation *,
+									condition con);
 	vector<Tuple> singleTableSelect(string relation_name,
 									condition con);
 	
@@ -85,7 +87,6 @@ public:
 
 	bool tupleEqual(Tuple a,Tuple b);             //judge if these two tuples are same
 	bool fieldLarger(Tuple a,Tuple b,string field_name);  //judge if the field of a is larger than which of b
-	bool fieldLarger(Tuple a,Tuple b,string field_name1,string field_name2);  //judge if the field of a is larger than another of b
 	bool fieldEqual(Tuple a,Tuple b, string field_name);   //judge if the field of a is equal to which of b
 	vector<tupAddr*> findDupOnMemory(Tuple t,int start_block,int num_blocks);//Find duplicate on mem
 	vector<Tuple> dupOnePass(string relation_name);  //duplicate elimination ONE PASS algorithm(don't write back)
@@ -99,16 +100,10 @@ public:
 
 	vector<Tuple> JoinOnePass(string relation_name1,
 				       string relation_name2);   //natural join, one pass
-	vector<Tuple> JoinOnePass(string relation_name1,
-				       string relation_name2,vector<string> common_fields);   //natural join, one pass
 	Tuple JoinOneTuple(Tuple t1,Tuple t2);         //return a joined tuple if can join, or an invalid tuple
-	Tuple JoinOneTuple(string relation_name1,string relation_name2,Tuple t1,Tuple t2,vector<string> common_fields);
 
 	vector<Tuple> JoinTwoPass(string relation_name1, 
-							string relation_name2);  //natural join, two pass
-
-	vector<Tuple> JoinTwoPass(string relation_name1, 
-							string relation_name2,vector<string> common_fields);  //natural join, two pass
+							string relation_name2);  //natural join, one pass
 
 	relation_data RelationCount(string relation_name);
 
@@ -117,9 +112,7 @@ public:
 	 relation_data computeJoin(relation_data relationData1,relation_data relationData2);                    //compute the data after join
 	 vector<vector<int> >getCombine(int n,int m,vector<int>a);
 	 vector<Tuple> JoinTree(JoinNode & root);
-	 vector<Tuple> JoinTree(JoinNode & root,vector<string> common_fields);
 	 vector<Tuple> JoinTables(vector<string> relation_names);
-	 vector<Tuple> JoinTables(vector<string> relation_names,vector<string> common_fields);
 	 
 
 };

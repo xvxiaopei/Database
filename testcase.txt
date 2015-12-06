@@ -7,3 +7,4 @@ DELETE  	FROM  sdfwef
 INSERT INTO course (sid, homework, project, exam, grade) VALUES (1, 99, 100, 100, "A")
 SELECT DISTINCT a.name FROM a, b  
 SELECT  a.name FROM a, b  
+INSERT INTO course (sid, homework, project, exam, grade) SELECT * FROM course
