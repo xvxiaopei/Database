@@ -226,7 +226,71 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 	this->print(0);
 	#endif
 	if(this->type == INS){
-		
+		vector<Tuple> temp = this->left->exec( false, NULL ) ;
+		if(temp.size() != 0){
+			Schema sins_from  =  temp[0].getSchema() ;
+			vector<enum FIELD_TYPE> field_types_from = sins_from.getFieldTypes() ;
+			vector<string> field_names_from = sins_from.getFieldNames() ;
+			if(field_types_from.size() == this->info.size() - 1){
+				Schema sins_to = p->schema_manager.getSchema( this->info[0] ) ;
+				vector<enum FIELD_TYPE> field_types_to ;
+				vector<union Field> fields ;
+				vector<string>::iterator it0 = this->info.begin() ;
+				vector<enum FIELD_TYPE>::iterator it1 = field_types_from.begin();
+				vector<string>::iterator it2 = field_names_from.begin();
+				vector<string> STRv;
+				vector<int> INTv ;
+				string table_n = (*it0)  ;
+				vector<string> field_names_to ;
+				it0 ++ ;
+				for( ; it0 != this->info.end()  ; it0 ++, it1++){
+					int found = it0->rfind('.')  ;
+					string s_table ;
+					if(found == std::string::npos){
+						s_table = string( table_n + "." + (*it0) ) ;
+					}else{
+						s_table = string( it0->substr( it0->rfind('.') + 1 )  ) ;
+					}
+					if( sins_to.fieldNameExists( *it0 ) ){
+						field_names_to.push_back(string(  *it0)  ) ;
+						if(sins_to.getFieldType( *it0) == *it1 ){
+						}else{
+							perror(  ": Type mismatch");
+							return ret; 
+						}
+					}else{
+						if(sins_to.fieldNameExists(s_table) ) {
+							field_names_to.push_back(string(  s_table ) ) ;
+							if(sins_to.getFieldType( s_table) == *it1 ){
+							}else{
+								perror( ": Type mismatch");
+								return ret; 
+							}
+						} else{
+								perror( "exec: No such field");
+						}
+					}
+				}	
+				for(vector<Tuple>::iterator it_tuple = temp.begin(); it_tuple != temp.end(); it_tuple ++) {
+					for(it1 = field_types_from.begin(), it2 = field_names_from.begin()  ; 
+					it1 != field_types_from.end()  ; it1++, it2++){
+						if(*it1 == INT){
+							INTv.push_back( it_tuple->getField( *it2).integer ) ;
+						}else{
+							STRv.push_back( *(it_tuple->getField( *it2).str) ) ;
+						}
+					}
+					p->insert(table_n, field_names_to, STRv, INTv) ;
+					INTv.clear();
+					STRv.clear() ;
+				}
+			}else{
+				perror("Size mismatch");
+				return ret;
+			}
+		}else{
+			return ret;
+		}
 	}else if(this->type == TAU){
 		string table_n;
 		if(this->left->type == TABLE && (output_s.empty() || output_s.top() == NULL) ){

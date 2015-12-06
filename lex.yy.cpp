@@ -1221,7 +1221,7 @@ YY_RULE_SETUP
 	yy_pop_state();
 	if(YY_START == I_S_EXPECT_VALUES_OR_SELECT){
 		Qtree *ins_node = new Qtree(INS, NULL);
-		head = ins_node ;
+		head = current_qt = ins_node ;
 		ins_node->info.push_back(string(table_name) ) ;
 		for(vector<string>::iterator it = field_names.begin(); it != field_names.end(); it++){
 			ins_node->info.push_back(string(*it)) ;

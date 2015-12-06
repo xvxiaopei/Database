@@ -187,6 +187,7 @@ void Qtree::print(int level ){
 		case PRODUCT: cout << "X " << "\t["; break;
 		case TAU: cout << "τ" << "\t["; break; 
 		case TABLE: cout << "TB" << "\t["; break ;
+		case INS: cout << "IS" << "\t["; break;
 	}
 	for(i = 0; i < info.size(); i++){
 		cout << info[i] << " " ;
