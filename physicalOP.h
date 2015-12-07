@@ -48,8 +48,8 @@ public:
 	static physicalOP *getInstance() {
         if (physicalop == NULL) {
             physicalop = new physicalOP();
-			cout<<"Physical operator initialized!"<<endl;
-			physicalop->displayMem();
+			//cout<<"Physical operator initialized!"<<endl;
+			//physicalop->displayMem();
         }
         return physicalop;
     }
