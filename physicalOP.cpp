@@ -1214,7 +1214,7 @@ vector<Tuple>  physicalOP::JoinTwoPass(string relation_name1,
 			continue;
 		}
 	}
-	if(common_fields.empty()) {cout<<"NO common fields, cross join.";return Product(relation_name1,relation_name2);}
+	if(common_fields.empty()) {/*cout<<"NO common fields, cross join.";*/return Product(relation_name1,relation_name2);}
 	string field_name = common_fields.back();   //sorted bt this field
 
 	if(relation_ptr1->getNumOfBlocks()<10||relation_ptr2->getNumOfBlocks()<10) 
@@ -1401,7 +1401,7 @@ vector<Tuple> physicalOP::JoinTwoPass(string relation_name1,
 
 	vector<string> field_names1=schema1.getFieldNames();
 	vector<string> field_names2=schema2.getFieldNames();
-	if(common_fields.empty()) {cout<<"NO common fields, cross join.";return Product(relation_name1,relation_name2);}
+	if(common_fields.empty()) {/*cout<<"NO common fields, cross join.";*/return Product(relation_name1,relation_name2);}
 	int p=0;
 	string field_name1 = common_fields[p++];
 	string field_name2 = common_fields[p++];   //sorted by this field
