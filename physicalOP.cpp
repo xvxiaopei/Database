@@ -1916,9 +1916,11 @@ vector<Tuple> physicalOP::JoinTables(vector<string> relation_names)
 		costRelation[relation_name]=JoinNode(computeJoin(RelationCount(relation_names[combines[i][0]]),RelationCount(relation_names[combines[i][1]])),&(costRelation[relation_names[combines[i][0]]]),&(costRelation[relation_names[combines[i][1]]]));
 		//size[relation_name]=relationData[combines[i][0]].T*relationData[combines[i][1]].T/max(relationData[combines[i][0]].V,relationData[combines[i][1]].V);
 		size[relation_name]=costRelation[relation_name].m.T;
-		//cout<<relation_name<<endl;
-		//cout<<" cost : "<<cost[relation_name]<<endl;
-	//	cout<<" size : "<<size[relation_name]<<endl;
+		#ifdef DEBUG
+		cout<<relation_name<<endl;
+		cout<<" cost : "<<cost[relation_name]<<endl;
+		cout<<" size : "<<size[relation_name]<<endl;
+		#endif
 	}
 	
 	for(int k=3;k<=relation_names.size();k++)
@@ -1974,7 +1976,9 @@ vector<Tuple> physicalOP::JoinTables(vector<string> relation_names)
 			costRelation[leastpart2].m.print();
 			costRelation[relation_name]=JoinNode(computeJoin(costRelation[leastpart1].m,costRelation[leastpart2].m),&costRelation[leastpart1],&costRelation[leastpart2]);
 			size[relation_name]=costRelation[relation_name].m.T;
+			#ifdef DEBUG
 			cout<<"least cost is "<<leastpart1<<" "<<leastpart2<<" with cost: "<<cost[relation_name]<<" size : "<<size[relation_name]<<endl;
+			#endif
 		}
 	}
 
@@ -2029,9 +2033,11 @@ vector<Tuple> physicalOP::JoinTables(vector<string> relation_names,vector<string
 		costRelation[relation_name]=JoinNode(computeJoin(RelationCount(relation_names[combines[i][0]]),RelationCount(relation_names[combines[i][1]])),&(costRelation[relation_names[combines[i][0]]]),&(costRelation[relation_names[combines[i][1]]]));
 		//size[relation_name]=relationData[combines[i][0]].T*relationData[combines[i][1]].T/max(relationData[combines[i][0]].V,relationData[combines[i][1]].V);
 		size[relation_name]=costRelation[relation_name].m.T;
+		#ifdef DEBUG
 		cout<<relation_name<<endl;
 		cout<<" cost : "<<cost[relation_name]<<endl;
 		cout<<" size : "<<size[relation_name]<<endl;
+		#endif
 	}
 	
 	for(int k=3;k<=relation_names.size();k++)
@@ -2087,7 +2093,9 @@ vector<Tuple> physicalOP::JoinTables(vector<string> relation_names,vector<string
 			costRelation[leastpart2].m.print();
 			costRelation[relation_name]=JoinNode(computeJoin(costRelation[leastpart1].m,costRelation[leastpart2].m),&costRelation[leastpart1],&costRelation[leastpart2]);
 			size[relation_name]=costRelation[relation_name].m.T;
+			#ifdef DEBUG
 			cout<<"least cost is "<<leastpart1<<" "<<leastpart2<<" with cost: "<<cost[relation_name]<<" size : "<<size[relation_name]<<endl;
+			#endif
 		}
 	}
 
