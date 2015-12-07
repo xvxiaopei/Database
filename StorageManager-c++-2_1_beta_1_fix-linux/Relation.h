@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#define MAX_NUM_CREATING_RELATIONS 100
+#define MAX_NUM_CREATING_RELATIONS 300
 
 using namespace std;
 

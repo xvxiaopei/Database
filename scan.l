@@ -15,6 +15,7 @@ vector<enum FIELD_TYPE > field_types ;
 string table_name ;
 vector<int> int_values;
 vector<string> str_values ;
+vector<string> temp_relations ;
 
 std::ostream error_output(NULL);
 
@@ -141,7 +142,7 @@ COMMA                 [,]
 		p->Delete(table_name, NULL) ;
 	}
 
-	cout<< "Disk IOs: " << p->IO() << endl << "----------------------------------" << endl;
+	cout<< "Disk IOs: " << p->IO() << endl << "=================================" << endl;
 	yyterminate();
 }
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>[\n\r] {
@@ -180,8 +181,11 @@ COMMA                 [,]
 	}else if(YY_START == D_S_EXPECT_WHERE){
 		p->Delete(table_name, NULL) ;
 	}
+	for(vector<string>::iterator it = temp_relations.begin(); it != temp_relations.end(); ){
+		p->DropTable(*it) ;it = temp_relations.erase(it) ;
+	}
 	BEGIN(INITIAL);
-	cout<< "Disk IOs: " << p->IO() << endl << "----------------------------------" << endl;
+	cout<< "Disk IOs: " << p->IO() << endl << "=================================" << endl;
 	p->IOreset() ;
 }
 
@@ -479,52 +483,27 @@ COMMA                 [,]
 <WHERE_SUB_STATEMENT>{WS}* { /* Eat white spaces */ }
 <S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{OB}{WS}+({name}|{dotted_name}) {
 	cout << "ORDER BY" << " " ;
-	
 	/* 
 	ORDER BY 
 	*/
-
-	
-		string match (yytext) , name_, name ;
-		int pos  ;
-		Qtree *order_node = new Qtree(TAU, current_qt->parent );
-		order_node->left = current_qt;
-		order_node->right = NULL;
-		if(current_qt->parent != NULL){
-			current_qt->parent->left = order_node ;
-		}else{
-			head = order_node ;
-		}
-		current_qt->parent = order_node ;
-
-		pos = match.find(" BY") ;
-		name_ = match.substr(pos + 3) ;
-		pos = name_.rfind(' ') ;
-		name = name_.substr(pos + 1) ;
-		order_node->info.push_back( name ) ;
-		cout << name << " " ;
-		//beforejoin = beforejoin->left;
-/*
-	while(operators_s.empty() != true){
-		if (noperands(operators_s.top()->str) == 2) {
-			operators_s.top()->right =  (output_s.top() )  ; output_s.pop() ;
-			operators_s.top()->left =  (output_s.top() )  ; output_s.pop() ;
-		}else if (noperands(operators_s.top()->str) == 1) {
-			operators_s.top()->left =  (output_s.top() )  ; output_s.pop() ;
-		}
-		output_s.push(operators_s.top()); operators_s.pop() ;
+	string match (yytext) , name_, name ;
+	int pos  ;
+	Qtree *order_node = new Qtree(TAU, current_qt->parent );
+	order_node->left = current_qt;
+	order_node->right = NULL;
+	if(current_qt->parent != NULL){
+		current_qt->parent->left = order_node ;
+	}else{
+		head = order_node ;
 	}
-	if(output_s.empty() != true){
-		
-		
-		#ifdef DEBUG
-		output_s.top()->print(0) ; 
-		#endif
-		output_s.top()->free() ; output_s.pop();
-		
-	}
-	yy_pop_state() ;
-*/
+	current_qt->parent = order_node ;
+
+	pos = match.find(" BY") ;
+	name_ = match.substr(pos + 3) ;
+	pos = name_.rfind(' ') ;
+	name = name_.substr(pos + 1) ;
+	order_node->info.push_back( name ) ;
+	cout << name << " " ;
 }
 <WHERE_SUB_STATEMENT>{name} { 
 	cout << yytext << " " ;
@@ -608,4 +587,3 @@ COMMA                 [,]
 }
 
 %%
-

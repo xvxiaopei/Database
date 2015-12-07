@@ -1,7 +1,7 @@
 #ifndef __COMMON_H__
 #define __COMMON_H__
 
-#define DEBUG
+//#define DEBUG
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -78,13 +78,14 @@ class Qexpression {
 	Qexpression(enum Qexp_TYPE , string);
 	Qexpression(enum Qexp_TYPE , int, string);
 	Qexpression* optimize_sigma(map<string, Qexpression *>* sigma_operation) ;
-	Qexpression* optimize_join(map<string, vector<string>* >* theta_operation) ;
+	Qexpression* optimize_join(vector<string> &commons, map<string, bool> &joined_key) ;
 	bool judge(Tuple t);
 	void print(int level) ;
 	void free() ;
 	enum FIELD_TYPE field_type(Tuple ) ;
 	private:
 	union Field judge_(Tuple t) ;
+
 };
 
 #endif

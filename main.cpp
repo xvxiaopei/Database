@@ -7,6 +7,7 @@
 
 extern physicalOP *p ;
 extern stack<Qexpression*> output_s;
+extern vector<string> temp_relations ;
 
 void err_out_START(const char str[]) {
 	if(YY_START == D_S_EXPECT_WHERE) {
@@ -59,11 +60,11 @@ Relation* Qtree::exec_(){
 	}
 	return ret;
 }
-Qexpression* Qexpression::optimize_join(map<string, vector<string>* >* commons){
+Qexpression* Qexpression::optimize_join(vector<string> &commons, map<string, bool> &joined_key ){
 	if(this->type == OPERATER && this->str[0] == 'A'){
 		if(this->tables.size() >= 2){
-			Qexpression *lqexp = this->left->optimize_join(commons) ;
-			Qexpression *rqexp = this->right->optimize_join(commons) ;
+			Qexpression *lqexp = this->left->optimize_join(commons, joined_key) ;
+			Qexpression *rqexp = this->right->optimize_join(commons , joined_key) ;
 			if(lqexp != NULL && rqexp != NULL){
 				this->left = lqexp ;
 				this->right = rqexp ;
@@ -85,34 +86,32 @@ Qexpression* Qexpression::optimize_join(map<string, vector<string>* >* commons){
 	this->left->type == COLUMN && this->right->type == COLUMN ){
 		if(this->tables.size() == 2){
 			string key, field0, field1;
+			string table0, table1 ;
+			unsigned long pos0 = this->left->str.rfind('.'), pos1 = this->right->str.rfind('.') ;
 			set<string>::iterator it = this->tables.begin();
 			it++;
-			if(*(this->tables.begin()) <= (* (it  ) ) ){
-				key = string( *(this->tables.begin() ) + "-x-"+ *(it ) ) ;
-			}else{
-				key = string( *(it) + "-x-"+*(this->tables.begin() ) ) ;
-			}
-			field0 = string(this->left->str.substr(this->left->str.rfind('.') + 1) ) ;
-			field1 = string(this->right->str.substr(this->right->str.rfind('.') + 1) ) ;
-			
-			if(field1.compare(field0) == 0){
-				int found ;
-				if(  (*commons)[ key ] == NULL){
-					vector<string> *v = new vector<string> ;
-					v->push_back(this->left->str) ;
-					v->push_back(this->right->str) ;
-					(*commons)[ key ] = v;
-					return NULL;
-				}else{
-					for(vector<string>::iterator it = (*commons)[ key ]->begin(); 
-					it != (*commons)[ key ]->end(); it++){
-						if( it->compare(field0) == 0){
-							return NULL ;
-						}
+
+			field0 = string(this->left->str.substr(pos0 + 1) ) ;
+			field1 = string(this->right->str.substr( pos1 + 1) ) ;
+			table0 = string(this->left->str.substr(0, pos0));
+			table1 = string(this->right->str.substr(0, pos1));
+			if(field0 == field1){
+				if(table0 <= table1){
+					key = string( table0 + "-x-"+ table1 ) ;
+					if(joined_key[key] == false){
+						commons.push_back(this->left->str);
+						commons.push_back(this->right->str);
+						joined_key[key] = true;
 					}
-					(*commons)[ key ]->push_back(field0 ) ; 
-					return NULL ;
+				}else{
+					key = string( table1 + "-x-"+ table0 ) ;
+					if(joined_key[key] == false){
+						commons.push_back(this->right->str);
+						commons.push_back(this->left->str);
+						joined_key[key] = true;
+					}
 				}
+				return NULL;
 			}else{
 				return this;
 			}
@@ -190,10 +189,10 @@ Qexpression* Qexpression::optimize_sigma(map<string, Qexpression *>* sigma_opera
 				return ret;
 			}
 		}
-	}else if(this->type == OPERATER && this->str[0] == '='||
-	this->type == OPERATER && this->str[0] == '>'||
-	this->type == OPERATER && this->str[0] == '<'||
-	this->type == OPERATER && this->str[0] == 'N'){
+	}else if( ( this->type == OPERATER && this->str[0] == '=' ) ||
+	( this->type == OPERATER && this->str[0] == '>')||
+	( this->type == OPERATER && this->str[0] == '<')||
+	( this->type == OPERATER && this->str[0] == 'N' ) ){
 		
 		if(this->tables.size() == 1){
 			if(sigma_operation == NULL){
@@ -244,7 +243,7 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 				vector<string> field_names_to ;
 				it0 ++ ;
 				for( ; it0 != this->info.end()  ; it0 ++, it1++){
-					int found = it0->rfind('.')  ;
+					unsigned long found = it0->rfind('.')  ;
 					string s_table ;
 					if(found == std::string::npos){
 						s_table = string( table_n + "." + (*it0) ) ;
@@ -296,7 +295,7 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 		if(this->left->type == TABLE && (output_s.empty() || output_s.top() == NULL) ){
 			Schema s = p->schema_manager.getSchema( this->left->info[0] ) ;
 			string s_table ;
-			int found = this->info[0].rfind('.')  ;
+			unsigned long found = this->info[0].rfind('.')  ;
 			table_n = this->left->info[0] ;
 			if(found == std::string::npos){
 				s_table = string( table_n + "." + this->info[0]  ) ;
@@ -320,8 +319,9 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 				while(p->schema_manager.relationExists(temp_table_name) ){
 					temp_table_name += "-a" ;
 				}
-				p->CreateTable(temp_table_name, temp );
-				int found = this->info[0].rfind('.')  ;
+				p->CreateTable(temp_table_name, temp ) ;
+				temp_relations.push_back( temp_table_name ) ;
+				unsigned long found = this->info[0].rfind('.')  ;
 				string s_table ;
 				if(found == std::string::npos){
 					s_table = string( table_n + "." + this->info[0]  ) ;
@@ -340,7 +340,7 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 				return ret;
 			}
 		}
-	}else if(this->type == DELTA && (output_s.empty() || output_s.top() == NULL)){
+	}else if(this->type == DELTA ){
 		string table_n;
 		if(this->left->type == TABLE){
 			table_n = this->left->info[0] ;
@@ -356,12 +356,13 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 					temp_table_name += "-a" ;
 				}
 				p->CreateTable(temp_table_name, temp );
+				temp_relations.push_back(temp_table_name  ) ;
 				ret = p->dupTwoPass(temp_table_name) ;
 			}else{
 				return ret;
 			}
 		}
-	}else if(this->type == PI && (output_s.empty() || output_s.top() == NULL)){
+	}else if(this->type == PI ){
 		string table_n;
 		vector<Tuple> temp = this->left->exec( false, &table_n ) ;
 		if(table_name != NULL) { (*table_name ) = string( this->info[0] ) ;}
@@ -370,7 +371,7 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 			vector<string> field_names ;
 			vector<enum FIELD_TYPE> field_types  ;
 			for(vector<string>::iterator it= this->info.begin(); it != this->info.end(); it++){
-				int found = it->rfind('.')  ;
+				unsigned long found = it->rfind('.')  ;
 				string s_table ;
 				if(found == std::string::npos){
 					s_table = string( table_n + "." + (*it) ) ;
@@ -390,10 +391,12 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 				}
 			}
 			string temp_table_name = "temp_table" ;
+			Relation *rlt = NULL;
 			while(p->schema_manager.relationExists(temp_table_name) ){
 				temp_table_name += "-a" ;
 			}
-			Relation *rlt = p->CreateTable(temp_table_name, field_names, field_types) ;
+			rlt = p->CreateTable(temp_table_name, field_names, field_types) ;
+			temp_relations.push_back(temp_table_name  ) ;
 			for(vector<Tuple>::iterator tit = temp.begin(); tit != temp.end(); tit++){
 				Tuple t = rlt->createTuple() ;
 	
@@ -414,17 +417,19 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 		vector<string> ptables;
 		vector<Relation *> relations ;
 		map<string, Qexpression *> sigma_operation ;
-		map<string, vector<string>* > commons ;
+		vector<string> commons ;
+		map<string, bool> joined_keys;
+
 		vector<string>::iterator it = ptables.begin();
 
 		ptables.insert(ptables.end(), this->info.begin(), this->info.end() );
 		
-		if(output_s.empty() == true){
+		if(output_s.empty() ){
 		}else if(output_s.top()->type == INTEGER || output_s.top()->type == LITERAL ){
 			Tuple *t = NULL;
-			if(output_s.top()->judge(*t) == true){
+			if(output_s.top()->judge(*t) ){
 				/* WHERE clasuse always true */
-		 		output_s.top()->free() ; while(! output_s.empty() ){ output_s.pop();}
+		 		 while(! output_s.empty() ){ output_s.top()->free() ;output_s.pop();}
 			}else{
 				/* empty results */
 				return ret; 
@@ -438,39 +443,63 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 				it->second->print(0);
 			}
 
-			if(output_s.empty() != true){
-				optimized = output_s.top()->optimize_join(&commons) ;
-				output_s.pop(); if(optimized != NULL){ output_s.push(optimized) ;}
-
-				for(map<string, vector<string>* >::iterator it = commons.begin(); it != commons.end(); it ++){
-					cout << it->first << "->" <<(*(it->second))[0] << endl ;
+			if( ! output_s.empty() ){
+				optimized = output_s.top()->optimize_join(commons, joined_keys) ;
+				output_s.pop(); 
+				if(optimized != NULL){ 
+					output_s.push(optimized) ;
+				}else{
+					while(! output_s.empty() ){output_s.top()->free() ; output_s.pop();}
 				}
-				if(output_s.empty()){}else{ output_s.top()->print(0); }
+
+				if(! output_s.empty()){ output_s.top()->print(0); }
 			}
-			
+			//#ifdef DEBUG
+			cerr << "commons: ";
+			for(vector<string>::iterator it = commons.begin(); it != commons.end(); it++){
+				cerr<< *it << " " ;
+			}
+			cerr << endl ;
+			//#endif
 		}
 		vector<string> to_drop ;
 		for(vector<string>::iterator it = ptables.begin(); it != ptables.end(); ){
 			if(sigma_operation[*it] == NULL){
 				it++;
 			}else{
+				Relation *temp_relation;
 				vector<Tuple> tuples  =  p->singleTableSelect( *it  , sigma_operation[*it] ) ;
-				Relation *temp_relation = p->CreateTable( ( *it) + "-SIGMA",  tuples) ;
+				if(tuples.size() != 0){
+					temp_relation = p->CreateTable( ( *it) + "-SIGMA",  tuples) ;
+				}else{
+					vector<string> field_names = p->schema_manager.getRelation(*it)->getSchema().getFieldNames(); 
+					vector<enum FIELD_TYPE> field_types =  p->schema_manager.getRelation(*it)->getSchema().getFieldTypes() ;
+					temp_relation = p->CreateTable( (*it) + "-SIGMA" , field_names, field_types ) ;
+				}
 				to_drop.push_back( temp_relation->getRelationName() ) ;
-				it = ptables.erase(it) ;ptables.push_back(  temp_relation->getRelationName() ) ;
+				it = ptables.erase(it) ;ptables.insert( it, temp_relation->getRelationName() ) ;
 			}
 		}
 		if(ptables.size() == 2){
-			ret = p->JoinTwoPass(ptables[0], ptables[1] ) ;
+			ret = p->JoinTwoPass(ptables[0], ptables[1], commons ) ;
 		}else{
-			ret = p->JoinTables(ptables) ;
+			ret = p->JoinTables(ptables, commons) ;
 		}
 		for(vector<string>::iterator it = to_drop.begin(); it != to_drop.end(); it++){
 			p->DropTable(*it) ;
 		}
+		if(output_s.empty() ){
+			ret = ret ;
+		}else{
+			string temp_table_name = "temp_table";
+			while(p->schema_manager.relationExists(temp_table_name)) {
+				temp_table_name += "-a";
+			}
+			p->CreateTable( temp_table_name, ret ) ;
+			temp_relations.push_back(temp_table_name) ;
 
-		//ret = p->singleTableSelect(r, output_s.top() ) ;
-		
+			ret = p->singleTableSelect(temp_table_name, output_s.top() ) ;
+		}
 	}else if(this->type == TABLE){
 		if(table_name != NULL) { (*table_name ) = string( this->info[0] ) ;}
 		ret = p->singleTableSelect(this->info[0], output_s.empty() ? NULL : output_s.top() );
@@ -485,7 +514,7 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 		} cout << endl << "-----------------" << endl ;
 		for(vector<Tuple>::iterator it = ret.begin(); it != ret.end(); it ++ ){
 			cout << (*it) << endl;
-		}cout <<  "-----------------" << endl << endl ;
+		}cout <<  "-----------------" << endl ;
 	}
 	/*
 	if(this->left == NULL && this->right == NULL){

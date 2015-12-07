@@ -89,6 +89,7 @@ Relation * physicalOP::CreateTable(string relation_name,
 	Schema schema(field_names,field_types);
 	//displaySchema(schema);
 	
+	cerr << "relation created: " << relation_name << endl ;
 	Relation* relation_ptr=schema_manager.createRelation(relation_name,schema);
 	//displayRelation(relation_name);
 	//cout << "***********************Creation Done*****************************"<<endl;
@@ -102,7 +103,9 @@ Relation * physicalOP::CreateTable(string relation_name,
 
 void physicalOP::DropTable(string relation_name)
 {
-	cout << "Drop table " << relation_name << endl;
+	#ifdef DEBUG
+	cerr << "Drop table " << relation_name << endl;
+	#endif
 	schema_manager.deleteRelation(relation_name);
 }
 
@@ -145,6 +148,8 @@ Relation * physicalOP::CreateTable(string relation_name,vector<Tuple> tuples)
 {
 	Schema schema=tuples.back().getSchema();
 	int tuplePerBlock=schema.getTuplesPerBlock();
+	
+	cerr << "relation created: " << relation_name << endl ;
 	Relation* relation_ptr=schema_manager.createRelation(relation_name,schema);
 	Block * block_ptr=mem.getBlock(0);
 	block_ptr->clear();
@@ -198,7 +203,9 @@ Relation * physicalOP::CreateTable(string relation_name,vector<Tuple> tuples)
 vector<Tuple> physicalOP::singleTableSelect(string relation_name,
 						   condition con)
 {
+	#ifdef DEBUG
 	cout<<"select"<<endl;
+	#endif
 	vector<Tuple> result;
 	Relation* relation_ptr = schema_manager.getRelation(relation_name);
 	Block* block_ptr;
@@ -399,7 +406,11 @@ vector<Tuple> physicalOP::SortOnePass(string relation_name,string field_name)
 {
 	Relation* relation_ptr = schema_manager.getRelation(relation_name);
 	vector<Tuple> result;
-	if(relation_ptr->getNumOfBlocks()>10) {cout<<"This sort can't be in one pass! "<<endl;return result;}
+	if(relation_ptr->getNumOfBlocks()>10) {
+		#ifdef DEBUG
+		cout<<"This sort can't be in one pass! "<<endl;
+		#endif
+		return result;}
 	relation_ptr->getBlocks(0,0,relation_ptr->getNumOfBlocks());
 	return sortOnMemory(field_name,0,relation_ptr->getNumOfBlocks());
 }
