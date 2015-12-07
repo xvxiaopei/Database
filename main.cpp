@@ -480,7 +480,11 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 			}
 		}
 		if(ptables.size() == 2){
-			ret = p->JoinTwoPass(ptables[0], ptables[1], commons ) ;
+			if(ptables[0] <= ptables[1]){
+				ret = p->JoinTwoPass(ptables[0], ptables[1], commons ) ;
+			}else{
+				ret = p->JoinTwoPass(ptables[1], ptables[0], commons ) ;
+			}
 		}else{
 			ret = p->JoinTables(ptables, commons) ;
 		}
