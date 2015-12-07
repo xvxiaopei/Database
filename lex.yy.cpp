@@ -695,7 +695,7 @@ char *yytext;
 #line 2 "scan.l"
 #include "common.h"
 #include "physicalOP.h"
-#include "StorageManager/Field.h"
+#include "Field.h"
 physicalOP *p = NULL;
 Qtree *current_qt =NULL;
 Qtree *head = NULL;

@@ -12,9 +12,9 @@
 #include <stack>
 #include <set>
 #include <string>
-#include "StorageManager/Tuple.h"
-#include "StorageManager/Field.h"
-#include "StorageManager/Relation.h"
+#include "Tuple.h"
+#include "Field.h"
+#include "Relation.h"
 
 using namespace std;
 void err_out_START(const char str[]);

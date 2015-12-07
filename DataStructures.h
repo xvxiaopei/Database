@@ -7,24 +7,17 @@
 #include <iterator>
 #include <vector>
 
-#include "StorageManager/Block.h"
-#include "StorageManager/Config.h"
-#include "StorageManager/Disk.h"
-#include "StorageManager/Field.h"
-#include "StorageManager/MainMemory.h"
-#include "StorageManager/Relation.h"
-#include "StorageManager/Schema.h"
-#include "StorageManager/SchemaManager.h"
-#include "StorageManager/Tuple.h"
+#include "Block.h"
+#include "Config.h"
+#include "Disk.h"
+#include "Field.h"
+#include "MainMemory.h"
+#include "Relation.h"
+#include "Schema.h"
+#include "SchemaManager.h"
+#include "Tuple.h"
 #include "common.h"
 using namespace std;
-/*
-class condition{         //give a tuple and return true or false
-	vector<string> field_names;
-	
-public:
-	bool judge(Tuple t);        //judge if this tuple fit the condition
-};*/
 typedef Qexpression* (condition) ;
 class tupAddr{                   //location if a tuple in mem
 public:

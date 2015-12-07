@@ -1,10 +1,10 @@
 #include "common.h"
-#include "StorageManager/Field.h"
+#include "Field.h"
 #include "physicalOP.h"
 #include <climits>
 #include <vector>
-#include "StorageManager/Tuple.h"
-#include "StorageManager/Relation.h"
+#include "Tuple.h"
+#include "Relation.h"
 
 
 

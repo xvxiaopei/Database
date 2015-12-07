@@ -13,15 +13,15 @@
 #include <climits>
 
 
-#include "StorageManager/Block.h"
-#include "StorageManager/Config.h"
-#include "StorageManager/Disk.h"
-#include "StorageManager/Field.h"
-#include "StorageManager/MainMemory.h"
-#include "StorageManager/Relation.h"
-#include "StorageManager/Schema.h"
-#include "StorageManager/SchemaManager.h"
-#include "StorageManager/Tuple.h"
+#include "Block.h"
+#include "Config.h"
+#include "Disk.h"
+#include "Field.h"
+#include "MainMemory.h"
+#include "Relation.h"
+#include "Schema.h"
+#include "SchemaManager.h"
+#include "Tuple.h"
 #include "DataStructures.h"
 using namespace std;
 
