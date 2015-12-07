@@ -785,7 +785,7 @@ vector<Tuple> physicalOP::Product(string relation_name1,
 		}
 		field_types.push_back(schema2.getFieldType(i));
 	}
-	string relation_name=relation_name1+"°¡"+relation_name2;
+	string relation_name=relation_name1+"¬°√Å"+relation_name2;
 	if(schema_manager.relationExists(relation_name))DropTable(relation_name);
 	Relation* product_ptr=CreateTable(relation_name,field_names,field_types);
 	//displayRelation(relation_name);
@@ -1800,7 +1800,7 @@ vector<Tuple> physicalOP::JoinTree(JoinNode &root)
 		}
 		else{ DropTable(root.m.relation_name+"right");
 		rightRelation=CreateTable(root.m.relation_name+"right",JoinTree(*root.right));}
-		displayRelation(rightRelation->getRelationName());
+		//displayRelation(rightRelation->getRelationName());
 
 		result=JoinTwoPass(leftRelation->getRelationName(),rightRelation->getRelationName());
 		cout<<root.m.relation_name<<" has tuples "<< result.size()<<endl;
@@ -1849,7 +1849,7 @@ vector<Tuple> physicalOP::JoinTree(JoinNode & root,vector<string> common_fields)
 			DropTable(right_relation_name);
 			rightRelation=CreateTable(right_relation_name,JoinTree(*root.right, common_fields));
 		}
-		displayRelation(rightRelation->getRelationName());
+		//displayRelation(rightRelation->getRelationName());
 
 		vector<string> new_common_fields;
 		string left_relation_name,right_relation_name;
@@ -1916,14 +1916,14 @@ vector<Tuple> physicalOP::JoinTables(vector<string> relation_names)
 		costRelation[relation_name]=JoinNode(computeJoin(RelationCount(relation_names[combines[i][0]]),RelationCount(relation_names[combines[i][1]])),&(costRelation[relation_names[combines[i][0]]]),&(costRelation[relation_names[combines[i][1]]]));
 		//size[relation_name]=relationData[combines[i][0]].T*relationData[combines[i][1]].T/max(relationData[combines[i][0]].V,relationData[combines[i][1]].V);
 		size[relation_name]=costRelation[relation_name].m.T;
-		cout<<relation_name<<endl;
-		cout<<" cost : "<<cost[relation_name]<<endl;
-		cout<<" size : "<<size[relation_name]<<endl;
+		//cout<<relation_name<<endl;
+		//cout<<" cost : "<<cost[relation_name]<<endl;
+	//	cout<<" size : "<<size[relation_name]<<endl;
 	}
 	
 	for(int k=3;k<=relation_names.size();k++)
 	{
-		cout<<"k="<<k<<endl;
+		//cout<<"k="<<k<<endl;
 		vector<vector<int> > combines=getCombine(relation_names.size(),k,a);
 
 		for(int i=0;i<combines.size();i++)
@@ -2036,7 +2036,7 @@ vector<Tuple> physicalOP::JoinTables(vector<string> relation_names,vector<string
 	
 	for(int k=3;k<=relation_names.size();k++)
 	{
-		cout<<"k="<<k<<endl;
+	//	cout<<"k="<<k<<endl;
 		vector<vector<int> > combines=getCombine(relation_names.size(),k,a);
 
 		for(int i=0;i<combines.size();i++)
@@ -2047,7 +2047,7 @@ vector<Tuple> physicalOP::JoinTables(vector<string> relation_names,vector<string
 				if(j>0) relation_name +="*";
 				relation_name+=relation_names[combines[i][j]];
 			}
-			cout<<relation_name<<" : "<<endl;
+		//	cout<<relation_name<<" : "<<endl;
 			cost[relation_name]=INT_MAX;
 			string leastpart1,leastpart2;
 			
@@ -2074,7 +2074,7 @@ vector<Tuple> physicalOP::JoinTables(vector<string> relation_names,vector<string
 							}		
 						}
 					}
-					cout<<relation_name1<<"   "<<relation_name2<<endl;
+					//cout<<relation_name1<<"   "<<relation_name2<<endl;
 					int costThis=cost[relation_name1]+cost[relation_name2]+size[relation_name1]+size[relation_name2];
 					if(cost[relation_name]>costThis) 
 					{
