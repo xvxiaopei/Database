@@ -16,7 +16,7 @@ main.o: main.cpp common.h lex.yy.cpp  physicalOP.h
 	$(CC) $(inc) -g -c -o $@ $<
 common.o: common.cpp common.h
 	$(CC) $(inc) -g -c -o $@ $<
-physicalOP.o: physicalOP.cpp physicalOP.h  common.h
+physicalOP.o: physicalOP.cpp physicalOP.h  common.h DataStructures.h
 	$(CC) $(inc) -g -c -o $@  $<
 StorageManager.o: $(SM)/StorageManager.cpp
 	$(CC) -g -c -o $@ $<

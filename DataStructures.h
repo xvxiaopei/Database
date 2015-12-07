@@ -57,18 +57,18 @@ public:
 	}
 	void print()
 	{
-		cout<<"Relation : "<<relation_name<<" has "<<T<<" tuples, and V is :"<<endl;
-		//cout<<schema;
+		cerr<<"Relation : "<<relation_name<<" has "<<T<<" tuples, and V is :"<<endl;
+		//cerr<<schema;
 		for(int i = 0; i<schema.getNumOfFields();i++)
 		{
-			cout<<schema.getFieldName(i)+"  ";
+			cerr<<schema.getFieldName(i)+"  ";
 		}
-		cout<<endl;
+		cerr<<endl;
 		for(int i = 0; i<schema.getNumOfFields();i++)
 		{
-			cout<<V[i]<<"  ";
+			cerr<<V[i]<<"  ";
 		}
-		cout<<endl;
+		cerr<<endl;
 
 	}
 
@@ -91,7 +91,7 @@ public:
 	}
 	void print()
 	{
-		cout<<m.relation_name<<" : "<<m.T<<endl;
+		cerr<<m.relation_name<<" : "<<m.T<<endl;
 		if(left!=NULL)left->print();
 		if(right!=NULL)right->print();
 	}
