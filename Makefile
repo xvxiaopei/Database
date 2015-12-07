@@ -21,4 +21,4 @@ StorageManager.o: $(SM)/StorageManager.cpp
 	$(CC) -g -c -o $@ $<
 
 clean:
-	rm *.o isql test
+	rm *.o tsql
