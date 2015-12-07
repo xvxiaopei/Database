@@ -53,13 +53,6 @@ void scan_over(int statement){
 	HLINE << NORMAL_TEXT <<  endl  ;
 	#endif
 }
-Relation* Qtree::exec_(){
-	Relation *ret;
-	if(this->type == TABLE){
-		ret = p->schema_manager.getRelation(this->info[0] ) ;
-	}
-	return ret;
-}
 Qexpression* Qexpression::optimize_join(vector<string> &commons, map<string, bool> &joined_key ){
 	if(this->type == OPERATER && this->str[0] == 'A'){
 		if(this->tables.size() >= 2){

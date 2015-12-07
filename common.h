@@ -26,15 +26,17 @@ void scan_over(int statement);
 #define NORMAL_TEXT "\e[0m"
 #define HLINE  "---------------"
 
-
 enum Qtree_TYPE {
-DELTA ,
-PI   , 
-SIGMA, 
-PRODUCT , 
-TAU  , 
-TABLE, 
-INS  }; 
+    DELTA ,//duplicate elimination operation
+    PI ,   //projection operation
+    SIGMA, //select operation
+    PRODUCT ,//cross-join operation, 
+             //which can optimized to natural join operation, 
+             //for some cross-join operation and select operation
+    TAU  ,//sorting operation
+    TABLE,//table scan operation: get all tuples from specified table
+    INS   //Insert operation: insert selected tuples to a table
+};
 
 enum Qexp_TYPE{
 Qexp_ILLEGAL ,
@@ -63,8 +65,6 @@ class Qtree {
 	void print( int );
 	void free() ;
 	vector<Tuple> exec(bool print, string *table_name);
-	private:
-	Relation* exec_();
 }; 
 class Qexpression {
 	public:
