@@ -232,6 +232,5 @@ INSERT INTO press (press, location) VALUES ("N", "NNN")
 
 
 SELECT * FROM stock, press
-SELECT * FROM stock, press WHERE stock.press = press.press
 DROP TABLE stock
 DROP TABLE press
