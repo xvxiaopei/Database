@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-#define NUM_TRACKS 100
+#define NUM_TRACKS 1000
 
 /* Simplified assumptions are made for disks. A disk contains many tracks. 
  * We assume each relation reside on a single track of blocks on disk. 

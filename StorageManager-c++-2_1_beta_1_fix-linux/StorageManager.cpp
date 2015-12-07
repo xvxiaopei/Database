@@ -1012,7 +1012,6 @@ Relation* SchemaManager::createRelation(string relation_name,const Schema& schem
   relations[offset]=Relation(this,offset,relation_name,mem,disk);
   schemas[offset]=schema;
   offset++; // increase the boundary
-	cout << endl << endl  << "offset: " << offset << endl << endl ;
   return &relations[offset-1];
 }
 

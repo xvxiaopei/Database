@@ -438,10 +438,12 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 			Qexpression *optimized = output_s.top()->optimize_sigma(&sigma_operation) ;
 			output_s.pop(); if(optimized != NULL){ output_s.push(optimized) ;}
 			
+			#ifdef DEBUG
 			for(map<string, Qexpression *>::iterator it = sigma_operation.begin(); it != sigma_operation.end(); it ++){
 				cout << it->first << "->" << endl;
 				it->second->print(0);
 			}
+			#endif
 
 			if( ! output_s.empty() ){
 				optimized = output_s.top()->optimize_join(commons, joined_keys) ;
@@ -452,15 +454,19 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 					while(! output_s.empty() ){output_s.top()->free() ; output_s.pop();}
 				}
 
-				if(! output_s.empty()){ output_s.top()->print(0); }
+				if(! output_s.empty()){
+					#ifdef DEBUG
+					output_s.top()->print(0); 
+					#endif
+				}
 			}
-			//#ifdef DEBUG
+			#ifdef DEBUG
 			cerr << "commons: ";
 			for(vector<string>::iterator it = commons.begin(); it != commons.end(); it++){
 				cerr<< *it << " " ;
 			}
 			cerr << endl ;
-			//#endif
+			#endif
 		}
 		vector<string> to_drop ;
 		for(vector<string>::iterator it = ptables.begin(); it != ptables.end(); ){
@@ -509,6 +515,7 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 	if(ret.size() != 0 && print){
 		vector<string> field_names = 
 			ret[0].getSchema( ).getFieldNames() ;
+		cout <<  "-----------------" << endl ;
 		for(vector<string>::iterator it = field_names.begin(); it != field_names.end(); it++){
 			cout<< *it << ' ' ;
 		} cout << endl << "-----------------" << endl ;
@@ -533,7 +540,9 @@ int main( int argc, char **argv ){
 
 	/* For debug */
 	#ifdef DEBUG
-	error_output.rdbuf(std::cerr.rdbuf() );
+		error_output.rdbuf(std::cerr.rdbuf() );
+	#else
+		cerr.rdbuf(error_output.rdbuf() );
 	#endif
 	
 	++argv, --argc;  /* skip over program name */

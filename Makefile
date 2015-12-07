@@ -3,9 +3,9 @@ cflag=-lfl
 
 SM=StorageManager-c++-2_1_beta_1_fix-linux
 
-all:isql 
+all:tsql 
 
-isql:  main.o lex.yy.cpp common.h StorageManager.o physicalOP.o  common.o
+tsql:  main.o lex.yy.cpp common.h StorageManager.o physicalOP.o  common.o
 	$(CC) -g  -o $@ main.o StorageManager.o  physicalOP.o  common.o  $(cflag) 
 lex.yy.cpp: scan.l common.h
 	flex -o $@ $< 

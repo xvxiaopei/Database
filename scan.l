@@ -19,7 +19,7 @@ vector<string> temp_relations ;
 
 std::ostream error_output(NULL);
 
-
+int start_time, stop_time;
 
 
 %}
@@ -123,9 +123,9 @@ COMMA                 [,]
 			}
 			output_s.push(operators_s.top()); operators_s.pop() ;
 		}
-//		#ifdef DEBUG
+		#ifdef DEBUG
 		output_s.top()->print(0) ; 
-//		#endif
+		#endif
 	}
 	if(head != NULL){
 		head->exec(true, NULL);
@@ -142,7 +142,10 @@ COMMA                 [,]
 		p->Delete(table_name, NULL) ;
 	}
 
-	cout<< "Disk IOs: " << p->IO() << endl << "=================================" << endl;
+	cout << "Disk IOs: " << p->IO() << endl ; 
+	stop_time = clock() ;
+	cout << "Execution Time: " << ( stop_time - start_time ) / double(CLOCKS_PER_SEC) << " s" << endl ;
+	cout << endl << "=================================" << endl << endl;
 	yyterminate();
 }
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>[\n\r] {
@@ -163,9 +166,9 @@ COMMA                 [,]
 			}
 			output_s.push(operators_s.top()); operators_s.pop() ;
 		}
-//		#ifdef DEBUG
+		#ifdef DEBUG
 		output_s.top()->print(0) ;
-//		#endif
+		#endif
 	}
 	if(head != NULL){
 		head->exec(true, NULL);
@@ -185,8 +188,13 @@ COMMA                 [,]
 		p->DropTable(*it) ;it = temp_relations.erase(it) ;
 	}
 	BEGIN(INITIAL);
-	cout<< "Disk IOs: " << p->IO() << endl << "=================================" << endl;
+	
+	cout << "Disk IOs: " << p->IO() << endl ; 
+	stop_time = clock() ;
+	cout << "Execution Time: " << ( stop_time - start_time ) / double(CLOCKS_PER_SEC) << " s" <<endl ;
+	cout << endl << "=================================" << endl << endl;
 	p->IOreset() ;
+	start_time = clock();
 }
 
 <INITIAL,D_S_EXPECT_WHERE,S_S_EXPECT_WHERE_OR_COMMA,WHERE_SUB_STATEMENT>{SELECT}{WS}+ {

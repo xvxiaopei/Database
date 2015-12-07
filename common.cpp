@@ -78,12 +78,11 @@ union Field Qexpression::judge_(Tuple t ) {
 		}else{
 			s = ( this->str.substr(found + 1) ) ;
 		}
-		if(scm.fieldNameExists( s ) == true ){
+		if(scm.fieldNameExists( s ) ){
 			ret = t.getField(s );
 		}else if(scm.fieldNameExists(this->str )) {
 			ret = t.getField(this->str) ;
 		}else{
-			
 			cerr << this->str << " " << s <<  " : " ;
 			perror("judge_: No such field") ;
 		}
