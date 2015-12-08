@@ -3,6 +3,7 @@ We finished the SQL parsing mostly using Flex. The where clauses are parsed by t
 Compile
 ------
 Note that the lexical analyzer flex and the corresponding library is required to compile the program. If they have been installed, simply execute 
+
 `$ make`
 Usage
 ------
