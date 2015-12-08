@@ -29,7 +29,7 @@ class physicalOP{
 private:
 	MainMemory mem;
 	Disk disk;
-	clock_t start_time;
+	clock_t physicalOP_start_time;
 	static physicalOP *physicalop;
     physicalOP():schema_manager(&mem, &disk) {  
 		disk.resetDiskIOs();

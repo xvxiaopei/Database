@@ -29,11 +29,13 @@ class physicalOP{
 private:
 	MainMemory mem;
 	Disk disk;
-	clock_t start_time;
+	clock_t physicalOP_start_time;
 	static physicalOP *physicalop;
     physicalOP():schema_manager(&mem, &disk) {  
 		disk.resetDiskIOs();
-		disk.resetDiskTimer(); }    //singleton
+		disk.resetDiskTimer();
+		physicalOP_start_time = clock() ;
+    }    //singleton
 
 public:
 	SchemaManager   schema_manager;
