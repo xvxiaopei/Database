@@ -39,22 +39,21 @@ enum Qtree_TYPE {
 };
 
 enum Qexp_TYPE{
-Qexp_ILLEGAL ,
-COLUMN  ,
-LITERAL, 
-INTEGER,  
-OPERATER ,
-LEFT 
+    Qexp_ILLEGAL ,
+    COLUMN  ,//leaf tree node with a column name
+    LITERAL, //leaf tree node with a string
+    INTEGER, //leaf tree node with an integer
+    OPERATER ,//an operator tree node
+    LEFT      //special node for left parenthesis: used with the operator stack 
 };
 
 /* precedence  */
-
-#define TIMES_DIVIDES 5
-#define PLUS_MINUS    4
-#define COMPARE       3
-#define NOT_PCD       2
-#define AND_PCD       1
-#define OR_PCD        0
+#define TIMES_DIVIDES 5//* /
+#define PLUS_MINUS    4//+ -
+#define COMPARE       3//comparing operators including >,<,and =
+#define NOT_PCD       2//NOT
+#define AND_PCD       1//AND
+#define OR_PCD        0//OR
 
 class Qtree {
 	public:
@@ -85,7 +84,6 @@ class Qexpression {
 	enum FIELD_TYPE field_type(Tuple ) ;
 	private:
 	union Field judge_(Tuple t) ;
-
 };
 
 #endif

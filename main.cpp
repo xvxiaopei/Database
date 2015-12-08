@@ -1,7 +1,7 @@
 #include "lex.yy.cpp"
 #include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include "physicalOP.h"
 #include "common.h"
 
@@ -492,7 +492,6 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 			p->DropTable(*it) ;
 		}
 		if(output_s.empty() ){
-			ret = ret ;
 		}else{
 			string temp_table_name = "temp_table";
 			while(p->schema_manager.relationExists(temp_table_name)) {
@@ -520,16 +519,6 @@ vector<Tuple> Qtree::exec(bool print, string *table_name){
 			cout << (*it) << endl;
 		}cout <<  "-----------------" << endl ;
 	}
-	/*
-	if(this->left == NULL && this->right == NULL){
-		int i = 0;
-		
-	}else if(this->left != NULL && this->right == NULL){
-
-	}else if(this->left != NULL && this->right != NULL){
-	}
-	*/
-
 	return  ret;
 }
 int main( int argc, char **argv ){

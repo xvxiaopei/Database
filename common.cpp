@@ -1,8 +1,8 @@
+#include <climits>
+#include <vector>
 #include "common.h"
 #include "Field.h"
 #include "physicalOP.h"
-#include <climits>
-#include <vector>
 #include "Tuple.h"
 #include "Relation.h"
 
@@ -15,11 +15,13 @@ Qtree::Qtree( enum Qtree_TYPE t, Qtree *p){
 Qexpression::Qexpression(){
 	type = Qexp_ILLEGAL ;
 	str = "";
+	number = INT_MIN ;
 	left = right = NULL ;
 }
 Qexpression::Qexpression( enum Qexp_TYPE t, string s){
 	type = t; 
 	str = string(s) ;
+	number = INT_MIN ;
 	left = right = NULL;
 }
 Qexpression::Qexpression( enum Qexp_TYPE t, int n){
