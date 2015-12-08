@@ -27,6 +27,30 @@ SELECT * FROM stock WHERE price = 48
 DROP TABLE stock
 CREATE TABLE stock(bookname STR20, press STR20, price INT, quantity INT)
 
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("SFDV YFDPIFHMXXR NDIOSBF ", "T", 47, 235)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("SFDV YFDPIFHMXXR NDIOSBF ", "U", 20, 369)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("SFDV YFDPIFHMXXR NDIOSBF ", "D", 22, 244)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("WZDCZGUC WDQKOR AG", "L", 43, 478)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("WZDCZGUC WDQKOR AG", "D", 29, 126)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("WZDCZGUC WDQKOR AG", "X", 45, 492)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("WZDCZGUC WDQKOR AG", "Q", 29, 245)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("BRWVHUVJ ROC VRIQMK VARM Z", "M", 23, 320)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("BRWVHUVJ ROC VRIQMK VARM Z", "V", 28, 172)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("GRYXZX KH BGJXM ZLVU", "W", 37, 279)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("GRYXZX KH BGJXM ZLVU", "S", 30, 498)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("PCRBQ BUOX Y T KBMN BZVJOSSI VKNQVBYRMPB ", "W", 35, 408)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("PCRBQ BUOX Y T KBMN BZVJOSSI VKNQVBYRMPB ", "I", 29, 116)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("PCRBQ BUOX Y T KBMN BZVJOSSI VKNQVBYRMPB ", "Q", 26, 362)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("KOOT EIKSJ SWDR Q CEJ LG OSTIKW JTKZJEIEM GJY", "T", 27, 422)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("KOOT EIKSJ SWDR Q CEJ LG OSTIKW JTKZJEIEM GJY", "S", 20, 259)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("AUAS MSAN III QQFD TOPVJFEYLE UGTXY", "A", 49, 454)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("AUAS MSAN III QQFD TOPVJFEYLE UGTXY", "B", 46, 401)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("GHTIPDOW T TLGAWYJF VEPLDBKLMN PFXKOGB", "T", 23, 391)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("GHTIPDOW T TLGAWYJF VEPLDBKLMN PFXKOGB", "Z", 23, 467)
+INSERT INTO stock (bookname, press, price, quantity) VALUES ("ASMNUVK U KM SMXH YO", "M", 48, 151)
+
+SELECT * FROM stock WHERE price > 40
+
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("ASMNUVK U KM SMXH YO", "U", 24, 259)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("ASMNUVK U KM SMXH YO", "L", 36, 220)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("INLM CRMHEKFALKL A", "Q", 30, 151)
@@ -230,6 +254,7 @@ INSERT INTO stock (bookname, press, price, quantity) VALUES ("RFIWNQNH E RD TUEP
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ ", "M", 35, 375)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ ", "Y", 20, 141)
 
+SELECT * FROM stock WHERE price > 40
 
 
 SELECT * FROM stock WHERE price > 40
