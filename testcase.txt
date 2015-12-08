@@ -37,6 +37,9 @@ INSERT INTO stock (bookname, press, price, quantity) VALUES ("TEOQIZ IYKJRYZ MH 
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("TEOQIZ IYKJRYZ MH UWSEITMMER", "B", 46, 487)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("TEOQIZ IYKJRYZ MH UWSEITMMER", "Y", 47, 328)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("TEOQIZ IYKJRYZ MH UWSEITMMER", "P", 32, 425)
+
+SELECT * FROM stock WHERE price > 40
+
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ", "C", 48, 212)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ", "Z", 36, 196)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ", "U", 47, 358)
@@ -49,6 +52,9 @@ INSERT INTO stock (bookname, press, price, quantity) VALUES ("RMTYJM UYQ VKEYNOY
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("RMTYJM UYQ VKEYNOYP VL CP ", "E", 22, 308)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA", "X", 36, 496)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA", "U", 31, 428)
+
+SELECT * FROM stock WHERE price > 40
+
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA", "Y", 32, 457)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ", "B", 30, 183)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ", "I", 48, 428)
@@ -66,6 +72,9 @@ INSERT INTO stock (bookname, press, price, quantity) VALUES ("BJFEJIH BDT F KIMT
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS", "Y", 44, 218)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS", "W", 47, 268)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS", "V", 24, 448)
+
+SELECT * FROM stock WHERE price > 40
+
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW", "B", 20, 143)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW", "L", 49, 473)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("GPVHGO HCMC WABD JCXVZJ", "N", 40, 359)
@@ -83,6 +92,9 @@ INSERT INTO stock (bookname, press, price, quantity) VALUES ("UEFPKV WQSJB", "M"
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("UEFPKV WQSJB", "A", 22, 303)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("UEFPKV WQSJB", "W", 27, 479)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("GJTPLVW AELIPGUJ MESDOJUOHVK", "X", 47, 258)
+
+SELECT * FROM stock WHERE price > 40
+
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("GJTPLVW AELIPGUJ MESDOJUOHVK", "U", 38, 335)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("GJTPLVW AELIPGUJ MESDOJUOHVK", "Q", 43, 337)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("DOCNOSYR CPILABM VFFRBCC", "G", 34, 364)
@@ -106,6 +118,9 @@ INSERT INTO stock (bookname, press, price, quantity) VALUES ("HVFQRGBX ZADC ", "
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("HVFQRGBX ZADC ", "C", 25, 271)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("RLXX TQOFP VPBXQM SHDKFS", "K", 29, 114)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("RLXX TQOFP VPBXQM SHDKFS", "U", 35, 149)
+
+SELECT * FROM stock WHERE price > 40
+
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("RLXX TQOFP VPBXQM SHDKFS", "M", 22, 328)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("OCVZUO SHYOAAQ IA", "J", 46, 340)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("OCVZUO SHYOAAQ IA", "Q", 20, 223)
@@ -127,6 +142,9 @@ INSERT INTO stock (bookname, press, price, quantity) VALUES ("DLSR MDAEGKKUL VFI
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN", "B", 41, 472)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("SRAMWUPW SADMYPE INTYALPI WCIMAV IZD", "G", 21, 188)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("SRAMWUPW SADMYPE INTYALPI WCIMAV IZD", "X", 21, 277)
+
+SELECT * FROM stock WHERE price > 40
+
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("SRAMWUPW SADMYPE INTYALPI WCIMAV IZD", "H", 38, 410)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("SRAMWUPW SADMYPE INTYALPI WCIMAV IZD", "U", 42, 492)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("JKDUANA RH XCOF NXTCSCSO ZTS", "L", 20, 431)
@@ -153,6 +171,8 @@ INSERT INTO stock (bookname, press, price, quantity) VALUES ("XYBB JQTXFE UDBJW 
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ", "F", 23, 398)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("IURUFQCF RO", "L", 39, 150)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("IURUFQCF RO", "T", 25, 341)
+
+SELECT * FROM stock WHERE price > 40
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("IURUFQCF RO", "A", 40, 143)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("QVMZJU PJRNPUSR RVB", "M", 26, 458)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("QVMZJU PJRNPUSR RVB", "N", 20, 364)
@@ -178,6 +198,9 @@ INSERT INTO stock (bookname, press, price, quantity) VALUES ("JRBX KKUCC U STFX 
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("JRBX KKUCC U STFX KSB", "F", 38, 310)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("WPMUALYV OHVMWGW ", "U", 46, 376)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("WPMUALYV OHVMWGW ", "J", 39, 472)
+
+SELECT * FROM stock WHERE price > 40
+
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("WPMUALYV OHVMWGW ", "C", 38, 383)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("WZJAMP SPNIRM F QKQGXJHIJV IN", "L", 44, 178)
 INSERT INTO stock (bookname, press, price, quantity) VALUES ("WZJAMP SPNIRM F QKQGXJHIJV IN", "R", 48, 472)
