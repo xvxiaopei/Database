@@ -1,0 +1,4124 @@
+CREATE TABLE stock ( bookname STR20 , press STR20 , price INT , quantity INT ) 
+Disk IOs: 0
+Execution Time: 0.001255 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "SFDV YFDPIFHMXXR NDIOSBF " , "T" , 47 , 235 ) 
+Disk IOs: 1
+Execution Time: 0.074085 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "SFDV YFDPIFHMXXR NDIOSBF " , "U" , 20 , 369 ) 
+Disk IOs: 2
+Execution Time: 0.148072 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "SFDV YFDPIFHMXXR NDIOSBF " , "D" , 22 , 244 ) 
+Disk IOs: 2
+Execution Time: 0.148086 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "WZDCZGUC WDQKOR AG" , "L" , 43 , 478 ) 
+Disk IOs: 2
+Execution Time: 0.148081 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "WZDCZGUC WDQKOR AG" , "D" , 29 , 126 ) 
+Disk IOs: 2
+Execution Time: 0.148072 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "WZDCZGUC WDQKOR AG" , "X" , 45 , 492 ) 
+Disk IOs: 2
+Execution Time: 0.148059 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "WZDCZGUC WDQKOR AG" , "Q" , 29 , 245 ) 
+Disk IOs: 2
+Execution Time: 0.148065 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "BRWVHUVJ ROC VRIQMK VARM Z" , "M" , 23 , 320 ) 
+Disk IOs: 2
+Execution Time: 0.148079 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "BRWVHUVJ ROC VRIQMK VARM Z" , "V" , 28 , 172 ) 
+Disk IOs: 2
+Execution Time: 0.14809 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GRYXZX KH BGJXM ZLVU" , "W" , 37 , 279 ) 
+Disk IOs: 2
+Execution Time: 0.148095 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GRYXZX KH BGJXM ZLVU" , "S" , 30 , 498 ) 
+Disk IOs: 2
+Execution Time: 0.148084 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "PCRBQ BUOX Y T KBMN BZVJOSSI VKNQVBYRMPB " , "W" , 35 , 408 ) 
+Disk IOs: 2
+Execution Time: 0.148111 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "PCRBQ BUOX Y T KBMN BZVJOSSI VKNQVBYRMPB " , "I" , 29 , 116 ) 
+Disk IOs: 2
+Execution Time: 0.148102 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "PCRBQ BUOX Y T KBMN BZVJOSSI VKNQVBYRMPB " , "Q" , 26 , 362 ) 
+Disk IOs: 2
+Execution Time: 0.148114 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "KOOT EIKSJ SWDR Q CEJ LG OSTIKW JTKZJEIEM GJY" , "T" , 27 , 422 ) 
+Disk IOs: 2
+Execution Time: 0.148113 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "KOOT EIKSJ SWDR Q CEJ LG OSTIKW JTKZJEIEM GJY" , "S" , 20 , 259 ) 
+Disk IOs: 2
+Execution Time: 0.148074 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "AUAS MSAN III QQFD TOPVJFEYLE UGTXY" , "A" , 49 , 454 ) 
+Disk IOs: 2
+Execution Time: 0.148088 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "AUAS MSAN III QQFD TOPVJFEYLE UGTXY" , "B" , 46 , 401 ) 
+Disk IOs: 2
+Execution Time: 0.148088 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GHTIPDOW T TLGAWYJF VEPLDBKLMN PFXKOGB" , "T" , 23 , 391 ) 
+Disk IOs: 2
+Execution Time: 0.148081 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GHTIPDOW T TLGAWYJF VEPLDBKLMN PFXKOGB" , "Z" , 23 , 467 ) 
+Disk IOs: 2
+Execution Time: 0.148095 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "ASMNUVK U KM SMXH YO" , "M" , 48 , 151 ) 
+Disk IOs: 2
+Execution Time: 0.148105 s
+
+=================================
+
+
+Disk IOs: 0
+Execution Time: 3e-06 s
+
+=================================
+
+
+Disk IOs: 0
+Execution Time: 3e-06 s
+
+=================================
+
+SELECT * FROM stock WHERE press = "X" 
+-----------------
+stock.bookname stock.press stock.price stock.quantity 
+-----------------
+WZDCZGUC WDQKOR AG	X	45	492	
+-----------------
+Disk IOs: 11
+Execution Time: 0.814548 s
+
+=================================
+
+SELECT * FROM stock WHERE price = 48 
+-----------------
+stock.bookname stock.press stock.price stock.quantity 
+-----------------
+ASMNUVK U KM SMXH YO	M	48	151	
+-----------------
+Disk IOs: 11
+Execution Time: 0.814525 s
+
+=================================
+
+DROP TABLE stock 
+Disk IOs: 0
+Execution Time: 1.4e-05 s
+
+=================================
+
+CREATE TABLE stock ( bookname STR20 , press STR20 , price INT , quantity INT ) 
+Disk IOs: 0
+Execution Time: 2e-05 s
+
+=================================
+
+
+Disk IOs: 0
+Execution Time: 3e-06 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "ASMNUVK U KM SMXH YO" , "U" , 24 , 259 ) 
+Disk IOs: 1
+Execution Time: 0.074067 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "ASMNUVK U KM SMXH YO" , "L" , 36 , 220 ) 
+Disk IOs: 2
+Execution Time: 0.148092 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "INLM CRMHEKFALKL A" , "Q" , 30 , 151 ) 
+Disk IOs: 2
+Execution Time: 0.148107 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "INLM CRMHEKFALKL A" , "A" , 25 , 416 ) 
+Disk IOs: 2
+Execution Time: 0.148096 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "INLM CRMHEKFALKL A" , "L" , 38 , 125 ) 
+Disk IOs: 2
+Execution Time: 0.148068 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "INLM CRMHEKFALKL A" , "G" , 47 , 101 ) 
+Disk IOs: 2
+Execution Time: 0.148117 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "TEOQIZ IYKJRYZ MH UWSEITMMER" , "M" , 47 , 369 ) 
+Disk IOs: 2
+Execution Time: 0.148101 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "TEOQIZ IYKJRYZ MH UWSEITMMER" , "B" , 46 , 487 ) 
+Disk IOs: 2
+Execution Time: 0.148086 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "TEOQIZ IYKJRYZ MH UWSEITMMER" , "Y" , 47 , 328 ) 
+Disk IOs: 2
+Execution Time: 0.148088 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "TEOQIZ IYKJRYZ MH UWSEITMMER" , "P" , 32 , 425 ) 
+Disk IOs: 2
+Execution Time: 0.148094 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ" , "C" , 48 , 212 ) 
+Disk IOs: 2
+Execution Time: 0.148084 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ" , "Z" , 36 , 196 ) 
+Disk IOs: 2
+Execution Time: 0.148106 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ" , "U" , 47 , 358 ) 
+Disk IOs: 2
+Execution Time: 0.148102 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL " , "K" , 36 , 216 ) 
+Disk IOs: 2
+Execution Time: 0.148099 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL " , "Y" , 26 , 112 ) 
+Disk IOs: 2
+Execution Time: 0.148129 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL " , "G" , 25 , 159 ) 
+Disk IOs: 2
+Execution Time: 0.148099 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RMTYJM UYQ VKEYNOYP VL CP " , "K" , 33 , 479 ) 
+Disk IOs: 2
+Execution Time: 0.148111 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RMTYJM UYQ VKEYNOYP VL CP " , "B" , 40 , 451 ) 
+Disk IOs: 2
+Execution Time: 0.148105 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RMTYJM UYQ VKEYNOYP VL CP " , "Q" , 26 , 138 ) 
+Disk IOs: 2
+Execution Time: 0.148115 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RMTYJM UYQ VKEYNOYP VL CP " , "E" , 22 , 308 ) 
+Disk IOs: 2
+Execution Time: 0.14809 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA" , "X" , 36 , 496 ) 
+Disk IOs: 2
+Execution Time: 0.148097 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA" , "U" , 31 , 428 ) 
+Disk IOs: 2
+Execution Time: 0.148098 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA" , "Y" , 32 , 457 ) 
+Disk IOs: 2
+Execution Time: 0.148101 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ" , "B" , 30 , 183 ) 
+Disk IOs: 2
+Execution Time: 0.148095 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ" , "I" , 48 , 428 ) 
+Disk IOs: 2
+Execution Time: 0.148095 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ" , "E" , 38 , 167 ) 
+Disk IOs: 2
+Execution Time: 0.148099 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "SCRBR OYWGVOT EBIRTTYPK PK BE" , "U" , 44 , 251 ) 
+Disk IOs: 2
+Execution Time: 0.14809 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "SCRBR OYWGVOT EBIRTTYPK PK BE" , "S" , 37 , 303 ) 
+Disk IOs: 2
+Execution Time: 0.148099 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "BGKIXOC KDAJI " , "C" , 44 , 325 ) 
+Disk IOs: 2
+Execution Time: 0.148068 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "BGKIXOC KDAJI " , "A" , 36 , 302 ) 
+Disk IOs: 2
+Execution Time: 0.148081 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "BGKIXOC KDAJI " , "G" , 42 , 432 ) 
+Disk IOs: 2
+Execution Time: 0.148099 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "INRHSZY NHEYVXO DCM UXVML" , "F" , 45 , 268 ) 
+Disk IOs: 2
+Execution Time: 0.148087 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "INRHSZY NHEYVXO DCM UXVML" , "Z" , 25 , 397 ) 
+Disk IOs: 2
+Execution Time: 0.148084 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "INRHSZY NHEYVXO DCM UXVML" , "B" , 45 , 122 ) 
+Disk IOs: 2
+Execution Time: 0.148085 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "INRHSZY NHEYVXO DCM UXVML" , "E" , 23 , 485 ) 
+Disk IOs: 2
+Execution Time: 0.148097 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS" , "S" , 22 , 290 ) 
+Disk IOs: 2
+Execution Time: 0.148105 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS" , "Y" , 44 , 218 ) 
+Disk IOs: 2
+Execution Time: 0.148113 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS" , "W" , 47 , 268 ) 
+Disk IOs: 2
+Execution Time: 0.148119 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS" , "V" , 24 , 448 ) 
+Disk IOs: 2
+Execution Time: 0.148123 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW" , "B" , 20 , 143 ) 
+Disk IOs: 2
+Execution Time: 0.148113 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW" , "L" , 49 , 473 ) 
+Disk IOs: 2
+Execution Time: 0.148111 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GPVHGO HCMC WABD JCXVZJ" , "N" , 40 , 359 ) 
+Disk IOs: 2
+Execution Time: 0.148107 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GPVHGO HCMC WABD JCXVZJ" , "B" , 41 , 219 ) 
+Disk IOs: 2
+Execution Time: 0.148091 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GPVHGO HCMC WABD JCXVZJ" , "F" , 48 , 285 ) 
+Disk IOs: 2
+Execution Time: 0.148113 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "OQRAQKG HECJKH WJMHBZNKM" , "F" , 39 , 183 ) 
+Disk IOs: 2
+Execution Time: 0.148116 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "OQRAQKG HECJKH WJMHBZNKM" , "U" , 23 , 391 ) 
+Disk IOs: 2
+Execution Time: 0.148107 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "OQRAQKG HECJKH WJMHBZNKM" , "K" , 48 , 285 ) 
+Disk IOs: 2
+Execution Time: 0.148096 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "OQRAQKG HECJKH WJMHBZNKM" , "M" , 34 , 359 ) 
+Disk IOs: 2
+Execution Time: 0.148108 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RLPJS FCXIZT LQXTFTWR CTM UFYCX" , "M" , 36 , 128 ) 
+Disk IOs: 2
+Execution Time: 0.148101 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RLPJS FCXIZT LQXTFTWR CTM UFYCX" , "Z" , 39 , 275 ) 
+Disk IOs: 2
+Execution Time: 0.148092 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RLPJS FCXIZT LQXTFTWR CTM UFYCX" , "E" , 32 , 330 ) 
+Disk IOs: 2
+Execution Time: 0.148103 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RLPJS FCXIZT LQXTFTWR CTM UFYCX" , "N" , 24 , 364 ) 
+Disk IOs: 2
+Execution Time: 0.148084 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "UEFPKV WQSJB" , "M" , 40 , 445 ) 
+Disk IOs: 2
+Execution Time: 0.1481 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "UEFPKV WQSJB" , "A" , 22 , 303 ) 
+Disk IOs: 2
+Execution Time: 0.14811 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "UEFPKV WQSJB" , "W" , 27 , 479 ) 
+Disk IOs: 2
+Execution Time: 0.148101 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GJTPLVW AELIPGUJ MESDOJUOHVK" , "X" , 47 , 258 ) 
+Disk IOs: 2
+Execution Time: 0.14809 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GJTPLVW AELIPGUJ MESDOJUOHVK" , "U" , 38 , 335 ) 
+Disk IOs: 2
+Execution Time: 0.14809 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GJTPLVW AELIPGUJ MESDOJUOHVK" , "Q" , 43 , 337 ) 
+Disk IOs: 2
+Execution Time: 0.148104 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "DOCNOSYR CPILABM VFFRBCC" , "G" , 34 , 364 ) 
+Disk IOs: 2
+Execution Time: 0.148093 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "DOCNOSYR CPILABM VFFRBCC" , "J" , 25 , 248 ) 
+Disk IOs: 2
+Execution Time: 0.148099 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "TPIG FJMV HCBAPB PS" , "T" , 30 , 272 ) 
+Disk IOs: 2
+Execution Time: 0.148093 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "TPIG FJMV HCBAPB PS" , "D" , 25 , 239 ) 
+Disk IOs: 2
+Execution Time: 0.148094 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "TPIG FJMV HCBAPB PS" , "Y" , 49 , 311 ) 
+Disk IOs: 2
+Execution Time: 0.148089 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "TPIG FJMV HCBAPB PS" , "P" , 47 , 231 ) 
+Disk IOs: 2
+Execution Time: 0.148085 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "FVQSTK PLGNSNXU R JD" , "B" , 39 , 255 ) 
+Disk IOs: 2
+Execution Time: 0.148098 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "FVQSTK PLGNSNXU R JD" , "A" , 39 , 465 ) 
+Disk IOs: 2
+Execution Time: 0.14807 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ" , "G" , 41 , 323 ) 
+Disk IOs: 2
+Execution Time: 0.148074 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ" , "Z" , 21 , 225 ) 
+Disk IOs: 2
+Execution Time: 0.148097 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ" , "M" , 34 , 337 ) 
+Disk IOs: 2
+Execution Time: 0.148083 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "FJEZQAA VLA C" , "I" , 33 , 367 ) 
+Disk IOs: 2
+Execution Time: 0.148065 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "FJEZQAA VLA C" , "B" , 35 , 377 ) 
+Disk IOs: 2
+Execution Time: 0.148084 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "FJEZQAA VLA C" , "Y" , 37 , 360 ) 
+Disk IOs: 2
+Execution Time: 0.148088 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "FJEZQAA VLA C" , "N" , 32 , 424 ) 
+Disk IOs: 2
+Execution Time: 0.148072 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "HVFQRGBX ZADC " , "S" , 36 , 181 ) 
+Disk IOs: 2
+Execution Time: 0.148081 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "HVFQRGBX ZADC " , "R" , 25 , 118 ) 
+Disk IOs: 2
+Execution Time: 0.148098 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "HVFQRGBX ZADC " , "L" , 23 , 101 ) 
+Disk IOs: 2
+Execution Time: 0.148115 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "HVFQRGBX ZADC " , "C" , 25 , 271 ) 
+Disk IOs: 2
+Execution Time: 0.148089 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RLXX TQOFP VPBXQM SHDKFS" , "K" , 29 , 114 ) 
+Disk IOs: 2
+Execution Time: 0.148093 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RLXX TQOFP VPBXQM SHDKFS" , "U" , 35 , 149 ) 
+Disk IOs: 2
+Execution Time: 0.148094 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RLXX TQOFP VPBXQM SHDKFS" , "M" , 22 , 328 ) 
+Disk IOs: 2
+Execution Time: 0.148107 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "OCVZUO SHYOAAQ IA" , "J" , 46 , 340 ) 
+Disk IOs: 2
+Execution Time: 0.148107 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "OCVZUO SHYOAAQ IA" , "Q" , 20 , 223 ) 
+Disk IOs: 2
+Execution Time: 0.148097 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "OCVZUO SHYOAAQ IA" , "S" , 27 , 362 ) 
+Disk IOs: 2
+Execution Time: 0.14811 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW" , "N" , 24 , 227 ) 
+Disk IOs: 2
+Execution Time: 0.148102 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW" , "K" , 43 , 151 ) 
+Disk IOs: 2
+Execution Time: 0.148104 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW" , "L" , 31 , 301 ) 
+Disk IOs: 2
+Execution Time: 0.148107 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW" , "X" , 38 , 217 ) 
+Disk IOs: 2
+Execution Time: 0.148116 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "QNYGOGWN WURKEON OGGX" , "M" , 37 , 324 ) 
+Disk IOs: 2
+Execution Time: 0.148093 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "QNYGOGWN WURKEON OGGX" , "Z" , 39 , 288 ) 
+Disk IOs: 2
+Execution Time: 0.148101 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "QNYGOGWN WURKEON OGGX" , "J" , 40 , 270 ) 
+Disk IOs: 2
+Execution Time: 0.148087 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "JTXMCV CCPRO TTJH OPSL CGVU " , "W" , 29 , 148 ) 
+Disk IOs: 2
+Execution Time: 0.148087 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "JTXMCV CCPRO TTJH OPSL CGVU " , "T" , 29 , 395 ) 
+Disk IOs: 2
+Execution Time: 0.148093 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "AHJGHGYC UG X RJ OCVWGII" , "P" , 29 , 236 ) 
+Disk IOs: 2
+Execution Time: 0.148101 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "AHJGHGYC UG X RJ OCVWGII" , "R" , 21 , 499 ) 
+Disk IOs: 2
+Execution Time: 0.148097 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "AHJGHGYC UG X RJ OCVWGII" , "B" , 28 , 488 ) 
+Disk IOs: 2
+Execution Time: 0.148108 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN" , "R" , 41 , 375 ) 
+Disk IOs: 2
+Execution Time: 0.148103 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN" , "F" , 39 , 110 ) 
+Disk IOs: 2
+Execution Time: 0.148078 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN" , "B" , 41 , 472 ) 
+Disk IOs: 2
+Execution Time: 0.14809 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "SRAMWUPW SADMYPE INTYALPI WCIMAV IZD" , "G" , 21 , 188 ) 
+Disk IOs: 2
+Execution Time: 0.148074 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "SRAMWUPW SADMYPE INTYALPI WCIMAV IZD" , "X" , 21 , 277 ) 
+Disk IOs: 2
+Execution Time: 0.148083 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "SRAMWUPW SADMYPE INTYALPI WCIMAV IZD" , "H" , 38 , 410 ) 
+Disk IOs: 2
+Execution Time: 0.1481 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "SRAMWUPW SADMYPE INTYALPI WCIMAV IZD" , "U" , 42 , 492 ) 
+Disk IOs: 2
+Execution Time: 0.148067 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "JKDUANA RH XCOF NXTCSCSO ZTS" , "L" , 20 , 431 ) 
+Disk IOs: 2
+Execution Time: 0.148071 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "JKDUANA RH XCOF NXTCSCSO ZTS" , "F" , 46 , 314 ) 
+Disk IOs: 2
+Execution Time: 0.148092 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF" , "R" , 33 , 298 ) 
+Disk IOs: 2
+Execution Time: 0.148099 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF" , "L" , 35 , 344 ) 
+Disk IOs: 2
+Execution Time: 0.148112 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF" , "F" , 24 , 175 ) 
+Disk IOs: 2
+Execution Time: 0.148119 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF" , "X" , 45 , 224 ) 
+Disk IOs: 2
+Execution Time: 0.148096 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GKRTOIZ YN B TZV EG DNWDASO XBUSR W" , "I" , 36 , 168 ) 
+Disk IOs: 2
+Execution Time: 0.148094 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GKRTOIZ YN B TZV EG DNWDASO XBUSR W" , "J" , 34 , 326 ) 
+Disk IOs: 2
+Execution Time: 0.148091 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GKRTOIZ YN B TZV EG DNWDASO XBUSR W" , "C" , 35 , 389 ) 
+Disk IOs: 2
+Execution Time: 0.148084 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "GKRTOIZ YN B TZV EG DNWDASO XBUSR W" , "L" , 26 , 431 ) 
+Disk IOs: 2
+Execution Time: 0.148078 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "QLBGREW PZOL" , "B" , 43 , 369 ) 
+Disk IOs: 2
+Execution Time: 0.148066 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "QLBGREW PZOL" , "F" , 45 , 137 ) 
+Disk IOs: 2
+Execution Time: 0.148061 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "QLBGREW PZOL" , "V" , 34 , 239 ) 
+Disk IOs: 2
+Execution Time: 0.14807 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU" , "P" , 34 , 365 ) 
+Disk IOs: 2
+Execution Time: 0.148062 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU" , "Y" , 20 , 284 ) 
+Disk IOs: 2
+Execution Time: 0.148079 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU" , "D" , 49 , 286 ) 
+Disk IOs: 2
+Execution Time: 0.148082 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU" , "J" , 46 , 260 ) 
+Disk IOs: 2
+Execution Time: 0.148088 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU" , "M" , 31 , 187 ) 
+Disk IOs: 2
+Execution Time: 0.148067 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU" , "S" , 37 , 474 ) 
+Disk IOs: 2
+Execution Time: 0.148097 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ" , "A" , 27 , 208 ) 
+Disk IOs: 2
+Execution Time: 0.148102 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ" , "V" , 26 , 132 ) 
+Disk IOs: 2
+Execution Time: 0.148092 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ" , "F" , 23 , 398 ) 
+Disk IOs: 2
+Execution Time: 0.148093 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "IURUFQCF RO" , "L" , 39 , 150 ) 
+Disk IOs: 2
+Execution Time: 0.148135 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "IURUFQCF RO" , "T" , 25 , 341 ) 
+Disk IOs: 2
+Execution Time: 0.14811 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "IURUFQCF RO" , "A" , 40 , 143 ) 
+Disk IOs: 2
+Execution Time: 0.148066 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "QVMZJU PJRNPUSR RVB" , "M" , 26 , 458 ) 
+Disk IOs: 2
+Execution Time: 0.14806 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "QVMZJU PJRNPUSR RVB" , "N" , 20 , 364 ) 
+Disk IOs: 2
+Execution Time: 0.148126 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC" , "E" , 29 , 442 ) 
+Disk IOs: 2
+Execution Time: 0.148076 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC" , "G" , 26 , 396 ) 
+Disk IOs: 2
+Execution Time: 0.148061 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "AQFBB FLQPQP BNVRSY IPZBHYNU IJ" , "B" , 47 , 126 ) 
+Disk IOs: 2
+Execution Time: 0.148075 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "AQFBB FLQPQP BNVRSY IPZBHYNU IJ" , "Y" , 23 , 169 ) 
+Disk IOs: 2
+Execution Time: 0.148081 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "AQFBB FLQPQP BNVRSY IPZBHYNU IJ" , "J" , 20 , 154 ) 
+Disk IOs: 2
+Execution Time: 0.148081 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "AQFBB FLQPQP BNVRSY IPZBHYNU IJ" , "A" , 38 , 122 ) 
+Disk IOs: 2
+Execution Time: 0.14807 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI" , "T" , 28 , 102 ) 
+Disk IOs: 2
+Execution Time: 0.148098 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI" , "Y" , 32 , 101 ) 
+Disk IOs: 2
+Execution Time: 0.148117 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC" , "I" , 36 , 212 ) 
+Disk IOs: 2
+Execution Time: 0.148088 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC" , "T" , 37 , 120 ) 
+Disk IOs: 2
+Execution Time: 0.148087 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "MJLUGRU LII SMCXCK" , "V" , 32 , 343 ) 
+Disk IOs: 2
+Execution Time: 0.148063 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "MJLUGRU LII SMCXCK" , "G" , 42 , 230 ) 
+Disk IOs: 2
+Execution Time: 0.148074 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "MJLUGRU LII SMCXCK" , "F" , 33 , 261 ) 
+Disk IOs: 2
+Execution Time: 0.148109 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "MJLUGRU LII SMCXCK" , "J" , 35 , 334 ) 
+Disk IOs: 2
+Execution Time: 0.148092 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "XMUAVPU X VMFKH JXPPYB NH " , "H" , 39 , 434 ) 
+Disk IOs: 2
+Execution Time: 0.14808 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "XMUAVPU X VMFKH JXPPYB NH " , "V" , 27 , 142 ) 
+Disk IOs: 2
+Execution Time: 0.148147 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "XMUAVPU X VMFKH JXPPYB NH " , "E" , 43 , 190 ) 
+Disk IOs: 2
+Execution Time: 0.148094 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "JRBX KKUCC U STFX KSB" , "P" , 46 , 437 ) 
+Disk IOs: 2
+Execution Time: 0.148075 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "JRBX KKUCC U STFX KSB" , "Y" , 46 , 431 ) 
+Disk IOs: 2
+Execution Time: 0.148087 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "JRBX KKUCC U STFX KSB" , "F" , 38 , 310 ) 
+Disk IOs: 2
+Execution Time: 0.1481 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "WPMUALYV OHVMWGW " , "U" , 46 , 376 ) 
+Disk IOs: 2
+Execution Time: 0.148103 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "WPMUALYV OHVMWGW " , "J" , 39 , 472 ) 
+Disk IOs: 2
+Execution Time: 0.148079 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "WPMUALYV OHVMWGW " , "C" , 38 , 383 ) 
+Disk IOs: 2
+Execution Time: 0.148097 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "WZJAMP SPNIRM F QKQGXJHIJV IN" , "L" , 44 , 178 ) 
+Disk IOs: 2
+Execution Time: 0.148087 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "WZJAMP SPNIRM F QKQGXJHIJV IN" , "R" , 48 , 472 ) 
+Disk IOs: 2
+Execution Time: 0.148081 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "SAWDS VBPC BGSDP " , "T" , 42 , 188 ) 
+Disk IOs: 2
+Execution Time: 0.148093 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "SAWDS VBPC BGSDP " , "S" , 32 , 220 ) 
+Disk IOs: 2
+Execution Time: 0.148105 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "FVSFRS TJMJMXC RIAFECZVZE" , "G" , 45 , 228 ) 
+Disk IOs: 2
+Execution Time: 0.148083 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "FVSFRS TJMJMXC RIAFECZVZE" , "N" , 29 , 473 ) 
+Disk IOs: 2
+Execution Time: 0.148081 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "FVSFRS TJMJMXC RIAFECZVZE" , "H" , 21 , 314 ) 
+Disk IOs: 2
+Execution Time: 0.148107 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "FVSFRS TJMJMXC RIAFECZVZE" , "V" , 39 , 485 ) 
+Disk IOs: 2
+Execution Time: 0.14807 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "HJDMETD VXZFTCV MCXQO HTVIQOV" , "T" , 44 , 202 ) 
+Disk IOs: 2
+Execution Time: 0.148089 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "HJDMETD VXZFTCV MCXQO HTVIQOV" , "E" , 21 , 467 ) 
+Disk IOs: 2
+Execution Time: 0.148113 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "HJDMETD VXZFTCV MCXQO HTVIQOV" , "O" , 36 , 160 ) 
+Disk IOs: 2
+Execution Time: 0.148084 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RQCJSRJ XCBVVZ KWNMDZ XSD" , "F" , 31 , 106 ) 
+Disk IOs: 2
+Execution Time: 0.148089 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RQCJSRJ XCBVVZ KWNMDZ XSD" , "X" , 34 , 149 ) 
+Disk IOs: 2
+Execution Time: 0.148094 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RQCJSRJ XCBVVZ KWNMDZ XSD" , "T" , 36 , 180 ) 
+Disk IOs: 2
+Execution Time: 0.148099 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RQCJSRJ XCBVVZ KWNMDZ XSD" , "Q" , 38 , 164 ) 
+Disk IOs: 2
+Execution Time: 0.148083 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "JVTMZVWU P VTUSI MIYUZ WRNYTOF" , "J" , 38 , 433 ) 
+Disk IOs: 2
+Execution Time: 0.14808 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "JVTMZVWU P VTUSI MIYUZ WRNYTOF" , "G" , 29 , 392 ) 
+Disk IOs: 2
+Execution Time: 0.148105 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "JVTMZVWU P VTUSI MIYUZ WRNYTOF" , "V" , 33 , 193 ) 
+Disk IOs: 2
+Execution Time: 0.148111 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "SRYDCI OKME HI XEM GRKUIPFRSBIF " , "C" , 44 , 445 ) 
+Disk IOs: 2
+Execution Time: 0.148105 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "SRYDCI OKME HI XEM GRKUIPFRSBIF " , "B" , 33 , 401 ) 
+Disk IOs: 2
+Execution Time: 0.148107 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "HYXLM DZOTGNK P L PVYFKY" , "Q" , 23 , 405 ) 
+Disk IOs: 2
+Execution Time: 0.148098 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "HYXLM DZOTGNK P L PVYFKY" , "Y" , 22 , 291 ) 
+Disk IOs: 2
+Execution Time: 0.148097 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN" , "L" , 33 , 152 ) 
+Disk IOs: 2
+Execution Time: 0.148103 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN" , "S" , 32 , 143 ) 
+Disk IOs: 2
+Execution Time: 0.148108 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ " , "S" , 21 , 473 ) 
+Disk IOs: 2
+Execution Time: 0.148109 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ " , "M" , 35 , 375 ) 
+Disk IOs: 2
+Execution Time: 0.148083 s
+
+=================================
+
+INSERT INTO stock ( bookname , press , price , quantity ) VALUES ( "RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ " , "Y" , 20 , 141 ) 
+Disk IOs: 2
+Execution Time: 0.148096 s
+
+=================================
+
+
+Disk IOs: 0
+Execution Time: 6e-06 s
+
+=================================
+
+
+Disk IOs: 0
+Execution Time: 3e-06 s
+
+=================================
+
+
+Disk IOs: 0
+Execution Time: 3e-06 s
+
+=================================
+
+SELECT * FROM stock WHERE price > 40 
+-----------------
+stock.bookname stock.press stock.price stock.quantity 
+-----------------
+INLM CRMHEKFALKL A	G	47	101	
+TEOQIZ IYKJRYZ MH UWSEITMMER	M	47	369	
+TEOQIZ IYKJRYZ MH UWSEITMMER	B	46	487	
+TEOQIZ IYKJRYZ MH UWSEITMMER	Y	47	328	
+OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	C	48	212	
+OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	U	47	358	
+JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	I	48	428	
+SCRBR OYWGVOT EBIRTTYPK PK BE	U	44	251	
+BGKIXOC KDAJI 	C	44	325	
+BGKIXOC KDAJI 	G	42	432	
+INRHSZY NHEYVXO DCM UXVML	F	45	268	
+INRHSZY NHEYVXO DCM UXVML	B	45	122	
+BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	Y	44	218	
+BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	W	47	268	
+CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	L	49	473	
+GPVHGO HCMC WABD JCXVZJ	B	41	219	
+GPVHGO HCMC WABD JCXVZJ	F	48	285	
+OQRAQKG HECJKH WJMHBZNKM	K	48	285	
+GJTPLVW AELIPGUJ MESDOJUOHVK	X	47	258	
+GJTPLVW AELIPGUJ MESDOJUOHVK	Q	43	337	
+TPIG FJMV HCBAPB PS	Y	49	311	
+TPIG FJMV HCBAPB PS	P	47	231	
+GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	G	41	323	
+OCVZUO SHYOAAQ IA	J	46	340	
+OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	K	43	151	
+DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	R	41	375	
+DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	B	41	472	
+SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	U	42	492	
+JKDUANA RH XCOF NXTCSCSO ZTS	F	46	314	
+GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	X	45	224	
+QLBGREW PZOL	B	43	369	
+QLBGREW PZOL	F	45	137	
+WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	D	49	286	
+DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	J	46	260	
+AQFBB FLQPQP BNVRSY IPZBHYNU IJ	B	47	126	
+MJLUGRU LII SMCXCK	G	42	230	
+XMUAVPU X VMFKH JXPPYB NH 	E	43	190	
+JRBX KKUCC U STFX KSB	P	46	437	
+JRBX KKUCC U STFX KSB	Y	46	431	
+WPMUALYV OHVMWGW 	U	46	376	
+WZJAMP SPNIRM F QKQGXJHIJV IN	L	44	178	
+WZJAMP SPNIRM F QKQGXJHIJV IN	R	48	472	
+SAWDS VBPC BGSDP 	T	42	188	
+FVSFRS TJMJMXC RIAFECZVZE	G	45	228	
+HJDMETD VXZFTCV MCXQO HTVIQOV	T	44	202	
+SRYDCI OKME HI XEM GRKUIPFRSBIF 	C	44	445	
+-----------------
+Disk IOs: 90
+Execution Time: 6.66323 s
+
+=================================
+
+SELECT stock.bookname , stock.quantity FROM stock WHERE price < 40 
+-----------------
+stock.bookname stock.quantity 
+-----------------
+ASMNUVK U KM SMXH YO	259	
+ASMNUVK U KM SMXH YO	220	
+INLM CRMHEKFALKL A	151	
+INLM CRMHEKFALKL A	416	
+INLM CRMHEKFALKL A	125	
+TEOQIZ IYKJRYZ MH UWSEITMMER	425	
+OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	196	
+ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	216	
+ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	112	
+ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	159	
+RMTYJM UYQ VKEYNOYP VL CP 	479	
+RMTYJM UYQ VKEYNOYP VL CP 	138	
+RMTYJM UYQ VKEYNOYP VL CP 	308	
+TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	496	
+TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	428	
+TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	457	
+JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	183	
+JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	167	
+SCRBR OYWGVOT EBIRTTYPK PK BE	303	
+BGKIXOC KDAJI 	302	
+INRHSZY NHEYVXO DCM UXVML	397	
+INRHSZY NHEYVXO DCM UXVML	485	
+BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	290	
+BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	448	
+CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	143	
+OQRAQKG HECJKH WJMHBZNKM	183	
+OQRAQKG HECJKH WJMHBZNKM	391	
+OQRAQKG HECJKH WJMHBZNKM	359	
+RLPJS FCXIZT LQXTFTWR CTM UFYCX	128	
+RLPJS FCXIZT LQXTFTWR CTM UFYCX	275	
+RLPJS FCXIZT LQXTFTWR CTM UFYCX	330	
+RLPJS FCXIZT LQXTFTWR CTM UFYCX	364	
+UEFPKV WQSJB	303	
+UEFPKV WQSJB	479	
+GJTPLVW AELIPGUJ MESDOJUOHVK	335	
+DOCNOSYR CPILABM VFFRBCC	364	
+DOCNOSYR CPILABM VFFRBCC	248	
+TPIG FJMV HCBAPB PS	272	
+TPIG FJMV HCBAPB PS	239	
+FVQSTK PLGNSNXU R JD	255	
+FVQSTK PLGNSNXU R JD	465	
+GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	225	
+GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	337	
+FJEZQAA VLA C	367	
+FJEZQAA VLA C	377	
+FJEZQAA VLA C	360	
+FJEZQAA VLA C	424	
+HVFQRGBX ZADC 	181	
+HVFQRGBX ZADC 	118	
+HVFQRGBX ZADC 	101	
+HVFQRGBX ZADC 	271	
+RLXX TQOFP VPBXQM SHDKFS	114	
+RLXX TQOFP VPBXQM SHDKFS	149	
+RLXX TQOFP VPBXQM SHDKFS	328	
+OCVZUO SHYOAAQ IA	223	
+OCVZUO SHYOAAQ IA	362	
+OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	227	
+OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	301	
+OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	217	
+QNYGOGWN WURKEON OGGX	324	
+QNYGOGWN WURKEON OGGX	288	
+JTXMCV CCPRO TTJH OPSL CGVU 	148	
+JTXMCV CCPRO TTJH OPSL CGVU 	395	
+AHJGHGYC UG X RJ OCVWGII	236	
+AHJGHGYC UG X RJ OCVWGII	499	
+AHJGHGYC UG X RJ OCVWGII	488	
+DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	110	
+SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	188	
+SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	277	
+SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	410	
+JKDUANA RH XCOF NXTCSCSO ZTS	431	
+GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	298	
+GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	344	
+GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	175	
+GKRTOIZ YN B TZV EG DNWDASO XBUSR W	168	
+GKRTOIZ YN B TZV EG DNWDASO XBUSR W	326	
+GKRTOIZ YN B TZV EG DNWDASO XBUSR W	389	
+GKRTOIZ YN B TZV EG DNWDASO XBUSR W	431	
+QLBGREW PZOL	239	
+WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	365	
+WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	284	
+DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	187	
+DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	474	
+XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	208	
+XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	132	
+XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	398	
+IURUFQCF RO	150	
+IURUFQCF RO	341	
+QVMZJU PJRNPUSR RVB	458	
+QVMZJU PJRNPUSR RVB	364	
+YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	442	
+YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	396	
+AQFBB FLQPQP BNVRSY IPZBHYNU IJ	169	
+AQFBB FLQPQP BNVRSY IPZBHYNU IJ	154	
+AQFBB FLQPQP BNVRSY IPZBHYNU IJ	122	
+ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	102	
+ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	101	
+XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	212	
+XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	120	
+MJLUGRU LII SMCXCK	343	
+MJLUGRU LII SMCXCK	261	
+MJLUGRU LII SMCXCK	334	
+XMUAVPU X VMFKH JXPPYB NH 	434	
+XMUAVPU X VMFKH JXPPYB NH 	142	
+JRBX KKUCC U STFX KSB	310	
+WPMUALYV OHVMWGW 	472	
+WPMUALYV OHVMWGW 	383	
+SAWDS VBPC BGSDP 	220	
+FVSFRS TJMJMXC RIAFECZVZE	473	
+FVSFRS TJMJMXC RIAFECZVZE	314	
+FVSFRS TJMJMXC RIAFECZVZE	485	
+HJDMETD VXZFTCV MCXQO HTVIQOV	467	
+HJDMETD VXZFTCV MCXQO HTVIQOV	160	
+RQCJSRJ XCBVVZ KWNMDZ XSD	106	
+RQCJSRJ XCBVVZ KWNMDZ XSD	149	
+RQCJSRJ XCBVVZ KWNMDZ XSD	180	
+RQCJSRJ XCBVVZ KWNMDZ XSD	164	
+JVTMZVWU P VTUSI MIYUZ WRNYTOF	433	
+JVTMZVWU P VTUSI MIYUZ WRNYTOF	392	
+JVTMZVWU P VTUSI MIYUZ WRNYTOF	193	
+SRYDCI OKME HI XEM GRKUIPFRSBIF 	401	
+HYXLM DZOTGNK P L PVYFKY	405	
+HYXLM DZOTGNK P L PVYFKY	291	
+USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	152	
+USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	143	
+RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	473	
+RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	375	
+RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	141	
+-----------------
+Disk IOs: 90
+Execution Time: 6.66367 s
+
+=================================
+
+
+Disk IOs: 0
+Execution Time: 3e-06 s
+
+=================================
+
+CREATE TABLE press ( press STR20 , location STR20 ) 
+Disk IOs: 0
+Execution Time: 1.6e-05 s
+
+=================================
+
+
+Disk IOs: 0
+Execution Time: 3e-06 s
+
+=================================
+
+
+Disk IOs: 0
+Execution Time: 3e-06 s
+
+=================================
+
+INSERT INTO press ( press , location ) VALUES ( "A" , "AAA" ) 
+Disk IOs: 1
+Execution Time: 0.074055 s
+
+=================================
+
+INSERT INTO press ( press , location ) VALUES ( "B" , "BBB" ) 
+Disk IOs: 2
+Execution Time: 0.148054 s
+
+=================================
+
+INSERT INTO press ( press , location ) VALUES ( "C" , "CCC" ) 
+Disk IOs: 2
+Execution Time: 0.148072 s
+
+=================================
+
+INSERT INTO press ( press , location ) VALUES ( "D" , "DDD" ) 
+Disk IOs: 2
+Execution Time: 0.148118 s
+
+=================================
+
+INSERT INTO press ( press , location ) VALUES ( "E" , "EEE" ) 
+Disk IOs: 2
+Execution Time: 0.148105 s
+
+=================================
+
+INSERT INTO press ( press , location ) VALUES ( "F" , "FFF" ) 
+Disk IOs: 2
+Execution Time: 0.148083 s
+
+=================================
+
+INSERT INTO press ( press , location ) VALUES ( "G" , "GGG" ) 
+Disk IOs: 2
+Execution Time: 0.14808 s
+
+=================================
+
+INSERT INTO press ( press , location ) VALUES ( "H" , "HHH" ) 
+Disk IOs: 2
+Execution Time: 0.148102 s
+
+=================================
+
+INSERT INTO press ( press , location ) VALUES ( "I" , "III" ) 
+Disk IOs: 2
+Execution Time: 0.148103 s
+
+=================================
+
+INSERT INTO press ( press , location ) VALUES ( "J" , "JJJ" ) 
+Disk IOs: 2
+Execution Time: 0.148103 s
+
+=================================
+
+INSERT INTO press ( press , location ) VALUES ( "K" , "KKK" ) 
+Disk IOs: 2
+Execution Time: 0.148105 s
+
+=================================
+
+INSERT INTO press ( press , location ) VALUES ( "L" , "LLL" ) 
+Disk IOs: 2
+Execution Time: 0.148093 s
+
+=================================
+
+INSERT INTO press ( press , location ) VALUES ( "M" , "MMM" ) 
+Disk IOs: 2
+Execution Time: 0.148092 s
+
+=================================
+
+INSERT INTO press ( press , location ) VALUES ( "N" , "NNN" ) 
+Disk IOs: 2
+Execution Time: 0.1481 s
+
+=================================
+
+
+Disk IOs: 0
+Execution Time: 7e-06 s
+
+=================================
+
+
+Disk IOs: 0
+Execution Time: 4e-06 s
+
+=================================
+
+SELECT * FROM stock , press 
+-----------------
+press.press press.location stock.bookname stock.press stock.price stock.quantity 
+-----------------
+A	AAA	ASMNUVK U KM SMXH YO	U	24	259	
+B	BBB	ASMNUVK U KM SMXH YO	U	24	259	
+C	CCC	ASMNUVK U KM SMXH YO	U	24	259	
+D	DDD	ASMNUVK U KM SMXH YO	U	24	259	
+E	EEE	ASMNUVK U KM SMXH YO	U	24	259	
+F	FFF	ASMNUVK U KM SMXH YO	U	24	259	
+G	GGG	ASMNUVK U KM SMXH YO	U	24	259	
+H	HHH	ASMNUVK U KM SMXH YO	U	24	259	
+I	III	ASMNUVK U KM SMXH YO	U	24	259	
+J	JJJ	ASMNUVK U KM SMXH YO	U	24	259	
+K	KKK	ASMNUVK U KM SMXH YO	U	24	259	
+L	LLL	ASMNUVK U KM SMXH YO	U	24	259	
+M	MMM	ASMNUVK U KM SMXH YO	U	24	259	
+N	NNN	ASMNUVK U KM SMXH YO	U	24	259	
+A	AAA	ASMNUVK U KM SMXH YO	L	36	220	
+B	BBB	ASMNUVK U KM SMXH YO	L	36	220	
+C	CCC	ASMNUVK U KM SMXH YO	L	36	220	
+D	DDD	ASMNUVK U KM SMXH YO	L	36	220	
+E	EEE	ASMNUVK U KM SMXH YO	L	36	220	
+F	FFF	ASMNUVK U KM SMXH YO	L	36	220	
+G	GGG	ASMNUVK U KM SMXH YO	L	36	220	
+H	HHH	ASMNUVK U KM SMXH YO	L	36	220	
+I	III	ASMNUVK U KM SMXH YO	L	36	220	
+J	JJJ	ASMNUVK U KM SMXH YO	L	36	220	
+K	KKK	ASMNUVK U KM SMXH YO	L	36	220	
+L	LLL	ASMNUVK U KM SMXH YO	L	36	220	
+M	MMM	ASMNUVK U KM SMXH YO	L	36	220	
+N	NNN	ASMNUVK U KM SMXH YO	L	36	220	
+A	AAA	INLM CRMHEKFALKL A	Q	30	151	
+B	BBB	INLM CRMHEKFALKL A	Q	30	151	
+C	CCC	INLM CRMHEKFALKL A	Q	30	151	
+D	DDD	INLM CRMHEKFALKL A	Q	30	151	
+E	EEE	INLM CRMHEKFALKL A	Q	30	151	
+F	FFF	INLM CRMHEKFALKL A	Q	30	151	
+G	GGG	INLM CRMHEKFALKL A	Q	30	151	
+H	HHH	INLM CRMHEKFALKL A	Q	30	151	
+I	III	INLM CRMHEKFALKL A	Q	30	151	
+J	JJJ	INLM CRMHEKFALKL A	Q	30	151	
+K	KKK	INLM CRMHEKFALKL A	Q	30	151	
+L	LLL	INLM CRMHEKFALKL A	Q	30	151	
+M	MMM	INLM CRMHEKFALKL A	Q	30	151	
+N	NNN	INLM CRMHEKFALKL A	Q	30	151	
+A	AAA	INLM CRMHEKFALKL A	A	25	416	
+B	BBB	INLM CRMHEKFALKL A	A	25	416	
+C	CCC	INLM CRMHEKFALKL A	A	25	416	
+D	DDD	INLM CRMHEKFALKL A	A	25	416	
+E	EEE	INLM CRMHEKFALKL A	A	25	416	
+F	FFF	INLM CRMHEKFALKL A	A	25	416	
+G	GGG	INLM CRMHEKFALKL A	A	25	416	
+H	HHH	INLM CRMHEKFALKL A	A	25	416	
+I	III	INLM CRMHEKFALKL A	A	25	416	
+J	JJJ	INLM CRMHEKFALKL A	A	25	416	
+K	KKK	INLM CRMHEKFALKL A	A	25	416	
+L	LLL	INLM CRMHEKFALKL A	A	25	416	
+M	MMM	INLM CRMHEKFALKL A	A	25	416	
+N	NNN	INLM CRMHEKFALKL A	A	25	416	
+A	AAA	INLM CRMHEKFALKL A	L	38	125	
+B	BBB	INLM CRMHEKFALKL A	L	38	125	
+C	CCC	INLM CRMHEKFALKL A	L	38	125	
+D	DDD	INLM CRMHEKFALKL A	L	38	125	
+E	EEE	INLM CRMHEKFALKL A	L	38	125	
+F	FFF	INLM CRMHEKFALKL A	L	38	125	
+G	GGG	INLM CRMHEKFALKL A	L	38	125	
+H	HHH	INLM CRMHEKFALKL A	L	38	125	
+I	III	INLM CRMHEKFALKL A	L	38	125	
+J	JJJ	INLM CRMHEKFALKL A	L	38	125	
+K	KKK	INLM CRMHEKFALKL A	L	38	125	
+L	LLL	INLM CRMHEKFALKL A	L	38	125	
+M	MMM	INLM CRMHEKFALKL A	L	38	125	
+N	NNN	INLM CRMHEKFALKL A	L	38	125	
+A	AAA	INLM CRMHEKFALKL A	G	47	101	
+B	BBB	INLM CRMHEKFALKL A	G	47	101	
+C	CCC	INLM CRMHEKFALKL A	G	47	101	
+D	DDD	INLM CRMHEKFALKL A	G	47	101	
+E	EEE	INLM CRMHEKFALKL A	G	47	101	
+F	FFF	INLM CRMHEKFALKL A	G	47	101	
+G	GGG	INLM CRMHEKFALKL A	G	47	101	
+H	HHH	INLM CRMHEKFALKL A	G	47	101	
+I	III	INLM CRMHEKFALKL A	G	47	101	
+J	JJJ	INLM CRMHEKFALKL A	G	47	101	
+K	KKK	INLM CRMHEKFALKL A	G	47	101	
+L	LLL	INLM CRMHEKFALKL A	G	47	101	
+M	MMM	INLM CRMHEKFALKL A	G	47	101	
+N	NNN	INLM CRMHEKFALKL A	G	47	101	
+A	AAA	TEOQIZ IYKJRYZ MH UWSEITMMER	M	47	369	
+B	BBB	TEOQIZ IYKJRYZ MH UWSEITMMER	M	47	369	
+C	CCC	TEOQIZ IYKJRYZ MH UWSEITMMER	M	47	369	
+D	DDD	TEOQIZ IYKJRYZ MH UWSEITMMER	M	47	369	
+E	EEE	TEOQIZ IYKJRYZ MH UWSEITMMER	M	47	369	
+F	FFF	TEOQIZ IYKJRYZ MH UWSEITMMER	M	47	369	
+G	GGG	TEOQIZ IYKJRYZ MH UWSEITMMER	M	47	369	
+H	HHH	TEOQIZ IYKJRYZ MH UWSEITMMER	M	47	369	
+I	III	TEOQIZ IYKJRYZ MH UWSEITMMER	M	47	369	
+J	JJJ	TEOQIZ IYKJRYZ MH UWSEITMMER	M	47	369	
+K	KKK	TEOQIZ IYKJRYZ MH UWSEITMMER	M	47	369	
+L	LLL	TEOQIZ IYKJRYZ MH UWSEITMMER	M	47	369	
+M	MMM	TEOQIZ IYKJRYZ MH UWSEITMMER	M	47	369	
+N	NNN	TEOQIZ IYKJRYZ MH UWSEITMMER	M	47	369	
+A	AAA	TEOQIZ IYKJRYZ MH UWSEITMMER	B	46	487	
+B	BBB	TEOQIZ IYKJRYZ MH UWSEITMMER	B	46	487	
+C	CCC	TEOQIZ IYKJRYZ MH UWSEITMMER	B	46	487	
+D	DDD	TEOQIZ IYKJRYZ MH UWSEITMMER	B	46	487	
+E	EEE	TEOQIZ IYKJRYZ MH UWSEITMMER	B	46	487	
+F	FFF	TEOQIZ IYKJRYZ MH UWSEITMMER	B	46	487	
+G	GGG	TEOQIZ IYKJRYZ MH UWSEITMMER	B	46	487	
+H	HHH	TEOQIZ IYKJRYZ MH UWSEITMMER	B	46	487	
+I	III	TEOQIZ IYKJRYZ MH UWSEITMMER	B	46	487	
+J	JJJ	TEOQIZ IYKJRYZ MH UWSEITMMER	B	46	487	
+K	KKK	TEOQIZ IYKJRYZ MH UWSEITMMER	B	46	487	
+L	LLL	TEOQIZ IYKJRYZ MH UWSEITMMER	B	46	487	
+M	MMM	TEOQIZ IYKJRYZ MH UWSEITMMER	B	46	487	
+N	NNN	TEOQIZ IYKJRYZ MH UWSEITMMER	B	46	487	
+A	AAA	TEOQIZ IYKJRYZ MH UWSEITMMER	Y	47	328	
+B	BBB	TEOQIZ IYKJRYZ MH UWSEITMMER	Y	47	328	
+C	CCC	TEOQIZ IYKJRYZ MH UWSEITMMER	Y	47	328	
+D	DDD	TEOQIZ IYKJRYZ MH UWSEITMMER	Y	47	328	
+E	EEE	TEOQIZ IYKJRYZ MH UWSEITMMER	Y	47	328	
+F	FFF	TEOQIZ IYKJRYZ MH UWSEITMMER	Y	47	328	
+G	GGG	TEOQIZ IYKJRYZ MH UWSEITMMER	Y	47	328	
+H	HHH	TEOQIZ IYKJRYZ MH UWSEITMMER	Y	47	328	
+I	III	TEOQIZ IYKJRYZ MH UWSEITMMER	Y	47	328	
+J	JJJ	TEOQIZ IYKJRYZ MH UWSEITMMER	Y	47	328	
+K	KKK	TEOQIZ IYKJRYZ MH UWSEITMMER	Y	47	328	
+L	LLL	TEOQIZ IYKJRYZ MH UWSEITMMER	Y	47	328	
+M	MMM	TEOQIZ IYKJRYZ MH UWSEITMMER	Y	47	328	
+N	NNN	TEOQIZ IYKJRYZ MH UWSEITMMER	Y	47	328	
+A	AAA	TEOQIZ IYKJRYZ MH UWSEITMMER	P	32	425	
+B	BBB	TEOQIZ IYKJRYZ MH UWSEITMMER	P	32	425	
+C	CCC	TEOQIZ IYKJRYZ MH UWSEITMMER	P	32	425	
+D	DDD	TEOQIZ IYKJRYZ MH UWSEITMMER	P	32	425	
+E	EEE	TEOQIZ IYKJRYZ MH UWSEITMMER	P	32	425	
+F	FFF	TEOQIZ IYKJRYZ MH UWSEITMMER	P	32	425	
+G	GGG	TEOQIZ IYKJRYZ MH UWSEITMMER	P	32	425	
+H	HHH	TEOQIZ IYKJRYZ MH UWSEITMMER	P	32	425	
+I	III	TEOQIZ IYKJRYZ MH UWSEITMMER	P	32	425	
+J	JJJ	TEOQIZ IYKJRYZ MH UWSEITMMER	P	32	425	
+K	KKK	TEOQIZ IYKJRYZ MH UWSEITMMER	P	32	425	
+L	LLL	TEOQIZ IYKJRYZ MH UWSEITMMER	P	32	425	
+M	MMM	TEOQIZ IYKJRYZ MH UWSEITMMER	P	32	425	
+N	NNN	TEOQIZ IYKJRYZ MH UWSEITMMER	P	32	425	
+A	AAA	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	C	48	212	
+B	BBB	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	C	48	212	
+C	CCC	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	C	48	212	
+D	DDD	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	C	48	212	
+E	EEE	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	C	48	212	
+F	FFF	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	C	48	212	
+G	GGG	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	C	48	212	
+H	HHH	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	C	48	212	
+I	III	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	C	48	212	
+J	JJJ	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	C	48	212	
+K	KKK	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	C	48	212	
+L	LLL	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	C	48	212	
+M	MMM	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	C	48	212	
+N	NNN	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	C	48	212	
+A	AAA	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	Z	36	196	
+B	BBB	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	Z	36	196	
+C	CCC	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	Z	36	196	
+D	DDD	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	Z	36	196	
+E	EEE	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	Z	36	196	
+F	FFF	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	Z	36	196	
+G	GGG	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	Z	36	196	
+H	HHH	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	Z	36	196	
+I	III	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	Z	36	196	
+J	JJJ	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	Z	36	196	
+K	KKK	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	Z	36	196	
+L	LLL	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	Z	36	196	
+M	MMM	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	Z	36	196	
+N	NNN	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	Z	36	196	
+A	AAA	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	U	47	358	
+B	BBB	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	U	47	358	
+C	CCC	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	U	47	358	
+D	DDD	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	U	47	358	
+E	EEE	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	U	47	358	
+F	FFF	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	U	47	358	
+G	GGG	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	U	47	358	
+H	HHH	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	U	47	358	
+I	III	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	U	47	358	
+J	JJJ	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	U	47	358	
+K	KKK	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	U	47	358	
+L	LLL	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	U	47	358	
+M	MMM	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	U	47	358	
+N	NNN	OODN IHVZQKIKQI ZFAGRCK SUOL CQJJ	U	47	358	
+A	AAA	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	K	36	216	
+B	BBB	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	K	36	216	
+C	CCC	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	K	36	216	
+D	DDD	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	K	36	216	
+E	EEE	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	K	36	216	
+F	FFF	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	K	36	216	
+G	GGG	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	K	36	216	
+H	HHH	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	K	36	216	
+I	III	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	K	36	216	
+J	JJJ	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	K	36	216	
+K	KKK	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	K	36	216	
+L	LLL	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	K	36	216	
+M	MMM	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	K	36	216	
+N	NNN	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	K	36	216	
+A	AAA	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	Y	26	112	
+B	BBB	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	Y	26	112	
+C	CCC	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	Y	26	112	
+D	DDD	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	Y	26	112	
+E	EEE	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	Y	26	112	
+F	FFF	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	Y	26	112	
+G	GGG	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	Y	26	112	
+H	HHH	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	Y	26	112	
+I	III	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	Y	26	112	
+J	JJJ	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	Y	26	112	
+K	KKK	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	Y	26	112	
+L	LLL	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	Y	26	112	
+M	MMM	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	Y	26	112	
+N	NNN	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	Y	26	112	
+A	AAA	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	G	25	159	
+B	BBB	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	G	25	159	
+C	CCC	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	G	25	159	
+D	DDD	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	G	25	159	
+E	EEE	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	G	25	159	
+F	FFF	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	G	25	159	
+G	GGG	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	G	25	159	
+H	HHH	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	G	25	159	
+I	III	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	G	25	159	
+J	JJJ	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	G	25	159	
+K	KKK	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	G	25	159	
+L	LLL	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	G	25	159	
+M	MMM	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	G	25	159	
+N	NNN	ZAXGNA TJH SEGJKQGO SHGMBXBP FJJJYKGC IVL 	G	25	159	
+A	AAA	RMTYJM UYQ VKEYNOYP VL CP 	K	33	479	
+B	BBB	RMTYJM UYQ VKEYNOYP VL CP 	K	33	479	
+C	CCC	RMTYJM UYQ VKEYNOYP VL CP 	K	33	479	
+D	DDD	RMTYJM UYQ VKEYNOYP VL CP 	K	33	479	
+E	EEE	RMTYJM UYQ VKEYNOYP VL CP 	K	33	479	
+F	FFF	RMTYJM UYQ VKEYNOYP VL CP 	K	33	479	
+G	GGG	RMTYJM UYQ VKEYNOYP VL CP 	K	33	479	
+H	HHH	RMTYJM UYQ VKEYNOYP VL CP 	K	33	479	
+I	III	RMTYJM UYQ VKEYNOYP VL CP 	K	33	479	
+J	JJJ	RMTYJM UYQ VKEYNOYP VL CP 	K	33	479	
+K	KKK	RMTYJM UYQ VKEYNOYP VL CP 	K	33	479	
+L	LLL	RMTYJM UYQ VKEYNOYP VL CP 	K	33	479	
+M	MMM	RMTYJM UYQ VKEYNOYP VL CP 	K	33	479	
+N	NNN	RMTYJM UYQ VKEYNOYP VL CP 	K	33	479	
+A	AAA	RMTYJM UYQ VKEYNOYP VL CP 	B	40	451	
+B	BBB	RMTYJM UYQ VKEYNOYP VL CP 	B	40	451	
+C	CCC	RMTYJM UYQ VKEYNOYP VL CP 	B	40	451	
+D	DDD	RMTYJM UYQ VKEYNOYP VL CP 	B	40	451	
+E	EEE	RMTYJM UYQ VKEYNOYP VL CP 	B	40	451	
+F	FFF	RMTYJM UYQ VKEYNOYP VL CP 	B	40	451	
+G	GGG	RMTYJM UYQ VKEYNOYP VL CP 	B	40	451	
+H	HHH	RMTYJM UYQ VKEYNOYP VL CP 	B	40	451	
+I	III	RMTYJM UYQ VKEYNOYP VL CP 	B	40	451	
+J	JJJ	RMTYJM UYQ VKEYNOYP VL CP 	B	40	451	
+K	KKK	RMTYJM UYQ VKEYNOYP VL CP 	B	40	451	
+L	LLL	RMTYJM UYQ VKEYNOYP VL CP 	B	40	451	
+M	MMM	RMTYJM UYQ VKEYNOYP VL CP 	B	40	451	
+N	NNN	RMTYJM UYQ VKEYNOYP VL CP 	B	40	451	
+A	AAA	RMTYJM UYQ VKEYNOYP VL CP 	Q	26	138	
+B	BBB	RMTYJM UYQ VKEYNOYP VL CP 	Q	26	138	
+C	CCC	RMTYJM UYQ VKEYNOYP VL CP 	Q	26	138	
+D	DDD	RMTYJM UYQ VKEYNOYP VL CP 	Q	26	138	
+E	EEE	RMTYJM UYQ VKEYNOYP VL CP 	Q	26	138	
+F	FFF	RMTYJM UYQ VKEYNOYP VL CP 	Q	26	138	
+G	GGG	RMTYJM UYQ VKEYNOYP VL CP 	Q	26	138	
+H	HHH	RMTYJM UYQ VKEYNOYP VL CP 	Q	26	138	
+I	III	RMTYJM UYQ VKEYNOYP VL CP 	Q	26	138	
+J	JJJ	RMTYJM UYQ VKEYNOYP VL CP 	Q	26	138	
+K	KKK	RMTYJM UYQ VKEYNOYP VL CP 	Q	26	138	
+L	LLL	RMTYJM UYQ VKEYNOYP VL CP 	Q	26	138	
+M	MMM	RMTYJM UYQ VKEYNOYP VL CP 	Q	26	138	
+N	NNN	RMTYJM UYQ VKEYNOYP VL CP 	Q	26	138	
+A	AAA	RMTYJM UYQ VKEYNOYP VL CP 	E	22	308	
+B	BBB	RMTYJM UYQ VKEYNOYP VL CP 	E	22	308	
+C	CCC	RMTYJM UYQ VKEYNOYP VL CP 	E	22	308	
+D	DDD	RMTYJM UYQ VKEYNOYP VL CP 	E	22	308	
+E	EEE	RMTYJM UYQ VKEYNOYP VL CP 	E	22	308	
+F	FFF	RMTYJM UYQ VKEYNOYP VL CP 	E	22	308	
+G	GGG	RMTYJM UYQ VKEYNOYP VL CP 	E	22	308	
+H	HHH	RMTYJM UYQ VKEYNOYP VL CP 	E	22	308	
+I	III	RMTYJM UYQ VKEYNOYP VL CP 	E	22	308	
+J	JJJ	RMTYJM UYQ VKEYNOYP VL CP 	E	22	308	
+K	KKK	RMTYJM UYQ VKEYNOYP VL CP 	E	22	308	
+L	LLL	RMTYJM UYQ VKEYNOYP VL CP 	E	22	308	
+M	MMM	RMTYJM UYQ VKEYNOYP VL CP 	E	22	308	
+N	NNN	RMTYJM UYQ VKEYNOYP VL CP 	E	22	308	
+A	AAA	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	X	36	496	
+B	BBB	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	X	36	496	
+C	CCC	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	X	36	496	
+D	DDD	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	X	36	496	
+E	EEE	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	X	36	496	
+F	FFF	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	X	36	496	
+G	GGG	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	X	36	496	
+H	HHH	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	X	36	496	
+I	III	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	X	36	496	
+J	JJJ	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	X	36	496	
+K	KKK	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	X	36	496	
+L	LLL	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	X	36	496	
+M	MMM	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	X	36	496	
+N	NNN	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	X	36	496	
+A	AAA	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	U	31	428	
+B	BBB	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	U	31	428	
+C	CCC	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	U	31	428	
+D	DDD	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	U	31	428	
+E	EEE	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	U	31	428	
+F	FFF	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	U	31	428	
+G	GGG	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	U	31	428	
+H	HHH	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	U	31	428	
+I	III	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	U	31	428	
+J	JJJ	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	U	31	428	
+K	KKK	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	U	31	428	
+L	LLL	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	U	31	428	
+M	MMM	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	U	31	428	
+N	NNN	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	U	31	428	
+A	AAA	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	Y	32	457	
+B	BBB	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	Y	32	457	
+C	CCC	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	Y	32	457	
+D	DDD	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	Y	32	457	
+E	EEE	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	Y	32	457	
+F	FFF	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	Y	32	457	
+G	GGG	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	Y	32	457	
+H	HHH	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	Y	32	457	
+I	III	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	Y	32	457	
+J	JJJ	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	Y	32	457	
+K	KKK	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	Y	32	457	
+L	LLL	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	Y	32	457	
+M	MMM	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	Y	32	457	
+N	NNN	TJXD BNLYH MAZUQZ UFDX TCYVWPDW JB NRA	Y	32	457	
+A	AAA	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	B	30	183	
+B	BBB	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	B	30	183	
+C	CCC	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	B	30	183	
+D	DDD	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	B	30	183	
+E	EEE	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	B	30	183	
+F	FFF	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	B	30	183	
+G	GGG	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	B	30	183	
+H	HHH	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	B	30	183	
+I	III	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	B	30	183	
+J	JJJ	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	B	30	183	
+K	KKK	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	B	30	183	
+L	LLL	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	B	30	183	
+M	MMM	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	B	30	183	
+N	NNN	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	B	30	183	
+A	AAA	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	I	48	428	
+B	BBB	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	I	48	428	
+C	CCC	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	I	48	428	
+D	DDD	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	I	48	428	
+E	EEE	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	I	48	428	
+F	FFF	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	I	48	428	
+G	GGG	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	I	48	428	
+H	HHH	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	I	48	428	
+I	III	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	I	48	428	
+J	JJJ	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	I	48	428	
+K	KKK	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	I	48	428	
+L	LLL	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	I	48	428	
+M	MMM	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	I	48	428	
+N	NNN	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	I	48	428	
+A	AAA	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	E	38	167	
+B	BBB	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	E	38	167	
+C	CCC	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	E	38	167	
+D	DDD	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	E	38	167	
+E	EEE	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	E	38	167	
+F	FFF	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	E	38	167	
+G	GGG	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	E	38	167	
+H	HHH	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	E	38	167	
+I	III	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	E	38	167	
+J	JJJ	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	E	38	167	
+K	KKK	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	E	38	167	
+L	LLL	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	E	38	167	
+M	MMM	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	E	38	167	
+N	NNN	JDOQH LBTMR Y O N O G LQ FE WNWINKMLC CURVZ	E	38	167	
+A	AAA	SCRBR OYWGVOT EBIRTTYPK PK BE	U	44	251	
+B	BBB	SCRBR OYWGVOT EBIRTTYPK PK BE	U	44	251	
+C	CCC	SCRBR OYWGVOT EBIRTTYPK PK BE	U	44	251	
+D	DDD	SCRBR OYWGVOT EBIRTTYPK PK BE	U	44	251	
+E	EEE	SCRBR OYWGVOT EBIRTTYPK PK BE	U	44	251	
+F	FFF	SCRBR OYWGVOT EBIRTTYPK PK BE	U	44	251	
+G	GGG	SCRBR OYWGVOT EBIRTTYPK PK BE	U	44	251	
+H	HHH	SCRBR OYWGVOT EBIRTTYPK PK BE	U	44	251	
+I	III	SCRBR OYWGVOT EBIRTTYPK PK BE	U	44	251	
+J	JJJ	SCRBR OYWGVOT EBIRTTYPK PK BE	U	44	251	
+K	KKK	SCRBR OYWGVOT EBIRTTYPK PK BE	U	44	251	
+L	LLL	SCRBR OYWGVOT EBIRTTYPK PK BE	U	44	251	
+M	MMM	SCRBR OYWGVOT EBIRTTYPK PK BE	U	44	251	
+N	NNN	SCRBR OYWGVOT EBIRTTYPK PK BE	U	44	251	
+A	AAA	SCRBR OYWGVOT EBIRTTYPK PK BE	S	37	303	
+B	BBB	SCRBR OYWGVOT EBIRTTYPK PK BE	S	37	303	
+C	CCC	SCRBR OYWGVOT EBIRTTYPK PK BE	S	37	303	
+D	DDD	SCRBR OYWGVOT EBIRTTYPK PK BE	S	37	303	
+E	EEE	SCRBR OYWGVOT EBIRTTYPK PK BE	S	37	303	
+F	FFF	SCRBR OYWGVOT EBIRTTYPK PK BE	S	37	303	
+G	GGG	SCRBR OYWGVOT EBIRTTYPK PK BE	S	37	303	
+H	HHH	SCRBR OYWGVOT EBIRTTYPK PK BE	S	37	303	
+I	III	SCRBR OYWGVOT EBIRTTYPK PK BE	S	37	303	
+J	JJJ	SCRBR OYWGVOT EBIRTTYPK PK BE	S	37	303	
+K	KKK	SCRBR OYWGVOT EBIRTTYPK PK BE	S	37	303	
+L	LLL	SCRBR OYWGVOT EBIRTTYPK PK BE	S	37	303	
+M	MMM	SCRBR OYWGVOT EBIRTTYPK PK BE	S	37	303	
+N	NNN	SCRBR OYWGVOT EBIRTTYPK PK BE	S	37	303	
+A	AAA	BGKIXOC KDAJI 	C	44	325	
+B	BBB	BGKIXOC KDAJI 	C	44	325	
+C	CCC	BGKIXOC KDAJI 	C	44	325	
+D	DDD	BGKIXOC KDAJI 	C	44	325	
+E	EEE	BGKIXOC KDAJI 	C	44	325	
+F	FFF	BGKIXOC KDAJI 	C	44	325	
+G	GGG	BGKIXOC KDAJI 	C	44	325	
+H	HHH	BGKIXOC KDAJI 	C	44	325	
+I	III	BGKIXOC KDAJI 	C	44	325	
+J	JJJ	BGKIXOC KDAJI 	C	44	325	
+K	KKK	BGKIXOC KDAJI 	C	44	325	
+L	LLL	BGKIXOC KDAJI 	C	44	325	
+M	MMM	BGKIXOC KDAJI 	C	44	325	
+N	NNN	BGKIXOC KDAJI 	C	44	325	
+A	AAA	BGKIXOC KDAJI 	A	36	302	
+B	BBB	BGKIXOC KDAJI 	A	36	302	
+C	CCC	BGKIXOC KDAJI 	A	36	302	
+D	DDD	BGKIXOC KDAJI 	A	36	302	
+E	EEE	BGKIXOC KDAJI 	A	36	302	
+F	FFF	BGKIXOC KDAJI 	A	36	302	
+G	GGG	BGKIXOC KDAJI 	A	36	302	
+H	HHH	BGKIXOC KDAJI 	A	36	302	
+I	III	BGKIXOC KDAJI 	A	36	302	
+J	JJJ	BGKIXOC KDAJI 	A	36	302	
+K	KKK	BGKIXOC KDAJI 	A	36	302	
+L	LLL	BGKIXOC KDAJI 	A	36	302	
+M	MMM	BGKIXOC KDAJI 	A	36	302	
+N	NNN	BGKIXOC KDAJI 	A	36	302	
+A	AAA	BGKIXOC KDAJI 	G	42	432	
+B	BBB	BGKIXOC KDAJI 	G	42	432	
+C	CCC	BGKIXOC KDAJI 	G	42	432	
+D	DDD	BGKIXOC KDAJI 	G	42	432	
+E	EEE	BGKIXOC KDAJI 	G	42	432	
+F	FFF	BGKIXOC KDAJI 	G	42	432	
+G	GGG	BGKIXOC KDAJI 	G	42	432	
+H	HHH	BGKIXOC KDAJI 	G	42	432	
+I	III	BGKIXOC KDAJI 	G	42	432	
+J	JJJ	BGKIXOC KDAJI 	G	42	432	
+K	KKK	BGKIXOC KDAJI 	G	42	432	
+L	LLL	BGKIXOC KDAJI 	G	42	432	
+M	MMM	BGKIXOC KDAJI 	G	42	432	
+N	NNN	BGKIXOC KDAJI 	G	42	432	
+A	AAA	INRHSZY NHEYVXO DCM UXVML	F	45	268	
+B	BBB	INRHSZY NHEYVXO DCM UXVML	F	45	268	
+C	CCC	INRHSZY NHEYVXO DCM UXVML	F	45	268	
+D	DDD	INRHSZY NHEYVXO DCM UXVML	F	45	268	
+E	EEE	INRHSZY NHEYVXO DCM UXVML	F	45	268	
+F	FFF	INRHSZY NHEYVXO DCM UXVML	F	45	268	
+G	GGG	INRHSZY NHEYVXO DCM UXVML	F	45	268	
+H	HHH	INRHSZY NHEYVXO DCM UXVML	F	45	268	
+I	III	INRHSZY NHEYVXO DCM UXVML	F	45	268	
+J	JJJ	INRHSZY NHEYVXO DCM UXVML	F	45	268	
+K	KKK	INRHSZY NHEYVXO DCM UXVML	F	45	268	
+L	LLL	INRHSZY NHEYVXO DCM UXVML	F	45	268	
+M	MMM	INRHSZY NHEYVXO DCM UXVML	F	45	268	
+N	NNN	INRHSZY NHEYVXO DCM UXVML	F	45	268	
+A	AAA	INRHSZY NHEYVXO DCM UXVML	Z	25	397	
+B	BBB	INRHSZY NHEYVXO DCM UXVML	Z	25	397	
+C	CCC	INRHSZY NHEYVXO DCM UXVML	Z	25	397	
+D	DDD	INRHSZY NHEYVXO DCM UXVML	Z	25	397	
+E	EEE	INRHSZY NHEYVXO DCM UXVML	Z	25	397	
+F	FFF	INRHSZY NHEYVXO DCM UXVML	Z	25	397	
+G	GGG	INRHSZY NHEYVXO DCM UXVML	Z	25	397	
+H	HHH	INRHSZY NHEYVXO DCM UXVML	Z	25	397	
+I	III	INRHSZY NHEYVXO DCM UXVML	Z	25	397	
+J	JJJ	INRHSZY NHEYVXO DCM UXVML	Z	25	397	
+K	KKK	INRHSZY NHEYVXO DCM UXVML	Z	25	397	
+L	LLL	INRHSZY NHEYVXO DCM UXVML	Z	25	397	
+M	MMM	INRHSZY NHEYVXO DCM UXVML	Z	25	397	
+N	NNN	INRHSZY NHEYVXO DCM UXVML	Z	25	397	
+A	AAA	INRHSZY NHEYVXO DCM UXVML	B	45	122	
+B	BBB	INRHSZY NHEYVXO DCM UXVML	B	45	122	
+C	CCC	INRHSZY NHEYVXO DCM UXVML	B	45	122	
+D	DDD	INRHSZY NHEYVXO DCM UXVML	B	45	122	
+E	EEE	INRHSZY NHEYVXO DCM UXVML	B	45	122	
+F	FFF	INRHSZY NHEYVXO DCM UXVML	B	45	122	
+G	GGG	INRHSZY NHEYVXO DCM UXVML	B	45	122	
+H	HHH	INRHSZY NHEYVXO DCM UXVML	B	45	122	
+I	III	INRHSZY NHEYVXO DCM UXVML	B	45	122	
+J	JJJ	INRHSZY NHEYVXO DCM UXVML	B	45	122	
+K	KKK	INRHSZY NHEYVXO DCM UXVML	B	45	122	
+L	LLL	INRHSZY NHEYVXO DCM UXVML	B	45	122	
+M	MMM	INRHSZY NHEYVXO DCM UXVML	B	45	122	
+N	NNN	INRHSZY NHEYVXO DCM UXVML	B	45	122	
+A	AAA	INRHSZY NHEYVXO DCM UXVML	E	23	485	
+B	BBB	INRHSZY NHEYVXO DCM UXVML	E	23	485	
+C	CCC	INRHSZY NHEYVXO DCM UXVML	E	23	485	
+D	DDD	INRHSZY NHEYVXO DCM UXVML	E	23	485	
+E	EEE	INRHSZY NHEYVXO DCM UXVML	E	23	485	
+F	FFF	INRHSZY NHEYVXO DCM UXVML	E	23	485	
+G	GGG	INRHSZY NHEYVXO DCM UXVML	E	23	485	
+H	HHH	INRHSZY NHEYVXO DCM UXVML	E	23	485	
+I	III	INRHSZY NHEYVXO DCM UXVML	E	23	485	
+J	JJJ	INRHSZY NHEYVXO DCM UXVML	E	23	485	
+K	KKK	INRHSZY NHEYVXO DCM UXVML	E	23	485	
+L	LLL	INRHSZY NHEYVXO DCM UXVML	E	23	485	
+M	MMM	INRHSZY NHEYVXO DCM UXVML	E	23	485	
+N	NNN	INRHSZY NHEYVXO DCM UXVML	E	23	485	
+A	AAA	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	S	22	290	
+B	BBB	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	S	22	290	
+C	CCC	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	S	22	290	
+D	DDD	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	S	22	290	
+E	EEE	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	S	22	290	
+F	FFF	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	S	22	290	
+G	GGG	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	S	22	290	
+H	HHH	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	S	22	290	
+I	III	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	S	22	290	
+J	JJJ	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	S	22	290	
+K	KKK	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	S	22	290	
+L	LLL	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	S	22	290	
+M	MMM	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	S	22	290	
+N	NNN	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	S	22	290	
+A	AAA	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	Y	44	218	
+B	BBB	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	Y	44	218	
+C	CCC	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	Y	44	218	
+D	DDD	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	Y	44	218	
+E	EEE	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	Y	44	218	
+F	FFF	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	Y	44	218	
+G	GGG	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	Y	44	218	
+H	HHH	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	Y	44	218	
+I	III	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	Y	44	218	
+J	JJJ	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	Y	44	218	
+K	KKK	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	Y	44	218	
+L	LLL	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	Y	44	218	
+M	MMM	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	Y	44	218	
+N	NNN	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	Y	44	218	
+A	AAA	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	W	47	268	
+B	BBB	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	W	47	268	
+C	CCC	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	W	47	268	
+D	DDD	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	W	47	268	
+E	EEE	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	W	47	268	
+F	FFF	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	W	47	268	
+G	GGG	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	W	47	268	
+H	HHH	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	W	47	268	
+I	III	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	W	47	268	
+J	JJJ	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	W	47	268	
+K	KKK	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	W	47	268	
+L	LLL	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	W	47	268	
+M	MMM	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	W	47	268	
+N	NNN	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	W	47	268	
+A	AAA	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	V	24	448	
+B	BBB	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	V	24	448	
+C	CCC	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	V	24	448	
+D	DDD	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	V	24	448	
+E	EEE	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	V	24	448	
+F	FFF	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	V	24	448	
+G	GGG	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	V	24	448	
+H	HHH	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	V	24	448	
+I	III	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	V	24	448	
+J	JJJ	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	V	24	448	
+K	KKK	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	V	24	448	
+L	LLL	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	V	24	448	
+M	MMM	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	V	24	448	
+N	NNN	BJFEJIH BDT F KIMT NXDAIOBFOO NJ XC VIPA IS	V	24	448	
+A	AAA	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	B	20	143	
+B	BBB	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	B	20	143	
+C	CCC	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	B	20	143	
+D	DDD	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	B	20	143	
+E	EEE	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	B	20	143	
+F	FFF	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	B	20	143	
+G	GGG	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	B	20	143	
+H	HHH	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	B	20	143	
+I	III	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	B	20	143	
+J	JJJ	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	B	20	143	
+K	KKK	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	B	20	143	
+L	LLL	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	B	20	143	
+M	MMM	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	B	20	143	
+N	NNN	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	B	20	143	
+A	AAA	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	L	49	473	
+B	BBB	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	L	49	473	
+C	CCC	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	L	49	473	
+D	DDD	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	L	49	473	
+E	EEE	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	L	49	473	
+F	FFF	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	L	49	473	
+G	GGG	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	L	49	473	
+H	HHH	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	L	49	473	
+I	III	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	L	49	473	
+J	JJJ	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	L	49	473	
+K	KKK	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	L	49	473	
+L	LLL	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	L	49	473	
+M	MMM	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	L	49	473	
+N	NNN	CVLZO RZORWWN BCTIOKT DTZELSLJAF EOZTCMBD YW	L	49	473	
+A	AAA	GPVHGO HCMC WABD JCXVZJ	N	40	359	
+B	BBB	GPVHGO HCMC WABD JCXVZJ	N	40	359	
+C	CCC	GPVHGO HCMC WABD JCXVZJ	N	40	359	
+D	DDD	GPVHGO HCMC WABD JCXVZJ	N	40	359	
+E	EEE	GPVHGO HCMC WABD JCXVZJ	N	40	359	
+F	FFF	GPVHGO HCMC WABD JCXVZJ	N	40	359	
+G	GGG	GPVHGO HCMC WABD JCXVZJ	N	40	359	
+H	HHH	GPVHGO HCMC WABD JCXVZJ	N	40	359	
+I	III	GPVHGO HCMC WABD JCXVZJ	N	40	359	
+J	JJJ	GPVHGO HCMC WABD JCXVZJ	N	40	359	
+K	KKK	GPVHGO HCMC WABD JCXVZJ	N	40	359	
+L	LLL	GPVHGO HCMC WABD JCXVZJ	N	40	359	
+M	MMM	GPVHGO HCMC WABD JCXVZJ	N	40	359	
+N	NNN	GPVHGO HCMC WABD JCXVZJ	N	40	359	
+A	AAA	GPVHGO HCMC WABD JCXVZJ	B	41	219	
+B	BBB	GPVHGO HCMC WABD JCXVZJ	B	41	219	
+C	CCC	GPVHGO HCMC WABD JCXVZJ	B	41	219	
+D	DDD	GPVHGO HCMC WABD JCXVZJ	B	41	219	
+E	EEE	GPVHGO HCMC WABD JCXVZJ	B	41	219	
+F	FFF	GPVHGO HCMC WABD JCXVZJ	B	41	219	
+G	GGG	GPVHGO HCMC WABD JCXVZJ	B	41	219	
+H	HHH	GPVHGO HCMC WABD JCXVZJ	B	41	219	
+I	III	GPVHGO HCMC WABD JCXVZJ	B	41	219	
+J	JJJ	GPVHGO HCMC WABD JCXVZJ	B	41	219	
+K	KKK	GPVHGO HCMC WABD JCXVZJ	B	41	219	
+L	LLL	GPVHGO HCMC WABD JCXVZJ	B	41	219	
+M	MMM	GPVHGO HCMC WABD JCXVZJ	B	41	219	
+N	NNN	GPVHGO HCMC WABD JCXVZJ	B	41	219	
+A	AAA	GPVHGO HCMC WABD JCXVZJ	F	48	285	
+B	BBB	GPVHGO HCMC WABD JCXVZJ	F	48	285	
+C	CCC	GPVHGO HCMC WABD JCXVZJ	F	48	285	
+D	DDD	GPVHGO HCMC WABD JCXVZJ	F	48	285	
+E	EEE	GPVHGO HCMC WABD JCXVZJ	F	48	285	
+F	FFF	GPVHGO HCMC WABD JCXVZJ	F	48	285	
+G	GGG	GPVHGO HCMC WABD JCXVZJ	F	48	285	
+H	HHH	GPVHGO HCMC WABD JCXVZJ	F	48	285	
+I	III	GPVHGO HCMC WABD JCXVZJ	F	48	285	
+J	JJJ	GPVHGO HCMC WABD JCXVZJ	F	48	285	
+K	KKK	GPVHGO HCMC WABD JCXVZJ	F	48	285	
+L	LLL	GPVHGO HCMC WABD JCXVZJ	F	48	285	
+M	MMM	GPVHGO HCMC WABD JCXVZJ	F	48	285	
+N	NNN	GPVHGO HCMC WABD JCXVZJ	F	48	285	
+A	AAA	OQRAQKG HECJKH WJMHBZNKM	F	39	183	
+B	BBB	OQRAQKG HECJKH WJMHBZNKM	F	39	183	
+C	CCC	OQRAQKG HECJKH WJMHBZNKM	F	39	183	
+D	DDD	OQRAQKG HECJKH WJMHBZNKM	F	39	183	
+E	EEE	OQRAQKG HECJKH WJMHBZNKM	F	39	183	
+F	FFF	OQRAQKG HECJKH WJMHBZNKM	F	39	183	
+G	GGG	OQRAQKG HECJKH WJMHBZNKM	F	39	183	
+H	HHH	OQRAQKG HECJKH WJMHBZNKM	F	39	183	
+I	III	OQRAQKG HECJKH WJMHBZNKM	F	39	183	
+J	JJJ	OQRAQKG HECJKH WJMHBZNKM	F	39	183	
+K	KKK	OQRAQKG HECJKH WJMHBZNKM	F	39	183	
+L	LLL	OQRAQKG HECJKH WJMHBZNKM	F	39	183	
+M	MMM	OQRAQKG HECJKH WJMHBZNKM	F	39	183	
+N	NNN	OQRAQKG HECJKH WJMHBZNKM	F	39	183	
+A	AAA	OQRAQKG HECJKH WJMHBZNKM	U	23	391	
+B	BBB	OQRAQKG HECJKH WJMHBZNKM	U	23	391	
+C	CCC	OQRAQKG HECJKH WJMHBZNKM	U	23	391	
+D	DDD	OQRAQKG HECJKH WJMHBZNKM	U	23	391	
+E	EEE	OQRAQKG HECJKH WJMHBZNKM	U	23	391	
+F	FFF	OQRAQKG HECJKH WJMHBZNKM	U	23	391	
+G	GGG	OQRAQKG HECJKH WJMHBZNKM	U	23	391	
+H	HHH	OQRAQKG HECJKH WJMHBZNKM	U	23	391	
+I	III	OQRAQKG HECJKH WJMHBZNKM	U	23	391	
+J	JJJ	OQRAQKG HECJKH WJMHBZNKM	U	23	391	
+K	KKK	OQRAQKG HECJKH WJMHBZNKM	U	23	391	
+L	LLL	OQRAQKG HECJKH WJMHBZNKM	U	23	391	
+M	MMM	OQRAQKG HECJKH WJMHBZNKM	U	23	391	
+N	NNN	OQRAQKG HECJKH WJMHBZNKM	U	23	391	
+A	AAA	OQRAQKG HECJKH WJMHBZNKM	K	48	285	
+B	BBB	OQRAQKG HECJKH WJMHBZNKM	K	48	285	
+C	CCC	OQRAQKG HECJKH WJMHBZNKM	K	48	285	
+D	DDD	OQRAQKG HECJKH WJMHBZNKM	K	48	285	
+E	EEE	OQRAQKG HECJKH WJMHBZNKM	K	48	285	
+F	FFF	OQRAQKG HECJKH WJMHBZNKM	K	48	285	
+G	GGG	OQRAQKG HECJKH WJMHBZNKM	K	48	285	
+H	HHH	OQRAQKG HECJKH WJMHBZNKM	K	48	285	
+I	III	OQRAQKG HECJKH WJMHBZNKM	K	48	285	
+J	JJJ	OQRAQKG HECJKH WJMHBZNKM	K	48	285	
+K	KKK	OQRAQKG HECJKH WJMHBZNKM	K	48	285	
+L	LLL	OQRAQKG HECJKH WJMHBZNKM	K	48	285	
+M	MMM	OQRAQKG HECJKH WJMHBZNKM	K	48	285	
+N	NNN	OQRAQKG HECJKH WJMHBZNKM	K	48	285	
+A	AAA	OQRAQKG HECJKH WJMHBZNKM	M	34	359	
+B	BBB	OQRAQKG HECJKH WJMHBZNKM	M	34	359	
+C	CCC	OQRAQKG HECJKH WJMHBZNKM	M	34	359	
+D	DDD	OQRAQKG HECJKH WJMHBZNKM	M	34	359	
+E	EEE	OQRAQKG HECJKH WJMHBZNKM	M	34	359	
+F	FFF	OQRAQKG HECJKH WJMHBZNKM	M	34	359	
+G	GGG	OQRAQKG HECJKH WJMHBZNKM	M	34	359	
+H	HHH	OQRAQKG HECJKH WJMHBZNKM	M	34	359	
+I	III	OQRAQKG HECJKH WJMHBZNKM	M	34	359	
+J	JJJ	OQRAQKG HECJKH WJMHBZNKM	M	34	359	
+K	KKK	OQRAQKG HECJKH WJMHBZNKM	M	34	359	
+L	LLL	OQRAQKG HECJKH WJMHBZNKM	M	34	359	
+M	MMM	OQRAQKG HECJKH WJMHBZNKM	M	34	359	
+N	NNN	OQRAQKG HECJKH WJMHBZNKM	M	34	359	
+A	AAA	RLPJS FCXIZT LQXTFTWR CTM UFYCX	M	36	128	
+B	BBB	RLPJS FCXIZT LQXTFTWR CTM UFYCX	M	36	128	
+C	CCC	RLPJS FCXIZT LQXTFTWR CTM UFYCX	M	36	128	
+D	DDD	RLPJS FCXIZT LQXTFTWR CTM UFYCX	M	36	128	
+E	EEE	RLPJS FCXIZT LQXTFTWR CTM UFYCX	M	36	128	
+F	FFF	RLPJS FCXIZT LQXTFTWR CTM UFYCX	M	36	128	
+G	GGG	RLPJS FCXIZT LQXTFTWR CTM UFYCX	M	36	128	
+H	HHH	RLPJS FCXIZT LQXTFTWR CTM UFYCX	M	36	128	
+I	III	RLPJS FCXIZT LQXTFTWR CTM UFYCX	M	36	128	
+J	JJJ	RLPJS FCXIZT LQXTFTWR CTM UFYCX	M	36	128	
+K	KKK	RLPJS FCXIZT LQXTFTWR CTM UFYCX	M	36	128	
+L	LLL	RLPJS FCXIZT LQXTFTWR CTM UFYCX	M	36	128	
+M	MMM	RLPJS FCXIZT LQXTFTWR CTM UFYCX	M	36	128	
+N	NNN	RLPJS FCXIZT LQXTFTWR CTM UFYCX	M	36	128	
+A	AAA	RLPJS FCXIZT LQXTFTWR CTM UFYCX	Z	39	275	
+B	BBB	RLPJS FCXIZT LQXTFTWR CTM UFYCX	Z	39	275	
+C	CCC	RLPJS FCXIZT LQXTFTWR CTM UFYCX	Z	39	275	
+D	DDD	RLPJS FCXIZT LQXTFTWR CTM UFYCX	Z	39	275	
+E	EEE	RLPJS FCXIZT LQXTFTWR CTM UFYCX	Z	39	275	
+F	FFF	RLPJS FCXIZT LQXTFTWR CTM UFYCX	Z	39	275	
+G	GGG	RLPJS FCXIZT LQXTFTWR CTM UFYCX	Z	39	275	
+H	HHH	RLPJS FCXIZT LQXTFTWR CTM UFYCX	Z	39	275	
+I	III	RLPJS FCXIZT LQXTFTWR CTM UFYCX	Z	39	275	
+J	JJJ	RLPJS FCXIZT LQXTFTWR CTM UFYCX	Z	39	275	
+K	KKK	RLPJS FCXIZT LQXTFTWR CTM UFYCX	Z	39	275	
+L	LLL	RLPJS FCXIZT LQXTFTWR CTM UFYCX	Z	39	275	
+M	MMM	RLPJS FCXIZT LQXTFTWR CTM UFYCX	Z	39	275	
+N	NNN	RLPJS FCXIZT LQXTFTWR CTM UFYCX	Z	39	275	
+A	AAA	RLPJS FCXIZT LQXTFTWR CTM UFYCX	E	32	330	
+B	BBB	RLPJS FCXIZT LQXTFTWR CTM UFYCX	E	32	330	
+C	CCC	RLPJS FCXIZT LQXTFTWR CTM UFYCX	E	32	330	
+D	DDD	RLPJS FCXIZT LQXTFTWR CTM UFYCX	E	32	330	
+E	EEE	RLPJS FCXIZT LQXTFTWR CTM UFYCX	E	32	330	
+F	FFF	RLPJS FCXIZT LQXTFTWR CTM UFYCX	E	32	330	
+G	GGG	RLPJS FCXIZT LQXTFTWR CTM UFYCX	E	32	330	
+H	HHH	RLPJS FCXIZT LQXTFTWR CTM UFYCX	E	32	330	
+I	III	RLPJS FCXIZT LQXTFTWR CTM UFYCX	E	32	330	
+J	JJJ	RLPJS FCXIZT LQXTFTWR CTM UFYCX	E	32	330	
+K	KKK	RLPJS FCXIZT LQXTFTWR CTM UFYCX	E	32	330	
+L	LLL	RLPJS FCXIZT LQXTFTWR CTM UFYCX	E	32	330	
+M	MMM	RLPJS FCXIZT LQXTFTWR CTM UFYCX	E	32	330	
+N	NNN	RLPJS FCXIZT LQXTFTWR CTM UFYCX	E	32	330	
+A	AAA	RLPJS FCXIZT LQXTFTWR CTM UFYCX	N	24	364	
+B	BBB	RLPJS FCXIZT LQXTFTWR CTM UFYCX	N	24	364	
+C	CCC	RLPJS FCXIZT LQXTFTWR CTM UFYCX	N	24	364	
+D	DDD	RLPJS FCXIZT LQXTFTWR CTM UFYCX	N	24	364	
+E	EEE	RLPJS FCXIZT LQXTFTWR CTM UFYCX	N	24	364	
+F	FFF	RLPJS FCXIZT LQXTFTWR CTM UFYCX	N	24	364	
+G	GGG	RLPJS FCXIZT LQXTFTWR CTM UFYCX	N	24	364	
+H	HHH	RLPJS FCXIZT LQXTFTWR CTM UFYCX	N	24	364	
+I	III	RLPJS FCXIZT LQXTFTWR CTM UFYCX	N	24	364	
+J	JJJ	RLPJS FCXIZT LQXTFTWR CTM UFYCX	N	24	364	
+K	KKK	RLPJS FCXIZT LQXTFTWR CTM UFYCX	N	24	364	
+L	LLL	RLPJS FCXIZT LQXTFTWR CTM UFYCX	N	24	364	
+M	MMM	RLPJS FCXIZT LQXTFTWR CTM UFYCX	N	24	364	
+N	NNN	RLPJS FCXIZT LQXTFTWR CTM UFYCX	N	24	364	
+A	AAA	UEFPKV WQSJB	M	40	445	
+B	BBB	UEFPKV WQSJB	M	40	445	
+C	CCC	UEFPKV WQSJB	M	40	445	
+D	DDD	UEFPKV WQSJB	M	40	445	
+E	EEE	UEFPKV WQSJB	M	40	445	
+F	FFF	UEFPKV WQSJB	M	40	445	
+G	GGG	UEFPKV WQSJB	M	40	445	
+H	HHH	UEFPKV WQSJB	M	40	445	
+I	III	UEFPKV WQSJB	M	40	445	
+J	JJJ	UEFPKV WQSJB	M	40	445	
+K	KKK	UEFPKV WQSJB	M	40	445	
+L	LLL	UEFPKV WQSJB	M	40	445	
+M	MMM	UEFPKV WQSJB	M	40	445	
+N	NNN	UEFPKV WQSJB	M	40	445	
+A	AAA	UEFPKV WQSJB	A	22	303	
+B	BBB	UEFPKV WQSJB	A	22	303	
+C	CCC	UEFPKV WQSJB	A	22	303	
+D	DDD	UEFPKV WQSJB	A	22	303	
+E	EEE	UEFPKV WQSJB	A	22	303	
+F	FFF	UEFPKV WQSJB	A	22	303	
+G	GGG	UEFPKV WQSJB	A	22	303	
+H	HHH	UEFPKV WQSJB	A	22	303	
+I	III	UEFPKV WQSJB	A	22	303	
+J	JJJ	UEFPKV WQSJB	A	22	303	
+K	KKK	UEFPKV WQSJB	A	22	303	
+L	LLL	UEFPKV WQSJB	A	22	303	
+M	MMM	UEFPKV WQSJB	A	22	303	
+N	NNN	UEFPKV WQSJB	A	22	303	
+A	AAA	UEFPKV WQSJB	W	27	479	
+B	BBB	UEFPKV WQSJB	W	27	479	
+C	CCC	UEFPKV WQSJB	W	27	479	
+D	DDD	UEFPKV WQSJB	W	27	479	
+E	EEE	UEFPKV WQSJB	W	27	479	
+F	FFF	UEFPKV WQSJB	W	27	479	
+G	GGG	UEFPKV WQSJB	W	27	479	
+H	HHH	UEFPKV WQSJB	W	27	479	
+I	III	UEFPKV WQSJB	W	27	479	
+J	JJJ	UEFPKV WQSJB	W	27	479	
+K	KKK	UEFPKV WQSJB	W	27	479	
+L	LLL	UEFPKV WQSJB	W	27	479	
+M	MMM	UEFPKV WQSJB	W	27	479	
+N	NNN	UEFPKV WQSJB	W	27	479	
+A	AAA	GJTPLVW AELIPGUJ MESDOJUOHVK	X	47	258	
+B	BBB	GJTPLVW AELIPGUJ MESDOJUOHVK	X	47	258	
+C	CCC	GJTPLVW AELIPGUJ MESDOJUOHVK	X	47	258	
+D	DDD	GJTPLVW AELIPGUJ MESDOJUOHVK	X	47	258	
+E	EEE	GJTPLVW AELIPGUJ MESDOJUOHVK	X	47	258	
+F	FFF	GJTPLVW AELIPGUJ MESDOJUOHVK	X	47	258	
+G	GGG	GJTPLVW AELIPGUJ MESDOJUOHVK	X	47	258	
+H	HHH	GJTPLVW AELIPGUJ MESDOJUOHVK	X	47	258	
+I	III	GJTPLVW AELIPGUJ MESDOJUOHVK	X	47	258	
+J	JJJ	GJTPLVW AELIPGUJ MESDOJUOHVK	X	47	258	
+K	KKK	GJTPLVW AELIPGUJ MESDOJUOHVK	X	47	258	
+L	LLL	GJTPLVW AELIPGUJ MESDOJUOHVK	X	47	258	
+M	MMM	GJTPLVW AELIPGUJ MESDOJUOHVK	X	47	258	
+N	NNN	GJTPLVW AELIPGUJ MESDOJUOHVK	X	47	258	
+A	AAA	GJTPLVW AELIPGUJ MESDOJUOHVK	U	38	335	
+B	BBB	GJTPLVW AELIPGUJ MESDOJUOHVK	U	38	335	
+C	CCC	GJTPLVW AELIPGUJ MESDOJUOHVK	U	38	335	
+D	DDD	GJTPLVW AELIPGUJ MESDOJUOHVK	U	38	335	
+E	EEE	GJTPLVW AELIPGUJ MESDOJUOHVK	U	38	335	
+F	FFF	GJTPLVW AELIPGUJ MESDOJUOHVK	U	38	335	
+G	GGG	GJTPLVW AELIPGUJ MESDOJUOHVK	U	38	335	
+H	HHH	GJTPLVW AELIPGUJ MESDOJUOHVK	U	38	335	
+I	III	GJTPLVW AELIPGUJ MESDOJUOHVK	U	38	335	
+J	JJJ	GJTPLVW AELIPGUJ MESDOJUOHVK	U	38	335	
+K	KKK	GJTPLVW AELIPGUJ MESDOJUOHVK	U	38	335	
+L	LLL	GJTPLVW AELIPGUJ MESDOJUOHVK	U	38	335	
+M	MMM	GJTPLVW AELIPGUJ MESDOJUOHVK	U	38	335	
+N	NNN	GJTPLVW AELIPGUJ MESDOJUOHVK	U	38	335	
+A	AAA	GJTPLVW AELIPGUJ MESDOJUOHVK	Q	43	337	
+B	BBB	GJTPLVW AELIPGUJ MESDOJUOHVK	Q	43	337	
+C	CCC	GJTPLVW AELIPGUJ MESDOJUOHVK	Q	43	337	
+D	DDD	GJTPLVW AELIPGUJ MESDOJUOHVK	Q	43	337	
+E	EEE	GJTPLVW AELIPGUJ MESDOJUOHVK	Q	43	337	
+F	FFF	GJTPLVW AELIPGUJ MESDOJUOHVK	Q	43	337	
+G	GGG	GJTPLVW AELIPGUJ MESDOJUOHVK	Q	43	337	
+H	HHH	GJTPLVW AELIPGUJ MESDOJUOHVK	Q	43	337	
+I	III	GJTPLVW AELIPGUJ MESDOJUOHVK	Q	43	337	
+J	JJJ	GJTPLVW AELIPGUJ MESDOJUOHVK	Q	43	337	
+K	KKK	GJTPLVW AELIPGUJ MESDOJUOHVK	Q	43	337	
+L	LLL	GJTPLVW AELIPGUJ MESDOJUOHVK	Q	43	337	
+M	MMM	GJTPLVW AELIPGUJ MESDOJUOHVK	Q	43	337	
+N	NNN	GJTPLVW AELIPGUJ MESDOJUOHVK	Q	43	337	
+A	AAA	DOCNOSYR CPILABM VFFRBCC	G	34	364	
+B	BBB	DOCNOSYR CPILABM VFFRBCC	G	34	364	
+C	CCC	DOCNOSYR CPILABM VFFRBCC	G	34	364	
+D	DDD	DOCNOSYR CPILABM VFFRBCC	G	34	364	
+E	EEE	DOCNOSYR CPILABM VFFRBCC	G	34	364	
+F	FFF	DOCNOSYR CPILABM VFFRBCC	G	34	364	
+G	GGG	DOCNOSYR CPILABM VFFRBCC	G	34	364	
+H	HHH	DOCNOSYR CPILABM VFFRBCC	G	34	364	
+I	III	DOCNOSYR CPILABM VFFRBCC	G	34	364	
+J	JJJ	DOCNOSYR CPILABM VFFRBCC	G	34	364	
+K	KKK	DOCNOSYR CPILABM VFFRBCC	G	34	364	
+L	LLL	DOCNOSYR CPILABM VFFRBCC	G	34	364	
+M	MMM	DOCNOSYR CPILABM VFFRBCC	G	34	364	
+N	NNN	DOCNOSYR CPILABM VFFRBCC	G	34	364	
+A	AAA	DOCNOSYR CPILABM VFFRBCC	J	25	248	
+B	BBB	DOCNOSYR CPILABM VFFRBCC	J	25	248	
+C	CCC	DOCNOSYR CPILABM VFFRBCC	J	25	248	
+D	DDD	DOCNOSYR CPILABM VFFRBCC	J	25	248	
+E	EEE	DOCNOSYR CPILABM VFFRBCC	J	25	248	
+F	FFF	DOCNOSYR CPILABM VFFRBCC	J	25	248	
+G	GGG	DOCNOSYR CPILABM VFFRBCC	J	25	248	
+H	HHH	DOCNOSYR CPILABM VFFRBCC	J	25	248	
+I	III	DOCNOSYR CPILABM VFFRBCC	J	25	248	
+J	JJJ	DOCNOSYR CPILABM VFFRBCC	J	25	248	
+K	KKK	DOCNOSYR CPILABM VFFRBCC	J	25	248	
+L	LLL	DOCNOSYR CPILABM VFFRBCC	J	25	248	
+M	MMM	DOCNOSYR CPILABM VFFRBCC	J	25	248	
+N	NNN	DOCNOSYR CPILABM VFFRBCC	J	25	248	
+A	AAA	TPIG FJMV HCBAPB PS	T	30	272	
+B	BBB	TPIG FJMV HCBAPB PS	T	30	272	
+C	CCC	TPIG FJMV HCBAPB PS	T	30	272	
+D	DDD	TPIG FJMV HCBAPB PS	T	30	272	
+E	EEE	TPIG FJMV HCBAPB PS	T	30	272	
+F	FFF	TPIG FJMV HCBAPB PS	T	30	272	
+G	GGG	TPIG FJMV HCBAPB PS	T	30	272	
+H	HHH	TPIG FJMV HCBAPB PS	T	30	272	
+I	III	TPIG FJMV HCBAPB PS	T	30	272	
+J	JJJ	TPIG FJMV HCBAPB PS	T	30	272	
+K	KKK	TPIG FJMV HCBAPB PS	T	30	272	
+L	LLL	TPIG FJMV HCBAPB PS	T	30	272	
+M	MMM	TPIG FJMV HCBAPB PS	T	30	272	
+N	NNN	TPIG FJMV HCBAPB PS	T	30	272	
+A	AAA	TPIG FJMV HCBAPB PS	D	25	239	
+B	BBB	TPIG FJMV HCBAPB PS	D	25	239	
+C	CCC	TPIG FJMV HCBAPB PS	D	25	239	
+D	DDD	TPIG FJMV HCBAPB PS	D	25	239	
+E	EEE	TPIG FJMV HCBAPB PS	D	25	239	
+F	FFF	TPIG FJMV HCBAPB PS	D	25	239	
+G	GGG	TPIG FJMV HCBAPB PS	D	25	239	
+H	HHH	TPIG FJMV HCBAPB PS	D	25	239	
+I	III	TPIG FJMV HCBAPB PS	D	25	239	
+J	JJJ	TPIG FJMV HCBAPB PS	D	25	239	
+K	KKK	TPIG FJMV HCBAPB PS	D	25	239	
+L	LLL	TPIG FJMV HCBAPB PS	D	25	239	
+M	MMM	TPIG FJMV HCBAPB PS	D	25	239	
+N	NNN	TPIG FJMV HCBAPB PS	D	25	239	
+A	AAA	TPIG FJMV HCBAPB PS	Y	49	311	
+B	BBB	TPIG FJMV HCBAPB PS	Y	49	311	
+C	CCC	TPIG FJMV HCBAPB PS	Y	49	311	
+D	DDD	TPIG FJMV HCBAPB PS	Y	49	311	
+E	EEE	TPIG FJMV HCBAPB PS	Y	49	311	
+F	FFF	TPIG FJMV HCBAPB PS	Y	49	311	
+G	GGG	TPIG FJMV HCBAPB PS	Y	49	311	
+H	HHH	TPIG FJMV HCBAPB PS	Y	49	311	
+I	III	TPIG FJMV HCBAPB PS	Y	49	311	
+J	JJJ	TPIG FJMV HCBAPB PS	Y	49	311	
+K	KKK	TPIG FJMV HCBAPB PS	Y	49	311	
+L	LLL	TPIG FJMV HCBAPB PS	Y	49	311	
+M	MMM	TPIG FJMV HCBAPB PS	Y	49	311	
+N	NNN	TPIG FJMV HCBAPB PS	Y	49	311	
+A	AAA	TPIG FJMV HCBAPB PS	P	47	231	
+B	BBB	TPIG FJMV HCBAPB PS	P	47	231	
+C	CCC	TPIG FJMV HCBAPB PS	P	47	231	
+D	DDD	TPIG FJMV HCBAPB PS	P	47	231	
+E	EEE	TPIG FJMV HCBAPB PS	P	47	231	
+F	FFF	TPIG FJMV HCBAPB PS	P	47	231	
+G	GGG	TPIG FJMV HCBAPB PS	P	47	231	
+H	HHH	TPIG FJMV HCBAPB PS	P	47	231	
+I	III	TPIG FJMV HCBAPB PS	P	47	231	
+J	JJJ	TPIG FJMV HCBAPB PS	P	47	231	
+K	KKK	TPIG FJMV HCBAPB PS	P	47	231	
+L	LLL	TPIG FJMV HCBAPB PS	P	47	231	
+M	MMM	TPIG FJMV HCBAPB PS	P	47	231	
+N	NNN	TPIG FJMV HCBAPB PS	P	47	231	
+A	AAA	FVQSTK PLGNSNXU R JD	B	39	255	
+B	BBB	FVQSTK PLGNSNXU R JD	B	39	255	
+C	CCC	FVQSTK PLGNSNXU R JD	B	39	255	
+D	DDD	FVQSTK PLGNSNXU R JD	B	39	255	
+E	EEE	FVQSTK PLGNSNXU R JD	B	39	255	
+F	FFF	FVQSTK PLGNSNXU R JD	B	39	255	
+G	GGG	FVQSTK PLGNSNXU R JD	B	39	255	
+H	HHH	FVQSTK PLGNSNXU R JD	B	39	255	
+I	III	FVQSTK PLGNSNXU R JD	B	39	255	
+J	JJJ	FVQSTK PLGNSNXU R JD	B	39	255	
+K	KKK	FVQSTK PLGNSNXU R JD	B	39	255	
+L	LLL	FVQSTK PLGNSNXU R JD	B	39	255	
+M	MMM	FVQSTK PLGNSNXU R JD	B	39	255	
+N	NNN	FVQSTK PLGNSNXU R JD	B	39	255	
+A	AAA	FVQSTK PLGNSNXU R JD	A	39	465	
+B	BBB	FVQSTK PLGNSNXU R JD	A	39	465	
+C	CCC	FVQSTK PLGNSNXU R JD	A	39	465	
+D	DDD	FVQSTK PLGNSNXU R JD	A	39	465	
+E	EEE	FVQSTK PLGNSNXU R JD	A	39	465	
+F	FFF	FVQSTK PLGNSNXU R JD	A	39	465	
+G	GGG	FVQSTK PLGNSNXU R JD	A	39	465	
+H	HHH	FVQSTK PLGNSNXU R JD	A	39	465	
+I	III	FVQSTK PLGNSNXU R JD	A	39	465	
+J	JJJ	FVQSTK PLGNSNXU R JD	A	39	465	
+K	KKK	FVQSTK PLGNSNXU R JD	A	39	465	
+L	LLL	FVQSTK PLGNSNXU R JD	A	39	465	
+M	MMM	FVQSTK PLGNSNXU R JD	A	39	465	
+N	NNN	FVQSTK PLGNSNXU R JD	A	39	465	
+A	AAA	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	G	41	323	
+B	BBB	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	G	41	323	
+C	CCC	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	G	41	323	
+D	DDD	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	G	41	323	
+E	EEE	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	G	41	323	
+F	FFF	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	G	41	323	
+G	GGG	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	G	41	323	
+H	HHH	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	G	41	323	
+I	III	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	G	41	323	
+J	JJJ	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	G	41	323	
+K	KKK	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	G	41	323	
+L	LLL	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	G	41	323	
+M	MMM	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	G	41	323	
+N	NNN	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	G	41	323	
+A	AAA	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	Z	21	225	
+B	BBB	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	Z	21	225	
+C	CCC	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	Z	21	225	
+D	DDD	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	Z	21	225	
+E	EEE	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	Z	21	225	
+F	FFF	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	Z	21	225	
+G	GGG	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	Z	21	225	
+H	HHH	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	Z	21	225	
+I	III	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	Z	21	225	
+J	JJJ	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	Z	21	225	
+K	KKK	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	Z	21	225	
+L	LLL	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	Z	21	225	
+M	MMM	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	Z	21	225	
+N	NNN	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	Z	21	225	
+A	AAA	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	M	34	337	
+B	BBB	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	M	34	337	
+C	CCC	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	M	34	337	
+D	DDD	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	M	34	337	
+E	EEE	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	M	34	337	
+F	FFF	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	M	34	337	
+G	GGG	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	M	34	337	
+H	HHH	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	M	34	337	
+I	III	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	M	34	337	
+J	JJJ	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	M	34	337	
+K	KKK	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	M	34	337	
+L	LLL	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	M	34	337	
+M	MMM	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	M	34	337	
+N	NNN	GQOV QKOD YL TR NDK JHQQUNLSCU VRACRAUVEQ	M	34	337	
+A	AAA	FJEZQAA VLA C	I	33	367	
+B	BBB	FJEZQAA VLA C	I	33	367	
+C	CCC	FJEZQAA VLA C	I	33	367	
+D	DDD	FJEZQAA VLA C	I	33	367	
+E	EEE	FJEZQAA VLA C	I	33	367	
+F	FFF	FJEZQAA VLA C	I	33	367	
+G	GGG	FJEZQAA VLA C	I	33	367	
+H	HHH	FJEZQAA VLA C	I	33	367	
+I	III	FJEZQAA VLA C	I	33	367	
+J	JJJ	FJEZQAA VLA C	I	33	367	
+K	KKK	FJEZQAA VLA C	I	33	367	
+L	LLL	FJEZQAA VLA C	I	33	367	
+M	MMM	FJEZQAA VLA C	I	33	367	
+N	NNN	FJEZQAA VLA C	I	33	367	
+A	AAA	FJEZQAA VLA C	B	35	377	
+B	BBB	FJEZQAA VLA C	B	35	377	
+C	CCC	FJEZQAA VLA C	B	35	377	
+D	DDD	FJEZQAA VLA C	B	35	377	
+E	EEE	FJEZQAA VLA C	B	35	377	
+F	FFF	FJEZQAA VLA C	B	35	377	
+G	GGG	FJEZQAA VLA C	B	35	377	
+H	HHH	FJEZQAA VLA C	B	35	377	
+I	III	FJEZQAA VLA C	B	35	377	
+J	JJJ	FJEZQAA VLA C	B	35	377	
+K	KKK	FJEZQAA VLA C	B	35	377	
+L	LLL	FJEZQAA VLA C	B	35	377	
+M	MMM	FJEZQAA VLA C	B	35	377	
+N	NNN	FJEZQAA VLA C	B	35	377	
+A	AAA	FJEZQAA VLA C	Y	37	360	
+B	BBB	FJEZQAA VLA C	Y	37	360	
+C	CCC	FJEZQAA VLA C	Y	37	360	
+D	DDD	FJEZQAA VLA C	Y	37	360	
+E	EEE	FJEZQAA VLA C	Y	37	360	
+F	FFF	FJEZQAA VLA C	Y	37	360	
+G	GGG	FJEZQAA VLA C	Y	37	360	
+H	HHH	FJEZQAA VLA C	Y	37	360	
+I	III	FJEZQAA VLA C	Y	37	360	
+J	JJJ	FJEZQAA VLA C	Y	37	360	
+K	KKK	FJEZQAA VLA C	Y	37	360	
+L	LLL	FJEZQAA VLA C	Y	37	360	
+M	MMM	FJEZQAA VLA C	Y	37	360	
+N	NNN	FJEZQAA VLA C	Y	37	360	
+A	AAA	FJEZQAA VLA C	N	32	424	
+B	BBB	FJEZQAA VLA C	N	32	424	
+C	CCC	FJEZQAA VLA C	N	32	424	
+D	DDD	FJEZQAA VLA C	N	32	424	
+E	EEE	FJEZQAA VLA C	N	32	424	
+F	FFF	FJEZQAA VLA C	N	32	424	
+G	GGG	FJEZQAA VLA C	N	32	424	
+H	HHH	FJEZQAA VLA C	N	32	424	
+I	III	FJEZQAA VLA C	N	32	424	
+J	JJJ	FJEZQAA VLA C	N	32	424	
+K	KKK	FJEZQAA VLA C	N	32	424	
+L	LLL	FJEZQAA VLA C	N	32	424	
+M	MMM	FJEZQAA VLA C	N	32	424	
+N	NNN	FJEZQAA VLA C	N	32	424	
+A	AAA	HVFQRGBX ZADC 	S	36	181	
+B	BBB	HVFQRGBX ZADC 	S	36	181	
+C	CCC	HVFQRGBX ZADC 	S	36	181	
+D	DDD	HVFQRGBX ZADC 	S	36	181	
+E	EEE	HVFQRGBX ZADC 	S	36	181	
+F	FFF	HVFQRGBX ZADC 	S	36	181	
+G	GGG	HVFQRGBX ZADC 	S	36	181	
+H	HHH	HVFQRGBX ZADC 	S	36	181	
+I	III	HVFQRGBX ZADC 	S	36	181	
+J	JJJ	HVFQRGBX ZADC 	S	36	181	
+K	KKK	HVFQRGBX ZADC 	S	36	181	
+L	LLL	HVFQRGBX ZADC 	S	36	181	
+M	MMM	HVFQRGBX ZADC 	S	36	181	
+N	NNN	HVFQRGBX ZADC 	S	36	181	
+A	AAA	HVFQRGBX ZADC 	R	25	118	
+B	BBB	HVFQRGBX ZADC 	R	25	118	
+C	CCC	HVFQRGBX ZADC 	R	25	118	
+D	DDD	HVFQRGBX ZADC 	R	25	118	
+E	EEE	HVFQRGBX ZADC 	R	25	118	
+F	FFF	HVFQRGBX ZADC 	R	25	118	
+G	GGG	HVFQRGBX ZADC 	R	25	118	
+H	HHH	HVFQRGBX ZADC 	R	25	118	
+I	III	HVFQRGBX ZADC 	R	25	118	
+J	JJJ	HVFQRGBX ZADC 	R	25	118	
+K	KKK	HVFQRGBX ZADC 	R	25	118	
+L	LLL	HVFQRGBX ZADC 	R	25	118	
+M	MMM	HVFQRGBX ZADC 	R	25	118	
+N	NNN	HVFQRGBX ZADC 	R	25	118	
+A	AAA	HVFQRGBX ZADC 	L	23	101	
+B	BBB	HVFQRGBX ZADC 	L	23	101	
+C	CCC	HVFQRGBX ZADC 	L	23	101	
+D	DDD	HVFQRGBX ZADC 	L	23	101	
+E	EEE	HVFQRGBX ZADC 	L	23	101	
+F	FFF	HVFQRGBX ZADC 	L	23	101	
+G	GGG	HVFQRGBX ZADC 	L	23	101	
+H	HHH	HVFQRGBX ZADC 	L	23	101	
+I	III	HVFQRGBX ZADC 	L	23	101	
+J	JJJ	HVFQRGBX ZADC 	L	23	101	
+K	KKK	HVFQRGBX ZADC 	L	23	101	
+L	LLL	HVFQRGBX ZADC 	L	23	101	
+M	MMM	HVFQRGBX ZADC 	L	23	101	
+N	NNN	HVFQRGBX ZADC 	L	23	101	
+A	AAA	HVFQRGBX ZADC 	C	25	271	
+B	BBB	HVFQRGBX ZADC 	C	25	271	
+C	CCC	HVFQRGBX ZADC 	C	25	271	
+D	DDD	HVFQRGBX ZADC 	C	25	271	
+E	EEE	HVFQRGBX ZADC 	C	25	271	
+F	FFF	HVFQRGBX ZADC 	C	25	271	
+G	GGG	HVFQRGBX ZADC 	C	25	271	
+H	HHH	HVFQRGBX ZADC 	C	25	271	
+I	III	HVFQRGBX ZADC 	C	25	271	
+J	JJJ	HVFQRGBX ZADC 	C	25	271	
+K	KKK	HVFQRGBX ZADC 	C	25	271	
+L	LLL	HVFQRGBX ZADC 	C	25	271	
+M	MMM	HVFQRGBX ZADC 	C	25	271	
+N	NNN	HVFQRGBX ZADC 	C	25	271	
+A	AAA	RLXX TQOFP VPBXQM SHDKFS	K	29	114	
+B	BBB	RLXX TQOFP VPBXQM SHDKFS	K	29	114	
+C	CCC	RLXX TQOFP VPBXQM SHDKFS	K	29	114	
+D	DDD	RLXX TQOFP VPBXQM SHDKFS	K	29	114	
+E	EEE	RLXX TQOFP VPBXQM SHDKFS	K	29	114	
+F	FFF	RLXX TQOFP VPBXQM SHDKFS	K	29	114	
+G	GGG	RLXX TQOFP VPBXQM SHDKFS	K	29	114	
+H	HHH	RLXX TQOFP VPBXQM SHDKFS	K	29	114	
+I	III	RLXX TQOFP VPBXQM SHDKFS	K	29	114	
+J	JJJ	RLXX TQOFP VPBXQM SHDKFS	K	29	114	
+K	KKK	RLXX TQOFP VPBXQM SHDKFS	K	29	114	
+L	LLL	RLXX TQOFP VPBXQM SHDKFS	K	29	114	
+M	MMM	RLXX TQOFP VPBXQM SHDKFS	K	29	114	
+N	NNN	RLXX TQOFP VPBXQM SHDKFS	K	29	114	
+A	AAA	RLXX TQOFP VPBXQM SHDKFS	U	35	149	
+B	BBB	RLXX TQOFP VPBXQM SHDKFS	U	35	149	
+C	CCC	RLXX TQOFP VPBXQM SHDKFS	U	35	149	
+D	DDD	RLXX TQOFP VPBXQM SHDKFS	U	35	149	
+E	EEE	RLXX TQOFP VPBXQM SHDKFS	U	35	149	
+F	FFF	RLXX TQOFP VPBXQM SHDKFS	U	35	149	
+G	GGG	RLXX TQOFP VPBXQM SHDKFS	U	35	149	
+H	HHH	RLXX TQOFP VPBXQM SHDKFS	U	35	149	
+I	III	RLXX TQOFP VPBXQM SHDKFS	U	35	149	
+J	JJJ	RLXX TQOFP VPBXQM SHDKFS	U	35	149	
+K	KKK	RLXX TQOFP VPBXQM SHDKFS	U	35	149	
+L	LLL	RLXX TQOFP VPBXQM SHDKFS	U	35	149	
+M	MMM	RLXX TQOFP VPBXQM SHDKFS	U	35	149	
+N	NNN	RLXX TQOFP VPBXQM SHDKFS	U	35	149	
+A	AAA	RLXX TQOFP VPBXQM SHDKFS	M	22	328	
+B	BBB	RLXX TQOFP VPBXQM SHDKFS	M	22	328	
+C	CCC	RLXX TQOFP VPBXQM SHDKFS	M	22	328	
+D	DDD	RLXX TQOFP VPBXQM SHDKFS	M	22	328	
+E	EEE	RLXX TQOFP VPBXQM SHDKFS	M	22	328	
+F	FFF	RLXX TQOFP VPBXQM SHDKFS	M	22	328	
+G	GGG	RLXX TQOFP VPBXQM SHDKFS	M	22	328	
+H	HHH	RLXX TQOFP VPBXQM SHDKFS	M	22	328	
+I	III	RLXX TQOFP VPBXQM SHDKFS	M	22	328	
+J	JJJ	RLXX TQOFP VPBXQM SHDKFS	M	22	328	
+K	KKK	RLXX TQOFP VPBXQM SHDKFS	M	22	328	
+L	LLL	RLXX TQOFP VPBXQM SHDKFS	M	22	328	
+M	MMM	RLXX TQOFP VPBXQM SHDKFS	M	22	328	
+N	NNN	RLXX TQOFP VPBXQM SHDKFS	M	22	328	
+A	AAA	OCVZUO SHYOAAQ IA	J	46	340	
+B	BBB	OCVZUO SHYOAAQ IA	J	46	340	
+C	CCC	OCVZUO SHYOAAQ IA	J	46	340	
+D	DDD	OCVZUO SHYOAAQ IA	J	46	340	
+E	EEE	OCVZUO SHYOAAQ IA	J	46	340	
+F	FFF	OCVZUO SHYOAAQ IA	J	46	340	
+G	GGG	OCVZUO SHYOAAQ IA	J	46	340	
+H	HHH	OCVZUO SHYOAAQ IA	J	46	340	
+I	III	OCVZUO SHYOAAQ IA	J	46	340	
+J	JJJ	OCVZUO SHYOAAQ IA	J	46	340	
+K	KKK	OCVZUO SHYOAAQ IA	J	46	340	
+L	LLL	OCVZUO SHYOAAQ IA	J	46	340	
+M	MMM	OCVZUO SHYOAAQ IA	J	46	340	
+N	NNN	OCVZUO SHYOAAQ IA	J	46	340	
+A	AAA	OCVZUO SHYOAAQ IA	Q	20	223	
+B	BBB	OCVZUO SHYOAAQ IA	Q	20	223	
+C	CCC	OCVZUO SHYOAAQ IA	Q	20	223	
+D	DDD	OCVZUO SHYOAAQ IA	Q	20	223	
+E	EEE	OCVZUO SHYOAAQ IA	Q	20	223	
+F	FFF	OCVZUO SHYOAAQ IA	Q	20	223	
+G	GGG	OCVZUO SHYOAAQ IA	Q	20	223	
+H	HHH	OCVZUO SHYOAAQ IA	Q	20	223	
+I	III	OCVZUO SHYOAAQ IA	Q	20	223	
+J	JJJ	OCVZUO SHYOAAQ IA	Q	20	223	
+K	KKK	OCVZUO SHYOAAQ IA	Q	20	223	
+L	LLL	OCVZUO SHYOAAQ IA	Q	20	223	
+M	MMM	OCVZUO SHYOAAQ IA	Q	20	223	
+N	NNN	OCVZUO SHYOAAQ IA	Q	20	223	
+A	AAA	OCVZUO SHYOAAQ IA	S	27	362	
+B	BBB	OCVZUO SHYOAAQ IA	S	27	362	
+C	CCC	OCVZUO SHYOAAQ IA	S	27	362	
+D	DDD	OCVZUO SHYOAAQ IA	S	27	362	
+E	EEE	OCVZUO SHYOAAQ IA	S	27	362	
+F	FFF	OCVZUO SHYOAAQ IA	S	27	362	
+G	GGG	OCVZUO SHYOAAQ IA	S	27	362	
+H	HHH	OCVZUO SHYOAAQ IA	S	27	362	
+I	III	OCVZUO SHYOAAQ IA	S	27	362	
+J	JJJ	OCVZUO SHYOAAQ IA	S	27	362	
+K	KKK	OCVZUO SHYOAAQ IA	S	27	362	
+L	LLL	OCVZUO SHYOAAQ IA	S	27	362	
+M	MMM	OCVZUO SHYOAAQ IA	S	27	362	
+N	NNN	OCVZUO SHYOAAQ IA	S	27	362	
+A	AAA	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	N	24	227	
+B	BBB	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	N	24	227	
+C	CCC	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	N	24	227	
+D	DDD	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	N	24	227	
+E	EEE	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	N	24	227	
+F	FFF	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	N	24	227	
+G	GGG	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	N	24	227	
+H	HHH	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	N	24	227	
+I	III	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	N	24	227	
+J	JJJ	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	N	24	227	
+K	KKK	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	N	24	227	
+L	LLL	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	N	24	227	
+M	MMM	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	N	24	227	
+N	NNN	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	N	24	227	
+A	AAA	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	K	43	151	
+B	BBB	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	K	43	151	
+C	CCC	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	K	43	151	
+D	DDD	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	K	43	151	
+E	EEE	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	K	43	151	
+F	FFF	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	K	43	151	
+G	GGG	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	K	43	151	
+H	HHH	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	K	43	151	
+I	III	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	K	43	151	
+J	JJJ	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	K	43	151	
+K	KKK	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	K	43	151	
+L	LLL	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	K	43	151	
+M	MMM	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	K	43	151	
+N	NNN	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	K	43	151	
+A	AAA	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	L	31	301	
+B	BBB	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	L	31	301	
+C	CCC	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	L	31	301	
+D	DDD	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	L	31	301	
+E	EEE	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	L	31	301	
+F	FFF	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	L	31	301	
+G	GGG	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	L	31	301	
+H	HHH	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	L	31	301	
+I	III	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	L	31	301	
+J	JJJ	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	L	31	301	
+K	KKK	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	L	31	301	
+L	LLL	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	L	31	301	
+M	MMM	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	L	31	301	
+N	NNN	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	L	31	301	
+A	AAA	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	X	38	217	
+B	BBB	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	X	38	217	
+C	CCC	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	X	38	217	
+D	DDD	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	X	38	217	
+E	EEE	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	X	38	217	
+F	FFF	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	X	38	217	
+G	GGG	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	X	38	217	
+H	HHH	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	X	38	217	
+I	III	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	X	38	217	
+J	JJJ	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	X	38	217	
+K	KKK	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	X	38	217	
+L	LLL	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	X	38	217	
+M	MMM	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	X	38	217	
+N	NNN	OVHFYD OUF LZFER OAQ ULXWHHRLJE LURZNFJW	X	38	217	
+A	AAA	QNYGOGWN WURKEON OGGX	M	37	324	
+B	BBB	QNYGOGWN WURKEON OGGX	M	37	324	
+C	CCC	QNYGOGWN WURKEON OGGX	M	37	324	
+D	DDD	QNYGOGWN WURKEON OGGX	M	37	324	
+E	EEE	QNYGOGWN WURKEON OGGX	M	37	324	
+F	FFF	QNYGOGWN WURKEON OGGX	M	37	324	
+G	GGG	QNYGOGWN WURKEON OGGX	M	37	324	
+H	HHH	QNYGOGWN WURKEON OGGX	M	37	324	
+I	III	QNYGOGWN WURKEON OGGX	M	37	324	
+J	JJJ	QNYGOGWN WURKEON OGGX	M	37	324	
+K	KKK	QNYGOGWN WURKEON OGGX	M	37	324	
+L	LLL	QNYGOGWN WURKEON OGGX	M	37	324	
+M	MMM	QNYGOGWN WURKEON OGGX	M	37	324	
+N	NNN	QNYGOGWN WURKEON OGGX	M	37	324	
+A	AAA	QNYGOGWN WURKEON OGGX	Z	39	288	
+B	BBB	QNYGOGWN WURKEON OGGX	Z	39	288	
+C	CCC	QNYGOGWN WURKEON OGGX	Z	39	288	
+D	DDD	QNYGOGWN WURKEON OGGX	Z	39	288	
+E	EEE	QNYGOGWN WURKEON OGGX	Z	39	288	
+F	FFF	QNYGOGWN WURKEON OGGX	Z	39	288	
+G	GGG	QNYGOGWN WURKEON OGGX	Z	39	288	
+H	HHH	QNYGOGWN WURKEON OGGX	Z	39	288	
+I	III	QNYGOGWN WURKEON OGGX	Z	39	288	
+J	JJJ	QNYGOGWN WURKEON OGGX	Z	39	288	
+K	KKK	QNYGOGWN WURKEON OGGX	Z	39	288	
+L	LLL	QNYGOGWN WURKEON OGGX	Z	39	288	
+M	MMM	QNYGOGWN WURKEON OGGX	Z	39	288	
+N	NNN	QNYGOGWN WURKEON OGGX	Z	39	288	
+A	AAA	QNYGOGWN WURKEON OGGX	J	40	270	
+B	BBB	QNYGOGWN WURKEON OGGX	J	40	270	
+C	CCC	QNYGOGWN WURKEON OGGX	J	40	270	
+D	DDD	QNYGOGWN WURKEON OGGX	J	40	270	
+E	EEE	QNYGOGWN WURKEON OGGX	J	40	270	
+F	FFF	QNYGOGWN WURKEON OGGX	J	40	270	
+G	GGG	QNYGOGWN WURKEON OGGX	J	40	270	
+H	HHH	QNYGOGWN WURKEON OGGX	J	40	270	
+I	III	QNYGOGWN WURKEON OGGX	J	40	270	
+J	JJJ	QNYGOGWN WURKEON OGGX	J	40	270	
+K	KKK	QNYGOGWN WURKEON OGGX	J	40	270	
+L	LLL	QNYGOGWN WURKEON OGGX	J	40	270	
+M	MMM	QNYGOGWN WURKEON OGGX	J	40	270	
+N	NNN	QNYGOGWN WURKEON OGGX	J	40	270	
+A	AAA	JTXMCV CCPRO TTJH OPSL CGVU 	W	29	148	
+B	BBB	JTXMCV CCPRO TTJH OPSL CGVU 	W	29	148	
+C	CCC	JTXMCV CCPRO TTJH OPSL CGVU 	W	29	148	
+D	DDD	JTXMCV CCPRO TTJH OPSL CGVU 	W	29	148	
+E	EEE	JTXMCV CCPRO TTJH OPSL CGVU 	W	29	148	
+F	FFF	JTXMCV CCPRO TTJH OPSL CGVU 	W	29	148	
+G	GGG	JTXMCV CCPRO TTJH OPSL CGVU 	W	29	148	
+H	HHH	JTXMCV CCPRO TTJH OPSL CGVU 	W	29	148	
+I	III	JTXMCV CCPRO TTJH OPSL CGVU 	W	29	148	
+J	JJJ	JTXMCV CCPRO TTJH OPSL CGVU 	W	29	148	
+K	KKK	JTXMCV CCPRO TTJH OPSL CGVU 	W	29	148	
+L	LLL	JTXMCV CCPRO TTJH OPSL CGVU 	W	29	148	
+M	MMM	JTXMCV CCPRO TTJH OPSL CGVU 	W	29	148	
+N	NNN	JTXMCV CCPRO TTJH OPSL CGVU 	W	29	148	
+A	AAA	JTXMCV CCPRO TTJH OPSL CGVU 	T	29	395	
+B	BBB	JTXMCV CCPRO TTJH OPSL CGVU 	T	29	395	
+C	CCC	JTXMCV CCPRO TTJH OPSL CGVU 	T	29	395	
+D	DDD	JTXMCV CCPRO TTJH OPSL CGVU 	T	29	395	
+E	EEE	JTXMCV CCPRO TTJH OPSL CGVU 	T	29	395	
+F	FFF	JTXMCV CCPRO TTJH OPSL CGVU 	T	29	395	
+G	GGG	JTXMCV CCPRO TTJH OPSL CGVU 	T	29	395	
+H	HHH	JTXMCV CCPRO TTJH OPSL CGVU 	T	29	395	
+I	III	JTXMCV CCPRO TTJH OPSL CGVU 	T	29	395	
+J	JJJ	JTXMCV CCPRO TTJH OPSL CGVU 	T	29	395	
+K	KKK	JTXMCV CCPRO TTJH OPSL CGVU 	T	29	395	
+L	LLL	JTXMCV CCPRO TTJH OPSL CGVU 	T	29	395	
+M	MMM	JTXMCV CCPRO TTJH OPSL CGVU 	T	29	395	
+N	NNN	JTXMCV CCPRO TTJH OPSL CGVU 	T	29	395	
+A	AAA	AHJGHGYC UG X RJ OCVWGII	P	29	236	
+B	BBB	AHJGHGYC UG X RJ OCVWGII	P	29	236	
+C	CCC	AHJGHGYC UG X RJ OCVWGII	P	29	236	
+D	DDD	AHJGHGYC UG X RJ OCVWGII	P	29	236	
+E	EEE	AHJGHGYC UG X RJ OCVWGII	P	29	236	
+F	FFF	AHJGHGYC UG X RJ OCVWGII	P	29	236	
+G	GGG	AHJGHGYC UG X RJ OCVWGII	P	29	236	
+H	HHH	AHJGHGYC UG X RJ OCVWGII	P	29	236	
+I	III	AHJGHGYC UG X RJ OCVWGII	P	29	236	
+J	JJJ	AHJGHGYC UG X RJ OCVWGII	P	29	236	
+K	KKK	AHJGHGYC UG X RJ OCVWGII	P	29	236	
+L	LLL	AHJGHGYC UG X RJ OCVWGII	P	29	236	
+M	MMM	AHJGHGYC UG X RJ OCVWGII	P	29	236	
+N	NNN	AHJGHGYC UG X RJ OCVWGII	P	29	236	
+A	AAA	AHJGHGYC UG X RJ OCVWGII	R	21	499	
+B	BBB	AHJGHGYC UG X RJ OCVWGII	R	21	499	
+C	CCC	AHJGHGYC UG X RJ OCVWGII	R	21	499	
+D	DDD	AHJGHGYC UG X RJ OCVWGII	R	21	499	
+E	EEE	AHJGHGYC UG X RJ OCVWGII	R	21	499	
+F	FFF	AHJGHGYC UG X RJ OCVWGII	R	21	499	
+G	GGG	AHJGHGYC UG X RJ OCVWGII	R	21	499	
+H	HHH	AHJGHGYC UG X RJ OCVWGII	R	21	499	
+I	III	AHJGHGYC UG X RJ OCVWGII	R	21	499	
+J	JJJ	AHJGHGYC UG X RJ OCVWGII	R	21	499	
+K	KKK	AHJGHGYC UG X RJ OCVWGII	R	21	499	
+L	LLL	AHJGHGYC UG X RJ OCVWGII	R	21	499	
+M	MMM	AHJGHGYC UG X RJ OCVWGII	R	21	499	
+N	NNN	AHJGHGYC UG X RJ OCVWGII	R	21	499	
+A	AAA	AHJGHGYC UG X RJ OCVWGII	B	28	488	
+B	BBB	AHJGHGYC UG X RJ OCVWGII	B	28	488	
+C	CCC	AHJGHGYC UG X RJ OCVWGII	B	28	488	
+D	DDD	AHJGHGYC UG X RJ OCVWGII	B	28	488	
+E	EEE	AHJGHGYC UG X RJ OCVWGII	B	28	488	
+F	FFF	AHJGHGYC UG X RJ OCVWGII	B	28	488	
+G	GGG	AHJGHGYC UG X RJ OCVWGII	B	28	488	
+H	HHH	AHJGHGYC UG X RJ OCVWGII	B	28	488	
+I	III	AHJGHGYC UG X RJ OCVWGII	B	28	488	
+J	JJJ	AHJGHGYC UG X RJ OCVWGII	B	28	488	
+K	KKK	AHJGHGYC UG X RJ OCVWGII	B	28	488	
+L	LLL	AHJGHGYC UG X RJ OCVWGII	B	28	488	
+M	MMM	AHJGHGYC UG X RJ OCVWGII	B	28	488	
+N	NNN	AHJGHGYC UG X RJ OCVWGII	B	28	488	
+A	AAA	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	R	41	375	
+B	BBB	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	R	41	375	
+C	CCC	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	R	41	375	
+D	DDD	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	R	41	375	
+E	EEE	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	R	41	375	
+F	FFF	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	R	41	375	
+G	GGG	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	R	41	375	
+H	HHH	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	R	41	375	
+I	III	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	R	41	375	
+J	JJJ	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	R	41	375	
+K	KKK	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	R	41	375	
+L	LLL	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	R	41	375	
+M	MMM	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	R	41	375	
+N	NNN	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	R	41	375	
+A	AAA	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	F	39	110	
+B	BBB	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	F	39	110	
+C	CCC	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	F	39	110	
+D	DDD	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	F	39	110	
+E	EEE	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	F	39	110	
+F	FFF	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	F	39	110	
+G	GGG	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	F	39	110	
+H	HHH	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	F	39	110	
+I	III	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	F	39	110	
+J	JJJ	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	F	39	110	
+K	KKK	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	F	39	110	
+L	LLL	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	F	39	110	
+M	MMM	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	F	39	110	
+N	NNN	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	F	39	110	
+A	AAA	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	B	41	472	
+B	BBB	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	B	41	472	
+C	CCC	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	B	41	472	
+D	DDD	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	B	41	472	
+E	EEE	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	B	41	472	
+F	FFF	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	B	41	472	
+G	GGG	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	B	41	472	
+H	HHH	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	B	41	472	
+I	III	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	B	41	472	
+J	JJJ	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	B	41	472	
+K	KKK	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	B	41	472	
+L	LLL	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	B	41	472	
+M	MMM	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	B	41	472	
+N	NNN	DLSR MDAEGKKUL VFIJVKKH TRPG VMVESP GLO BN	B	41	472	
+A	AAA	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	G	21	188	
+B	BBB	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	G	21	188	
+C	CCC	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	G	21	188	
+D	DDD	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	G	21	188	
+E	EEE	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	G	21	188	
+F	FFF	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	G	21	188	
+G	GGG	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	G	21	188	
+H	HHH	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	G	21	188	
+I	III	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	G	21	188	
+J	JJJ	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	G	21	188	
+K	KKK	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	G	21	188	
+L	LLL	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	G	21	188	
+M	MMM	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	G	21	188	
+N	NNN	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	G	21	188	
+A	AAA	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	X	21	277	
+B	BBB	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	X	21	277	
+C	CCC	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	X	21	277	
+D	DDD	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	X	21	277	
+E	EEE	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	X	21	277	
+F	FFF	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	X	21	277	
+G	GGG	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	X	21	277	
+H	HHH	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	X	21	277	
+I	III	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	X	21	277	
+J	JJJ	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	X	21	277	
+K	KKK	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	X	21	277	
+L	LLL	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	X	21	277	
+M	MMM	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	X	21	277	
+N	NNN	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	X	21	277	
+A	AAA	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	H	38	410	
+B	BBB	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	H	38	410	
+C	CCC	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	H	38	410	
+D	DDD	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	H	38	410	
+E	EEE	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	H	38	410	
+F	FFF	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	H	38	410	
+G	GGG	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	H	38	410	
+H	HHH	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	H	38	410	
+I	III	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	H	38	410	
+J	JJJ	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	H	38	410	
+K	KKK	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	H	38	410	
+L	LLL	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	H	38	410	
+M	MMM	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	H	38	410	
+N	NNN	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	H	38	410	
+A	AAA	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	U	42	492	
+B	BBB	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	U	42	492	
+C	CCC	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	U	42	492	
+D	DDD	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	U	42	492	
+E	EEE	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	U	42	492	
+F	FFF	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	U	42	492	
+G	GGG	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	U	42	492	
+H	HHH	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	U	42	492	
+I	III	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	U	42	492	
+J	JJJ	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	U	42	492	
+K	KKK	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	U	42	492	
+L	LLL	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	U	42	492	
+M	MMM	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	U	42	492	
+N	NNN	SRAMWUPW SADMYPE INTYALPI WCIMAV IZD	U	42	492	
+A	AAA	JKDUANA RH XCOF NXTCSCSO ZTS	L	20	431	
+B	BBB	JKDUANA RH XCOF NXTCSCSO ZTS	L	20	431	
+C	CCC	JKDUANA RH XCOF NXTCSCSO ZTS	L	20	431	
+D	DDD	JKDUANA RH XCOF NXTCSCSO ZTS	L	20	431	
+E	EEE	JKDUANA RH XCOF NXTCSCSO ZTS	L	20	431	
+F	FFF	JKDUANA RH XCOF NXTCSCSO ZTS	L	20	431	
+G	GGG	JKDUANA RH XCOF NXTCSCSO ZTS	L	20	431	
+H	HHH	JKDUANA RH XCOF NXTCSCSO ZTS	L	20	431	
+I	III	JKDUANA RH XCOF NXTCSCSO ZTS	L	20	431	
+J	JJJ	JKDUANA RH XCOF NXTCSCSO ZTS	L	20	431	
+K	KKK	JKDUANA RH XCOF NXTCSCSO ZTS	L	20	431	
+L	LLL	JKDUANA RH XCOF NXTCSCSO ZTS	L	20	431	
+M	MMM	JKDUANA RH XCOF NXTCSCSO ZTS	L	20	431	
+N	NNN	JKDUANA RH XCOF NXTCSCSO ZTS	L	20	431	
+A	AAA	JKDUANA RH XCOF NXTCSCSO ZTS	F	46	314	
+B	BBB	JKDUANA RH XCOF NXTCSCSO ZTS	F	46	314	
+C	CCC	JKDUANA RH XCOF NXTCSCSO ZTS	F	46	314	
+D	DDD	JKDUANA RH XCOF NXTCSCSO ZTS	F	46	314	
+E	EEE	JKDUANA RH XCOF NXTCSCSO ZTS	F	46	314	
+F	FFF	JKDUANA RH XCOF NXTCSCSO ZTS	F	46	314	
+G	GGG	JKDUANA RH XCOF NXTCSCSO ZTS	F	46	314	
+H	HHH	JKDUANA RH XCOF NXTCSCSO ZTS	F	46	314	
+I	III	JKDUANA RH XCOF NXTCSCSO ZTS	F	46	314	
+J	JJJ	JKDUANA RH XCOF NXTCSCSO ZTS	F	46	314	
+K	KKK	JKDUANA RH XCOF NXTCSCSO ZTS	F	46	314	
+L	LLL	JKDUANA RH XCOF NXTCSCSO ZTS	F	46	314	
+M	MMM	JKDUANA RH XCOF NXTCSCSO ZTS	F	46	314	
+N	NNN	JKDUANA RH XCOF NXTCSCSO ZTS	F	46	314	
+A	AAA	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	R	33	298	
+B	BBB	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	R	33	298	
+C	CCC	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	R	33	298	
+D	DDD	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	R	33	298	
+E	EEE	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	R	33	298	
+F	FFF	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	R	33	298	
+G	GGG	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	R	33	298	
+H	HHH	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	R	33	298	
+I	III	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	R	33	298	
+J	JJJ	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	R	33	298	
+K	KKK	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	R	33	298	
+L	LLL	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	R	33	298	
+M	MMM	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	R	33	298	
+N	NNN	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	R	33	298	
+A	AAA	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	L	35	344	
+B	BBB	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	L	35	344	
+C	CCC	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	L	35	344	
+D	DDD	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	L	35	344	
+E	EEE	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	L	35	344	
+F	FFF	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	L	35	344	
+G	GGG	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	L	35	344	
+H	HHH	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	L	35	344	
+I	III	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	L	35	344	
+J	JJJ	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	L	35	344	
+K	KKK	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	L	35	344	
+L	LLL	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	L	35	344	
+M	MMM	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	L	35	344	
+N	NNN	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	L	35	344	
+A	AAA	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	F	24	175	
+B	BBB	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	F	24	175	
+C	CCC	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	F	24	175	
+D	DDD	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	F	24	175	
+E	EEE	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	F	24	175	
+F	FFF	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	F	24	175	
+G	GGG	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	F	24	175	
+H	HHH	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	F	24	175	
+I	III	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	F	24	175	
+J	JJJ	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	F	24	175	
+K	KKK	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	F	24	175	
+L	LLL	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	F	24	175	
+M	MMM	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	F	24	175	
+N	NNN	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	F	24	175	
+A	AAA	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	X	45	224	
+B	BBB	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	X	45	224	
+C	CCC	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	X	45	224	
+D	DDD	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	X	45	224	
+E	EEE	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	X	45	224	
+F	FFF	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	X	45	224	
+G	GGG	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	X	45	224	
+H	HHH	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	X	45	224	
+I	III	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	X	45	224	
+J	JJJ	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	X	45	224	
+K	KKK	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	X	45	224	
+L	LLL	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	X	45	224	
+M	MMM	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	X	45	224	
+N	NNN	GWISUQ QUW QAS XDD PUKHWWNMQZJSAV YZEUVVQ TF	X	45	224	
+A	AAA	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	I	36	168	
+B	BBB	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	I	36	168	
+C	CCC	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	I	36	168	
+D	DDD	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	I	36	168	
+E	EEE	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	I	36	168	
+F	FFF	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	I	36	168	
+G	GGG	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	I	36	168	
+H	HHH	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	I	36	168	
+I	III	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	I	36	168	
+J	JJJ	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	I	36	168	
+K	KKK	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	I	36	168	
+L	LLL	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	I	36	168	
+M	MMM	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	I	36	168	
+N	NNN	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	I	36	168	
+A	AAA	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	J	34	326	
+B	BBB	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	J	34	326	
+C	CCC	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	J	34	326	
+D	DDD	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	J	34	326	
+E	EEE	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	J	34	326	
+F	FFF	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	J	34	326	
+G	GGG	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	J	34	326	
+H	HHH	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	J	34	326	
+I	III	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	J	34	326	
+J	JJJ	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	J	34	326	
+K	KKK	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	J	34	326	
+L	LLL	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	J	34	326	
+M	MMM	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	J	34	326	
+N	NNN	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	J	34	326	
+A	AAA	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	C	35	389	
+B	BBB	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	C	35	389	
+C	CCC	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	C	35	389	
+D	DDD	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	C	35	389	
+E	EEE	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	C	35	389	
+F	FFF	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	C	35	389	
+G	GGG	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	C	35	389	
+H	HHH	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	C	35	389	
+I	III	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	C	35	389	
+J	JJJ	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	C	35	389	
+K	KKK	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	C	35	389	
+L	LLL	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	C	35	389	
+M	MMM	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	C	35	389	
+N	NNN	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	C	35	389	
+A	AAA	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	L	26	431	
+B	BBB	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	L	26	431	
+C	CCC	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	L	26	431	
+D	DDD	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	L	26	431	
+E	EEE	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	L	26	431	
+F	FFF	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	L	26	431	
+G	GGG	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	L	26	431	
+H	HHH	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	L	26	431	
+I	III	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	L	26	431	
+J	JJJ	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	L	26	431	
+K	KKK	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	L	26	431	
+L	LLL	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	L	26	431	
+M	MMM	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	L	26	431	
+N	NNN	GKRTOIZ YN B TZV EG DNWDASO XBUSR W	L	26	431	
+A	AAA	QLBGREW PZOL	B	43	369	
+B	BBB	QLBGREW PZOL	B	43	369	
+C	CCC	QLBGREW PZOL	B	43	369	
+D	DDD	QLBGREW PZOL	B	43	369	
+E	EEE	QLBGREW PZOL	B	43	369	
+F	FFF	QLBGREW PZOL	B	43	369	
+G	GGG	QLBGREW PZOL	B	43	369	
+H	HHH	QLBGREW PZOL	B	43	369	
+I	III	QLBGREW PZOL	B	43	369	
+J	JJJ	QLBGREW PZOL	B	43	369	
+K	KKK	QLBGREW PZOL	B	43	369	
+L	LLL	QLBGREW PZOL	B	43	369	
+M	MMM	QLBGREW PZOL	B	43	369	
+N	NNN	QLBGREW PZOL	B	43	369	
+A	AAA	QLBGREW PZOL	F	45	137	
+B	BBB	QLBGREW PZOL	F	45	137	
+C	CCC	QLBGREW PZOL	F	45	137	
+D	DDD	QLBGREW PZOL	F	45	137	
+E	EEE	QLBGREW PZOL	F	45	137	
+F	FFF	QLBGREW PZOL	F	45	137	
+G	GGG	QLBGREW PZOL	F	45	137	
+H	HHH	QLBGREW PZOL	F	45	137	
+I	III	QLBGREW PZOL	F	45	137	
+J	JJJ	QLBGREW PZOL	F	45	137	
+K	KKK	QLBGREW PZOL	F	45	137	
+L	LLL	QLBGREW PZOL	F	45	137	
+M	MMM	QLBGREW PZOL	F	45	137	
+N	NNN	QLBGREW PZOL	F	45	137	
+A	AAA	QLBGREW PZOL	V	34	239	
+B	BBB	QLBGREW PZOL	V	34	239	
+C	CCC	QLBGREW PZOL	V	34	239	
+D	DDD	QLBGREW PZOL	V	34	239	
+E	EEE	QLBGREW PZOL	V	34	239	
+F	FFF	QLBGREW PZOL	V	34	239	
+G	GGG	QLBGREW PZOL	V	34	239	
+H	HHH	QLBGREW PZOL	V	34	239	
+I	III	QLBGREW PZOL	V	34	239	
+J	JJJ	QLBGREW PZOL	V	34	239	
+K	KKK	QLBGREW PZOL	V	34	239	
+L	LLL	QLBGREW PZOL	V	34	239	
+M	MMM	QLBGREW PZOL	V	34	239	
+N	NNN	QLBGREW PZOL	V	34	239	
+A	AAA	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	P	34	365	
+B	BBB	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	P	34	365	
+C	CCC	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	P	34	365	
+D	DDD	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	P	34	365	
+E	EEE	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	P	34	365	
+F	FFF	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	P	34	365	
+G	GGG	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	P	34	365	
+H	HHH	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	P	34	365	
+I	III	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	P	34	365	
+J	JJJ	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	P	34	365	
+K	KKK	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	P	34	365	
+L	LLL	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	P	34	365	
+M	MMM	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	P	34	365	
+N	NNN	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	P	34	365	
+A	AAA	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	Y	20	284	
+B	BBB	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	Y	20	284	
+C	CCC	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	Y	20	284	
+D	DDD	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	Y	20	284	
+E	EEE	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	Y	20	284	
+F	FFF	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	Y	20	284	
+G	GGG	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	Y	20	284	
+H	HHH	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	Y	20	284	
+I	III	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	Y	20	284	
+J	JJJ	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	Y	20	284	
+K	KKK	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	Y	20	284	
+L	LLL	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	Y	20	284	
+M	MMM	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	Y	20	284	
+N	NNN	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	Y	20	284	
+A	AAA	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	D	49	286	
+B	BBB	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	D	49	286	
+C	CCC	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	D	49	286	
+D	DDD	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	D	49	286	
+E	EEE	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	D	49	286	
+F	FFF	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	D	49	286	
+G	GGG	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	D	49	286	
+H	HHH	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	D	49	286	
+I	III	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	D	49	286	
+J	JJJ	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	D	49	286	
+K	KKK	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	D	49	286	
+L	LLL	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	D	49	286	
+M	MMM	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	D	49	286	
+N	NNN	WWAG BIHMQC FUSID JZQQZLQRLWJR VG XWTU	D	49	286	
+A	AAA	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	J	46	260	
+B	BBB	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	J	46	260	
+C	CCC	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	J	46	260	
+D	DDD	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	J	46	260	
+E	EEE	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	J	46	260	
+F	FFF	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	J	46	260	
+G	GGG	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	J	46	260	
+H	HHH	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	J	46	260	
+I	III	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	J	46	260	
+J	JJJ	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	J	46	260	
+K	KKK	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	J	46	260	
+L	LLL	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	J	46	260	
+M	MMM	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	J	46	260	
+N	NNN	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	J	46	260	
+A	AAA	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	M	31	187	
+B	BBB	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	M	31	187	
+C	CCC	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	M	31	187	
+D	DDD	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	M	31	187	
+E	EEE	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	M	31	187	
+F	FFF	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	M	31	187	
+G	GGG	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	M	31	187	
+H	HHH	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	M	31	187	
+I	III	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	M	31	187	
+J	JJJ	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	M	31	187	
+K	KKK	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	M	31	187	
+L	LLL	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	M	31	187	
+M	MMM	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	M	31	187	
+N	NNN	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	M	31	187	
+A	AAA	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	S	37	474	
+B	BBB	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	S	37	474	
+C	CCC	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	S	37	474	
+D	DDD	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	S	37	474	
+E	EEE	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	S	37	474	
+F	FFF	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	S	37	474	
+G	GGG	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	S	37	474	
+H	HHH	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	S	37	474	
+I	III	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	S	37	474	
+J	JJJ	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	S	37	474	
+K	KKK	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	S	37	474	
+L	LLL	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	S	37	474	
+M	MMM	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	S	37	474	
+N	NNN	DXALFF YZBDA SZTD SFMSXON ENRYHVRHZ PYNU	S	37	474	
+A	AAA	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	A	27	208	
+B	BBB	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	A	27	208	
+C	CCC	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	A	27	208	
+D	DDD	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	A	27	208	
+E	EEE	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	A	27	208	
+F	FFF	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	A	27	208	
+G	GGG	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	A	27	208	
+H	HHH	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	A	27	208	
+I	III	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	A	27	208	
+J	JJJ	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	A	27	208	
+K	KKK	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	A	27	208	
+L	LLL	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	A	27	208	
+M	MMM	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	A	27	208	
+N	NNN	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	A	27	208	
+A	AAA	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	V	26	132	
+B	BBB	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	V	26	132	
+C	CCC	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	V	26	132	
+D	DDD	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	V	26	132	
+E	EEE	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	V	26	132	
+F	FFF	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	V	26	132	
+G	GGG	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	V	26	132	
+H	HHH	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	V	26	132	
+I	III	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	V	26	132	
+J	JJJ	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	V	26	132	
+K	KKK	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	V	26	132	
+L	LLL	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	V	26	132	
+M	MMM	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	V	26	132	
+N	NNN	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	V	26	132	
+A	AAA	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	F	23	398	
+B	BBB	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	F	23	398	
+C	CCC	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	F	23	398	
+D	DDD	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	F	23	398	
+E	EEE	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	F	23	398	
+F	FFF	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	F	23	398	
+G	GGG	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	F	23	398	
+H	HHH	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	F	23	398	
+I	III	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	F	23	398	
+J	JJJ	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	F	23	398	
+K	KKK	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	F	23	398	
+L	LLL	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	F	23	398	
+M	MMM	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	F	23	398	
+N	NNN	XYBB JQTXFE UDBJW BV DMVETFKR RNFZ EDQFO ORGHQ	F	23	398	
+A	AAA	IURUFQCF RO	L	39	150	
+B	BBB	IURUFQCF RO	L	39	150	
+C	CCC	IURUFQCF RO	L	39	150	
+D	DDD	IURUFQCF RO	L	39	150	
+E	EEE	IURUFQCF RO	L	39	150	
+F	FFF	IURUFQCF RO	L	39	150	
+G	GGG	IURUFQCF RO	L	39	150	
+H	HHH	IURUFQCF RO	L	39	150	
+I	III	IURUFQCF RO	L	39	150	
+J	JJJ	IURUFQCF RO	L	39	150	
+K	KKK	IURUFQCF RO	L	39	150	
+L	LLL	IURUFQCF RO	L	39	150	
+M	MMM	IURUFQCF RO	L	39	150	
+N	NNN	IURUFQCF RO	L	39	150	
+A	AAA	IURUFQCF RO	T	25	341	
+B	BBB	IURUFQCF RO	T	25	341	
+C	CCC	IURUFQCF RO	T	25	341	
+D	DDD	IURUFQCF RO	T	25	341	
+E	EEE	IURUFQCF RO	T	25	341	
+F	FFF	IURUFQCF RO	T	25	341	
+G	GGG	IURUFQCF RO	T	25	341	
+H	HHH	IURUFQCF RO	T	25	341	
+I	III	IURUFQCF RO	T	25	341	
+J	JJJ	IURUFQCF RO	T	25	341	
+K	KKK	IURUFQCF RO	T	25	341	
+L	LLL	IURUFQCF RO	T	25	341	
+M	MMM	IURUFQCF RO	T	25	341	
+N	NNN	IURUFQCF RO	T	25	341	
+A	AAA	IURUFQCF RO	A	40	143	
+B	BBB	IURUFQCF RO	A	40	143	
+C	CCC	IURUFQCF RO	A	40	143	
+D	DDD	IURUFQCF RO	A	40	143	
+E	EEE	IURUFQCF RO	A	40	143	
+F	FFF	IURUFQCF RO	A	40	143	
+G	GGG	IURUFQCF RO	A	40	143	
+H	HHH	IURUFQCF RO	A	40	143	
+I	III	IURUFQCF RO	A	40	143	
+J	JJJ	IURUFQCF RO	A	40	143	
+K	KKK	IURUFQCF RO	A	40	143	
+L	LLL	IURUFQCF RO	A	40	143	
+M	MMM	IURUFQCF RO	A	40	143	
+N	NNN	IURUFQCF RO	A	40	143	
+A	AAA	QVMZJU PJRNPUSR RVB	M	26	458	
+B	BBB	QVMZJU PJRNPUSR RVB	M	26	458	
+C	CCC	QVMZJU PJRNPUSR RVB	M	26	458	
+D	DDD	QVMZJU PJRNPUSR RVB	M	26	458	
+E	EEE	QVMZJU PJRNPUSR RVB	M	26	458	
+F	FFF	QVMZJU PJRNPUSR RVB	M	26	458	
+G	GGG	QVMZJU PJRNPUSR RVB	M	26	458	
+H	HHH	QVMZJU PJRNPUSR RVB	M	26	458	
+I	III	QVMZJU PJRNPUSR RVB	M	26	458	
+J	JJJ	QVMZJU PJRNPUSR RVB	M	26	458	
+K	KKK	QVMZJU PJRNPUSR RVB	M	26	458	
+L	LLL	QVMZJU PJRNPUSR RVB	M	26	458	
+M	MMM	QVMZJU PJRNPUSR RVB	M	26	458	
+N	NNN	QVMZJU PJRNPUSR RVB	M	26	458	
+A	AAA	QVMZJU PJRNPUSR RVB	N	20	364	
+B	BBB	QVMZJU PJRNPUSR RVB	N	20	364	
+C	CCC	QVMZJU PJRNPUSR RVB	N	20	364	
+D	DDD	QVMZJU PJRNPUSR RVB	N	20	364	
+E	EEE	QVMZJU PJRNPUSR RVB	N	20	364	
+F	FFF	QVMZJU PJRNPUSR RVB	N	20	364	
+G	GGG	QVMZJU PJRNPUSR RVB	N	20	364	
+H	HHH	QVMZJU PJRNPUSR RVB	N	20	364	
+I	III	QVMZJU PJRNPUSR RVB	N	20	364	
+J	JJJ	QVMZJU PJRNPUSR RVB	N	20	364	
+K	KKK	QVMZJU PJRNPUSR RVB	N	20	364	
+L	LLL	QVMZJU PJRNPUSR RVB	N	20	364	
+M	MMM	QVMZJU PJRNPUSR RVB	N	20	364	
+N	NNN	QVMZJU PJRNPUSR RVB	N	20	364	
+A	AAA	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	E	29	442	
+B	BBB	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	E	29	442	
+C	CCC	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	E	29	442	
+D	DDD	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	E	29	442	
+E	EEE	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	E	29	442	
+F	FFF	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	E	29	442	
+G	GGG	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	E	29	442	
+H	HHH	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	E	29	442	
+I	III	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	E	29	442	
+J	JJJ	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	E	29	442	
+K	KKK	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	E	29	442	
+L	LLL	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	E	29	442	
+M	MMM	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	E	29	442	
+N	NNN	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	E	29	442	
+A	AAA	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	G	26	396	
+B	BBB	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	G	26	396	
+C	CCC	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	G	26	396	
+D	DDD	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	G	26	396	
+E	EEE	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	G	26	396	
+F	FFF	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	G	26	396	
+G	GGG	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	G	26	396	
+H	HHH	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	G	26	396	
+I	III	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	G	26	396	
+J	JJJ	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	G	26	396	
+K	KKK	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	G	26	396	
+L	LLL	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	G	26	396	
+M	MMM	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	G	26	396	
+N	NNN	YHSFXM KXJZDIF FGDR OSKWKSBIHR J L TQPC	G	26	396	
+A	AAA	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	B	47	126	
+B	BBB	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	B	47	126	
+C	CCC	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	B	47	126	
+D	DDD	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	B	47	126	
+E	EEE	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	B	47	126	
+F	FFF	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	B	47	126	
+G	GGG	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	B	47	126	
+H	HHH	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	B	47	126	
+I	III	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	B	47	126	
+J	JJJ	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	B	47	126	
+K	KKK	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	B	47	126	
+L	LLL	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	B	47	126	
+M	MMM	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	B	47	126	
+N	NNN	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	B	47	126	
+A	AAA	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	Y	23	169	
+B	BBB	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	Y	23	169	
+C	CCC	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	Y	23	169	
+D	DDD	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	Y	23	169	
+E	EEE	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	Y	23	169	
+F	FFF	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	Y	23	169	
+G	GGG	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	Y	23	169	
+H	HHH	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	Y	23	169	
+I	III	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	Y	23	169	
+J	JJJ	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	Y	23	169	
+K	KKK	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	Y	23	169	
+L	LLL	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	Y	23	169	
+M	MMM	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	Y	23	169	
+N	NNN	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	Y	23	169	
+A	AAA	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	J	20	154	
+B	BBB	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	J	20	154	
+C	CCC	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	J	20	154	
+D	DDD	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	J	20	154	
+E	EEE	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	J	20	154	
+F	FFF	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	J	20	154	
+G	GGG	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	J	20	154	
+H	HHH	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	J	20	154	
+I	III	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	J	20	154	
+J	JJJ	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	J	20	154	
+K	KKK	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	J	20	154	
+L	LLL	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	J	20	154	
+M	MMM	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	J	20	154	
+N	NNN	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	J	20	154	
+A	AAA	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	A	38	122	
+B	BBB	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	A	38	122	
+C	CCC	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	A	38	122	
+D	DDD	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	A	38	122	
+E	EEE	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	A	38	122	
+F	FFF	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	A	38	122	
+G	GGG	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	A	38	122	
+H	HHH	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	A	38	122	
+I	III	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	A	38	122	
+J	JJJ	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	A	38	122	
+K	KKK	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	A	38	122	
+L	LLL	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	A	38	122	
+M	MMM	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	A	38	122	
+N	NNN	AQFBB FLQPQP BNVRSY IPZBHYNU IJ	A	38	122	
+A	AAA	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	T	28	102	
+B	BBB	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	T	28	102	
+C	CCC	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	T	28	102	
+D	DDD	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	T	28	102	
+E	EEE	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	T	28	102	
+F	FFF	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	T	28	102	
+G	GGG	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	T	28	102	
+H	HHH	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	T	28	102	
+I	III	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	T	28	102	
+J	JJJ	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	T	28	102	
+K	KKK	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	T	28	102	
+L	LLL	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	T	28	102	
+M	MMM	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	T	28	102	
+N	NNN	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	T	28	102	
+A	AAA	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	Y	32	101	
+B	BBB	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	Y	32	101	
+C	CCC	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	Y	32	101	
+D	DDD	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	Y	32	101	
+E	EEE	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	Y	32	101	
+F	FFF	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	Y	32	101	
+G	GGG	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	Y	32	101	
+H	HHH	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	Y	32	101	
+I	III	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	Y	32	101	
+J	JJJ	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	Y	32	101	
+K	KKK	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	Y	32	101	
+L	LLL	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	Y	32	101	
+M	MMM	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	Y	32	101	
+N	NNN	ODTCMV OUM EDKXPJ MAEKPRGY KWLQRBLMUCL FI	Y	32	101	
+A	AAA	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	I	36	212	
+B	BBB	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	I	36	212	
+C	CCC	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	I	36	212	
+D	DDD	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	I	36	212	
+E	EEE	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	I	36	212	
+F	FFF	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	I	36	212	
+G	GGG	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	I	36	212	
+H	HHH	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	I	36	212	
+I	III	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	I	36	212	
+J	JJJ	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	I	36	212	
+K	KKK	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	I	36	212	
+L	LLL	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	I	36	212	
+M	MMM	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	I	36	212	
+N	NNN	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	I	36	212	
+A	AAA	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	T	37	120	
+B	BBB	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	T	37	120	
+C	CCC	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	T	37	120	
+D	DDD	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	T	37	120	
+E	EEE	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	T	37	120	
+F	FFF	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	T	37	120	
+G	GGG	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	T	37	120	
+H	HHH	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	T	37	120	
+I	III	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	T	37	120	
+J	JJJ	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	T	37	120	
+K	KKK	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	T	37	120	
+L	LLL	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	T	37	120	
+M	MMM	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	T	37	120	
+N	NNN	XMSZE FQJFTELET LYZPSIYDPLF FASZGD QIC	T	37	120	
+A	AAA	MJLUGRU LII SMCXCK	V	32	343	
+B	BBB	MJLUGRU LII SMCXCK	V	32	343	
+C	CCC	MJLUGRU LII SMCXCK	V	32	343	
+D	DDD	MJLUGRU LII SMCXCK	V	32	343	
+E	EEE	MJLUGRU LII SMCXCK	V	32	343	
+F	FFF	MJLUGRU LII SMCXCK	V	32	343	
+G	GGG	MJLUGRU LII SMCXCK	V	32	343	
+H	HHH	MJLUGRU LII SMCXCK	V	32	343	
+I	III	MJLUGRU LII SMCXCK	V	32	343	
+J	JJJ	MJLUGRU LII SMCXCK	V	32	343	
+K	KKK	MJLUGRU LII SMCXCK	V	32	343	
+L	LLL	MJLUGRU LII SMCXCK	V	32	343	
+M	MMM	MJLUGRU LII SMCXCK	V	32	343	
+N	NNN	MJLUGRU LII SMCXCK	V	32	343	
+A	AAA	MJLUGRU LII SMCXCK	G	42	230	
+B	BBB	MJLUGRU LII SMCXCK	G	42	230	
+C	CCC	MJLUGRU LII SMCXCK	G	42	230	
+D	DDD	MJLUGRU LII SMCXCK	G	42	230	
+E	EEE	MJLUGRU LII SMCXCK	G	42	230	
+F	FFF	MJLUGRU LII SMCXCK	G	42	230	
+G	GGG	MJLUGRU LII SMCXCK	G	42	230	
+H	HHH	MJLUGRU LII SMCXCK	G	42	230	
+I	III	MJLUGRU LII SMCXCK	G	42	230	
+J	JJJ	MJLUGRU LII SMCXCK	G	42	230	
+K	KKK	MJLUGRU LII SMCXCK	G	42	230	
+L	LLL	MJLUGRU LII SMCXCK	G	42	230	
+M	MMM	MJLUGRU LII SMCXCK	G	42	230	
+N	NNN	MJLUGRU LII SMCXCK	G	42	230	
+A	AAA	MJLUGRU LII SMCXCK	F	33	261	
+B	BBB	MJLUGRU LII SMCXCK	F	33	261	
+C	CCC	MJLUGRU LII SMCXCK	F	33	261	
+D	DDD	MJLUGRU LII SMCXCK	F	33	261	
+E	EEE	MJLUGRU LII SMCXCK	F	33	261	
+F	FFF	MJLUGRU LII SMCXCK	F	33	261	
+G	GGG	MJLUGRU LII SMCXCK	F	33	261	
+H	HHH	MJLUGRU LII SMCXCK	F	33	261	
+I	III	MJLUGRU LII SMCXCK	F	33	261	
+J	JJJ	MJLUGRU LII SMCXCK	F	33	261	
+K	KKK	MJLUGRU LII SMCXCK	F	33	261	
+L	LLL	MJLUGRU LII SMCXCK	F	33	261	
+M	MMM	MJLUGRU LII SMCXCK	F	33	261	
+N	NNN	MJLUGRU LII SMCXCK	F	33	261	
+A	AAA	MJLUGRU LII SMCXCK	J	35	334	
+B	BBB	MJLUGRU LII SMCXCK	J	35	334	
+C	CCC	MJLUGRU LII SMCXCK	J	35	334	
+D	DDD	MJLUGRU LII SMCXCK	J	35	334	
+E	EEE	MJLUGRU LII SMCXCK	J	35	334	
+F	FFF	MJLUGRU LII SMCXCK	J	35	334	
+G	GGG	MJLUGRU LII SMCXCK	J	35	334	
+H	HHH	MJLUGRU LII SMCXCK	J	35	334	
+I	III	MJLUGRU LII SMCXCK	J	35	334	
+J	JJJ	MJLUGRU LII SMCXCK	J	35	334	
+K	KKK	MJLUGRU LII SMCXCK	J	35	334	
+L	LLL	MJLUGRU LII SMCXCK	J	35	334	
+M	MMM	MJLUGRU LII SMCXCK	J	35	334	
+N	NNN	MJLUGRU LII SMCXCK	J	35	334	
+A	AAA	XMUAVPU X VMFKH JXPPYB NH 	H	39	434	
+B	BBB	XMUAVPU X VMFKH JXPPYB NH 	H	39	434	
+C	CCC	XMUAVPU X VMFKH JXPPYB NH 	H	39	434	
+D	DDD	XMUAVPU X VMFKH JXPPYB NH 	H	39	434	
+E	EEE	XMUAVPU X VMFKH JXPPYB NH 	H	39	434	
+F	FFF	XMUAVPU X VMFKH JXPPYB NH 	H	39	434	
+G	GGG	XMUAVPU X VMFKH JXPPYB NH 	H	39	434	
+H	HHH	XMUAVPU X VMFKH JXPPYB NH 	H	39	434	
+I	III	XMUAVPU X VMFKH JXPPYB NH 	H	39	434	
+J	JJJ	XMUAVPU X VMFKH JXPPYB NH 	H	39	434	
+K	KKK	XMUAVPU X VMFKH JXPPYB NH 	H	39	434	
+L	LLL	XMUAVPU X VMFKH JXPPYB NH 	H	39	434	
+M	MMM	XMUAVPU X VMFKH JXPPYB NH 	H	39	434	
+N	NNN	XMUAVPU X VMFKH JXPPYB NH 	H	39	434	
+A	AAA	XMUAVPU X VMFKH JXPPYB NH 	V	27	142	
+B	BBB	XMUAVPU X VMFKH JXPPYB NH 	V	27	142	
+C	CCC	XMUAVPU X VMFKH JXPPYB NH 	V	27	142	
+D	DDD	XMUAVPU X VMFKH JXPPYB NH 	V	27	142	
+E	EEE	XMUAVPU X VMFKH JXPPYB NH 	V	27	142	
+F	FFF	XMUAVPU X VMFKH JXPPYB NH 	V	27	142	
+G	GGG	XMUAVPU X VMFKH JXPPYB NH 	V	27	142	
+H	HHH	XMUAVPU X VMFKH JXPPYB NH 	V	27	142	
+I	III	XMUAVPU X VMFKH JXPPYB NH 	V	27	142	
+J	JJJ	XMUAVPU X VMFKH JXPPYB NH 	V	27	142	
+K	KKK	XMUAVPU X VMFKH JXPPYB NH 	V	27	142	
+L	LLL	XMUAVPU X VMFKH JXPPYB NH 	V	27	142	
+M	MMM	XMUAVPU X VMFKH JXPPYB NH 	V	27	142	
+N	NNN	XMUAVPU X VMFKH JXPPYB NH 	V	27	142	
+A	AAA	XMUAVPU X VMFKH JXPPYB NH 	E	43	190	
+B	BBB	XMUAVPU X VMFKH JXPPYB NH 	E	43	190	
+C	CCC	XMUAVPU X VMFKH JXPPYB NH 	E	43	190	
+D	DDD	XMUAVPU X VMFKH JXPPYB NH 	E	43	190	
+E	EEE	XMUAVPU X VMFKH JXPPYB NH 	E	43	190	
+F	FFF	XMUAVPU X VMFKH JXPPYB NH 	E	43	190	
+G	GGG	XMUAVPU X VMFKH JXPPYB NH 	E	43	190	
+H	HHH	XMUAVPU X VMFKH JXPPYB NH 	E	43	190	
+I	III	XMUAVPU X VMFKH JXPPYB NH 	E	43	190	
+J	JJJ	XMUAVPU X VMFKH JXPPYB NH 	E	43	190	
+K	KKK	XMUAVPU X VMFKH JXPPYB NH 	E	43	190	
+L	LLL	XMUAVPU X VMFKH JXPPYB NH 	E	43	190	
+M	MMM	XMUAVPU X VMFKH JXPPYB NH 	E	43	190	
+N	NNN	XMUAVPU X VMFKH JXPPYB NH 	E	43	190	
+A	AAA	JRBX KKUCC U STFX KSB	P	46	437	
+B	BBB	JRBX KKUCC U STFX KSB	P	46	437	
+C	CCC	JRBX KKUCC U STFX KSB	P	46	437	
+D	DDD	JRBX KKUCC U STFX KSB	P	46	437	
+E	EEE	JRBX KKUCC U STFX KSB	P	46	437	
+F	FFF	JRBX KKUCC U STFX KSB	P	46	437	
+G	GGG	JRBX KKUCC U STFX KSB	P	46	437	
+H	HHH	JRBX KKUCC U STFX KSB	P	46	437	
+I	III	JRBX KKUCC U STFX KSB	P	46	437	
+J	JJJ	JRBX KKUCC U STFX KSB	P	46	437	
+K	KKK	JRBX KKUCC U STFX KSB	P	46	437	
+L	LLL	JRBX KKUCC U STFX KSB	P	46	437	
+M	MMM	JRBX KKUCC U STFX KSB	P	46	437	
+N	NNN	JRBX KKUCC U STFX KSB	P	46	437	
+A	AAA	JRBX KKUCC U STFX KSB	Y	46	431	
+B	BBB	JRBX KKUCC U STFX KSB	Y	46	431	
+C	CCC	JRBX KKUCC U STFX KSB	Y	46	431	
+D	DDD	JRBX KKUCC U STFX KSB	Y	46	431	
+E	EEE	JRBX KKUCC U STFX KSB	Y	46	431	
+F	FFF	JRBX KKUCC U STFX KSB	Y	46	431	
+G	GGG	JRBX KKUCC U STFX KSB	Y	46	431	
+H	HHH	JRBX KKUCC U STFX KSB	Y	46	431	
+I	III	JRBX KKUCC U STFX KSB	Y	46	431	
+J	JJJ	JRBX KKUCC U STFX KSB	Y	46	431	
+K	KKK	JRBX KKUCC U STFX KSB	Y	46	431	
+L	LLL	JRBX KKUCC U STFX KSB	Y	46	431	
+M	MMM	JRBX KKUCC U STFX KSB	Y	46	431	
+N	NNN	JRBX KKUCC U STFX KSB	Y	46	431	
+A	AAA	JRBX KKUCC U STFX KSB	F	38	310	
+B	BBB	JRBX KKUCC U STFX KSB	F	38	310	
+C	CCC	JRBX KKUCC U STFX KSB	F	38	310	
+D	DDD	JRBX KKUCC U STFX KSB	F	38	310	
+E	EEE	JRBX KKUCC U STFX KSB	F	38	310	
+F	FFF	JRBX KKUCC U STFX KSB	F	38	310	
+G	GGG	JRBX KKUCC U STFX KSB	F	38	310	
+H	HHH	JRBX KKUCC U STFX KSB	F	38	310	
+I	III	JRBX KKUCC U STFX KSB	F	38	310	
+J	JJJ	JRBX KKUCC U STFX KSB	F	38	310	
+K	KKK	JRBX KKUCC U STFX KSB	F	38	310	
+L	LLL	JRBX KKUCC U STFX KSB	F	38	310	
+M	MMM	JRBX KKUCC U STFX KSB	F	38	310	
+N	NNN	JRBX KKUCC U STFX KSB	F	38	310	
+A	AAA	WPMUALYV OHVMWGW 	U	46	376	
+B	BBB	WPMUALYV OHVMWGW 	U	46	376	
+C	CCC	WPMUALYV OHVMWGW 	U	46	376	
+D	DDD	WPMUALYV OHVMWGW 	U	46	376	
+E	EEE	WPMUALYV OHVMWGW 	U	46	376	
+F	FFF	WPMUALYV OHVMWGW 	U	46	376	
+G	GGG	WPMUALYV OHVMWGW 	U	46	376	
+H	HHH	WPMUALYV OHVMWGW 	U	46	376	
+I	III	WPMUALYV OHVMWGW 	U	46	376	
+J	JJJ	WPMUALYV OHVMWGW 	U	46	376	
+K	KKK	WPMUALYV OHVMWGW 	U	46	376	
+L	LLL	WPMUALYV OHVMWGW 	U	46	376	
+M	MMM	WPMUALYV OHVMWGW 	U	46	376	
+N	NNN	WPMUALYV OHVMWGW 	U	46	376	
+A	AAA	WPMUALYV OHVMWGW 	J	39	472	
+B	BBB	WPMUALYV OHVMWGW 	J	39	472	
+C	CCC	WPMUALYV OHVMWGW 	J	39	472	
+D	DDD	WPMUALYV OHVMWGW 	J	39	472	
+E	EEE	WPMUALYV OHVMWGW 	J	39	472	
+F	FFF	WPMUALYV OHVMWGW 	J	39	472	
+G	GGG	WPMUALYV OHVMWGW 	J	39	472	
+H	HHH	WPMUALYV OHVMWGW 	J	39	472	
+I	III	WPMUALYV OHVMWGW 	J	39	472	
+J	JJJ	WPMUALYV OHVMWGW 	J	39	472	
+K	KKK	WPMUALYV OHVMWGW 	J	39	472	
+L	LLL	WPMUALYV OHVMWGW 	J	39	472	
+M	MMM	WPMUALYV OHVMWGW 	J	39	472	
+N	NNN	WPMUALYV OHVMWGW 	J	39	472	
+A	AAA	WPMUALYV OHVMWGW 	C	38	383	
+B	BBB	WPMUALYV OHVMWGW 	C	38	383	
+C	CCC	WPMUALYV OHVMWGW 	C	38	383	
+D	DDD	WPMUALYV OHVMWGW 	C	38	383	
+E	EEE	WPMUALYV OHVMWGW 	C	38	383	
+F	FFF	WPMUALYV OHVMWGW 	C	38	383	
+G	GGG	WPMUALYV OHVMWGW 	C	38	383	
+H	HHH	WPMUALYV OHVMWGW 	C	38	383	
+I	III	WPMUALYV OHVMWGW 	C	38	383	
+J	JJJ	WPMUALYV OHVMWGW 	C	38	383	
+K	KKK	WPMUALYV OHVMWGW 	C	38	383	
+L	LLL	WPMUALYV OHVMWGW 	C	38	383	
+M	MMM	WPMUALYV OHVMWGW 	C	38	383	
+N	NNN	WPMUALYV OHVMWGW 	C	38	383	
+A	AAA	WZJAMP SPNIRM F QKQGXJHIJV IN	L	44	178	
+B	BBB	WZJAMP SPNIRM F QKQGXJHIJV IN	L	44	178	
+C	CCC	WZJAMP SPNIRM F QKQGXJHIJV IN	L	44	178	
+D	DDD	WZJAMP SPNIRM F QKQGXJHIJV IN	L	44	178	
+E	EEE	WZJAMP SPNIRM F QKQGXJHIJV IN	L	44	178	
+F	FFF	WZJAMP SPNIRM F QKQGXJHIJV IN	L	44	178	
+G	GGG	WZJAMP SPNIRM F QKQGXJHIJV IN	L	44	178	
+H	HHH	WZJAMP SPNIRM F QKQGXJHIJV IN	L	44	178	
+I	III	WZJAMP SPNIRM F QKQGXJHIJV IN	L	44	178	
+J	JJJ	WZJAMP SPNIRM F QKQGXJHIJV IN	L	44	178	
+K	KKK	WZJAMP SPNIRM F QKQGXJHIJV IN	L	44	178	
+L	LLL	WZJAMP SPNIRM F QKQGXJHIJV IN	L	44	178	
+M	MMM	WZJAMP SPNIRM F QKQGXJHIJV IN	L	44	178	
+N	NNN	WZJAMP SPNIRM F QKQGXJHIJV IN	L	44	178	
+A	AAA	WZJAMP SPNIRM F QKQGXJHIJV IN	R	48	472	
+B	BBB	WZJAMP SPNIRM F QKQGXJHIJV IN	R	48	472	
+C	CCC	WZJAMP SPNIRM F QKQGXJHIJV IN	R	48	472	
+D	DDD	WZJAMP SPNIRM F QKQGXJHIJV IN	R	48	472	
+E	EEE	WZJAMP SPNIRM F QKQGXJHIJV IN	R	48	472	
+F	FFF	WZJAMP SPNIRM F QKQGXJHIJV IN	R	48	472	
+G	GGG	WZJAMP SPNIRM F QKQGXJHIJV IN	R	48	472	
+H	HHH	WZJAMP SPNIRM F QKQGXJHIJV IN	R	48	472	
+I	III	WZJAMP SPNIRM F QKQGXJHIJV IN	R	48	472	
+J	JJJ	WZJAMP SPNIRM F QKQGXJHIJV IN	R	48	472	
+K	KKK	WZJAMP SPNIRM F QKQGXJHIJV IN	R	48	472	
+L	LLL	WZJAMP SPNIRM F QKQGXJHIJV IN	R	48	472	
+M	MMM	WZJAMP SPNIRM F QKQGXJHIJV IN	R	48	472	
+N	NNN	WZJAMP SPNIRM F QKQGXJHIJV IN	R	48	472	
+A	AAA	SAWDS VBPC BGSDP 	T	42	188	
+B	BBB	SAWDS VBPC BGSDP 	T	42	188	
+C	CCC	SAWDS VBPC BGSDP 	T	42	188	
+D	DDD	SAWDS VBPC BGSDP 	T	42	188	
+E	EEE	SAWDS VBPC BGSDP 	T	42	188	
+F	FFF	SAWDS VBPC BGSDP 	T	42	188	
+G	GGG	SAWDS VBPC BGSDP 	T	42	188	
+H	HHH	SAWDS VBPC BGSDP 	T	42	188	
+I	III	SAWDS VBPC BGSDP 	T	42	188	
+J	JJJ	SAWDS VBPC BGSDP 	T	42	188	
+K	KKK	SAWDS VBPC BGSDP 	T	42	188	
+L	LLL	SAWDS VBPC BGSDP 	T	42	188	
+M	MMM	SAWDS VBPC BGSDP 	T	42	188	
+N	NNN	SAWDS VBPC BGSDP 	T	42	188	
+A	AAA	SAWDS VBPC BGSDP 	S	32	220	
+B	BBB	SAWDS VBPC BGSDP 	S	32	220	
+C	CCC	SAWDS VBPC BGSDP 	S	32	220	
+D	DDD	SAWDS VBPC BGSDP 	S	32	220	
+E	EEE	SAWDS VBPC BGSDP 	S	32	220	
+F	FFF	SAWDS VBPC BGSDP 	S	32	220	
+G	GGG	SAWDS VBPC BGSDP 	S	32	220	
+H	HHH	SAWDS VBPC BGSDP 	S	32	220	
+I	III	SAWDS VBPC BGSDP 	S	32	220	
+J	JJJ	SAWDS VBPC BGSDP 	S	32	220	
+K	KKK	SAWDS VBPC BGSDP 	S	32	220	
+L	LLL	SAWDS VBPC BGSDP 	S	32	220	
+M	MMM	SAWDS VBPC BGSDP 	S	32	220	
+N	NNN	SAWDS VBPC BGSDP 	S	32	220	
+A	AAA	FVSFRS TJMJMXC RIAFECZVZE	G	45	228	
+B	BBB	FVSFRS TJMJMXC RIAFECZVZE	G	45	228	
+C	CCC	FVSFRS TJMJMXC RIAFECZVZE	G	45	228	
+D	DDD	FVSFRS TJMJMXC RIAFECZVZE	G	45	228	
+E	EEE	FVSFRS TJMJMXC RIAFECZVZE	G	45	228	
+F	FFF	FVSFRS TJMJMXC RIAFECZVZE	G	45	228	
+G	GGG	FVSFRS TJMJMXC RIAFECZVZE	G	45	228	
+H	HHH	FVSFRS TJMJMXC RIAFECZVZE	G	45	228	
+I	III	FVSFRS TJMJMXC RIAFECZVZE	G	45	228	
+J	JJJ	FVSFRS TJMJMXC RIAFECZVZE	G	45	228	
+K	KKK	FVSFRS TJMJMXC RIAFECZVZE	G	45	228	
+L	LLL	FVSFRS TJMJMXC RIAFECZVZE	G	45	228	
+M	MMM	FVSFRS TJMJMXC RIAFECZVZE	G	45	228	
+N	NNN	FVSFRS TJMJMXC RIAFECZVZE	G	45	228	
+A	AAA	FVSFRS TJMJMXC RIAFECZVZE	N	29	473	
+B	BBB	FVSFRS TJMJMXC RIAFECZVZE	N	29	473	
+C	CCC	FVSFRS TJMJMXC RIAFECZVZE	N	29	473	
+D	DDD	FVSFRS TJMJMXC RIAFECZVZE	N	29	473	
+E	EEE	FVSFRS TJMJMXC RIAFECZVZE	N	29	473	
+F	FFF	FVSFRS TJMJMXC RIAFECZVZE	N	29	473	
+G	GGG	FVSFRS TJMJMXC RIAFECZVZE	N	29	473	
+H	HHH	FVSFRS TJMJMXC RIAFECZVZE	N	29	473	
+I	III	FVSFRS TJMJMXC RIAFECZVZE	N	29	473	
+J	JJJ	FVSFRS TJMJMXC RIAFECZVZE	N	29	473	
+K	KKK	FVSFRS TJMJMXC RIAFECZVZE	N	29	473	
+L	LLL	FVSFRS TJMJMXC RIAFECZVZE	N	29	473	
+M	MMM	FVSFRS TJMJMXC RIAFECZVZE	N	29	473	
+N	NNN	FVSFRS TJMJMXC RIAFECZVZE	N	29	473	
+A	AAA	FVSFRS TJMJMXC RIAFECZVZE	H	21	314	
+B	BBB	FVSFRS TJMJMXC RIAFECZVZE	H	21	314	
+C	CCC	FVSFRS TJMJMXC RIAFECZVZE	H	21	314	
+D	DDD	FVSFRS TJMJMXC RIAFECZVZE	H	21	314	
+E	EEE	FVSFRS TJMJMXC RIAFECZVZE	H	21	314	
+F	FFF	FVSFRS TJMJMXC RIAFECZVZE	H	21	314	
+G	GGG	FVSFRS TJMJMXC RIAFECZVZE	H	21	314	
+H	HHH	FVSFRS TJMJMXC RIAFECZVZE	H	21	314	
+I	III	FVSFRS TJMJMXC RIAFECZVZE	H	21	314	
+J	JJJ	FVSFRS TJMJMXC RIAFECZVZE	H	21	314	
+K	KKK	FVSFRS TJMJMXC RIAFECZVZE	H	21	314	
+L	LLL	FVSFRS TJMJMXC RIAFECZVZE	H	21	314	
+M	MMM	FVSFRS TJMJMXC RIAFECZVZE	H	21	314	
+N	NNN	FVSFRS TJMJMXC RIAFECZVZE	H	21	314	
+A	AAA	FVSFRS TJMJMXC RIAFECZVZE	V	39	485	
+B	BBB	FVSFRS TJMJMXC RIAFECZVZE	V	39	485	
+C	CCC	FVSFRS TJMJMXC RIAFECZVZE	V	39	485	
+D	DDD	FVSFRS TJMJMXC RIAFECZVZE	V	39	485	
+E	EEE	FVSFRS TJMJMXC RIAFECZVZE	V	39	485	
+F	FFF	FVSFRS TJMJMXC RIAFECZVZE	V	39	485	
+G	GGG	FVSFRS TJMJMXC RIAFECZVZE	V	39	485	
+H	HHH	FVSFRS TJMJMXC RIAFECZVZE	V	39	485	
+I	III	FVSFRS TJMJMXC RIAFECZVZE	V	39	485	
+J	JJJ	FVSFRS TJMJMXC RIAFECZVZE	V	39	485	
+K	KKK	FVSFRS TJMJMXC RIAFECZVZE	V	39	485	
+L	LLL	FVSFRS TJMJMXC RIAFECZVZE	V	39	485	
+M	MMM	FVSFRS TJMJMXC RIAFECZVZE	V	39	485	
+N	NNN	FVSFRS TJMJMXC RIAFECZVZE	V	39	485	
+A	AAA	HJDMETD VXZFTCV MCXQO HTVIQOV	T	44	202	
+B	BBB	HJDMETD VXZFTCV MCXQO HTVIQOV	T	44	202	
+C	CCC	HJDMETD VXZFTCV MCXQO HTVIQOV	T	44	202	
+D	DDD	HJDMETD VXZFTCV MCXQO HTVIQOV	T	44	202	
+E	EEE	HJDMETD VXZFTCV MCXQO HTVIQOV	T	44	202	
+F	FFF	HJDMETD VXZFTCV MCXQO HTVIQOV	T	44	202	
+G	GGG	HJDMETD VXZFTCV MCXQO HTVIQOV	T	44	202	
+H	HHH	HJDMETD VXZFTCV MCXQO HTVIQOV	T	44	202	
+I	III	HJDMETD VXZFTCV MCXQO HTVIQOV	T	44	202	
+J	JJJ	HJDMETD VXZFTCV MCXQO HTVIQOV	T	44	202	
+K	KKK	HJDMETD VXZFTCV MCXQO HTVIQOV	T	44	202	
+L	LLL	HJDMETD VXZFTCV MCXQO HTVIQOV	T	44	202	
+M	MMM	HJDMETD VXZFTCV MCXQO HTVIQOV	T	44	202	
+N	NNN	HJDMETD VXZFTCV MCXQO HTVIQOV	T	44	202	
+A	AAA	HJDMETD VXZFTCV MCXQO HTVIQOV	E	21	467	
+B	BBB	HJDMETD VXZFTCV MCXQO HTVIQOV	E	21	467	
+C	CCC	HJDMETD VXZFTCV MCXQO HTVIQOV	E	21	467	
+D	DDD	HJDMETD VXZFTCV MCXQO HTVIQOV	E	21	467	
+E	EEE	HJDMETD VXZFTCV MCXQO HTVIQOV	E	21	467	
+F	FFF	HJDMETD VXZFTCV MCXQO HTVIQOV	E	21	467	
+G	GGG	HJDMETD VXZFTCV MCXQO HTVIQOV	E	21	467	
+H	HHH	HJDMETD VXZFTCV MCXQO HTVIQOV	E	21	467	
+I	III	HJDMETD VXZFTCV MCXQO HTVIQOV	E	21	467	
+J	JJJ	HJDMETD VXZFTCV MCXQO HTVIQOV	E	21	467	
+K	KKK	HJDMETD VXZFTCV MCXQO HTVIQOV	E	21	467	
+L	LLL	HJDMETD VXZFTCV MCXQO HTVIQOV	E	21	467	
+M	MMM	HJDMETD VXZFTCV MCXQO HTVIQOV	E	21	467	
+N	NNN	HJDMETD VXZFTCV MCXQO HTVIQOV	E	21	467	
+A	AAA	HJDMETD VXZFTCV MCXQO HTVIQOV	O	36	160	
+B	BBB	HJDMETD VXZFTCV MCXQO HTVIQOV	O	36	160	
+C	CCC	HJDMETD VXZFTCV MCXQO HTVIQOV	O	36	160	
+D	DDD	HJDMETD VXZFTCV MCXQO HTVIQOV	O	36	160	
+E	EEE	HJDMETD VXZFTCV MCXQO HTVIQOV	O	36	160	
+F	FFF	HJDMETD VXZFTCV MCXQO HTVIQOV	O	36	160	
+G	GGG	HJDMETD VXZFTCV MCXQO HTVIQOV	O	36	160	
+H	HHH	HJDMETD VXZFTCV MCXQO HTVIQOV	O	36	160	
+I	III	HJDMETD VXZFTCV MCXQO HTVIQOV	O	36	160	
+J	JJJ	HJDMETD VXZFTCV MCXQO HTVIQOV	O	36	160	
+K	KKK	HJDMETD VXZFTCV MCXQO HTVIQOV	O	36	160	
+L	LLL	HJDMETD VXZFTCV MCXQO HTVIQOV	O	36	160	
+M	MMM	HJDMETD VXZFTCV MCXQO HTVIQOV	O	36	160	
+N	NNN	HJDMETD VXZFTCV MCXQO HTVIQOV	O	36	160	
+A	AAA	RQCJSRJ XCBVVZ KWNMDZ XSD	F	31	106	
+B	BBB	RQCJSRJ XCBVVZ KWNMDZ XSD	F	31	106	
+C	CCC	RQCJSRJ XCBVVZ KWNMDZ XSD	F	31	106	
+D	DDD	RQCJSRJ XCBVVZ KWNMDZ XSD	F	31	106	
+E	EEE	RQCJSRJ XCBVVZ KWNMDZ XSD	F	31	106	
+F	FFF	RQCJSRJ XCBVVZ KWNMDZ XSD	F	31	106	
+G	GGG	RQCJSRJ XCBVVZ KWNMDZ XSD	F	31	106	
+H	HHH	RQCJSRJ XCBVVZ KWNMDZ XSD	F	31	106	
+I	III	RQCJSRJ XCBVVZ KWNMDZ XSD	F	31	106	
+J	JJJ	RQCJSRJ XCBVVZ KWNMDZ XSD	F	31	106	
+K	KKK	RQCJSRJ XCBVVZ KWNMDZ XSD	F	31	106	
+L	LLL	RQCJSRJ XCBVVZ KWNMDZ XSD	F	31	106	
+M	MMM	RQCJSRJ XCBVVZ KWNMDZ XSD	F	31	106	
+N	NNN	RQCJSRJ XCBVVZ KWNMDZ XSD	F	31	106	
+A	AAA	RQCJSRJ XCBVVZ KWNMDZ XSD	X	34	149	
+B	BBB	RQCJSRJ XCBVVZ KWNMDZ XSD	X	34	149	
+C	CCC	RQCJSRJ XCBVVZ KWNMDZ XSD	X	34	149	
+D	DDD	RQCJSRJ XCBVVZ KWNMDZ XSD	X	34	149	
+E	EEE	RQCJSRJ XCBVVZ KWNMDZ XSD	X	34	149	
+F	FFF	RQCJSRJ XCBVVZ KWNMDZ XSD	X	34	149	
+G	GGG	RQCJSRJ XCBVVZ KWNMDZ XSD	X	34	149	
+H	HHH	RQCJSRJ XCBVVZ KWNMDZ XSD	X	34	149	
+I	III	RQCJSRJ XCBVVZ KWNMDZ XSD	X	34	149	
+J	JJJ	RQCJSRJ XCBVVZ KWNMDZ XSD	X	34	149	
+K	KKK	RQCJSRJ XCBVVZ KWNMDZ XSD	X	34	149	
+L	LLL	RQCJSRJ XCBVVZ KWNMDZ XSD	X	34	149	
+M	MMM	RQCJSRJ XCBVVZ KWNMDZ XSD	X	34	149	
+N	NNN	RQCJSRJ XCBVVZ KWNMDZ XSD	X	34	149	
+A	AAA	RQCJSRJ XCBVVZ KWNMDZ XSD	T	36	180	
+B	BBB	RQCJSRJ XCBVVZ KWNMDZ XSD	T	36	180	
+C	CCC	RQCJSRJ XCBVVZ KWNMDZ XSD	T	36	180	
+D	DDD	RQCJSRJ XCBVVZ KWNMDZ XSD	T	36	180	
+E	EEE	RQCJSRJ XCBVVZ KWNMDZ XSD	T	36	180	
+F	FFF	RQCJSRJ XCBVVZ KWNMDZ XSD	T	36	180	
+G	GGG	RQCJSRJ XCBVVZ KWNMDZ XSD	T	36	180	
+H	HHH	RQCJSRJ XCBVVZ KWNMDZ XSD	T	36	180	
+I	III	RQCJSRJ XCBVVZ KWNMDZ XSD	T	36	180	
+J	JJJ	RQCJSRJ XCBVVZ KWNMDZ XSD	T	36	180	
+K	KKK	RQCJSRJ XCBVVZ KWNMDZ XSD	T	36	180	
+L	LLL	RQCJSRJ XCBVVZ KWNMDZ XSD	T	36	180	
+M	MMM	RQCJSRJ XCBVVZ KWNMDZ XSD	T	36	180	
+N	NNN	RQCJSRJ XCBVVZ KWNMDZ XSD	T	36	180	
+A	AAA	RQCJSRJ XCBVVZ KWNMDZ XSD	Q	38	164	
+B	BBB	RQCJSRJ XCBVVZ KWNMDZ XSD	Q	38	164	
+C	CCC	RQCJSRJ XCBVVZ KWNMDZ XSD	Q	38	164	
+D	DDD	RQCJSRJ XCBVVZ KWNMDZ XSD	Q	38	164	
+E	EEE	RQCJSRJ XCBVVZ KWNMDZ XSD	Q	38	164	
+F	FFF	RQCJSRJ XCBVVZ KWNMDZ XSD	Q	38	164	
+G	GGG	RQCJSRJ XCBVVZ KWNMDZ XSD	Q	38	164	
+H	HHH	RQCJSRJ XCBVVZ KWNMDZ XSD	Q	38	164	
+I	III	RQCJSRJ XCBVVZ KWNMDZ XSD	Q	38	164	
+J	JJJ	RQCJSRJ XCBVVZ KWNMDZ XSD	Q	38	164	
+K	KKK	RQCJSRJ XCBVVZ KWNMDZ XSD	Q	38	164	
+L	LLL	RQCJSRJ XCBVVZ KWNMDZ XSD	Q	38	164	
+M	MMM	RQCJSRJ XCBVVZ KWNMDZ XSD	Q	38	164	
+N	NNN	RQCJSRJ XCBVVZ KWNMDZ XSD	Q	38	164	
+A	AAA	JVTMZVWU P VTUSI MIYUZ WRNYTOF	J	38	433	
+B	BBB	JVTMZVWU P VTUSI MIYUZ WRNYTOF	J	38	433	
+C	CCC	JVTMZVWU P VTUSI MIYUZ WRNYTOF	J	38	433	
+D	DDD	JVTMZVWU P VTUSI MIYUZ WRNYTOF	J	38	433	
+E	EEE	JVTMZVWU P VTUSI MIYUZ WRNYTOF	J	38	433	
+F	FFF	JVTMZVWU P VTUSI MIYUZ WRNYTOF	J	38	433	
+G	GGG	JVTMZVWU P VTUSI MIYUZ WRNYTOF	J	38	433	
+H	HHH	JVTMZVWU P VTUSI MIYUZ WRNYTOF	J	38	433	
+I	III	JVTMZVWU P VTUSI MIYUZ WRNYTOF	J	38	433	
+J	JJJ	JVTMZVWU P VTUSI MIYUZ WRNYTOF	J	38	433	
+K	KKK	JVTMZVWU P VTUSI MIYUZ WRNYTOF	J	38	433	
+L	LLL	JVTMZVWU P VTUSI MIYUZ WRNYTOF	J	38	433	
+M	MMM	JVTMZVWU P VTUSI MIYUZ WRNYTOF	J	38	433	
+N	NNN	JVTMZVWU P VTUSI MIYUZ WRNYTOF	J	38	433	
+A	AAA	JVTMZVWU P VTUSI MIYUZ WRNYTOF	G	29	392	
+B	BBB	JVTMZVWU P VTUSI MIYUZ WRNYTOF	G	29	392	
+C	CCC	JVTMZVWU P VTUSI MIYUZ WRNYTOF	G	29	392	
+D	DDD	JVTMZVWU P VTUSI MIYUZ WRNYTOF	G	29	392	
+E	EEE	JVTMZVWU P VTUSI MIYUZ WRNYTOF	G	29	392	
+F	FFF	JVTMZVWU P VTUSI MIYUZ WRNYTOF	G	29	392	
+G	GGG	JVTMZVWU P VTUSI MIYUZ WRNYTOF	G	29	392	
+H	HHH	JVTMZVWU P VTUSI MIYUZ WRNYTOF	G	29	392	
+I	III	JVTMZVWU P VTUSI MIYUZ WRNYTOF	G	29	392	
+J	JJJ	JVTMZVWU P VTUSI MIYUZ WRNYTOF	G	29	392	
+K	KKK	JVTMZVWU P VTUSI MIYUZ WRNYTOF	G	29	392	
+L	LLL	JVTMZVWU P VTUSI MIYUZ WRNYTOF	G	29	392	
+M	MMM	JVTMZVWU P VTUSI MIYUZ WRNYTOF	G	29	392	
+N	NNN	JVTMZVWU P VTUSI MIYUZ WRNYTOF	G	29	392	
+A	AAA	JVTMZVWU P VTUSI MIYUZ WRNYTOF	V	33	193	
+B	BBB	JVTMZVWU P VTUSI MIYUZ WRNYTOF	V	33	193	
+C	CCC	JVTMZVWU P VTUSI MIYUZ WRNYTOF	V	33	193	
+D	DDD	JVTMZVWU P VTUSI MIYUZ WRNYTOF	V	33	193	
+E	EEE	JVTMZVWU P VTUSI MIYUZ WRNYTOF	V	33	193	
+F	FFF	JVTMZVWU P VTUSI MIYUZ WRNYTOF	V	33	193	
+G	GGG	JVTMZVWU P VTUSI MIYUZ WRNYTOF	V	33	193	
+H	HHH	JVTMZVWU P VTUSI MIYUZ WRNYTOF	V	33	193	
+I	III	JVTMZVWU P VTUSI MIYUZ WRNYTOF	V	33	193	
+J	JJJ	JVTMZVWU P VTUSI MIYUZ WRNYTOF	V	33	193	
+K	KKK	JVTMZVWU P VTUSI MIYUZ WRNYTOF	V	33	193	
+L	LLL	JVTMZVWU P VTUSI MIYUZ WRNYTOF	V	33	193	
+M	MMM	JVTMZVWU P VTUSI MIYUZ WRNYTOF	V	33	193	
+N	NNN	JVTMZVWU P VTUSI MIYUZ WRNYTOF	V	33	193	
+A	AAA	SRYDCI OKME HI XEM GRKUIPFRSBIF 	C	44	445	
+B	BBB	SRYDCI OKME HI XEM GRKUIPFRSBIF 	C	44	445	
+C	CCC	SRYDCI OKME HI XEM GRKUIPFRSBIF 	C	44	445	
+D	DDD	SRYDCI OKME HI XEM GRKUIPFRSBIF 	C	44	445	
+E	EEE	SRYDCI OKME HI XEM GRKUIPFRSBIF 	C	44	445	
+F	FFF	SRYDCI OKME HI XEM GRKUIPFRSBIF 	C	44	445	
+G	GGG	SRYDCI OKME HI XEM GRKUIPFRSBIF 	C	44	445	
+H	HHH	SRYDCI OKME HI XEM GRKUIPFRSBIF 	C	44	445	
+I	III	SRYDCI OKME HI XEM GRKUIPFRSBIF 	C	44	445	
+J	JJJ	SRYDCI OKME HI XEM GRKUIPFRSBIF 	C	44	445	
+K	KKK	SRYDCI OKME HI XEM GRKUIPFRSBIF 	C	44	445	
+L	LLL	SRYDCI OKME HI XEM GRKUIPFRSBIF 	C	44	445	
+M	MMM	SRYDCI OKME HI XEM GRKUIPFRSBIF 	C	44	445	
+N	NNN	SRYDCI OKME HI XEM GRKUIPFRSBIF 	C	44	445	
+A	AAA	SRYDCI OKME HI XEM GRKUIPFRSBIF 	B	33	401	
+B	BBB	SRYDCI OKME HI XEM GRKUIPFRSBIF 	B	33	401	
+C	CCC	SRYDCI OKME HI XEM GRKUIPFRSBIF 	B	33	401	
+D	DDD	SRYDCI OKME HI XEM GRKUIPFRSBIF 	B	33	401	
+E	EEE	SRYDCI OKME HI XEM GRKUIPFRSBIF 	B	33	401	
+F	FFF	SRYDCI OKME HI XEM GRKUIPFRSBIF 	B	33	401	
+G	GGG	SRYDCI OKME HI XEM GRKUIPFRSBIF 	B	33	401	
+H	HHH	SRYDCI OKME HI XEM GRKUIPFRSBIF 	B	33	401	
+I	III	SRYDCI OKME HI XEM GRKUIPFRSBIF 	B	33	401	
+J	JJJ	SRYDCI OKME HI XEM GRKUIPFRSBIF 	B	33	401	
+K	KKK	SRYDCI OKME HI XEM GRKUIPFRSBIF 	B	33	401	
+L	LLL	SRYDCI OKME HI XEM GRKUIPFRSBIF 	B	33	401	
+M	MMM	SRYDCI OKME HI XEM GRKUIPFRSBIF 	B	33	401	
+N	NNN	SRYDCI OKME HI XEM GRKUIPFRSBIF 	B	33	401	
+A	AAA	HYXLM DZOTGNK P L PVYFKY	Q	23	405	
+B	BBB	HYXLM DZOTGNK P L PVYFKY	Q	23	405	
+C	CCC	HYXLM DZOTGNK P L PVYFKY	Q	23	405	
+D	DDD	HYXLM DZOTGNK P L PVYFKY	Q	23	405	
+E	EEE	HYXLM DZOTGNK P L PVYFKY	Q	23	405	
+F	FFF	HYXLM DZOTGNK P L PVYFKY	Q	23	405	
+G	GGG	HYXLM DZOTGNK P L PVYFKY	Q	23	405	
+H	HHH	HYXLM DZOTGNK P L PVYFKY	Q	23	405	
+I	III	HYXLM DZOTGNK P L PVYFKY	Q	23	405	
+J	JJJ	HYXLM DZOTGNK P L PVYFKY	Q	23	405	
+K	KKK	HYXLM DZOTGNK P L PVYFKY	Q	23	405	
+L	LLL	HYXLM DZOTGNK P L PVYFKY	Q	23	405	
+M	MMM	HYXLM DZOTGNK P L PVYFKY	Q	23	405	
+N	NNN	HYXLM DZOTGNK P L PVYFKY	Q	23	405	
+A	AAA	HYXLM DZOTGNK P L PVYFKY	Y	22	291	
+B	BBB	HYXLM DZOTGNK P L PVYFKY	Y	22	291	
+C	CCC	HYXLM DZOTGNK P L PVYFKY	Y	22	291	
+D	DDD	HYXLM DZOTGNK P L PVYFKY	Y	22	291	
+E	EEE	HYXLM DZOTGNK P L PVYFKY	Y	22	291	
+F	FFF	HYXLM DZOTGNK P L PVYFKY	Y	22	291	
+G	GGG	HYXLM DZOTGNK P L PVYFKY	Y	22	291	
+H	HHH	HYXLM DZOTGNK P L PVYFKY	Y	22	291	
+I	III	HYXLM DZOTGNK P L PVYFKY	Y	22	291	
+J	JJJ	HYXLM DZOTGNK P L PVYFKY	Y	22	291	
+K	KKK	HYXLM DZOTGNK P L PVYFKY	Y	22	291	
+L	LLL	HYXLM DZOTGNK P L PVYFKY	Y	22	291	
+M	MMM	HYXLM DZOTGNK P L PVYFKY	Y	22	291	
+N	NNN	HYXLM DZOTGNK P L PVYFKY	Y	22	291	
+A	AAA	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	L	33	152	
+B	BBB	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	L	33	152	
+C	CCC	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	L	33	152	
+D	DDD	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	L	33	152	
+E	EEE	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	L	33	152	
+F	FFF	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	L	33	152	
+G	GGG	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	L	33	152	
+H	HHH	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	L	33	152	
+I	III	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	L	33	152	
+J	JJJ	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	L	33	152	
+K	KKK	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	L	33	152	
+L	LLL	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	L	33	152	
+M	MMM	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	L	33	152	
+N	NNN	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	L	33	152	
+A	AAA	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	S	32	143	
+B	BBB	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	S	32	143	
+C	CCC	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	S	32	143	
+D	DDD	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	S	32	143	
+E	EEE	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	S	32	143	
+F	FFF	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	S	32	143	
+G	GGG	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	S	32	143	
+H	HHH	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	S	32	143	
+I	III	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	S	32	143	
+J	JJJ	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	S	32	143	
+K	KKK	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	S	32	143	
+L	LLL	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	S	32	143	
+M	MMM	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	S	32	143	
+N	NNN	USEOSJ KPVBVEZ IO LNQLYFKMDR SHV EYYZG ZZEJTN	S	32	143	
+A	AAA	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	S	21	473	
+B	BBB	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	S	21	473	
+C	CCC	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	S	21	473	
+D	DDD	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	S	21	473	
+E	EEE	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	S	21	473	
+F	FFF	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	S	21	473	
+G	GGG	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	S	21	473	
+H	HHH	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	S	21	473	
+I	III	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	S	21	473	
+J	JJJ	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	S	21	473	
+K	KKK	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	S	21	473	
+L	LLL	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	S	21	473	
+M	MMM	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	S	21	473	
+N	NNN	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	S	21	473	
+A	AAA	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	M	35	375	
+B	BBB	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	M	35	375	
+C	CCC	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	M	35	375	
+D	DDD	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	M	35	375	
+E	EEE	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	M	35	375	
+F	FFF	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	M	35	375	
+G	GGG	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	M	35	375	
+H	HHH	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	M	35	375	
+I	III	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	M	35	375	
+J	JJJ	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	M	35	375	
+K	KKK	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	M	35	375	
+L	LLL	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	M	35	375	
+M	MMM	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	M	35	375	
+N	NNN	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	M	35	375	
+A	AAA	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	Y	20	141	
+B	BBB	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	Y	20	141	
+C	CCC	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	Y	20	141	
+D	DDD	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	Y	20	141	
+E	EEE	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	Y	20	141	
+F	FFF	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	Y	20	141	
+G	GGG	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	Y	20	141	
+H	HHH	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	Y	20	141	
+I	III	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	Y	20	141	
+J	JJJ	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	Y	20	141	
+K	KKK	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	Y	20	141	
+L	LLL	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	Y	20	141	
+M	MMM	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	Y	20	141	
+N	NNN	RFIWNQNH E RD TUEP ONXSSIFMVLSOHB PDNQLUXZ 	Y	20	141	
+-----------------
+Disk IOs: 94
+Execution Time: 6.93861 s
+
+=================================
+
+DROP TABLE stock 
+Disk IOs: 0
+Execution Time: 1.3e-05 s
+
+=================================
+
+DROP TABLE press 
+Disk IOs: 0
+Execution Time: 7e-06 s
+
+=================================
+
+
+Disk IOs: 0
+Execution Time: 1.3e-05 s
+
+=================================
+
